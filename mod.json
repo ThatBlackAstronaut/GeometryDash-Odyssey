@@ -1,13 +1,18 @@
 {
 	"geode": "4.0.1",
+	"version": "v1.0.0",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074"
 	},
-	"version": "v1.0.0",
-	"developers": ["Chumiiu", "Cypher"],
-	"id": "chumiiu.geometry_dash_odyssey",
-	"name": "Geometry Dash Odyssey",
+	"developers": [
+		"Team TCM",
+		"Chumiiu",
+		"Cypher",
+		"ML500"
+	],
+	"id": "teamtcm.geometry-dash-odyssey",
+	"name": "Geometry Dash: Odyssey",
 	"description": "",
 	"early-load": true,
 	"resources": {
@@ -15,8 +20,14 @@
 			"GameSheet": [
 				"resources/odysseySheet/*.png"
 			]
-
-		}
-
+		},
+		"files": [
+			"resources/icons/*.png",
+			"resources/icons/*.plist",
+			"resources/songs/*.mp3"
+		],
+		"sprites": [
+			"resources/*.png"
+		]
 	}
 }
