@@ -19,6 +19,8 @@ class $modify(MenuLayer)
 		{
 			auto odysseyTitle = CCSprite::createWithSpriteFrameName("GDODYSSEY_logo_001.png"_spr);
 			gameTitle->setDisplayFrame(odysseyTitle->displayFrame());
+
+			gameTitle->setPositionY(gameTitle->getPositionY() - 20);
 		}
 		
 		auto mainMenu = static_cast<CCMenu*>(this->getChildByID("main-menu"));
