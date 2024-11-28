@@ -1,4 +1,4 @@
-#include "utils.hpp"
+#include "Utils.hpp"
 
 DialogLayer *Odyssey::createDialog(const char *event)
 {
@@ -7,7 +7,7 @@ DialogLayer *Odyssey::createDialog(const char *event)
     //  SOLAMENTE REEMPLAZA ESTA LINEA CUANDO YA TENGAMOS EL SETTING MEJORADO
     auto spanishText = Mod::get()->getSettingValue<bool>("spanish-language");
 
-    if (event == "on.creator")
+    if (event == "on_creator")
     {
         if (!spanishText)
         {
@@ -36,7 +36,7 @@ DialogLayer *Odyssey::createDialog(const char *event)
         }
     }
 
-    if (event == "on.shop")
+    if (event == "on_on_creatorshop")
     {
         if (!spanishText)
         {
