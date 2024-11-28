@@ -47,13 +47,10 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
     void onPlay(CCObject *)
     {
-        //  auto scene = CCScene::create();
-        //  scene->addChild(OdysseySelectLayer::create());
+        auto scene = CCScene::create();
+        scene->addChild(OdysseySelectLayer::create());
 
-        //  CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
-
-        auto dialog = Odyssey::createDialog("on_shop");
-        this->addChild(dialog, 3);
+        CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
     }
 
     void onCreator(CCObject *)

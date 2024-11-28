@@ -36,7 +36,7 @@ DialogLayer *Odyssey::createDialog(const char *event)
         }
     }
 
-    if (event == "on_on_creatorshop")
+    if (event == "on_shop")
     {
         if (!spanishText)
         {
