@@ -1,0 +1,22 @@
+{
+	"geode": "4.0.1",
+	"gd": {
+		"win": "2.2074",
+		"android": "2.2074"
+	},
+	"version": "v1.0.0",
+	"developers": ["Chumiiu", "Cypher"],
+	"id": "chumiiu.geometry_dash_odyssey",
+	"name": "Geometry Dash Odyssey",
+	"description": "",
+	"early-load": true,
+	"resources": {
+		"spritesheets": {
+			"GameSheet": [
+				"resources/odysseySheet/*.png"
+			]
+
+		}
+
+	}
+}
