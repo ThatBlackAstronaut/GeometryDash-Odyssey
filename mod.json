@@ -1,10 +1,10 @@
 {
 	"geode": "4.0.1",
+	"version": "v1.0.0-alpha.1",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074"
 	},
-	"version": "v1.0.0",
 	"developers": [
 		"Team TCM",
 		"Chumiiu",
@@ -14,11 +14,29 @@
 	"id": "teamtcm.geometry-dash-odyssey",
 	"name": "Geometry Dash: Odyssey",
 	"description": "",
+	"links": {
+		"community": "https://discord.gg/Kh3aJ2DW"
+	},
+	"dependencies": [
+		{
+			"id": "geode.node-ids",
+			"version": ">=v1.16.0",
+			"importance": "required"
+		}
+	],
 	"early-load": true,
+	"settings": {
+		"spanish-language": {
+			"type": "bool",
+			"name": "Spanish",
+			"description": "Changes the language of the mod to Spanish",
+			"default": false
+		}
+	},
 	"resources": {
 		"spritesheets": {
-			"GameSheet": [
-				"resources/odysseySheet/*.png"
+			"GJO_GameSheet01": [
+				"resources/OdysseySheet/*.png"
 			]
 		},
 		"files": [
@@ -29,6 +47,5 @@
 		"sprites": [
 			"resources/*.png"
 		]
-
 	}
 }
