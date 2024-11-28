@@ -2,7 +2,6 @@
 
 using namespace geode::prelude;
 
-
 class OdysseySelectLayer : public cocos2d::CCLayer
 {
 public:
@@ -17,7 +16,6 @@ public:
         this->setKeypadEnabled(true);
 
         //to do
-
         
         return true;
     };

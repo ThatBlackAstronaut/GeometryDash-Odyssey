@@ -1,52 +1,64 @@
 #include <Geode/Geode.hpp>
+#include <Geode/modify/CCSprite.hpp>
+#include <Geode/modify/MoreOptionsLayer.hpp>
+
 using namespace geode::prelude;
 
-#include <Geode/modify/MenuLayer.hpp>
+class $modify(CCSprite)
+{
+	static CCSprite *create(const char *pszFileName)
+	{
+		if (std::string_view(pszFileName) == std::string_view("dialogIcon_053.png"))
+		{
+			return CCSprite::create("GDO_DialogIcon_001.png"_spr);
+		}
 
-#include "OdysseySelectLayer.h"
+		if (std::string_view(pszFileName) == std::string_view("dialogIcon_054.png"))
+		{
+			return CCSprite::create("GDO_DialogIcon_002.png"_spr);
+		}
 
-class $modify(MenuLayer)
+		if (std::string_view(pszFileName) == std::string_view("dialogIcon_055.png"))
+		{
+			return CCSprite::create("GDO_DialogIcon_003.png"_spr);
+		}
+
+		if (std::string_view(pszFileName) == std::string_view("dialogIcon_056.png"))
+		{
+			return CCSprite::create("GDO_DialogIcon_004.png"_spr);
+		}
+
+		return CCSprite::create(pszFileName);
+	}
+};
+
+class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
 {
 	bool init()
 	{
-		if (!MenuLayer::init())
-		{
+		if (!MoreOptionsLayer::init())
 			return false;
-		}
 
-		auto gameTitle = static_cast<CCSprite*>(this->getChildByID("main-title"));
-		if (gameTitle)
-		{
-			auto odysseyTitle = CCSprite::createWithSpriteFrameName("GDODYSSEY_logo_001.png"_spr);
-			gameTitle->setDisplayFrame(odysseyTitle->displayFrame());
-		}
-		
-		auto mainMenu = static_cast<CCMenu*>(this->getChildByID("main-menu"));
+		//	NodeIDs::provideFor(this);
 
-		auto creatorButton = static_cast<CCMenuItemSpriteExtra*>(mainMenu->getChildByID("editor-button"));
-		if (creatorButton)
-		{
-			auto mgSprite = CCSprite::createWithSpriteFrameName("GJ_moreGamesBtn_001.png");
-			static_cast<CCSprite*>(creatorButton->getChildren()->objectAtIndex(0))->setDisplayFrame(mgSprite->displayFrame());
-		}
-
-
-		auto mgButton = static_cast<CCMenuItemSpriteExtra*>(this->getChildByID("more-games-menu")->getChildByID("more-games-button"));
-		if (mgButton)
-		{
-			auto creditsSpr = CCSprite::createWithSpriteFrameName("GJL_creditsBtn_001.png"_spr);
-			static_cast<CCSprite*>(mgButton->getChildren()->objectAtIndex(0))->setDisplayFrame(creditsSpr->displayFrame());
-		}
-
+		//	Aun en fase de prueba
+		MoreOptionsLayer::addToggle("Pizza", "Pasta", "Ravioli");
+		MoreOptionsLayer::addToggle("Burger", "Pasta", "Ravioli");
+		MoreOptionsLayer::addToggle("Hot Dog", "Pasta", "Ravioli");
+		MoreOptionsLayer::addToggle("Soup", "Pasta", "Ravioli");
 
 		return true;
 	}
 
-	void onPlay(CCObject *)
+	void goToPage(int p0)
 	{
-		auto scene = CCScene::create();
-		scene->addChild(OdysseySelectLayer::create());
+		MoreOptionsLayer::goToPage(p0);
 
-		CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
+		if (MoreOptionsLayer::m_page == 7)
+		{
+			MoreOptionsLayer::m_categoryLabel->setString("GD Odyssey Options");
+		}
+
+		//	log::debug("Page {}", MoreOptionsLayer::m_page);
 	}
 };
