@@ -1,7 +1,7 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 #include "../layers/OdysseySelectLayer.h"
-#include "../utils/OdysseyDialog.hpp"
+#include "../utils/Utils.hpp"
 
 using namespace geode::prelude;
 
@@ -47,58 +47,18 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
     void onPlay(CCObject *)
     {
-        auto scene = CCScene::create();
-        scene->addChild(OdysseySelectLayer::create());
+        //  auto scene = CCScene::create();
+        //  scene->addChild(OdysseySelectLayer::create());
 
-        CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
+        //  CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
+
+        auto dialog = Odyssey::createDialog("on.shop");
+        this->addChild(dialog, 3);
     }
 
     void onCreator(CCObject *)
     {
-        CCArray *arr = CCArray::create();
-        int color = 2;
-
-        auto spanishText = Mod::get()->getSettingValue<bool>("spanish-language");
-
-        if (spanishText)
-        {
-            auto dialog_01 = DialogObject::create("????", "<s250>ORALE CHAMACO, ALTO.</s>", 55, 1, false, {255, 255, 255});
-            auto dialog_02 = DialogObject::create("????", "Mis disculpas, <d020><cy>Jugador...</c>", 56, 1, false, {255, 255, 255});
-            auto dialog_03 = DialogObject::create("????", "Tendras que <cr>deshabilitar</c> el mod para acceder al resto del juego.", 56, 1, false, {255, 255, 255});
-            auto dialog_04 = DialogObject::create("????", "Medidas de seguridad, <d020>¿sabes?", 53, 1, false, {255, 255, 255});
-
-            arr->addObject(dialog_01);
-            arr->addObject(dialog_02);
-            arr->addObject(dialog_03);
-            arr->addObject(dialog_04);
-        }
-        else
-        {
-            auto dialog_01 = DialogObject::create("????", "<s250>YOU SHALL NOT PASS</s>", 55, 1, false, {255, 255, 255});
-            auto dialog_02 = DialogObject::create("????", "I'm sorry,<d010> <cy>Player...</c>", 56, 1, false, {255, 255, 255});
-            auto dialog_03 = DialogObject::create("????", "You have to <cr>disable</c> the Mod to have access...", 56, 1, false, {255, 255, 255});
-            auto dialog_04 = DialogObject::create("????", "Safety measures,<d020> ya know?", 53, 1, false, {255, 255, 255});
-
-            arr->addObject(dialog_01);
-            arr->addObject(dialog_02);
-            arr->addObject(dialog_03);
-            arr->addObject(dialog_04);
-        }
-
-        auto dl = DialogLayer::createDialogLayer(nullptr, arr, color);
-        dl->animateInRandomSide();
-        dl->setZOrder(2);
-
-        this->addChild(dl, 3);
-    }
-
-    void onMoreGames(CCObject *)
-    {
-        auto dl = OdysseyDialog::create("welcome", false);
-
-        dl->animateInRandomSide();
-        dl->setZOrder(2);
-
-        this->addChild(dl, 3);
+        auto dialog = Odyssey::createDialog("on.creator");
+        this->addChild(dialog, 3);
     }
 };
