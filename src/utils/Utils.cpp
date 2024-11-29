@@ -168,98 +168,109 @@ DialogLayer *Odyssey::createDialog(const char *event)
 
 DialogLayer *Odyssey::createDialogResponse(const char *event, int times)
 {
-    CCArray *arr = CCArray::create();
     auto spanishText = Mod::get()->getSettingValue<bool>("spanish-language");
-
-    if(event == "playerIsPoor"){
-        auto dialog01 = DialogObject::create("Carp", "Here's your purcha-<d020> wait a second.", 20, 1, false, {255, 255, 255});
-        auto dialog02 = DialogObject::create("Carp", "Sorry,<d030> you don't have enough <cy>coins</c>.", 21, 1, false, {255, 255, 255});
-        auto dialog03 = DialogObject::create("Carp", "Are you trying to scam me?", 22, 1, false, {255, 255, 255});
-        auto dialog04 = DialogObject::create("Carp", "I might be blind,<d030> but I'm sure you don't have <cy>enough</c> to <cg>buy</c> this.", 25, 1, false, {255, 255, 255});
-
-        switch (times)
+    CCArray *arr = CCArray::create();
+    if (event == "playerIsPoor")
+    {
+        if (!spanishText)
         {
-        case 0:
-            arr->addObject(dialog01);
-            arr->addObject(dialog02);
-            break;
+            auto dialog01 = DialogObject::create("Carp", "Here's your purcha-<d020> wait a second.", 20, 1, false, {255, 255, 255});
+            auto dialog02 = DialogObject::create("Carp", "Sorry,<d030> you don't have enough <cy>coins</c>.", 21, 1, false, {255, 255, 255});
+            auto dialog03 = DialogObject::create("Carp", "Are you trying to scam me?", 22, 1, false, {255, 255, 255});
+            auto dialog04 = DialogObject::create("Carp", "I might be blind,<d030> but I'm sure you don't have <cy>enough</c> to <cg>buy</c> this.", 25, 1, false, {255, 255, 255});
 
-        case 1:
-            arr->addObject(dialog03);
-            break;
+            switch (times)
+            {
+            case 0:
+                arr->addObject(dialog01);
+                arr->addObject(dialog02);
+                break;
 
-        case 2:
-            arr->addObject(dialog04);
-            break;
+            case 1:
+                arr->addObject(dialog03);
+                break;
+
+            case 2:
+                arr->addObject(dialog04);
+                break;
+            }
+        }
+        else
+        {
+            // To Do
         }
     }
 
     if (event == "extraIslandLocked")
     {
-        auto dialog01 = DialogObject::create("Carp", "You can buy the key to unlock that in my <cy>Shop</c>.", 25, 1, false, {255, 255, 255});
-        auto dialog02 = DialogObject::create("Carp", "Yep,<d030> you still need to <cg>buy</c> it.", 20, 1, false, {255, 255, 255});
-        auto dialog03 = DialogObject::create("Carp", "Go grind some stuff to <cg>buy</c> this!", 23, 1, false, {255, 255, 255});
-
-        switch (times)
-        {
-        case 0:
-            arr->addObject(dialog01);
-            break;
-
-        case 1:
-            arr->addObject(dialog02);
-            break;
-
-        case 2:
-            arr->addObject(dialog03);
-            break;
-        }
-
-        /*
         if (!spanishText)
         {
+            auto dialog01 = DialogObject::create("Carp", "You can buy the key to unlock that in my <cy>Shop</c>.", 25, 1, false, {255, 255, 255});
+            auto dialog02 = DialogObject::create("Carp", "Yep,<d030> you still need to <cg>buy</c> it.", 20, 1, false, {255, 255, 255});
+            auto dialog03 = DialogObject::create("Carp", "Go grind some stuff to <cg>buy</c> this!", 23, 1, false, {255, 255, 255});
 
+            switch (times)
+            {
+            case 0:
+                arr->addObject(dialog01);
+                break;
+
+            case 1:
+                arr->addObject(dialog02);
+                break;
+
+            case 2:
+                arr->addObject(dialog03);
+                break;
+            }
         }
         else
         {
-            //  To do
+            // To Do
         }
-        */
     }
 
-    if(event == "finalComicLocked"){
-        auto dialog01 = DialogObject::create("Carp", "You must <cg>complete</c> the story mode before showing you that.", 19, 1, false, {255, 255, 255});
-        auto dialog02 = DialogObject::create("Carp", "Try to <cg>complete</c> the game first.", 21, 1, false, {255, 255, 255});
-        auto dialog03 = DialogObject::create("Carp", "Someone's impatient<d010>.<d010>.<d010>.", 22, 1, false, {255, 255, 255});
-        auto dialog04 = DialogObject::create("Carp", "Alright man,<d020> you want to <cr>spoil</c> you the story?", 25, 1, false, {255, 255, 255});
-        auto dialog05 = DialogObject::create("Carp", "You are getting on my nerves,<d020> <cg>complete the game</c>!", 21, 1, false, {255, 255, 255});
-        auto dialog06 = DialogObject::create("Carp", "<s500><cg>COMPLETE THE GAME.</c></s>", 26, 1, false, {255, 255, 255});
-
-        switch (times)
+    if (event == "finalComicLocked")
+    {
+        if (!spanishText)
         {
-        case 0:
-            arr->addObject(dialog01);
-            break;
+            auto dialog01 = DialogObject::create("Carp", "You must <cg>complete</c> the story mode before showing you that.", 19, 1, false, {255, 255, 255});
+            auto dialog02 = DialogObject::create("Carp", "Try to <cg>complete</c> the game first.", 21, 1, false, {255, 255, 255});
+            auto dialog03 = DialogObject::create("Carp", "Someone's impatient<d010>.<d010>.<d010>.", 22, 1, false, {255, 255, 255});
+            auto dialog04 = DialogObject::create("Carp", "Alright man,<d020> you want to <cr>spoil</c> you the story?", 25, 1, false, {255, 255, 255});
+            auto dialog05 = DialogObject::create("Carp", "You are getting on my nerves,<d020> <cg>complete the game</c>!", 21, 1, false, {255, 255, 255});
+            auto dialog06 = DialogObject::create("Carp", "<s500><cg>COMPLETE THE GAME.</c></s>", 26, 1, false, {255, 255, 255});
 
-        case 1:
-            arr->addObject(dialog02);
-            break;
+            switch (times)
+            {
+            case 0:
+                arr->addObject(dialog01);
+                break;
 
-        case 2:
-            arr->addObject(dialog03);
-            break;
+            case 1:
+                arr->addObject(dialog02);
+                break;
 
-        case 3:
-            arr->addObject(dialog04);
-            break;
+            case 2:
+                arr->addObject(dialog03);
+                break;
 
-        case 4:
-            arr->addObject(dialog05);
-            break;
+            case 3:
+                arr->addObject(dialog04);
+                break;
 
-        case 5:
-            arr->addObject(dialog06);
-            break;
+            case 4:
+                arr->addObject(dialog05);
+                break;
+
+            case 5:
+                arr->addObject(dialog06);
+                break;
+            }
+        }
+        else
+        {
+            // To Do
         }
     }
 

@@ -35,61 +35,62 @@ bool OdysseyDevLayer::init()
 
     auto dialogMenu = CCMenu::create();
     dialogMenu->setID("dialog-menu"_spr);
-    dialogMenu->setContentSize({350.0f, 220.0f});
+    dialogMenu->setContentSize({360.0f, 180.0f});
     dialogMenu->setLayout(RowLayout::create()
                               ->setGap(14.0f)
                               ->setAutoScale(false)
                               ->setGrowCrossAxis(true)
                               ->setCrossAxisOverflow(false)
                               ->setCrossAxisLineAlignment(AxisAlignment::Even));
+    dialogMenu->setPositionY(winSize.height / 2 + 20.0f);
+
+    auto dialogLabel = CCLabelBMFont::create("Dialogs", "goldFont.fnt");
+    dialogLabel->setPosition({winSize.width / 2, dialogMenu->getPositionY() + dialogMenu->getContentHeight() / 2 + 10.0f});
+    dialogLabel->setScale(0.75f);
+    addChild(dialogLabel);
 
     auto carp01 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Carp (Shop)", 0.75f),
+        ButtonSprite::create("Carp (Shop)", 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onCarp01));
 
     auto carp02 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Carp (Extras)", 0.75f),
+        ButtonSprite::create("Carp (Extras)", 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onCarp02));
     carp02->setTag(0);
 
     auto carp03 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Carp (Comic)", 0.75f),
+        ButtonSprite::create("Carp (Comic)", 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onCarp03));
     carp03->setTag(0);
 
     auto carp04 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Carp (No Coins)", 0.75f),
+        ButtonSprite::create("Carp (No Coins)", 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onCarp04));
     carp04->setTag(0);
 
     auto wizard01 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Dumbledalf (Introduction)", 0.75f),
+        ButtonSprite::create("Dumbledalf (Introduction)", 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onWizard01));
 
     auto wizard02 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Dumbledalf (Island)", 0.75f),
+        ButtonSprite::create("Dumbledalf (Island)", 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onWizard02));
 
     auto wizard03 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Dumbledalf (Finale)", 0.75f),
+        ButtonSprite::create("Dumbledalf (Finale)", 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onWizard03));
 
     auto wizard04 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Dumbledalf (Access)", 0.75f),
+        ButtonSprite::create("Dumbledalf (Access)", 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onWizard04));
-
-    auto comic = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Comics", 0.75f),
-        this,
-        menu_selector(OdysseyDevLayer::onComic));
 
     dialogMenu->addChild(carp01);
     dialogMenu->addChild(carp02);
@@ -99,19 +100,94 @@ bool OdysseyDevLayer::init()
     dialogMenu->addChild(wizard02);
     dialogMenu->addChild(wizard03);
     dialogMenu->addChild(wizard04);
-    dialogMenu->addChild(comic);
     dialogMenu->updateLayout();
-
     addChild(dialogMenu);
+
+    auto comicsMenu = CCMenu::create();
+    comicsMenu->setID("comics-menu"_spr);
+    comicsMenu->setContentSize({350.0f, 40.0f});
+    comicsMenu->setLayout(RowLayout::create()
+                              ->setGap(14.0f)
+                              ->setAutoScale(false)
+                              ->setGrowCrossAxis(true)
+                              ->setCrossAxisOverflow(false)
+                              ->setCrossAxisLineAlignment(AxisAlignment::Even));
+    comicsMenu->setPositionY(20);
+
+    auto comicsLabel = CCLabelBMFont::create("Comics", "goldFont.fnt");
+    comicsLabel->setPosition({winSize.width / 2, comicsMenu->getPositionY() + comicsMenu->getContentHeight() / 2 + 10.0f});
+    comicsLabel->setScale(0.75f);
+    addChild(comicsLabel);
+
+    auto comic01 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("1", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onComic)
+    );
+    comic01->setTag(1);
+
+    auto comic02 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("2", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onComic)
+    );
+    comic02->setTag(2);
+
+    auto comic03 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("3", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onComic)
+    );
+    comic03->setTag(3);
+
+    auto comic04 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("4", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onComic)
+    );
+    comic04->setTag(4);
+
+    auto comic05 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("5", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onComic)
+    );
+    comic05->setTag(5);
+
+    auto comic06 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("6", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onComic)
+    );
+    comic06->setTag(6);
+
+    auto comic07 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("?", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onComic)
+    );
+    comic07->setTag(0);
+
+    comicsMenu->addChild(comic01);
+    comicsMenu->addChild(comic02);
+    comicsMenu->addChild(comic03);
+    comicsMenu->addChild(comic04);
+    comicsMenu->addChild(comic05);
+    comicsMenu->addChild(comic06);
+    comicsMenu->addChild(comic07);
+    comicsMenu->updateLayout();
+    addChild(comicsMenu);
 
     setKeypadEnabled(true);
     return true;
 };
 
-void OdysseyDevLayer::onComic(CCObject *)
+void OdysseyDevLayer::onComic(CCObject * sender)
 {
     auto scene = CCScene::create();
-    scene->addChild(OdysseyComicLayer::create());
+    auto tag = sender->getTag();
+
+    scene->addChild(OdysseyComicLayer::create(tag));
 
     CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };

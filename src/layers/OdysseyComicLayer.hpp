@@ -1,26 +1,34 @@
 #pragma once
 using namespace geode::prelude;
 
-class OdysseyComicLayer : public cocos2d::CCLayer, public BoomScrollLayerDelegate, public DynamicScrollDelegate {
-    public:
-        BoomScrollLayer * m_scrollLayer = nullptr;
-        CCSprite * m_background = nullptr;
-        CCSprite * m_cornerBL = nullptr;
-        CCSprite * m_cornerBR = nullptr;
-        CCSize m_winSize;
+class OdysseyComicLayer : public cocos2d::CCLayer, public BoomScrollLayerDelegate, public DynamicScrollDelegate
+{
+public:
+    BoomScrollLayer *m_scrollLayer = nullptr;
+    CCSprite *m_background = nullptr;
+    CCSprite *m_cornerBL = nullptr;
+    CCSprite *m_cornerBR = nullptr;
+    CCSize m_winSize;
 
-        int m_currentPage = 0;
-        int m_pageAmount = 9;
+    const char * m_backgroundMusic = "menuLoop.mp3";
+    int m_currentPage = 0;
+    int m_totalPages = 1;
 
-        virtual bool init();
-        virtual void keyBackClicked();
+    virtual bool init(int);
+    virtual void keyBackClicked();
 
-        CCNode * createPage(int);
+    CCNode *createPage(int);
 
-        void scrollLayerMoved(CCPoint);
-        void onBack(CCObject *);
+    //  Para crear el Scroll layer
+    void createComic(CCArray * , int);
+    CCNode * createComicPage(const char *);
+    std::pair<const char *, const char *>getPage(int, int);
 
-    public:
-        static OdysseyComicLayer * create();
-        CCScene * scene();
+    void scrollLayerMoved(CCPoint);
+    void onSecret(CCObject *);
+    void onBack(CCObject *);
+
+public:
+    static OdysseyComicLayer *create(int);
+    CCScene *scene(int);
 };

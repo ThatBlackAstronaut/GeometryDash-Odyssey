@@ -1,43 +1,44 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/CCSprite.hpp>
 #include <Geode/modify/MoreOptionsLayer.hpp>
+#include <Geode/modify/GameManager.hpp>
 
 using namespace geode::prelude;
 
 class $modify(CCSprite)
 {
 	static CCSprite *create(const char *pszFileName)
-	{	
+	{
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_019.png"))
 		{
 			return CCSprite::create("GDO_DialogIcon_005.png"_spr);
 		}
-	
+
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_020.png"))
 		{
 			return CCSprite::create("GDO_DialogIcon_006.png"_spr);
 		}
-	
+
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_021.png"))
 		{
 			return CCSprite::create("GDO_DialogIcon_007.png"_spr);
 		}
-	
+
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_022.png"))
 		{
 			return CCSprite::create("GDO_DialogIcon_008.png"_spr);
 		}
-	
+
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_023.png"))
 		{
 			return CCSprite::create("GDO_DialogIcon_009.png"_spr);
 		}
-	
+
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_024.png"))
 		{
 			return CCSprite::create("GDO_DialogIcon_010.png"_spr);
 		}
-	
+
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_025.png"))
 		{
 			return CCSprite::create("GDO_DialogIcon_011.png"_spr);

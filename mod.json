@@ -40,12 +40,13 @@
 			],
 			"GJO_ComicSheetENG": [
 				"resources/ComicSheetENG/*.png"
+			],
+			"GJO_ComicSheetSPA": [
+				"resources/ComicSheetSPA/*.png"
 			]
 		},
 		"files": [
-			"resources/icons/*.png",
-			"resources/icons/*.plist",
-			"resources/songs/*.mp3"
+			"resources/Soundtrack/*.mp3"
 		],
 		"sprites": [
 			"resources/*.png"
