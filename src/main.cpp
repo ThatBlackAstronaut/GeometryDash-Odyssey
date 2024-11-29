@@ -43,6 +43,11 @@ class $modify(CCSprite)
 			return CCSprite::create("GDO_DialogIcon_011.png"_spr);
 		}
 
+		if (std::string_view(pszFileName) == std::string_view("dialogIcon_026.png"))
+		{
+			return CCSprite::create("GDO_DialogIcon_012.png"_spr);
+		}
+
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_053.png"))
 		{
 			return CCSprite::create("GDO_DialogIcon_001.png"_spr);

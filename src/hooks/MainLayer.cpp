@@ -1,6 +1,7 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 #include "../layers/OdysseySelectLayer.h"
+#include "../layers/OdysseyDevLayer.hpp"
 #include "../utils/Utils.hpp"
 
 using namespace geode::prelude;
@@ -37,6 +38,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         {
             auto creditsSprite = CCSprite::createWithSpriteFrameName("GDO_CreditsBtn_001.png"_spr);
             creditsSprite->setScale(0.9f);
+            moreGamesButton->setTag(1);
 
             //  Esto cambiara mas tarde
             static_cast<CCSprite *>(moreGamesButton->getChildren()->objectAtIndex(0))->setDisplayFrame(creditsSprite->displayFrame());
@@ -53,9 +55,11 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
     }
 
-    void onCreator(CCObject *)
+    void onRobTop(CCObject *)
     {
-        auto dialog = Odyssey::createDialog("on_creator");
-        this->addChild(dialog, 3);
-    }
+        auto scene = CCScene::create();
+        scene->addChild(OdysseyDevLayer::create());
+
+        CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
+    };
 };
