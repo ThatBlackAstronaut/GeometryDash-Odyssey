@@ -1,4 +1,5 @@
 #include "OdysseyDevLayer.hpp"
+#include "OdysseyComicLayer.hpp"
 #include "../utils/Utils.hpp"
 
 bool OdysseyDevLayer::init()
@@ -85,6 +86,11 @@ bool OdysseyDevLayer::init()
         this,
         menu_selector(OdysseyDevLayer::onWizard04));
 
+    auto comic = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("Comics", 0.75f),
+        this,
+        menu_selector(OdysseyDevLayer::onComic));
+
     dialogMenu->addChild(carp01);
     dialogMenu->addChild(carp02);
     dialogMenu->addChild(carp03);
@@ -93,12 +99,21 @@ bool OdysseyDevLayer::init()
     dialogMenu->addChild(wizard02);
     dialogMenu->addChild(wizard03);
     dialogMenu->addChild(wizard04);
+    dialogMenu->addChild(comic);
     dialogMenu->updateLayout();
 
     addChild(dialogMenu);
 
     setKeypadEnabled(true);
     return true;
+};
+
+void OdysseyDevLayer::onComic(CCObject *)
+{
+    auto scene = CCScene::create();
+    scene->addChild(OdysseyComicLayer::create());
+
+    CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };
 
 void OdysseyDevLayer::onCarp01(CCObject *)
@@ -147,17 +162,20 @@ void OdysseyDevLayer::onCarp04(CCObject *sender)
     this->addChild(dialog, 3);
 };
 
-void OdysseyDevLayer::onWizard01(CCObject *) {
+void OdysseyDevLayer::onWizard01(CCObject *)
+{
     auto dialog = Odyssey::createDialog("wizardIntroduction");
     this->addChild(dialog, 3);
 };
 
-void OdysseyDevLayer::onWizard02(CCObject *) {
+void OdysseyDevLayer::onWizard02(CCObject *)
+{
     auto dialog = Odyssey::createDialog("wizardIslandComplete");
     this->addChild(dialog, 3);
 };
 
-void OdysseyDevLayer::onWizard03(CCObject *) {
+void OdysseyDevLayer::onWizard03(CCObject *)
+{
     auto dialog = Odyssey::createDialog("wizardEnding");
     this->addChild(dialog, 3);
 };

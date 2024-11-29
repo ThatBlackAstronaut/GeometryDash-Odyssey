@@ -37,6 +37,9 @@
 		"spritesheets": {
 			"GJO_GameSheet01": [
 				"resources/OdysseySheet/*.png"
+			],
+			"GJO_ComicSheetENG": [
+				"resources/ComicSheetENG/*.png"
 			]
 		},
 		"files": [
