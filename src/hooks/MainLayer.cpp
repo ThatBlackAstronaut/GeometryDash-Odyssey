@@ -40,6 +40,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         {
             auto creditsSprite = CCSprite::createWithSpriteFrameName("GDO_CreditsBtn_001.png"_spr);
             creditsSprite->setScale(0.9f);
+            moreGamesButton->setTag(1);
 
             //  Esto cambiara mas tarde
             moreGamesButton->setNormalImage(creditsSprite);
