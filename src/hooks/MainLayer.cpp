@@ -72,10 +72,4 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         auto credits = FLAlertLayer::create("Si", "Si", "ok");
         credits->show();
     }
-
-    void onMoreGames(CCObject *)
-    {
-        auto credits = FLAlertLayer::create("Si", "Si", "ok");
-        credits->show();
-    }
 };
