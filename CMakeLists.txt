@@ -6,8 +6,9 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 project(GeometryDashOdyssey VERSION 1.0.0)
 
-file(GLOB SOURCES
-	src/main.cpp
+file(GLOB_RECURSE SOURCES
+	src/*.cpp
+    src/layers/*.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED
