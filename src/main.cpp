@@ -128,6 +128,27 @@ class $modify(OdysseyLevelTools, LevelTools)
 		level->m_audioTrack = 99 + levelID;
 		level->m_coins = 3;
 
+
+		switch (levelID)
+		{
+		case 1:
+			level->m_stars = 5;
+			level->m_difficulty = GJDifficulty::Hard;
+			break;
+		case 2:
+			level->m_stars = 7;
+			level->m_difficulty = GJDifficulty::Harder;
+			break;
+		case 3:
+			level->m_stars = 8;
+			level->m_difficulty = GJDifficulty::Insane;
+			break;
+		case 4:
+			level->m_stars = 9;
+			level->m_difficulty = GJDifficulty::Insane;
+			break;
+		}
+
 		level->m_levelID = levelID;
 		level->m_levelType = GJLevelType::Local;
 
