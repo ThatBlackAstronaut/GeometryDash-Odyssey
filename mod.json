@@ -46,6 +46,8 @@
 			]
 		},
 		"files": [
+			"resources/icons/*.png",
+			"resources/icons/*.plist",
 			"resources/Soundtrack/*.mp3"
 		],
 		"sprites": [

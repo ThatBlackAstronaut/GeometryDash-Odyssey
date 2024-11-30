@@ -1,6 +1,6 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
-#include "../layers/OdysseySelectLayer.h"
+#include "../layers/OdysseySelectLayer.hpp"
 #include "../layers/OdysseyDevLayer.hpp"
 #include "../utils/Utils.hpp"
 
@@ -19,6 +19,8 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         {
             auto odysseyTitle = CCSprite::createWithSpriteFrameName("GDO_MainLogo_001.png"_spr);
             gameTitle->setDisplayFrame(odysseyTitle->displayFrame());
+
+            gameTitle->setPositionY(gameTitle->getPositionY() - 15);
         }
 
         //  Reemplazar el boton para acceder al Menu Online
@@ -29,7 +31,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
             auto mgSprite = CCSprite::createWithSpriteFrameName("GJ_moreGamesBtn_001.png");
 
             //  Esto cambiara mas tarde
-            //  static_cast<CCSprite *>(creatorButton->getChildren()->objectAtIndex(0))->setDisplayFrame(mgSprite->displayFrame());
+            creatorButton->setNormalImage(mgSprite);
         }
 
         auto moreGamesMenu = static_cast<CCMenu *>(this->getChildByID("more-games-menu"));
@@ -41,25 +43,34 @@ class $modify(OdysseyMenuLayer, MenuLayer)
             moreGamesButton->setTag(1);
 
             //  Esto cambiara mas tarde
-            static_cast<CCSprite *>(moreGamesButton->getChildren()->objectAtIndex(0))->setDisplayFrame(creditsSprite->displayFrame());
+            moreGamesButton->setNormalImage(creditsSprite);
         }
 
         return true;
     }
 
-    void onPlay(CCObject *)
+    void onPlay(CCObject*)
     {
-        auto scene = CCScene::create();
-        scene->addChild(OdysseySelectLayer::create());
-
-        CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
+        auto levelscene = OdysseySelectLayer::scene(0);
+        CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, levelscene));
     }
 
-    void onRobTop(CCObject *)
+    void onCreator(CCObject*)
+    {
+       //https://cdn.discordapp.com/attachments/1196219414090088492/1312260912178004028/652ded519286d.png?ex=674bd9b6&is=674a8836&hm=97941665f4143f33aaf60ef1b09f325d6d99e96121bd7f8b4729c1250d17b43b&
+    }
+
+    void onRobTop(CCObject*)
     {
         auto scene = CCScene::create();
         scene->addChild(OdysseyDevLayer::create());
 
         CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
     };
+
+    void onMoreGames(CCObject*)
+    {
+        auto credits = FLAlertLayer::create("Si", "Si", "ok");
+        credits->show();
+    }
 };
