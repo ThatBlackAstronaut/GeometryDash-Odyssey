@@ -58,4 +58,10 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         auto dialog = Odyssey::createDialog("on_creator");
         this->addChild(dialog, 3);
     }
+
+    void onMoreGames(CCObject *)
+    {
+        auto credits = FLAlertLayer::create("Si", "Si", "ok");
+        credits->show();
+    }
 };
