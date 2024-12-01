@@ -363,7 +363,7 @@ void OdysseyComicLayer::scrollLayerMoved(CCPoint point)
 void OdysseyComicLayer::keyBackClicked()
 {
     CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
-    GameManager::sharedState()->fadeInMenuMusic();
+    GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
 };
 
 void OdysseyComicLayer::onBack(CCObject *)

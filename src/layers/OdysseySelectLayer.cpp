@@ -1,4 +1,3 @@
-#pragma once
 #include "OdysseySelectLayer.hpp"
 #include "OdysseyLevelPopup.hpp"
 
@@ -106,16 +105,15 @@ bool OdysseySelectLayer::init(int page)
 
     addLevelButtons();
 
-    auto moveUp = CCEaseInOut::create(CCMoveTo::create(2.0f, { 0,  5 }), 1.8f);
-    auto moveDown = CCEaseInOut::create(CCMoveTo::create(2.0f, { 0, 0 }), 1.8f);
+    auto moveUp = CCEaseInOut::create(CCMoveTo::create(2.0f, {0, 5}), 1.8f);
+    auto moveDown = CCEaseInOut::create(CCMoveTo::create(2.0f, {0, 0}), 1.8f);
 
     m_islandNode->runAction(CCRepeatForever::create(CCSequence::createWithTwoActions(moveUp, moveDown)));
 
-    
     auto islandTitle = CCSprite::createWithSpriteFrameName(fmt::format("island_title{:02}.png"_spr, page + 1).c_str());
 
     islandTitle->setScale(.85f);
-    islandTitle->setPosition({ m_winSize.width / 2, m_winSize.height - 30 });
+    islandTitle->setPosition({m_winSize.width / 2, m_winSize.height - 30});
 
     addChild(islandTitle);
 
@@ -182,8 +180,7 @@ std::vector<CCPoint> OdysseySelectLayer::getPositionForButtons()
             {-70, 60},
             {130, 70},
             {40, 10},
-            {-80, -55}
-        };
+            {-80, -55}};
     }
 
     return arr;
@@ -218,25 +215,25 @@ void OdysseySelectLayer::switchToPage(int page)
     CCDirector::sharedDirector()->replaceScene(CCTransitionFadeTR::create(0.5f, scene));
 }
 
-void OdysseySelectLayer::onNextPage(CCObject*)
+void OdysseySelectLayer::onNextPage(CCObject *)
 {
     switchToPage(m_currentPage + 1);
 }
 
-void OdysseySelectLayer::onBackPage(CCObject*)
+void OdysseySelectLayer::onBackPage(CCObject *)
 {
     switchToPage(m_currentPage - 1);
 }
 
-void OdysseySelectLayer::onLevel(CCObject* sender)
+void OdysseySelectLayer::onLevel(CCObject *sender)
 {
     auto popup = OdysseyLevelPopup::create(sender->getTag());
     popup->show();
 }
 
-OdysseySelectLayer* OdysseySelectLayer::create(int page)
+OdysseySelectLayer *OdysseySelectLayer::create(int page)
 {
-    OdysseySelectLayer* pRet = new OdysseySelectLayer();
+    OdysseySelectLayer *pRet = new OdysseySelectLayer();
     if (pRet->init(page))
     {
         pRet->autorelease();
@@ -246,7 +243,7 @@ OdysseySelectLayer* OdysseySelectLayer::create(int page)
     return nullptr;
 }
 
-CCScene* OdysseySelectLayer::scene(int page)
+CCScene *OdysseySelectLayer::scene(int page)
 {
     auto scene = CCScene::create();
     scene->addChild(OdysseySelectLayer::create(page));
