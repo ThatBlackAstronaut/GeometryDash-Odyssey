@@ -43,11 +43,14 @@
 			],
 			"GJO_ComicSheetSPA": [
 				"resources/ComicSheetSPA/*.png"
+			],
+			"GJO_IconSheet": [
+				"resources/IconSheet/*.png"
 			]
 		},
 		"files": [
-			"resources/icons/*.png",
-			"resources/icons/*.plist",
+			"resources/Icons/*.png",
+			"resources/Icons/*.plist",
 			"resources/Soundtrack/*.mp3"
 		],
 		"sprites": [

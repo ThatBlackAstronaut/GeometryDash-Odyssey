@@ -1,5 +1,6 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/LoadingLayer.hpp>
+#include "../utils/Utils.hpp"
 
 using namespace geode::prelude;
 

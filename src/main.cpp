@@ -2,7 +2,7 @@
 #include <Geode/modify/CCSprite.hpp>
 #include <Geode/modify/MoreOptionsLayer.hpp>
 #include <Geode/modify/GameManager.hpp>
-#include <Geode/modify/LevelTools.hpp>
+#include <Geode/modify/GManager.hpp>
 
 using namespace geode::prelude;
 
@@ -101,62 +101,15 @@ class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
 	}
 };
 
-class $modify(OdysseyLevelTools, LevelTools)
+class $modify(OdysseyGManager, GManager)
 {
-	static gd::string getAudioTitle(int levelID)
+	void setup()
 	{
-		switch (levelID)
-		{
-		case 100:
-			return "The Dangereous Seas";
-		case 101:
-			return "Ghost House";
-		case 102:
-			return "Super Ultra";
-		case 103:
-			return "Cryptofunk";
-		default:
-			return LevelTools::getAudioTitle(levelID);
-		}
-	}
+		auto compare = std::string(m_fileName);
 
-	static GJGameLevel *getLevel(int levelID, bool loaded)
-	{
-		auto level = GJGameLevel::create();
+    	compare.insert(std::string_view(compare).find(".dat"), "Odyssey");
 
-		level->m_levelName = getAudioTitle(99 + levelID);
-		level->m_audioTrack = 99 + levelID;
-		level->m_coins = 3;
-
-
-		switch (levelID)
-		{
-		case 1:
-			level->m_stars = 5;
-			level->m_difficulty = GJDifficulty::Hard;
-			break;
-		case 2:
-			level->m_stars = 7;
-			level->m_difficulty = GJDifficulty::Harder;
-			break;
-		case 3:
-			level->m_stars = 8;
-			level->m_difficulty = GJDifficulty::Insane;
-			break;
-		case 4:
-			level->m_stars = 9;
-			level->m_difficulty = GJDifficulty::Insane;
-			break;
-		}
-
-		level->m_levelID = levelID;
-		level->m_levelType = GJLevelType::Local;
-
-		return level;
-	}
-
-	static bool verifyLevelIntegrity(std::string verifyString, int levelID)
-	{
-		return true;
+    	m_fileName = compare;
+    	GManager::setup();
 	}
 };
