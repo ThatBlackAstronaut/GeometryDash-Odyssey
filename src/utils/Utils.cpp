@@ -1,5 +1,106 @@
 #include "Utils.hpp"
 
+void Odyssey::addCorners(CCLayer * layer, const char * cornerSprite, float offset){
+    //  Corners
+    auto m_cornerBL = CCSprite::createWithSpriteFrameName(cornerSprite);
+    m_cornerBL->setAnchorPoint({0, 0});
+    m_cornerBL->setPosition({0 - offset, 0 - offset});
+    m_cornerBL->setID("corner-bl"_spr);
+
+    auto m_cornerBR = CCSprite::createWithSpriteFrameName(cornerSprite);
+    m_cornerBR->setPosition({layer->getContentWidth() + offset, 0 - offset});
+    m_cornerBR->setAnchorPoint({1, 0});
+    m_cornerBR->setFlipX(true);
+    m_cornerBR->setID("corner-br"_spr);
+
+    auto m_cornerTL = CCSprite::createWithSpriteFrameName(cornerSprite);
+    m_cornerTL->setAnchorPoint({0, 1});
+    m_cornerTL->setPosition({0 - offset, layer->getContentHeight() + offset});
+    m_cornerTL->setFlipY(true);
+    m_cornerTL->setID("corner-tl"_spr);
+
+    auto m_cornerTR = CCSprite::createWithSpriteFrameName(cornerSprite);
+    m_cornerTR->setPosition({layer->getContentWidth() + offset, layer->getContentHeight() + offset});
+    m_cornerTR->setAnchorPoint({1, 1});
+    m_cornerTR->setFlipX(true);
+    m_cornerTR->setFlipY(true);
+    m_cornerTR->setID("corner-tr"_spr);
+
+    layer->addChild(m_cornerBL);
+    layer->addChild(m_cornerBR);
+    layer->addChild(m_cornerTL);
+    layer->addChild(m_cornerTR);
+};
+
+CCNode *Odyssey::createProgressBar(int percentage, bool isPractice)
+{
+    auto node = CCNode::create();
+
+    int rgbValue = isPractice ? 255 : 0;
+    ccColor3B color = {0, 255, (GLubyte)rgbValue};
+
+    auto bgBar = CCSprite::create("GJ_progressBar_001.png");
+    bgBar->setColor({0, 0, 0});
+    bgBar->setOpacity(100);
+    bgBar->setScale(0.9f);
+    bgBar->setZOrder(1);
+
+    node->addChild(bgBar);
+
+    auto progressBar = CCSprite::create("GJ_progressBar_001.png");
+    auto rectX = (progressBar->getContentWidth() * percentage) / 100;   
+    progressBar->setTextureRect({ 0, .5f, rectX, progressBar->getContentHeight() });
+    progressBar->setScaleX(0.89f);
+    progressBar->setScaleY(0.75f);
+    progressBar->setColor(color);
+    progressBar->setZOrder(2);
+
+    progressBar->setAnchorPoint({0, 0.5});
+    progressBar->setPositionX(-151.3f);
+
+    node->addChild(progressBar);
+
+    std::string progressNumber = std::to_string(percentage);
+    auto progressLabel = CCLabelBMFont::create(fmt::format("{}%", progressNumber).c_str(), "bigFont.fnt");
+    progressLabel->setPositionY(0.5f);
+    progressLabel->setScale(0.325f);
+    progressLabel->setZOrder(3);
+
+    node->addChild(progressLabel);
+
+    const char *mode = isPractice ? "Practice Mode" : "Normal Mode";
+    auto label = CCLabelBMFont::create(mode, "bigFont.fnt");
+    label->setPositionY(18.0f);
+    label->setScale(0.45f);
+    node->addChild(label);
+
+    return node;
+};
+
+CCNode *Odyssey::createDifficultyNode(GJDifficulty diff, int stars)
+{
+    auto node = CCNode::create();
+    node->setContentSize({20.f, 32.5f});
+
+    std::string difficultyName = fmt::format("diffIcon_{:02}_btn_001.png", static_cast<int>(diff));
+    auto diffSprite = CCSprite::createWithSpriteFrameName(difficultyName.c_str());
+    diffSprite->setPosition({node->getContentWidth() / 2, node->getContentHeight()});
+    diffSprite->setScale(1.25f);
+
+    auto starLabel = CCLabelBMFont::create(std::to_string(stars).c_str(), "bigFont.fnt");
+    starLabel->limitLabelWidth(10, 0.6f, 0.1f);
+    starLabel->setPosition({0, 0});
+
+    auto starSprite = CCSprite::createWithSpriteFrameName("GJ_bigStar_noShadow_001.png");
+    starSprite->setPosition({node->getContentWidth(), 0});
+    starSprite->setScale(0.5f);
+
+    node->addChild(diffSprite);
+    node->addChild(starSprite);
+    node->addChild(starLabel);
+    return node;
+};
+
 DialogLayer *Odyssey::createDialog(const char *event)
 {
     CCArray *arr = CCArray::create();
