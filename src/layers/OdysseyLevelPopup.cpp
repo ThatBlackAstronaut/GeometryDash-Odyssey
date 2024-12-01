@@ -53,7 +53,8 @@ bool OdysseyLevelPopup::setup(std::string const &title)
     playButton->setID("play-button"_spr);
 
     //  Level stats
-    std::string levelInfo = "<cy>" + m_level->m_levelName + "</c>" + "\n<cg>Total Attempts</c>: " + std::to_string(m_level->m_attempts) + "\n<cl>Total Jumps</c>: " + std::to_string(m_level->m_jumps) + "\n<cp>Normal</c>: " + std::to_string(m_level->m_normalPercent) + "%" + "\n<co>Practice</c>: " + std::to_string(m_level->m_practicePercent) + "%";
+    std::string levelName = static_cast<gd::string>(m_level->m_levelName);
+    std::string levelInfo = "<cy>" + levelName + "</c>" + "\n<cg>Total Attempts</c>: " + std::to_string(m_level->m_attempts) + "\n<cl>Total Jumps</c>: " + std::to_string(m_level->m_jumps) + "\n<cp>Normal</c>: " + std::to_string(m_level->m_normalPercent) + "%" + "\n<co>Practice</c>: " + std::to_string(m_level->m_practicePercent) + "%";
 
     //  Info Button
     auto infoButton = InfoAlertButton::create("Level Stats", levelInfo, 1);
