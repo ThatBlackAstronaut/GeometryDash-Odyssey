@@ -55,8 +55,8 @@ protected:
         m_mainLayer->addChild(rbCorner);
 
 
-        std::string difficultyName = fmt::format("diffIcon_{:02}_btn_001.png", static_cast<int>(m_level->m_difficulty));
-        auto difficultySprite = CCSprite::createWithSpriteFrameName(difficultyName.c_str());
+        //std::string difficultyName = fmt::format("diffIcon_{:02}_btn_001.png", static_cast<int>(m_level->m_difficulty));
+        auto difficultySprite = GJDifficultySprite::create(static_cast<int>(m_level->m_difficulty), GJDifficultyName::Short); //CCSprite::createWithSpriteFrameName(difficultyName.c_str());
 
         difficultySprite->setScale(1.2f);
         difficultySprite->setPosition({60, m_mainLayer->getContentHeight() - 80});
