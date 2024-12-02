@@ -62,7 +62,7 @@ bool OdysseyLevelPopup::setup(std::string const &title)
 
     //  Options Button
     auto optionsSprite = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png");
-    //optionsSprite->setScale(.8f);
+    //  optionsSprite->setScale(.8f);
 
     auto optionsButton = CCMenuItemSpriteExtra::create(
         optionsSprite,
@@ -75,7 +75,7 @@ bool OdysseyLevelPopup::setup(std::string const &title)
 
     //  Comics Button
     auto comicButton = CCMenuItemSpriteExtra::create(
-        CircleButtonSprite::createWithSpriteFrameName("GDO_comicBtn.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::Tiny),
+        CircleButtonSprite::createWithSpriteFrameName("GDO_comicBtn.png"_spr, 1, baseColor, CircleBaseSize::Small),
         this,
         menu_selector(OdysseyLevelPopup::onComic));
     comicButton->setPosition({buttonsMenu->getContentWidth() - 8, 8});
@@ -93,10 +93,9 @@ bool OdysseyLevelPopup::setup(std::string const &title)
     buttonsMenu->addChild(comicButton);
     buttonsMenu->addChild(optionsButton);
 
+    //  Coin Array
     auto coinMenu = CCMenu::create();
-
     auto coinArray = CCArray::create();
-
     for(int i = 0; i < 3; i++) {
         bool isCollected = GameStatsManager::sharedState()->hasSecretCoin(fmt::format("{}_{}", m_level->m_levelID.value(), i + 1).c_str());
 
@@ -107,9 +106,7 @@ bool OdysseyLevelPopup::setup(std::string const &title)
     }
 
     coinMenu->alignItemsHorizontally();
-
     coinMenu->setPosition(m_mainLayer->getContentWidth() / 2, 10);
-
     m_mainLayer->addChild(coinMenu);
 
     return true;
@@ -123,12 +120,11 @@ void OdysseyLevelPopup::onPlay(CCObject *sender)
 
     auto GLM = GameLevelManager::sharedState();
     auto playLayer = PlayLayer::scene(m_level, false, false);
-    
 
-    CCScene* scene = CCScene::create();
+    CCScene *scene = CCScene::create();
     scene->addChild(playLayer);
 
-    CCTransitionFade * fade = CCTransitionFade::create(0.5f, scene);
+    CCTransitionFade *fade = CCTransitionFade::create(0.5f, scene);
     CCDirector::sharedDirector()->pushScene(fade);
 };
 
