@@ -1,5 +1,7 @@
 #include "OdysseySelectLayer.hpp"
 #include "OdysseyLevelPopup.hpp"
+#include "OdysseyComicLayer.hpp"
+#include "../utils/Utils.hpp"
 
 using namespace geode::prelude;
 
@@ -83,12 +85,31 @@ bool OdysseySelectLayer::init(int page)
 
     if (page == 2)
     {
-        auto secondIsland = CCSprite::createWithSpriteFrameName("island_extra2.png"_spr);
+        auto menu = CCMenu::create();
+        menu->setPosition({0, 0});
 
-        secondIsland->setScale(islandScale);
+        auto firstSprite = CCSprite::createWithSpriteFrameName(islandTexture);
+        firstSprite->setScale(islandScale);
+        auto firstIsland = CCMenuItemSpriteExtra::create(
+            firstSprite,
+            this,
+            menu_selector(OdysseySelectLayer::onLevel));
+        firstIsland->setColor(islandColor);
+        firstIsland->setPosition(islandPosition);
+        firstIsland->setTag(201);
+        auto secondSprite = CCSprite::createWithSpriteFrameName("island_extra2.png"_spr);
+        secondSprite->setScale(islandScale);
+        auto secondIsland = CCMenuItemSpriteExtra::create(
+            secondSprite,
+            this,
+            menu_selector(OdysseySelectLayer::onLevel));
+        secondIsland->setTag(202);
         secondIsland->setPosition({m_winSize.width / 2 + 100, m_winSize.height / 2});
+    
+        menu->addChild(firstIsland);
+        menu->addChild(secondIsland);
 
-        m_islandNode->addChild(secondIsland);
+        m_islandNode->addChild(menu);
     }
 
     auto island = CCSprite::createWithSpriteFrameName(islandTexture);
@@ -101,6 +122,8 @@ bool OdysseySelectLayer::init(int page)
 
     m_islandNode->addChild(island);
 
+    if(page == 2) island->setVisible(false);
+    
     addChild(m_islandNode);
 
     addLevelButtons();
@@ -155,7 +178,28 @@ bool OdysseySelectLayer::init(int page)
     m_cornerBR->setID("corner-br"_spr);
     addChild(m_cornerBR, 2);
 
+     //  Se reemplazara esto con el Game Manager, pero lo tengo para Desarrollo
+    //  auto GM = GameManager::sharedState();
+    //  auto watchedComic01 = GM->getUGV("52");
+    auto meetWizard = Mod::get()->getSettingValue<bool>("meet-wizard");
+    log::debug("FIRST COMIC {}", meetWizard);
+    if(!meetWizard){
+        /*
+        this->runAction(CCSequence::create(
+            CCDelayTime::create(0.5f),
+            CCCallFunc::create(this, callfunc_selector(OdysseySelectLayer::getWizardDialog01)),
+            0
+        ));*/
+    };
+
     return true;
+};
+
+void OdysseySelectLayer::getWizardDialog01(){
+    auto dialog = Odyssey::createDialog("wizardIntroduction");
+    Mod::get()->setSettingValue("meet-wizard", true);
+    //  GM->setUGV("52", true);
+    this->addChild(dialog, 3);
 };
 
 void OdysseySelectLayer::keyBackClicked()

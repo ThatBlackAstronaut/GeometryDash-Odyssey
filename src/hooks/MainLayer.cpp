@@ -55,8 +55,9 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, levelscene));
     }
 
-    void onCreator(CCObject*)
+    void onCreator(CCObject* sender)
     {
+        MenuLayer::onCreator(sender);
        //https://cdn.discordapp.com/attachments/1196219414090088492/1312260912178004028/652ded519286d.png?ex=674bd9b6&is=674a8836&hm=97941665f4143f33aaf60ef1b09f325d6d99e96121bd7f8b4729c1250d17b43b&
     }
 

@@ -10,4 +10,8 @@ namespace Odyssey {
 
     CCNode * createDifficultyNode(GJDifficulty, int);
     CCNode * createProgressBar(int, bool);
+
+    int currentVehicleID();
+    void insertAssetsToMap(bool, std::vector<int>);
+    bool isCustomIcon(int, IconType);
 };

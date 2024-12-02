@@ -27,6 +27,8 @@ public:
 
     void onLevel(CCObject*);
 
+    void getWizardDialog01();
+
 public:
     static OdysseySelectLayer* create(int);
     static CCScene* scene(int);

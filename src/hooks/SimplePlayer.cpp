@@ -58,6 +58,7 @@ class $modify(CustomSimplePlayer, SimplePlayer)
         if (auto glowLayer = frameCache->spriteFrameByName(frameGlow.c_str()))
         {
             m_outlineSprite->setDisplayFrame(glowLayer);
+            m_outlineSprite->setPosition(m_firstLayer->getContentSize() / 2);
         }
     }
 };

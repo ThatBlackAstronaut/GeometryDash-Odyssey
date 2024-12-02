@@ -1,5 +1,6 @@
 #include "OdysseyDevLayer.hpp"
 #include "OdysseyComicLayer.hpp"
+#include "OdysseyLevelPopup.hpp"
 #include "../utils/Utils.hpp"
 
 bool OdysseyDevLayer::init()
@@ -35,14 +36,14 @@ bool OdysseyDevLayer::init()
 
     auto dialogMenu = CCMenu::create();
     dialogMenu->setID("dialog-menu"_spr);
-    dialogMenu->setContentSize({360.0f, 180.0f});
+    dialogMenu->setContentSize({480.0f, 140.0f});
     dialogMenu->setLayout(RowLayout::create()
                               ->setGap(14.0f)
                               ->setAutoScale(false)
                               ->setGrowCrossAxis(true)
                               ->setCrossAxisOverflow(false)
                               ->setCrossAxisLineAlignment(AxisAlignment::Even));
-    dialogMenu->setPositionY(winSize.height / 2 + 20.0f);
+    dialogMenu->setPositionY(winSize.height / 2 + 40.0f);
 
     auto dialogLabel = CCLabelBMFont::create("Dialogs", "goldFont.fnt");
     dialogLabel->setPosition({winSize.width / 2, dialogMenu->getPositionY() + dialogMenu->getContentHeight() / 2 + 10.0f});
@@ -112,7 +113,7 @@ bool OdysseyDevLayer::init()
                               ->setGrowCrossAxis(true)
                               ->setCrossAxisOverflow(false)
                               ->setCrossAxisLineAlignment(AxisAlignment::Even));
-    comicsMenu->setPositionY(20);
+   comicsMenu->setPositionY(90);
 
     auto comicsLabel = CCLabelBMFont::create("Comics", "goldFont.fnt");
     comicsLabel->setPosition({winSize.width / 2, comicsMenu->getPositionY() + comicsMenu->getContentHeight() / 2 + 10.0f});
@@ -178,9 +179,42 @@ bool OdysseyDevLayer::init()
     comicsMenu->updateLayout();
     addChild(comicsMenu);
 
+    auto levelsMenu = CCMenu::create();
+    levelsMenu->setID("levels-menu"_spr);
+    levelsMenu->setContentSize({350.0f, 40.0f});
+    levelsMenu->setLayout(RowLayout::create()
+                              ->setGap(14.0f)
+                              ->setAutoScale(false)
+                              ->setGrowCrossAxis(true)
+                              ->setCrossAxisOverflow(false)
+                              ->setCrossAxisLineAlignment(AxisAlignment::Even));
+    levelsMenu->setPositionY(30);
+    auto levelsLabel = CCLabelBMFont::create("levels", "goldFont.fnt");
+    levelsLabel->setPosition({winSize.width / 2, levelsMenu->getPositionY() + levelsMenu->getContentHeight() / 2 + 10.0f});
+    levelsLabel->setScale(0.75f);
+    addChild(levelsLabel);
+    auto level01 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("Hellfire", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onLevel)
+    );
+    level01->setTag(5);
+    levelsMenu->addChild(level01);
+    levelsMenu->updateLayout();
+    addChild(levelsMenu);
+
     setKeypadEnabled(true);
     return true;
 };
+
+void OdysseyDevLayer::onLevel(CCObject * sender)
+{
+    auto scene = CCScene::create();
+    auto tag = sender->getTag();
+    auto popup = OdysseyLevelPopup::create(sender->getTag());
+    popup->show();
+};
+
 
 void OdysseyDevLayer::onComic(CCObject * sender)
 {

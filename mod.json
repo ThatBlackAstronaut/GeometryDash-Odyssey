@@ -51,7 +51,9 @@
 		"files": [
 			"resources/Icons/*.png",
 			"resources/Icons/*.plist",
-			"resources/Soundtrack/*.mp3"
+			"resources/Soundtrack/*.mp3",
+			"resources/Levels/*.txt",
+			"resources/LevelAudios/*.ogg"
 		],
 		"sprites": [
 			"resources/*.png"

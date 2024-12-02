@@ -1,4 +1,5 @@
 #include "OdysseyComicLayer.hpp"
+#include "OdysseySelectLayer.hpp"
 #include "../utils/Utils.hpp"
 
 bool OdysseyComicLayer::init(int issueNumber)
@@ -8,6 +9,8 @@ bool OdysseyComicLayer::init(int issueNumber)
 
     m_background = CCSprite::create("GJ_gradientBG.png");
     m_winSize = CCDirector::sharedDirector()->getWinSize();
+    m_comicNumber = issueNumber;
+    
     auto size = m_background->getContentSize();
 
     m_background->setScaleX((m_winSize.width) / size.width);
@@ -328,7 +331,7 @@ CCNode *OdysseyComicLayer::createComicPage(const char *spriteName)
 void OdysseyComicLayer::onSecret(CCObject *sender)
 {
     AchievementNotifier::sharedState()->notifyAchievement("Programmer's secret", "Unlocked achievement!", "gk-icon", false);
-    GJRewardObject * diamonds = GJRewardObject::create(SpecialRewardItem::Diamonds, 100, 0);
+    GJRewardObject *diamonds = GJRewardObject::create(SpecialRewardItem::Diamonds, 100, 0);
 
     CCArray *rewards = CCArray::create();
     rewards->addObject(diamonds);
@@ -362,7 +365,18 @@ void OdysseyComicLayer::scrollLayerMoved(CCPoint point)
 
 void OdysseyComicLayer::keyBackClicked()
 {
-    CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
+    if (m_comicNumber == 1)
+    {
+        auto layer = OdysseySelectLayer::create(0);
+        auto scene = CCScene::create();
+        scene->addChild(layer);
+        CCDirector::sharedDirector()->replaceScene(cocos2d::CCTransitionFade::create(0.5, scene));
+    }
+    else
+    {
+        CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
+    }
+    
     GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
 };
 

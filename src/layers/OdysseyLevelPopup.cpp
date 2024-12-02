@@ -62,13 +62,16 @@ bool OdysseyLevelPopup::setup(std::string const &title)
 
     //  Options Button
     auto optionsSprite = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png");
-    optionsSprite->setScale(.8f);
+    //optionsSprite->setScale(.8f);
 
     auto optionsButton = CCMenuItemSpriteExtra::create(
         optionsSprite,
         this,
         menu_selector(OdysseyLevelPopup::onSettings));
     optionsButton->setPosition({8, 8});
+
+    auto seenComic = Mod::get()->getSettingValue<bool>("watched-comic-0" + std::to_string(m_levelID + 1));
+    auto baseColor = seenComic ? CircleBaseColor::Green : CircleBaseColor::Cyan;
 
     //  Comics Button
     auto comicButton = CCMenuItemSpriteExtra::create(
@@ -77,11 +80,37 @@ bool OdysseyLevelPopup::setup(std::string const &title)
         menu_selector(OdysseyLevelPopup::onComic));
     comicButton->setPosition({buttonsMenu->getContentWidth() - 8, 8});
 
+    if (!seenComic)
+    {
+        comicButton->runAction(CCRepeatForever::create(CCSequence::createWithTwoActions(
+            CCEaseSineOut::create(CCScaleTo::create(0.5f, 1.5)),
+            CCEaseSineIn::create(CCScaleTo::create(0.5f, 1)))));
+    }
+
     //  Adding the buttons
     buttonsMenu->addChild(playButton);
     buttonsMenu->addChild(infoButton);
     buttonsMenu->addChild(comicButton);
     buttonsMenu->addChild(optionsButton);
+
+    auto coinMenu = CCMenu::create();
+
+    auto coinArray = CCArray::create();
+
+    for(int i = 0; i < 3; i++) {
+        bool isCollected = GameStatsManager::sharedState()->hasSecretCoin(fmt::format("{}_{}", m_level->m_levelID.value(), i + 1).c_str());
+
+        auto node = CCSprite::createWithSpriteFrameName(isCollected ? "GJ_coinsIcon_001.png" : "GJ_coinsIcon_gray_001.png");
+
+        coinArray->addObject(node);
+        coinMenu->addChild(node);
+    }
+
+    coinMenu->alignItemsHorizontally();
+
+    coinMenu->setPosition(m_mainLayer->getContentWidth() / 2, 10);
+
+    m_mainLayer->addChild(coinMenu);
 
     return true;
 };
@@ -94,6 +123,7 @@ void OdysseyLevelPopup::onPlay(CCObject *sender)
 
     auto GLM = GameLevelManager::sharedState();
     auto playLayer = PlayLayer::scene(m_level, false, false);
+    
 
     CCScene* scene = CCScene::create();
     scene->addChild(playLayer);
@@ -110,6 +140,9 @@ void OdysseyLevelPopup::onSettings(CCObject *sender)
 
 void OdysseyLevelPopup::onComic(CCObject *sender)
 {
+    //  Se cambiara por GameManager despues
+    Mod::get()->setSettingValue<bool>("watched-comic-0" + std::to_string(m_levelID + 1), true);
+
     log::debug("LEVEL: {}", m_levelID);
 
     auto scene = CCScene::create();

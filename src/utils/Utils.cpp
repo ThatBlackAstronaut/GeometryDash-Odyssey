@@ -1,6 +1,7 @@
 #include "Utils.hpp"
 
-void Odyssey::addCorners(CCLayer * layer, const char * cornerSprite, float offset){
+void Odyssey::addCorners(CCLayer *layer, const char *cornerSprite, float offset)
+{
     //  Corners
     auto m_cornerBL = CCSprite::createWithSpriteFrameName(cornerSprite);
     m_cornerBL->setAnchorPoint({0, 0});
@@ -48,8 +49,8 @@ CCNode *Odyssey::createProgressBar(int percentage, bool isPractice)
     node->addChild(bgBar);
 
     auto progressBar = CCSprite::create("GJ_progressBar_001.png");
-    auto rectX = (progressBar->getContentWidth() * percentage) / 100;   
-    progressBar->setTextureRect({ 0, .5f, rectX, progressBar->getContentHeight() });
+    auto rectX = (progressBar->getContentWidth() * percentage) / 100;
+    progressBar->setTextureRect({0, .5f, rectX, progressBar->getContentHeight()});
     progressBar->setScaleX(0.89f);
     progressBar->setScaleY(0.75f);
     progressBar->setColor(color);
@@ -379,4 +380,59 @@ DialogLayer *Odyssey::createDialogResponse(const char *event, int times)
     dialogLayer->animateInRandomSide();
     dialogLayer->setZOrder(2);
     return dialogLayer;
+}
+
+int Odyssey::currentVehicleID()
+{
+    auto gm = GameManager::get();
+    switch (gm->m_playerIconType)
+    {
+    case IconType::Ship:
+        return gm->getPlayerShip();
+    case IconType::Ball:
+        return gm->getPlayerBall();
+    case IconType::Ufo:
+        return gm->getPlayerBird();
+    case IconType::Wave:
+        return gm->getPlayerDart();
+    case IconType::Robot:
+        return gm->getPlayerRobot();
+    case IconType::Spider:
+        return gm->getPlayerSpider();
+    case IconType::Swing:
+        return gm->getPlayerSwing();
+    case IconType::Jetpack:
+        return gm->getPlayerJetpack();
+    default:
+        return gm->getPlayerFrame();
+    }
+}
+
+void Odyssey::insertAssetsToMap(bool isSong, std::vector<int> IDs)
+{
+    auto map = MusicDownloadManager::sharedState()->m_resourceSfxUnorderedSet;
+
+    for (int assetID : IDs)
+    {
+        if (isSong)
+            MusicDownloadManager::sharedState()->m_resourceSongUnorderedSet.insert(assetID);
+        else
+            MusicDownloadManager::sharedState()->m_resourceSfxUnorderedSet.insert(assetID);
+    }
+}
+
+bool Odyssey::isCustomIcon(int id, IconType type)
+{
+    if (id > 485 && type == IconType::Cube)
+        return true;
+    if (id > 118 && type == IconType::Ball)
+        return true;
+    if (id > 118 && type == IconType::Ball)
+        return true;
+    if (id > 96 && type == IconType::Wave)
+        return true;
+    if (id > 43 && type == IconType::Swing)
+        return true;
+
+    return false;
 }

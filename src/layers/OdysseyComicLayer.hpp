@@ -9,8 +9,10 @@ public:
     CCSprite *m_cornerBL = nullptr;
     CCSprite *m_cornerBR = nullptr;
     CCSize m_winSize;
+    
 
     const char * m_backgroundMusic = "menuLoop.mp3";
+    int m_comicNumber = 1;
     int m_currentPage = 0;
     int m_totalPages = 1;
 
