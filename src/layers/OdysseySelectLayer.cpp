@@ -90,19 +90,24 @@ bool OdysseySelectLayer::init(int page)
 
         auto firstSprite = CCSprite::createWithSpriteFrameName(islandTexture);
         firstSprite->setScale(islandScale);
+
         auto firstIsland = CCMenuItemSpriteExtra::create(
             firstSprite,
             this,
             menu_selector(OdysseySelectLayer::onLevel));
+
         firstIsland->setColor(islandColor);
         firstIsland->setPosition(islandPosition);
         firstIsland->setTag(201);
+
         auto secondSprite = CCSprite::createWithSpriteFrameName("island_extra2.png"_spr);
         secondSprite->setScale(islandScale);
+
         auto secondIsland = CCMenuItemSpriteExtra::create(
             secondSprite,
             this,
             menu_selector(OdysseySelectLayer::onLevel));
+
         secondIsland->setTag(202);
         secondIsland->setPosition({m_winSize.width / 2 + 100, m_winSize.height / 2});
     
@@ -113,26 +118,21 @@ bool OdysseySelectLayer::init(int page)
     }
 
     auto island = CCSprite::createWithSpriteFrameName(islandTexture);
-
     island->setScale(islandScale);
     island->setColor(islandColor);
 
     island->setAnchorPoint({.5f, .5f});
     island->setPosition(islandPosition);
 
-    m_islandNode->addChild(island);
-
     if(page == 2) island->setVisible(false);
-    
+    m_islandNode->addChild(island);
     addChild(m_islandNode);
 
     addLevelButtons();
-
     auto moveUp = CCEaseInOut::create(CCMoveTo::create(2.0f, {0, 5}), 1.8f);
     auto moveDown = CCEaseInOut::create(CCMoveTo::create(2.0f, {0, 0}), 1.8f);
 
     m_islandNode->runAction(CCRepeatForever::create(CCSequence::createWithTwoActions(moveUp, moveDown)));
-
     auto islandTitle = CCSprite::createWithSpriteFrameName(fmt::format("island_title{:02}.png"_spr, page + 1).c_str());
 
     islandTitle->setScale(.85f);
@@ -184,12 +184,11 @@ bool OdysseySelectLayer::init(int page)
     auto meetWizard = Mod::get()->getSettingValue<bool>("meet-wizard");
     log::debug("FIRST COMIC {}", meetWizard);
     if(!meetWizard){
-        /*
         this->runAction(CCSequence::create(
             CCDelayTime::create(0.5f),
             CCCallFunc::create(this, callfunc_selector(OdysseySelectLayer::getWizardDialog01)),
             0
-        ));*/
+        ));
     };
 
     return true;

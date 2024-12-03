@@ -31,6 +31,77 @@
 			"name": "Spanish",
 			"description": "Changes the language of the mod to Spanish",
 			"default": false
+		},
+
+		"level-unlocks":{
+			"type": "title",
+			"name": "Level Unlocks"
+		},
+
+		"level-extra-01-unlocked": {
+			"type": "bool",
+			"name": "Burning Sands",
+			"default": false
+		},
+
+		"level-extra-02-unlocked": {
+			"type": "bool",
+			"name": "Conclusive Journey",
+			"default": false
+		},
+
+		"one-time-events":{
+			"type": "title",
+			"name": "One Time Events",
+			"description": "Disable these if you want to see the one-time events again"
+		},
+
+		"meet-carp": {
+			"type": "bool",
+			"name": "Meet Carp",
+			"default": false
+		},
+
+		"meet-wizard": {
+			"type": "bool",
+			"name": "Meet Dumbledalf",
+			"default": false
+		},
+
+		"watched-comic-01": {
+			"type": "bool",
+			"name": "Seen 1st Comic",
+			"default": false
+		},
+
+		"watched-comic-02": {
+			"type": "bool",
+			"name": "Seen 2nd Comic",
+			"default": false
+		},
+
+		"watched-comic-03": {
+			"type": "bool",
+			"name": "Seen 3rd Comic",
+			"default": false
+		},
+
+		"watched-comic-04": {
+			"type": "bool",
+			"name": "Seen 4th Comic",
+			"default": false
+		},
+
+		"watched-comic-05": {
+			"type": "bool",
+			"name": "Seen 5th Comic",
+			"default": false
+		},
+
+		"watched-comic-06": {
+			"type": "bool",
+			"name": "Seen 6th Comic",
+			"default": false
 		}
 	},
 	"resources": {
@@ -49,8 +120,6 @@
 			]
 		},
 		"files": [
-			"resources/Icons/*.png",
-			"resources/Icons/*.plist",
 			"resources/Soundtrack/*.mp3",
 			"resources/Levels/*.txt",
 			"resources/SFX/*.ogg"
