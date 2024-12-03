@@ -11,7 +11,19 @@ namespace Odyssey {
     CCNode * createDifficultyNode(GJDifficulty, int);
     CCNode * createProgressBar(int, bool);
 
-    int currentVehicleID();
     void insertAssetsToMap(bool, std::vector<int>);
+
+    int currentVehicleID();
     bool isCustomIcon(int, IconType);
+    std::vector<std::string> getPlayerFrames(int, IconType);
+    void updateIcon(CCNode*, int, IconType, bool);
+
+    void addCreditsToIcon(std::pair<int, UnlockType>, int);
+
+    
+    std::vector<std::string> keysForAchievementDict(CCDictionary *);
+
+    void logObjectsFromDictionary(CCDictionary *dict, bool values = false);
+
+    void logDictionariesFromArray(CCArray *, bool);
 };

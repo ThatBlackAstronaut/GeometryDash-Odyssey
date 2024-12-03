@@ -10,16 +10,22 @@ class $modify(OdysseyGameManager, GameManager)
     int countForType(IconType icon)
     {
         if (icon == IconType::Cube)
-            return 500;
+            return 501;
+        if (icon == IconType::Ship)
+            return 170;
         if (icon == IconType::Ball)
             return 119;
+        if (icon == IconType::Wave)
+            return 97;
+        if (icon == IconType::Swing)
+            return 44;
 
         return GameManager::countForType(icon);
     }
 
     bool isIconUnlocked(int id, IconType type)
     {
-        if (Odyssey::isCustomIcon(id, type)) return GameManager::isIconUnlocked(id, type);
+        //if (Odyssey::isCustomIcon(id, type)) return GameManager::isIconUnlocked(id, type);
 
         return true;
     }

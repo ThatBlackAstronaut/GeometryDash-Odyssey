@@ -107,6 +107,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			setLevelInfo(level, 10, GJDifficulty::Demon, 0, 0); // Burning Sands
 			level->m_levelName = getAudioTitle(201);
 			level->m_audioTrack = 201;
+			level->m_demon = 1;
 			level->m_coins = 3;
 			break;
 		case 202:

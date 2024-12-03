@@ -1,5 +1,6 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/PlayerObject.hpp>
+#include "../utils/Utils.hpp"
 
 using namespace geode::prelude;
 
@@ -9,52 +10,53 @@ class $modify(OdysseyPlayerObject, PlayerObject)
     {
         if (!PlayerObject::init(p0, p1, p2, p3, p4)) return false;
 
-        updatePlayerFrame(p0);
-
+        Odyssey::updateIcon(this, p0, IconType::Cube, true);
+        Odyssey::updateIcon(this, GameManager::sharedState()->m_playerShip.value(), IconType::Ship, true);
+    
         return true;
     }
     void updatePlayerFrame(int id)
     {
         PlayerObject::updatePlayerFrame(id);
 
-        log::info("{}\n", id);
-        id = GameManager::get()->m_playerFrame.value();
-        log::info("{}\n", id);
-        if (id > 485)
-        {
-            std::string frame1 = fmt::format("player_{:02}_001.png"_spr, id);
-            std::string frame2 = fmt::format("player_{:02}_2_001.png"_spr, id);
-            std::string frameExtra = fmt::format("player_{:02}_extra_001.png"_spr, id);
-            std::string frameGlow = fmt::format("player_{:02}_glow_001.png"_spr, id);
+        Odyssey::updateIcon(this, GameManager::sharedState()->m_playerFrame.value(), IconType::Cube, true);
+    }
 
-            auto frameCache = CCSpriteFrameCache::get();
+    void updatePlayerRollFrame(int id)
+    {
+        PlayerObject::updatePlayerRollFrame(id);
 
-            if (auto layer1 = frameCache->spriteFrameByName(frame1.c_str()))
-            {
-                m_iconSprite->setDisplayFrame(layer1);
-            }
+        Odyssey::updateIcon(this, id, IconType::Ball, true);
+    }
 
-            if (auto layer2 = frameCache->spriteFrameByName(frame2.c_str()))
-            {
-                m_iconSpriteSecondary->setDisplayFrame(layer2);
-                m_iconSpriteSecondary->setPosition(m_iconSprite->getContentSize() / 2);
-                m_iconSpriteSecondary->setAnchorPoint({ .5f, .5f });
-            }
+    void updatePlayerSwingFrame(int id)
+    {
+        PlayerObject::updatePlayerSwingFrame(id);
 
-            if (auto layerExtra = frameCache->spriteFrameByName(frameExtra.c_str()))
-            {
-                m_iconSpriteWhitener->setVisible(true);
-                m_iconSpriteWhitener->setAnchorPoint({ .5f, .5f });
-                m_iconSpriteWhitener->setDisplayFrame(layerExtra);
-                m_iconSpriteWhitener->setPosition(m_iconSprite->getContentSize() / 2);
-            }
+        Odyssey::updateIcon(this, id, IconType::Swing, true);
+    }
 
-            if (auto glowLayer = frameCache->spriteFrameByName(frameGlow.c_str()))
-            {
-                m_iconGlow->setDisplayFrame(glowLayer);
-                //m_iconGlow->setAnchorPoint({ .5f, .5f });
-                //m_iconGlow->setPosition(m_iconSprite->getContentSize() / 2);
-            }
-        }
+    void updatePlayerShipFrame(int id)
+    {
+        PlayerObject::updatePlayerShipFrame(id);
+
+        Odyssey::updateIcon(this, GameManager::sharedState()->m_playerFrame.value(), IconType::Cube, true);
+        Odyssey::updateIcon(this, id, IconType::Ship, true);
+    }
+
+    void updatePlayerDartFrame(int id)
+    {
+        PlayerObject::updatePlayerDartFrame(id);
+        
+        Odyssey::updateIcon(this, id, IconType::Wave, true);
+    }
+
+    void resetPlayerIcon()
+    {
+        PlayerObject::resetPlayerIcon();
+
+        Odyssey::updateIcon(this, GameManager::sharedState()->m_playerFrame.value(), IconType::Cube, true);
+        Odyssey::updateIcon(this, GameManager::sharedState()->m_playerShip.value(), IconType::Ship, true);
+
     }
 };

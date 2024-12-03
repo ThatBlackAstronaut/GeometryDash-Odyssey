@@ -53,7 +53,7 @@
 			"resources/Icons/*.plist",
 			"resources/Soundtrack/*.mp3",
 			"resources/Levels/*.txt",
-			"resources/LevelAudios/*.ogg"
+			"resources/SFX/*.ogg"
 		],
 		"sprites": [
 			"resources/*.png"
