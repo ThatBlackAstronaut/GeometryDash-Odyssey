@@ -15,6 +15,16 @@ class $modify(GDOGarageLayer, GJGarageLayer)
 
         m_playerObject->updatePlayerFrame(Odyssey::currentVehicleID(), gm->m_playerIconType);
 
+        auto menu = getChildByID("shards-menu");
+
+        if (auto shards = menu->getChildByID("shards-button"))
+            shards->setVisible(false);
+
+        if (auto shopButton = getChildByID("top-left-menu")->getChildByID("shop-button"))
+            shopButton->setVisible(false);
+
+
         return true;
     }
+
 };

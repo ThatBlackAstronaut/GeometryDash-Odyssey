@@ -1,5 +1,6 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/GameStatsManager.hpp>
+#include "../utils/Utils.hpp"
 
 using namespace geode::prelude;
 
@@ -18,5 +19,17 @@ class $modify(OdysseyGameStatsManager, GameStatsManager)
         {
             GM->reportAchievementWithID(achievementID.c_str(), coinPercent, false);
         }
+    }
+
+    int getItemUnlockState(int p0, UnlockType p1)
+    {
+        
+        if (!Odyssey::isCustomIcon(p0, GameManager::sharedState()->unlockTypeToIconType(static_cast<int>(p1))))
+            return 4;
+
+        if (!AchievementManager::sharedState()->achievementForUnlock(p0, p1).empty())
+            return 1;
+            
+        return 5;
     }
 };

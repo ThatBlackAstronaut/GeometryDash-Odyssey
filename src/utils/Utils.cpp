@@ -425,7 +425,7 @@ bool Odyssey::isCustomIcon(int id, IconType type)
 {
     if (id > 485 && type == IconType::Cube)
         return true;
-    if (id > 118 && type == IconType::Ball)
+    if (id > 169 && type == IconType::Ship)
         return true;
     if (id > 118 && type == IconType::Ball)
         return true;
@@ -436,3 +436,153 @@ bool Odyssey::isCustomIcon(int id, IconType type)
 
     return false;
 }
+
+std::vector<std::string> Odyssey::getPlayerFrames(int iconID, IconType type)
+{
+    std::string iconName;
+    switch (type)
+    {
+    case IconType::Ship:
+        iconName = "ship";
+        break;
+    case IconType::Ball: 
+        iconName = "player_ball"; 
+        break;
+    case IconType::Wave:
+        iconName = "dart";
+        break;
+    case IconType::Swing:
+        iconName = "swing";
+        break;
+    default:
+        iconName = "player";
+        break;
+    }
+
+    std::string frame1 = fmt::format("{}_{:02}_001.png"_spr, iconName, iconID);
+    std::string frame2 = fmt::format("{}_{:02}_2_001.png"_spr, iconName, iconID);
+    std::string frameExtra = fmt::format("{}_{:02}_extra_001.png"_spr, iconName, iconID);
+    std::string frameGlow = fmt::format("{}_{:02}_glow_001.png"_spr, iconName, iconID);
+
+    return {frame1, frame2, frameExtra, frameGlow};
+}
+
+void Odyssey::updateIcon(CCNode* player, int iconID, IconType type, bool isPlayerObject)
+{
+    if (!isCustomIcon(iconID, type)) return;
+
+    auto frameCache = CCSpriteFrameCache::get();
+
+    auto frames = getPlayerFrames(iconID, type);
+    auto frame1Texture = frames[0];
+    auto frame2Texture = frames[1];
+    auto extraTexture = frames[2];
+    auto glowTexture = frames[3];
+
+    CCSprite* firstLayer;
+    CCSprite* secondLayer;
+    CCSprite* extraLayer;
+    CCSprite* glowLayer;
+
+    if (isPlayerObject)
+    {
+        auto obj = static_cast<PlayerObject*>(player);
+
+        firstLayer = obj->m_iconSprite;
+        secondLayer = obj->m_iconSpriteSecondary;
+        extraLayer = obj->m_iconSpriteWhitener;
+        glowLayer =  obj->m_iconGlow;
+
+        if (type == IconType::Ship)
+        {
+            firstLayer = obj->m_vehicleSprite;
+            secondLayer = obj->m_vehicleSpriteSecondary;
+            extraLayer = obj->m_vehicleSpriteWhitener;
+            glowLayer = obj->m_vehicleGlow;
+        }
+    }
+    else
+    {
+        auto obj = static_cast<SimplePlayer*>(player);
+        
+        firstLayer = obj->m_firstLayer;
+        secondLayer = obj->m_secondLayer;
+        extraLayer = obj->m_detailSprite;
+        glowLayer = obj->m_outlineSprite;
+
+
+    }
+
+    if (auto frame1 = frameCache->spriteFrameByName(frame1Texture.c_str()))
+    {
+        firstLayer->setDisplayFrame(frame1);
+    }
+
+    if (auto frame2 = frameCache->spriteFrameByName(frame2Texture.c_str()))
+    {
+        secondLayer->setDisplayFrame(frame2);
+        secondLayer->setPosition(firstLayer->getContentSize() / 2);
+    }
+
+    if (auto extraFrame = frameCache->spriteFrameByName(extraTexture.c_str()))
+    {
+        extraLayer->setVisible(true);
+        extraLayer->setDisplayFrame(extraFrame);
+        extraLayer->setPosition(firstLayer->getContentSize() / 2);
+    }
+
+    if (auto glowFrame = frameCache->spriteFrameByName(glowTexture.c_str()))
+    {
+        glowLayer->setDisplayFrame(glowFrame);
+        if (!isPlayerObject) glowLayer->setPosition(firstLayer->getContentSize() / 2);
+    }
+}
+
+void Odyssey::addCreditsToIcon(std::pair<int, UnlockType> pair, int accountID)
+{
+    GameStatsManager::sharedState()->m_accountIDForIcon.emplace(pair, accountID);
+}
+
+std::vector<std::string> Odyssey::keysForAchievementDict(CCDictionary *dict)
+    {
+        auto identifierString = (CCString *)dict->objectForKey("identifier");
+        auto titleString = (CCString *)dict->objectForKey("title");
+        auto descString = (CCString *)dict->objectForKey("achievedDescription");
+        auto undescString = (CCString *)dict->objectForKey("unachievedDescription");
+        auto iconString = (CCString *)dict->objectForKey("icon");
+
+        return {identifierString->getCString(), titleString->getCString(), descString->getCString(), undescString->getCString(), iconString->getCString()};
+    }
+
+void Odyssey::logObjectsFromDictionary(CCDictionary *dict, bool values)
+{
+        {
+        auto keys = dict->allKeys();
+
+        for (int i = 0; i < keys->count(); ++i)
+        {
+            CCString *key = (CCString *)keys->objectAtIndex(i);
+            CCString *value = (CCString *)dict->objectForKey(key->getCString());
+
+            if (values)
+                log::info("Key: {} Value: {} \n", key->getCString(), value->getCString());
+            else
+                log::info("Key: {} \n", key->getCString());
+        };
+    }
+}
+
+void Odyssey::logDictionariesFromArray(CCArray *arr, bool values)
+    {
+        for (int i = 0; i < arr->count(); i++)
+        {
+            auto dict = static_cast<CCDictionary*>(arr->objectAtIndex(i));
+            auto keys = dict->allKeys();
+            CCString *key = static_cast<CCString*>(keys->objectAtIndex(0));
+            CCString *value = static_cast<CCString*>(dict->objectForKey(key->getCString()));
+            if (values)
+                log::info("Key: {} Value: {} \n", key->getCString(), value->getCString());
+            else
+                log::info("Key: {} \n", key->getCString());
+        };
+    }
