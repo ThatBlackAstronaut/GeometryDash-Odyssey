@@ -540,7 +540,8 @@ void Odyssey::updateIcon(CCNode* player, int iconID, IconType type, bool isPlaye
 
 void Odyssey::addCreditsToIcon(std::pair<int, UnlockType> pair, int accountID)
 {
-    GameStatsManager::sharedState()->m_accountIDForIcon.emplace(pair, accountID);
+    //  GameStatsManager::sharedState()->m_accountIDForIcon.emplace(pair, accountID);
+    GameStatsManager::sharedState()->m_accountIDForIcon.insert(std::make_pair(pair, accountID));
 }
 
 std::vector<std::string> Odyssey::keysForAchievementDict(CCDictionary *dict)
