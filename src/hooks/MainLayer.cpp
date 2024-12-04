@@ -2,6 +2,7 @@
 #include <Geode/modify/MenuLayer.hpp>
 #include "../layers/OdysseySelectLayer.hpp"
 #include "../layers/OdysseyDevLayer.hpp"
+#include "../layers/FanmadeGamesLayer.hpp"
 #include "../utils/Utils.hpp"
 
 using namespace geode::prelude;

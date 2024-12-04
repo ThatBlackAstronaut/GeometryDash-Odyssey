@@ -78,11 +78,10 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
     {
         auto gs = GameStatsManager::sharedState();
 
-        gs->m_usernameForAccountID.emplace(14178231, "Danky99");
-        gs->m_usernameForAccountID.emplace(18718615, "AngelozDD");
-        gs->m_usernameForAccountID.emplace(13284787, "MinoX28");
-        gs->m_usernameForAccountID.emplace(21113321, "cyanflower");
-
+        gs->m_usernameForAccountID.insert(std::make_pair(14178231, "Danky99"));
+        gs->m_usernameForAccountID.insert(std::make_pair(18718615, "AngelozDD"));
+        gs->m_usernameForAccountID.insert(std::make_pair(13284787, "MinoX28"));
+        gs->m_usernameForAccountID.insert(std::make_pair(21113321, "cyanflower"));
        
         for (int i = 486; i < 502; i++)
         {
