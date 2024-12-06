@@ -91,14 +91,14 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
 
         log::debug("Loading comic assets...");
 
-        #ifdef GEODE_IS_WINDOWS
+#ifdef GEODE_IS_WINDOWS
         zipPath = geode::Mod::get()->getResourcesDir().string() + "\\" + "ComicAssets.zip";
         unzipDir = geode::Mod::get()->getResourcesDir().string() + "\\" + "ComicAssets";
-        #endif
-        #ifdef GEODE_IS_ANDROID
+#endif
+#ifdef GEODE_IS_ANDROID
         zipPath = geode::Mod::get()->getResourcesDir().string() + "/" + "ComicAssets.zip";
         unzipDir = geode::Mod::get()->getResourcesDir().string() + "/" + "ComicAssets";
-        #endif
+#endif
 
         auto result = geode::utils::file::Unzip::intoDir(zipPath, unzipDir);
 
@@ -110,22 +110,29 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         auto *spriteFrameCache = CCSpriteFrameCache::sharedSpriteFrameCache();
 
         //  Proceso para meter todas las paginas
-        for (auto ii = 1; ii <= 6; ii++)
+        for (auto ii = 0; ii < 6; ii++)
         {
-            std::vector<int> pages = {9, 5, 4, 4, 9, 6};
-            
+            auto max = (ii == 0)   ? 9
+                       : (ii == 1) ? 5
+                       : (ii == 2) ? 4
+                       : (ii == 3) ? 4
+                       : (ii == 4) ? 9
+                                   : 6;
+
             //  Agrega todas las paginas del comic al cache
-            for (auto jj = 1; jj <= pages[ii]; jj++)
+            for (auto jj = 0; jj < max; jj++)
             {
                 log::debug("    Loading Comic: {} - Page: {}", ii, jj);
 
-                auto pageENG = fmt::format("Comic_ENG_0{}_0{:02}.png"_spr, ii, jj);
-                auto pageSPA = fmt::format("Comic_SPA_0{}_0{:02}.png"_spr, ii, jj);
+                auto pageENG = fmt::format("Comic_ENG_0{}_0{:02}.png"_spr, ii + 1, jj + 1);
+                auto pageSPA = fmt::format("Comic_SPA_0{}_0{:02}.png"_spr, ii + 1, jj + 1);
 
                 textureCache->addImage(pageENG.c_str(), false);
                 textureCache->addImage(pageSPA.c_str(), false);
             }
         }
+
+        textureCache->addImage("Comic_Error.png"_spr, false);
 
         log::debug("Comic files succesfully loaded");
     }

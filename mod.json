@@ -151,6 +151,16 @@
 			"type": "bool",
 			"name": "Seen 6th Comic",
 			"default": false
+		},
+		"dev-mode": {
+			"type": "title",
+			"name": "Development Options"
+		},
+		"show-more-games":{
+			"type": "bool",
+			"name": "Show Fanmades",
+			"description": "Disable this if you want to have access to the Online Menu. (This will be removed on the official release)",
+			"default": true
 		}
 	},
 	"resources": {

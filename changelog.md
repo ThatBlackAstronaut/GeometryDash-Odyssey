@@ -1,2 +1,5 @@
-# 1.0.0
-- Edit this file to change your mod's changelog.
+# Changelog
+
+### <cg>v1.0.0-alpha.10 (Latest)</c>
+
+* <cp>First alpha registered.</c>
