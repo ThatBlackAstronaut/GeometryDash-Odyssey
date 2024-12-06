@@ -53,6 +53,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
             log::info("Unlock: {}, ID: {}", GameStatsManager::sharedState()->getItemUnlockState(i + 1, UnlockType::Cube), i + 1);
         }*/
         
+        addChild(CCSprite::createWithSpriteFrameName("boat_01_001.png"_spr));
         return true;
     }
 
@@ -78,7 +79,12 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
     void onMoreGames(CCObject*)
     {
-        auto credits = FLAlertLayer::create("Si", "Si", "ok");
-        credits->show();
+        //auto credits = FLAlertLayer::create("Si", "Si", "ok");
+        //credits->show();
+
+        auto shop = GJShopLayer::scene(static_cast<ShopType>(6));
+
+        
+        CCDirector::sharedDirector()->replaceScene(CCTransitionMoveInT::create(.63f, shop));
     }
 };

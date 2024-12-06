@@ -429,9 +429,13 @@ bool Odyssey::isCustomIcon(int id, IconType type)
         return true;
     if (id > 118 && type == IconType::Ball)
         return true;
+    if (id > 149 && type == IconType::Ufo)
+        return true;
     if (id > 96 && type == IconType::Wave)
         return true;
     if (id > 43 && type == IconType::Swing)
+        return true;
+    if (id > 8 && type == IconType::Jetpack)
         return true;
      if (static_cast<int>(type) >= 900)
         return true;
@@ -450,11 +454,23 @@ std::vector<std::string> Odyssey::getPlayerFrames(int iconID, IconType type)
     case IconType::Ball: 
         iconName = "player_ball"; 
         break;
+    case IconType::Ufo:
+        iconName = "bird";
+        break;
     case IconType::Wave:
         iconName = "dart";
         break;
+    case IconType::Robot:
+        iconName = "robot";
+        break;
+    case IconType::Spider:
+        iconName = "spider";
+        break;
     case IconType::Swing:
         iconName = "swing";
+        break;
+    case IconType::Jetpack:
+        iconName = "jetpack";
         break;
     default:
         iconName = "player";
@@ -492,9 +508,8 @@ std::vector<std::string> Odyssey::getPlayerFrames(int iconID, IconType type)
 void Odyssey::updateIcon(CCNode* player, int iconID, IconType type, bool isPlayerObject)
 {
     
-
-
     if (!isCustomIcon(iconID, type)) return;
+        
 
     auto frameCache = CCSpriteFrameCache::get();
 
@@ -508,6 +523,8 @@ void Odyssey::updateIcon(CCNode* player, int iconID, IconType type, bool isPlaye
     CCSprite* secondLayer;
     CCSprite* extraLayer;
     CCSprite* glowLayer;
+    GJRobotSprite* robotSprite;
+    CCSprite* ufoDome;
 
     if (isPlayerObject)
     {
@@ -517,14 +534,17 @@ void Odyssey::updateIcon(CCNode* player, int iconID, IconType type, bool isPlaye
         secondLayer = obj->m_iconSpriteSecondary;
         extraLayer = obj->m_iconSpriteWhitener;
         glowLayer =  obj->m_iconGlow;
+        robotSprite = obj->m_robotSprite;
 
-        if (type == IconType::Ship)
+        if (type == IconType::Ship || type == IconType::Jetpack)
         {
             firstLayer = obj->m_vehicleSprite;
             secondLayer = obj->m_vehicleSpriteSecondary;
             extraLayer = obj->m_vehicleSpriteWhitener;
             glowLayer = obj->m_vehicleGlow;
         }
+
+        if (type == IconType::Ufo) ufoDome = obj->m_birdVehicle;
     }
     else
     {
@@ -534,8 +554,16 @@ void Odyssey::updateIcon(CCNode* player, int iconID, IconType type, bool isPlaye
         secondLayer = obj->m_secondLayer;
         extraLayer = obj->m_detailSprite;
         glowLayer = obj->m_outlineSprite;
+        robotSprite = obj->m_robotSprite;
 
+        if (type == IconType::Ufo) ufoDome = obj->m_birdDome;
 
+    }
+
+    if (type == IconType::Robot || type == IconType::Spider)
+    {
+        updateRobotSprite(robotSprite, iconID, type);
+        return;
     }
 
     if (auto frame1 = frameCache->spriteFrameByName(frame1Texture.c_str()))
@@ -555,11 +583,87 @@ void Odyssey::updateIcon(CCNode* player, int iconID, IconType type, bool isPlaye
         extraLayer->setDisplayFrame(extraFrame);
         extraLayer->setPosition(firstLayer->getContentSize() / 2);
     }
+    else extraLayer->setVisible(false);
 
     if (auto glowFrame = frameCache->spriteFrameByName(glowTexture.c_str()))
     {
         glowLayer->setDisplayFrame(glowFrame);
         if (!isPlayerObject) glowLayer->setPosition(firstLayer->getContentSize() / 2);
+    }
+}
+
+void Odyssey::updateRobotSprite(GJRobotSprite* sprite, int iconID, IconType type)
+{
+    if (!sprite) return;
+    
+    sprite->setBatchNode(nullptr);
+    sprite->m_paSprite->setBatchNode(nullptr);
+
+    auto spriteParts = sprite->m_paSprite->m_spriteParts;
+
+    auto frameCache = CCSpriteFrameCache::get();
+
+    const char* iconName = "robot";
+    if (type == IconType::Spider) iconName = "spider";
+
+    for (int i = 0; i < spriteParts->count(); i++)
+    {
+        auto spritePart = static_cast<CCSpritePart*>(spriteParts->objectAtIndex(i));
+        auto tag = spritePart->getTag();
+
+        std::string frame1Texture = fmt::format("{}_{:02}_{:02}_001.png"_spr, iconName, iconID, tag);
+        std::string frame2Texture = fmt::format("{}_{:02}_{:02}_2_001.png"_spr, iconName, iconID, tag);
+        std::string extraTexture = fmt::format("{}_{:02}_{:02}_extra_001.png"_spr, iconName, iconID, tag);
+        std::string glowTexture = fmt::format("{}_{:02}_{:02}_glow_001.png"_spr, iconName, iconID, tag);
+
+        
+        if (auto frame1 = frameCache->spriteFrameByName(frame1Texture.c_str()))
+        {
+            spritePart->setBatchNode(nullptr);
+            spritePart->setDisplayFrame(frame1);
+        }
+
+
+        if (auto secondSprite = static_cast<CCSprite*>(sprite->m_secondArray->objectAtIndex(i))) 
+        {
+            if (auto frame2 = frameCache->spriteFrameByName(frame2Texture.c_str()))
+            {
+                secondSprite->setBatchNode(nullptr);
+                secondSprite->setDisplayFrame(frame2);
+                secondSprite->setPosition(spritePart->getContentSize() / 2);
+            }
+
+        }
+
+        if (auto glowChild = static_cast<CCSprite*>(sprite->m_glowSprite->getChildren()->objectAtIndex(i))) 
+        {
+            if (auto frameGlow = frameCache->spriteFrameByName(glowTexture.c_str()))
+            {
+                glowChild->setBatchNode(nullptr);
+                glowChild->setDisplayFrame(frameGlow);
+            }
+        }
+
+        if (spritePart == sprite->m_headSprite)
+        {
+            if (auto frameExtra = frameCache->spriteFrameByName(extraTexture.c_str()))
+            {
+                if (sprite->m_extraSprite)
+                {
+                    sprite->m_extraSprite->setBatchNode(nullptr);
+                    sprite->m_extraSprite->setDisplayFrame(frameExtra);
+                }
+                else 
+                {
+                    sprite->m_extraSprite = CCSprite::createWithSpriteFrame(frameExtra);
+                    sprite->m_headSprite->addChild(sprite->m_extraSprite, 2);
+                }
+
+                sprite->m_extraSprite->setPosition(spritePart->getContentSize() / 2);
+                sprite->m_extraSprite->setVisible(true);
+            }
+        }
+        
     }
 }
 

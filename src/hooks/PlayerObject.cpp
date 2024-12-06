@@ -6,12 +6,20 @@ using namespace geode::prelude;
 
 class $modify(OdysseyPlayerObject, PlayerObject)
 {
+    struct Fields {
+        int cubeID = 1;
+        int shipID = 1;
+    };
     bool init(int p0, int p1, GJBaseGameLayer* p2, cocos2d::CCLayer* p3, bool p4)
     {
         if (!PlayerObject::init(p0, p1, p2, p3, p4)) return false;
 
+        //log::info("{} {}\n", p0, p1);
+
+        m_fields->cubeID = p0;
+
         Odyssey::updateIcon(this, p0, IconType::Cube, true);
-        Odyssey::updateIcon(this, GameManager::sharedState()->m_playerShip.value(), IconType::Ship, true);
+        //Odyssey::updateIcon(this, GameManager::sharedState()->m_playerShip.value(), IconType::Ship, true);
     
         return true;
     }
@@ -19,7 +27,7 @@ class $modify(OdysseyPlayerObject, PlayerObject)
     {
         PlayerObject::updatePlayerFrame(id);
 
-        Odyssey::updateIcon(this, GameManager::sharedState()->m_playerFrame.value(), IconType::Cube, true);
+        Odyssey::updateIcon(this, m_fields->cubeID, IconType::Cube, true);
     }
 
     void updatePlayerRollFrame(int id)
@@ -40,7 +48,8 @@ class $modify(OdysseyPlayerObject, PlayerObject)
     {
         PlayerObject::updatePlayerShipFrame(id);
 
-        Odyssey::updateIcon(this, GameManager::sharedState()->m_playerFrame.value(), IconType::Cube, true);
+        Odyssey::updateIcon(this, m_fields->cubeID, IconType::Cube, true);
+        m_fields->shipID = id;
         Odyssey::updateIcon(this, id, IconType::Ship, true);
     }
 
@@ -55,8 +64,18 @@ class $modify(OdysseyPlayerObject, PlayerObject)
     {
         PlayerObject::resetPlayerIcon();
 
-        Odyssey::updateIcon(this, GameManager::sharedState()->m_playerFrame.value(), IconType::Cube, true);
-        Odyssey::updateIcon(this, GameManager::sharedState()->m_playerShip.value(), IconType::Ship, true);
+        Odyssey::updateIcon(this, m_fields->cubeID, IconType::Cube, true);
+        Odyssey::updateIcon(this, m_fields->shipID, IconType::Ship, true);
 
     }
+
+    void updatePlayerJetpackFrame(int id)
+    {
+        PlayerObject::updatePlayerJetpackFrame(id);
+        
+        Odyssey::updateIcon(this, id, IconType::Jetpack, true);
+        Odyssey::updateIcon(this, m_fields->cubeID, IconType::Cube, true);
+    }
+
+
 };

@@ -10,15 +10,19 @@ class $modify(OdysseyGameManager, GameManager)
     int countForType(IconType icon)
     {
         if (icon == IconType::Cube)
-            return 501;
+            return 515;
         if (icon == IconType::Ship)
-            return 170;
+            return 175;
         if (icon == IconType::Ball)
-            return 119;
+            return 124;
+        if (icon == IconType::Ufo)
+            return 153;
         if (icon == IconType::Wave)
-            return 97;
+            return 100;
         if (icon == IconType::Swing)
-            return 44;
+            return 46;
+        if (icon == IconType::Jetpack)
+            return 9;
 
         return GameManager::countForType(icon);
     }
@@ -46,6 +50,26 @@ class $modify(OdysseyGameManager, GameManager)
         }
 
         GameManager::returnToLastScene(level);
+    }
+
+    void reportPercentageForLevel(int levelID, int percent, bool isPractice)
+    {
+        GameManager::reportPercentageForLevel(levelID, percent, isPractice);
+        if(levelID == 201){
+            if(isPractice){
+                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level201a", percent, false);
+            } else {
+                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level201b", percent, false);
+            }
+        };
+
+        if(levelID == 202){
+            if(isPractice){
+                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level202a", percent, false);
+            } else {
+                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level202b", percent, false);
+            }
+        };
     }
 
 };

@@ -7,6 +7,7 @@
 #include <Geode/modify/EditorPauseLayer.hpp>
 #include <Geode/modify/LocalLevelManager.hpp>
 #include <Geode/modify/MusicDownloadManager.hpp>
+#include <Geode/modify/SongsLayer.hpp>
 
 using namespace geode::prelude;
 
@@ -196,5 +197,26 @@ class $modify(GDOMusicDownloadManager, MusicDownloadManager)
 			path = "/"_spr;
 
 		return path;
+	}
+};
+
+
+class $modify(SongsLayer) {
+	void customSetup() {
+		CCArray* songObjectArray = CCArray::create();
+		songObjectArray->addObject(SongObject::create(101));
+		songObjectArray->addObject(SongObject::create(102));
+		songObjectArray->addObject(SongObject::create(103));
+		songObjectArray->addObject(SongObject::create(104));
+		songObjectArray->addObject(SongObject::create(105));
+		songObjectArray->addObject(SongObject::create(106));
+		songObjectArray->addObject(SongObject::create(107));
+		songObjectArray->addObject(SongObject::create(108));
+		songObjectArray->addObject(SongObject::create(201));
+		songObjectArray->addObject(SongObject::create(202));
+		songObjectArray->addObject(SongObject::create(-1));
+
+		m_listLayer->m_listView = CustomListView::create(songObjectArray, nullptr, 220.0, 356.0, 0, BoomListType::Song, 0.0);
+		m_listLayer->addChild(m_listLayer->m_listView);
 	}
 };

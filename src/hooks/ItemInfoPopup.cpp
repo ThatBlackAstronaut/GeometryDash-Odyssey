@@ -13,11 +13,10 @@ class $modify(GDOItemInfoPopup, ItemInfoPopup)
         
         int type = static_cast<int>(p1);
         
-        if (type >= 900 )
+        if (type >= 900)
         {
             auto player = SimplePlayer::create(0);
 
-            log::info("{}\n", type);
             player->updatePlayerFrame(1, static_cast<IconType>(type));
             player->setColor(GameManager::sharedState()->colorForIdx(17));
 
@@ -37,8 +36,7 @@ class $modify(GDOItemInfoPopup, ItemInfoPopup)
             if ((p1 == UnlockType::Cube && p0 <= 4) || p0 == 1 || ((p1 == UnlockType::Col1 || p1 == UnlockType::Col2) && p0 <= 3))
                 descriptionString = fmt::format("This <cg>{}</c> is <cl>unlocked</c> by default.", iconName);
 
-            if (Odyssey::isCustomIcon(p0, GameManager::sharedState()->unlockTypeToIconType(static_cast<int>(p1))) &&
-                GameStatsManager::sharedState()->getItemUnlockState(p0, p1) == 5)
+            if (Odyssey::isCustomIcon(p0, GameManager::sharedState()->unlockTypeToIconType(static_cast<int>(p1))) && GameStatsManager::sharedState()->getItemUnlockState(p0, p1) == 5)
             {
                 descriptionString = fmt::format("You can <cl>buy</c> this <cg>{}</c> in the <cd>Carp's shop</c>!", iconName);
                 titleString = "Carp's Shop";

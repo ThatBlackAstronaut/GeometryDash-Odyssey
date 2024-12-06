@@ -32,4 +32,28 @@ class $modify(OdysseyGameStatsManager, GameStatsManager)
             
         return 5;
     }
+
+    void createStoreItems()
+    {
+        auto newShop = static_cast<ShopType>(6);
+        if (!m_allStoreItems)
+        {
+            m_allStoreItems = CCDictionary::create();
+            m_allStoreItems->retain();
+            m_storeItems = CCDictionary::create();
+            m_storeItems->retain();
+            m_storeItemArray = CCArray::create();
+            m_storeItemArray->retain();
+
+            addStoreItem(1, 495, 1, 1, newShop);
+            addStoreItem(2, 496, 1, 1, newShop);
+            addStoreItem(5, 497, 1, 1, newShop);
+            addStoreItem(4, 498, 1, 1, newShop);
+            addStoreItem(6, 45, 13, 1, newShop);
+            addStoreItem(7, 499, 1, 1, newShop);
+            addStoreItem(8, 500, 1, 1, newShop);
+            addStoreItem(9, 501, 1, 1, newShop);
+        }
+        
+    }
 };

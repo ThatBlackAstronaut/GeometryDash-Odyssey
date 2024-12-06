@@ -16,7 +16,9 @@ namespace Odyssey {
     int currentVehicleID();
     bool isCustomIcon(int, IconType);
     std::vector<std::string> getPlayerFrames(int, IconType);
+
     void updateIcon(CCNode*, int, IconType, bool);
+    void updateRobotSprite(GJRobotSprite*, int, IconType);
 
     void addCreditsToIcon(std::pair<int, UnlockType>, int);
 
