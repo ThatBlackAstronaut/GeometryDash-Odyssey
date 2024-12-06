@@ -109,6 +109,7 @@ DialogLayer *Odyssey::createDialog(const char *event)
     //  SOLAMENTE REEMPLAZA ESTA LINEA CUANDO YA TENGAMOS EL SETTING MEJORADO
     auto spanishText = Mod::get()->getSettingValue<bool>("spanish-language");
 
+    auto dialogColor = 2;
     if (event == "shopIntroduction")
     {
         if (!spanishText)
@@ -260,8 +261,32 @@ DialogLayer *Odyssey::createDialog(const char *event)
             arr->addObject(dialog_04);
         }
     }
+    if (event == "hollowMeeting")
+    {
+        dialogColor = 5;
 
-    auto dialogLayer = DialogLayer::createDialogLayer(nullptr, arr, 2);
+        auto dialog_01 = DialogObject::create("????", "<d020>.<d020>.<d020>.", 28, 1, false, {255, 255, 255});
+        auto dialog_02 = DialogObject::create("????", "Who are you?<d020>.<d020>.<d020>.", 28, 1, false, {255, 255, 255});
+        auto dialog_03 = DialogObject::create("????", "I see<d020>.<d020>.<d020>. <d020>you're a new person<d020>.<d020>.<d020>.", 28, 1, false, {255, 255, 255});
+        auto dialog_04 = DialogObject::create("????", "Interesting<d020>.<d020>.<d020>.", 28, 1, false, {255, 255, 255});
+        auto dialog_05 = DialogObject::create("????", "But I don't see anything worthy of you<d020>.<d020>.<d020>.", 28, 1, false, {255, 255, 255});
+        auto dialog_06 = DialogObject::create("????", "I require something<d020>.<d020>.<d020>.", 28, 1, false, {255, 255, 255});
+        auto dialog_07 = DialogObject::create("????", "Something <cy>shiny</c><d020>.<d020>.<d020>.", 28, 1, false, {255, 255, 255});
+        auto dialog_08 = DialogObject::create("????", "Bring me some of those <cy>secret golds</c><d010>.<d010>.<d010>. <d020>And I might welcome you...", 28, 1, false, {255, 255, 255});
+        auto dialog_09 = DialogObject::create("????", "Now <cr>go</c>.", 28, 1, false, {255, 255, 255});
+
+        arr->addObject(dialog_01);
+        arr->addObject(dialog_02);
+        arr->addObject(dialog_03);
+        arr->addObject(dialog_04);
+        arr->addObject(dialog_05);
+        arr->addObject(dialog_06);
+        arr->addObject(dialog_07);
+        arr->addObject(dialog_08);
+        arr->addObject(dialog_09);
+    }
+
+    auto dialogLayer = DialogLayer::createDialogLayer(nullptr, arr, dialogColor);
     dialogLayer->animateInRandomSide();
     dialogLayer->setZOrder(2);
 
@@ -433,11 +458,15 @@ bool Odyssey::isCustomIcon(int id, IconType type)
         return true;
     if (id > 96 && type == IconType::Wave)
         return true;
+    if (id > 68 && type == IconType::Robot)
+        return true;
+    if (id > 69 && type == IconType::Spider)
+        return true;
     if (id > 43 && type == IconType::Swing)
         return true;
     if (id > 8 && type == IconType::Jetpack)
         return true;
-     if (static_cast<int>(type) >= 900)
+    if (static_cast<int>(type) >= 900)
         return true;
 
     return false;
@@ -451,8 +480,8 @@ std::vector<std::string> Odyssey::getPlayerFrames(int iconID, IconType type)
     case IconType::Ship:
         iconName = "ship";
         break;
-    case IconType::Ball: 
-        iconName = "player_ball"; 
+    case IconType::Ball:
+        iconName = "player_ball";
         break;
     case IconType::Ufo:
         iconName = "bird";
@@ -482,20 +511,21 @@ std::vector<std::string> Odyssey::getPlayerFrames(int iconID, IconType type)
     switch (typeNumber)
     {
     case 900:
-        iconName = "boat";    
+        iconName = "boat";
         break;
     case 901:
-        iconName = "drone";    
+        iconName = "drone";
         break;
     case 902:
-        iconName = "slider";    
+        iconName = "slider";
         break;
     case 903:
-        iconName = "minecart";    
+        iconName = "minecart";
         break;
     }
 
-    if (typeNumber >= 900) iconID = 1;
+    if (typeNumber >= 900)
+        iconID = 1;
 
     std::string frame1 = fmt::format("{}_{:02}_001.png"_spr, iconName, iconID);
     std::string frame2 = fmt::format("{}_{:02}_2_001.png"_spr, iconName, iconID);
@@ -505,11 +535,10 @@ std::vector<std::string> Odyssey::getPlayerFrames(int iconID, IconType type)
     return {frame1, frame2, frameExtra, frameGlow};
 }
 
-void Odyssey::updateIcon(CCNode* player, int iconID, IconType type, bool isPlayerObject)
+void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlayerObject)
 {
-    
-    if (!isCustomIcon(iconID, type)) return;
-        
+    if (!isCustomIcon(iconID, type))
+        return;
 
     auto frameCache = CCSpriteFrameCache::get();
 
@@ -519,21 +548,21 @@ void Odyssey::updateIcon(CCNode* player, int iconID, IconType type, bool isPlaye
     auto extraTexture = frames[2];
     auto glowTexture = frames[3];
 
-    CCSprite* firstLayer;
-    CCSprite* secondLayer;
-    CCSprite* extraLayer;
-    CCSprite* glowLayer;
-    GJRobotSprite* robotSprite;
-    CCSprite* ufoDome;
+    CCSprite *firstLayer;
+    CCSprite *secondLayer;
+    CCSprite *extraLayer;
+    CCSprite *glowLayer;
+    GJRobotSprite *robotSprite;
+    CCSprite *ufoDome;
 
     if (isPlayerObject)
     {
-        auto obj = static_cast<PlayerObject*>(player);
+        auto obj = static_cast<PlayerObject *>(player);
 
         firstLayer = obj->m_iconSprite;
         secondLayer = obj->m_iconSpriteSecondary;
         extraLayer = obj->m_iconSpriteWhitener;
-        glowLayer =  obj->m_iconGlow;
+        glowLayer = obj->m_iconGlow;
         robotSprite = obj->m_robotSprite;
 
         if (type == IconType::Ship || type == IconType::Jetpack)
@@ -544,20 +573,21 @@ void Odyssey::updateIcon(CCNode* player, int iconID, IconType type, bool isPlaye
             glowLayer = obj->m_vehicleGlow;
         }
 
-        if (type == IconType::Ufo) ufoDome = obj->m_birdVehicle;
+        if (type == IconType::Ufo)
+            ufoDome = obj->m_birdVehicle;
     }
     else
     {
-        auto obj = static_cast<SimplePlayer*>(player);
-        
+        auto obj = static_cast<SimplePlayer *>(player);
+
         firstLayer = obj->m_firstLayer;
         secondLayer = obj->m_secondLayer;
         extraLayer = obj->m_detailSprite;
         glowLayer = obj->m_outlineSprite;
         robotSprite = obj->m_robotSprite;
 
-        if (type == IconType::Ufo) ufoDome = obj->m_birdDome;
-
+        if (type == IconType::Ufo)
+            ufoDome = obj->m_birdDome;
     }
 
     if (type == IconType::Robot || type == IconType::Spider)
@@ -583,19 +613,22 @@ void Odyssey::updateIcon(CCNode* player, int iconID, IconType type, bool isPlaye
         extraLayer->setDisplayFrame(extraFrame);
         extraLayer->setPosition(firstLayer->getContentSize() / 2);
     }
-    else extraLayer->setVisible(false);
+    else
+        extraLayer->setVisible(false);
 
     if (auto glowFrame = frameCache->spriteFrameByName(glowTexture.c_str()))
     {
         glowLayer->setDisplayFrame(glowFrame);
-        if (!isPlayerObject) glowLayer->setPosition(firstLayer->getContentSize() / 2);
+        if (!isPlayerObject)
+            glowLayer->setPosition(firstLayer->getContentSize() / 2);
     }
 }
 
-void Odyssey::updateRobotSprite(GJRobotSprite* sprite, int iconID, IconType type)
+void Odyssey::updateRobotSprite(GJRobotSprite *sprite, int iconID, IconType type)
 {
-    if (!sprite) return;
-    
+    if (!sprite)
+        return;
+
     sprite->setBatchNode(nullptr);
     sprite->m_paSprite->setBatchNode(nullptr);
 
@@ -603,12 +636,13 @@ void Odyssey::updateRobotSprite(GJRobotSprite* sprite, int iconID, IconType type
 
     auto frameCache = CCSpriteFrameCache::get();
 
-    const char* iconName = "robot";
-    if (type == IconType::Spider) iconName = "spider";
+    const char *iconName = "robot";
+    if (type == IconType::Spider)
+        iconName = "spider";
 
     for (int i = 0; i < spriteParts->count(); i++)
     {
-        auto spritePart = static_cast<CCSpritePart*>(spriteParts->objectAtIndex(i));
+        auto spritePart = static_cast<CCSpritePart *>(spriteParts->objectAtIndex(i));
         auto tag = spritePart->getTag();
 
         std::string frame1Texture = fmt::format("{}_{:02}_{:02}_001.png"_spr, iconName, iconID, tag);
@@ -616,15 +650,13 @@ void Odyssey::updateRobotSprite(GJRobotSprite* sprite, int iconID, IconType type
         std::string extraTexture = fmt::format("{}_{:02}_{:02}_extra_001.png"_spr, iconName, iconID, tag);
         std::string glowTexture = fmt::format("{}_{:02}_{:02}_glow_001.png"_spr, iconName, iconID, tag);
 
-        
         if (auto frame1 = frameCache->spriteFrameByName(frame1Texture.c_str()))
         {
             spritePart->setBatchNode(nullptr);
             spritePart->setDisplayFrame(frame1);
         }
 
-
-        if (auto secondSprite = static_cast<CCSprite*>(sprite->m_secondArray->objectAtIndex(i))) 
+        if (auto secondSprite = static_cast<CCSprite *>(sprite->m_secondArray->objectAtIndex(i)))
         {
             if (auto frame2 = frameCache->spriteFrameByName(frame2Texture.c_str()))
             {
@@ -632,10 +664,9 @@ void Odyssey::updateRobotSprite(GJRobotSprite* sprite, int iconID, IconType type
                 secondSprite->setDisplayFrame(frame2);
                 secondSprite->setPosition(spritePart->getContentSize() / 2);
             }
-
         }
 
-        if (auto glowChild = static_cast<CCSprite*>(sprite->m_glowSprite->getChildren()->objectAtIndex(i))) 
+        if (auto glowChild = static_cast<CCSprite *>(sprite->m_glowSprite->getChildren()->objectAtIndex(i)))
         {
             if (auto frameGlow = frameCache->spriteFrameByName(glowTexture.c_str()))
             {
@@ -653,7 +684,7 @@ void Odyssey::updateRobotSprite(GJRobotSprite* sprite, int iconID, IconType type
                     sprite->m_extraSprite->setBatchNode(nullptr);
                     sprite->m_extraSprite->setDisplayFrame(frameExtra);
                 }
-                else 
+                else
                 {
                     sprite->m_extraSprite = CCSprite::createWithSpriteFrame(frameExtra);
                     sprite->m_headSprite->addChild(sprite->m_extraSprite, 2);
@@ -663,7 +694,6 @@ void Odyssey::updateRobotSprite(GJRobotSprite* sprite, int iconID, IconType type
                 sprite->m_extraSprite->setVisible(true);
             }
         }
-        
     }
 }
 
@@ -674,9 +704,11 @@ void Odyssey::addCreditsToIcon(std::pair<int, UnlockType> pair, int accountID)
 
 int Odyssey::islandPageForLevelID(int levelID)
 {
-    if (levelID < 5) return 0;
+    if (levelID < 5)
+        return 0;
 
-    if (levelID > 200) return 2;
+    if (levelID > 200)
+        return 2;
 
     return 1;
-}
+};

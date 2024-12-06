@@ -24,39 +24,41 @@ class $modify(GDOGarageLayer, GJGarageLayer)
             paint->setPositionY(paint->getPositionY() + 25);
 
         if (auto shopButton = getChildByID("top-left-menu")->getChildByID("shop-button"))
-            shopButton->setVisible(false);
+            //  shopButton->setVisible(false);
 
-        if (auto categoryMenu = static_cast<CCMenu *>(getChildByID("category-menu")))
-        {
-            auto trailButton = categoryMenu->getChildByID("trail-button");
-            auto effectButton = categoryMenu->getChildByID("death-effect-button");
-            trailButton->removeFromParentAndCleanup(true);
-            effectButton->removeFromParentAndCleanup(true);
-
-            for (int ii = 0; ii < 4; ii++)
+            //  Agregar los botones de gamemodes nuevos al menu de categorias
+            if (auto categoryMenu = static_cast<CCMenu *>(getChildByID("category-menu")))
             {
-                const char* buttonName[4] = {"boat", "drone", "slider", "minecart"};
+                //  Quita temporalmente los botones de efecto y trail
+                auto trailButton = categoryMenu->getChildByID("trail-button");
+                auto effectButton = categoryMenu->getChildByID("death-effect-button");
+                effectButton->removeFromParentAndCleanup(true);
+                trailButton->removeFromParentAndCleanup(true);
 
-                auto sprOff = CCSprite::createWithSpriteFrameName(fmt::format("gdo_{}Btn_off_001.png"_spr, buttonName[ii]).c_str());
-                sprOff->setScale(.9f);
-                
-                auto sprOn = CCSprite::createWithSpriteFrameName(fmt::format("gdo_{}Btn_on_001.png"_spr, buttonName[ii]).c_str());
-                sprOn->setScale(.9f);
+                //  Agrega los botones de los gamemodes custom
+                for (int ii = 0; ii < 4; ii++)
+                {
+                    const char *buttonName[4] = {"boat", "drone", "slider", "minecart"};
+                    //  log::debug("gamemode: {}", buttonName[ii]);
 
-                auto toggler = CCMenuItemToggler::create(sprOff, sprOn, this, menu_selector(GJGarageLayer::onSelectTab));
+                    auto sprOff = CCSprite::createWithSpriteFrameName(fmt::format("gdo_{}Btn_off_001.png"_spr, buttonName[ii]).c_str());
+                    sprOff->setScale(.9f);
 
-                toggler->setTag(900 + ii);
-                toggler->setEnabled(true);
+                    auto sprOn = CCSprite::createWithSpriteFrameName(fmt::format("gdo_{}Btn_on_001.png"_spr, buttonName[ii]).c_str());
+                    sprOn->setScale(.9f);
 
-               categoryMenu->addChild(toggler);
+                    auto toggler = CCMenuItemToggler::create(sprOff, sprOn, this, menu_selector(GJGarageLayer::onSelectTab));
+                    toggler->setID(fmt::format("{}-button"_spr, buttonName[ii]));
+                    toggler->setTag(900 + ii);
+                    toggler->setEnabled(true);
+
+                    categoryMenu->addChild(toggler);
+                }
+
+                categoryMenu->addChild(trailButton);
+                categoryMenu->addChild(effectButton);
+                categoryMenu->updateLayout();
             }
-            
-            categoryMenu->addChild(trailButton);
-            categoryMenu->addChild(effectButton);
-
-            categoryMenu->updateLayout();
-        }
-    
         return true;
     }
 
@@ -69,7 +71,7 @@ class $modify(GDOGarageLayer, GJGarageLayer)
 
         if (arr)
         {
-            for (auto child : CCArrayExt<CCMenuItemToggler*>(arr))
+            for (auto child : CCArrayExt<CCMenuItemToggler *>(arr))
             {
                 child->toggle(false);
                 child->setEnabled(true);
@@ -99,7 +101,8 @@ class $modify(GDOGarageLayer, GJGarageLayer)
             itemIcon->setColor(GameManager::sharedState()->colorForIdx(17));
             itemIcon->setPosition(square->getContentSize() / 2);
 
-            if (tag == 900) itemIcon->setScale(.7f);
+            if (tag == 900)
+                itemIcon->setScale(.7f);
 
             square->addChild(itemIcon);
 
@@ -110,30 +113,26 @@ class $modify(GDOGarageLayer, GJGarageLayer)
 
             square->setScale(.8f);
 
-            
-
             auto button = CCMenuItemSpriteExtra::create(square, this, menu_selector(GDOGarageLayer::onCustomSelect));
             button->setTag(tag);
 
             itemArray->addObject(button);
 
             auto buttonBar = m_iconSelection;
-            
+
             auto extendedLayer = buttonBar->m_scrollLayer->m_extendedLayer;
             extendedLayer->removeAllChildrenWithCleanup(true);
 
             auto menu = CCMenu::create();
-            menu->setPosition({size.width / 2 - 160, size.height / 2 - 40 });
+            menu->setPosition({size.width / 2 - 160, size.height / 2 - 40});
 
             menu->addChild(button);
 
             extendedLayer->addChild(menu);
         }
-
-
     }
 
-    void onCustomSelect(CCObject* sender)
+    void onCustomSelect(CCObject *sender)
     {
         auto icon = static_cast<IconType>(sender->getTag());
         auto iconUnlock = static_cast<UnlockType>(sender->getTag());

@@ -35,6 +35,25 @@ class $modify(OdysseyMenuLayer, MenuLayer)
             creatorButton->setNormalImage(mgSprite);
         }
 
+        //  Boton para acceder a los comics mas facil
+        auto bottomMenu = static_cast<CCMenu *>(this->getChildByID("bottom-menu"));
+        auto seenComic = Mod::get()->getSettingValue<bool>("watched-comic-01");
+
+        if (seenComic)
+        {
+            auto geodeButton = bottomMenu->getChildByID("geode.loader/geode-button");
+            geodeButton->removeFromParentAndCleanup(true);
+
+            auto comicButton = CCMenuItemSpriteExtra::create(
+                CircleButtonSprite::createWithSpriteFrameName("GDO_comicBtn.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::MediumAlt),
+                this,
+                nullptr);
+
+            bottomMenu->addChild(comicButton);
+            bottomMenu->addChild(geodeButton);
+            bottomMenu->updateLayout();
+        }
+
         auto moreGamesMenu = static_cast<CCMenu *>(this->getChildByID("more-games-menu"));
         auto moreGamesButton = static_cast<CCMenuItemSpriteExtra *>(moreGamesMenu->getChildByID("more-games-button"));
         if (moreGamesButton)
@@ -52,24 +71,23 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         {
             log::info("Unlock: {}, ID: {}", GameStatsManager::sharedState()->getItemUnlockState(i + 1, UnlockType::Cube), i + 1);
         }*/
-        
-        addChild(CCSprite::createWithSpriteFrameName("boat_01_001.png"_spr));
+
         return true;
     }
 
-    void onPlay(CCObject*)
+    void onPlay(CCObject *)
     {
         auto levelscene = OdysseySelectLayer::scene(0);
         CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, levelscene));
     }
 
-    void onCreator(CCObject* sender)
+    void onCreator(CCObject *sender)
     {
         MenuLayer::onCreator(sender);
-       //https://cdn.discordapp.com/attachments/1196219414090088492/1312260912178004028/652ded519286d.png?ex=674bd9b6&is=674a8836&hm=97941665f4143f33aaf60ef1b09f325d6d99e96121bd7f8b4729c1250d17b43b&
+        // https://cdn.discordapp.com/attachments/1196219414090088492/1312260912178004028/652ded519286d.png?ex=674bd9b6&is=674a8836&hm=97941665f4143f33aaf60ef1b09f325d6d99e96121bd7f8b4729c1250d17b43b&
     }
 
-    void onRobTop(CCObject*)
+    void onRobTop(CCObject *)
     {
         auto scene = CCScene::create();
         scene->addChild(OdysseyDevLayer::create());
@@ -77,14 +95,13 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
     };
 
-    void onMoreGames(CCObject*)
+    void onMoreGames(CCObject *)
     {
-        //auto credits = FLAlertLayer::create("Si", "Si", "ok");
-        //credits->show();
+        // auto credits = FLAlertLayer::create("Si", "Si", "ok");
+        // credits->show();
 
         auto shop = GJShopLayer::scene(static_cast<ShopType>(6));
 
-        
         CCDirector::sharedDirector()->replaceScene(CCTransitionMoveInT::create(.63f, shop));
     }
 };
