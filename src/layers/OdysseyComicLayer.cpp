@@ -411,8 +411,8 @@ void OdysseyComicLayer::keyBackClicked()
         return;
     }
 
-    CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
     GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
+    CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
 };
 
 void OdysseyComicLayer::onBack(CCObject *)

@@ -17,14 +17,6 @@ enum class Artist
 
 class $modify(OdysseyLoadingLayer, LoadingLayer)
 {
-    void loadAssets(){
-        LoadingLayer::loadAssets();
-
-        OdysseyLoadingLayer::addOdysseyAudioAssets();
-        OdysseyLoadingLayer::addOdysseyComicAssets();
-        OdysseyLoadingLayer::addCustomIconCredits();
-    };
-
     bool init(bool reload)
     {
         if (!LoadingLayer::init(reload))
@@ -50,6 +42,10 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
             auto teamLogo = CCSprite::createWithSpriteFrameName("GDO_TeamLogo_001.png"_spr);
             robtopLogo->setDisplayFrame(teamLogo->displayFrame());
         };
+
+        OdysseyLoadingLayer::addCustomIconCredits();
+        OdysseyLoadingLayer::addOdysseyAudioAssets();
+        OdysseyLoadingLayer::addOdysseyComicAssets();
 
         //  La bandera de "Aceptar los ToS" del juego
         if (!GM->getUGV("30"))
@@ -93,12 +89,14 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         std::string zipPath;
         std::string unzipDir;
 
+        log::debug("Loading comic assets...");
+
         #ifdef GEODE_IS_WINDOWS
         zipPath = geode::Mod::get()->getResourcesDir().string() + "\\" + "ComicAssets.zip";
         unzipDir = geode::Mod::get()->getResourcesDir().string() + "\\" + "ComicAssets";
         #endif
         #ifdef GEODE_IS_ANDROID
-        zipFilePath = geode::Mod::get()->getResourcesDir().string() + "/" + "ComicAssets.zip";
+        zipPath = geode::Mod::get()->getResourcesDir().string() + "/" + "ComicAssets.zip";
         unzipDir = geode::Mod::get()->getResourcesDir().string() + "/" + "ComicAssets";
         #endif
 
@@ -119,6 +117,8 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
             //  Agrega todas las paginas del comic al cache
             for (auto jj = 1; jj <= pages[ii]; jj++)
             {
+                log::debug("    Loading Comic: {} - Page: {}", ii, jj);
+
                 auto pageENG = fmt::format("Comic_ENG_0{}_0{:02}.png"_spr, ii, jj);
                 auto pageSPA = fmt::format("Comic_SPA_0{}_0{:02}.png"_spr, ii, jj);
 
@@ -126,6 +126,8 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
                 textureCache->addImage(pageSPA.c_str(), false);
             }
         }
+
+        log::debug("Comic files succesfully loaded");
     }
 
     void

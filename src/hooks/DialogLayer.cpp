@@ -21,10 +21,11 @@ class $modify(OdysseyDialogLayer, DialogLayer)
             auto scene = CCScene::create();
             scene->addChild(layer);
 
-            CCDirector::sharedDirector()->replaceScene(cocos2d::CCTransitionFade::create(0.5, scene));
-
+            Mod::get()->setSettingValue<std::string>("island-01-progress", "Met Wizard");
             Mod::get()->setSettingValue("watched-comic-01", true);
             //  GM->setUGV("52", true);
+
+            CCDirector::sharedDirector()->replaceScene(cocos2d::CCTransitionFade::create(0.5, scene));
         };
 
         DialogLayer::onClose();

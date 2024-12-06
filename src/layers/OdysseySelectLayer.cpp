@@ -204,10 +204,9 @@ bool OdysseySelectLayer::init(int page)
     //  Se reemplazara esto con el Game Manager, pero lo tengo para Desarrollo
     //  auto GM = GameManager::sharedState();
     //  auto watchedComic01 = GM->getUGV("52");
-    auto meetWizard = Mod::get()->getSettingValue<bool>("meet-wizard");
-    log::debug("FIRST COMIC {}", meetWizard);
+    auto firstTime = (Mod::get()->getSettingValue<std::string>("island-01-progress") == "First Time");
 
-    if (!meetWizard)
+    if (firstTime)
     {
         this->runAction(CCSequence::create(
             CCDelayTime::create(0.5f),
@@ -221,8 +220,6 @@ bool OdysseySelectLayer::init(int page)
 void OdysseySelectLayer::getWizardDialog01()
 {
     auto dialog = Odyssey::createDialog("wizardIntroduction");
-    Mod::get()->setSettingValue("meet-wizard", true);
-    //  GM->setUGV("52", true);
     this->addChild(dialog, 3);
 };
 
