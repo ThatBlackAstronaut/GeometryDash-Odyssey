@@ -134,7 +134,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
 
     if (lower == "colon" && !AM->isAchievementEarned("geometry.ach.odyssey.secret06"))
     {
-        response = "Even the lord listens to his prayers...";
+        response = "Even the lord listens to his guidance...";
         GM->reportAchievementWithID("geometry.ach.odyssey.secret06", 100, false);
         updateMessage(response, MessageType::CorrectAnswer);
         return;
@@ -150,7 +150,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
 
     if (lower == "elemental" && !AM->isAchievementEarned("geometry.ach.odyssey.secret08"))
     {
-        response = "All of them together... What will happen?...";
+        response = "All of them together... what will happen?";
         GM->reportAchievementWithID("geometry.ach.odyssey.secret08", 100, false);
         updateMessage(response, MessageType::CorrectAnswer);
         return;
@@ -251,7 +251,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
 
     if (lower == "the hollow")
     {
-        response = "no...";
+        response = "No...";
         updateMessage(response, MessageType::WrongAnswer);
         return;
     };
@@ -419,7 +419,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
             "The killer of cosmos...",
             "The galactic eradicator...",
             "It's hunger never satisfied",
-            "For only one thing it trully desires",
+            "For only one thing it truthfully desires",
             "The phoenix from castle of jello is against him",
             "I've forgotten that foul shellfish's name",
             "I wish I knew what it was again...",
@@ -446,7 +446,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
             "Since anyone visited me",
             "This place has been empty for long",
             "Feels like a prison",
-            "Rubrub has forgotten us",
+            "RubRub has forgotten us",
             "But sometimes, an old man comes around",
             "Funny clothes, white beard...",
             "And he always carries this colorful stone",
@@ -500,7 +500,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
             "Sometimes I think about strange things",
             "There's a hidden level here...",
             "It makes me think about that stuff",
-            "It's name is uncertain...",
+            "Its name is, uncertain...",
         };
 
         if (index >= messages.size())
@@ -523,7 +523,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
             "Riddle me this, riddle me that...",
             "I am a fox with many tails",
             "Afraid of arachnids with sharp turns",
-            "They say I smell great",
+            "They say I smell great, they love me even",
             "You better be hiding your gold well",
             "Else I will be ashamed of its ease...",
             "Who am I?",
@@ -575,7 +575,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
             "Without this, our world would be gone",
             "It's influence spreads around it",
             "It's the key to everything",
-            "It even game it's name..."
+            "It even gave it's name..."
             "To this whole odyssey",
             "Whatever that means, really",
             "I'm just reciting from this book I have",
