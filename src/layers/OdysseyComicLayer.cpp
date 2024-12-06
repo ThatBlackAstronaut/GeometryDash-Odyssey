@@ -3,7 +3,7 @@
 #include "SecretVaultLayer.hpp"
 #include "../utils/Utils.hpp"
 
-bool OdysseyComicLayer::init(int issueNumber)
+bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
 {
     if (!CCLayer::init())
         return false;
@@ -11,6 +11,7 @@ bool OdysseyComicLayer::init(int issueNumber)
     m_background = CCSprite::create("GJ_gradientBG.png");
     m_winSize = CCDirector::sharedDirector()->getWinSize();
     m_comicNumber = issueNumber;
+    m_RedirectToMap = redirectToMap;
 
     auto size = m_background->getContentSize();
 
@@ -174,39 +175,39 @@ std::pair<const char *, const char *> OdysseyComicLayer::getPage(int issueNumber
         switch (page)
         {
         case 1:
-            return {"Comic_ENG_01_01_001.png"_spr, "Comic_SPA_01_01_001.png"_spr};
+            return {"Comic_ENG_01_01.png", "Comic_SPA_01_01.png"};
             break;
 
         case 2:
-            return {"Comic_ENG_01_02_001.png"_spr, "Comic_SPA_01_02_001.png"_spr};
+            return {"Comic_ENG_01_02.png", "Comic_SPA_01_02.png"};
             break;
 
         case 3:
-            return {"Comic_ENG_01_03_001.png"_spr, "Comic_SPA_01_03_001.png"_spr};
+            return {"Comic_ENG_01_03.png", "Comic_SPA_01_03.png"};
             break;
 
         case 4:
-            return {"Comic_ENG_01_04_001.png"_spr, "Comic_SPA_01_04_001.png"_spr};
+            return {"Comic_ENG_01_04.png", "Comic_SPA_01_04.png"};
             break;
 
         case 5:
-            return {"Comic_ENG_01_05_001.png"_spr, "Comic_SPA_01_05_001.png"_spr};
+            return {"Comic_ENG_01_05.png", "Comic_SPA_01_05.png"};
             break;
 
         case 6:
-            return {"Comic_ENG_01_06_001.png"_spr, "Comic_SPA_01_06_001.png"_spr};
+            return {"Comic_ENG_01_06.png", "Comic_SPA_01_06.png"};
             break;
 
         case 7:
-            return {"Comic_ENG_01_07_001.png"_spr, "Comic_SPA_01_07_001.png"_spr};
+            return {"Comic_ENG_01_07.png", "Comic_SPA_01_07.png"};
             break;
 
         case 8:
-            return {"Comic_ENG_01_08_001.png"_spr, "Comic_SPA_01_08_001.png"_spr};
+            return {"Comic_ENG_01_08.png", "Comic_SPA_01_08.png"};
             break;
 
         case 9:
-            return {"Comic_ENG_01_09_001.png"_spr, "Comic_SPA_01_09_001.png"_spr};
+            return {"Comic_ENG_01_09.png", "Comic_SPA_01_09.png"};
             break;
         }
     }
@@ -216,23 +217,23 @@ std::pair<const char *, const char *> OdysseyComicLayer::getPage(int issueNumber
         switch (page)
         {
         case 1:
-            return {"Comic_ENG_02_01_001.png"_spr, "Comic_SPA_02_01_001.png"_spr};
+            return {"Comic_ENG_02_01.png", "Comic_SPA_02_01.png"};
             break;
 
         case 2:
-            return {"Comic_ENG_02_02_001.png"_spr, "Comic_SPA_02_02_001.png"_spr};
+            return {"Comic_ENG_02_02.png", "Comic_SPA_02_02.png"};
             break;
 
         case 3:
-            return {"Comic_ENG_02_03_001.png"_spr, "Comic_SPA_02_03_001.png"_spr};
+            return {"Comic_ENG_02_03.png", "Comic_SPA_02_03.png"};
             break;
 
         case 4:
-            return {"Comic_ENG_02_04_001.png"_spr, "Comic_SPA_02_04_001.png"_spr};
+            return {"Comic_ENG_02_04.png", "Comic_SPA_02_04.png"};
             break;
 
         case 5:
-            return {"Comic_ENG_02_05_001.png"_spr, "Comic_SPA_02_05_001.png"_spr};
+            return {"Comic_ENG_02_05.png", "Comic_SPA_02_05.png"};
             break;
         }
     }
@@ -242,19 +243,19 @@ std::pair<const char *, const char *> OdysseyComicLayer::getPage(int issueNumber
         switch (page)
         {
         case 1:
-            return {"Comic_ENG_03_01_001.png"_spr, "Comic_SPA_03_01_001.png"_spr};
+            return {"Comic_ENG_03_01.png", "Comic_SPA_03_01.png"};
             break;
 
         case 2:
-            return {"Comic_ENG_03_02_001.png"_spr, "Comic_SPA_03_02_001.png"_spr};
+            return {"Comic_ENG_03_02.png", "Comic_SPA_03_02.png"};
             break;
 
         case 3:
-            return {"Comic_ENG_03_03_001.png"_spr, "Comic_SPA_03_03_001.png"_spr};
+            return {"Comic_ENG_03_03.png", "Comic_SPA_03_03.png"};
             break;
 
         case 4:
-            return {"Comic_ENG_03_04_001.png"_spr, "Comic_SPA_03_04_001.png"_spr};
+            return {"Comic_ENG_03_04.png", "Comic_SPA_03_04.png"};
             break;
         }
     }
@@ -264,19 +265,19 @@ std::pair<const char *, const char *> OdysseyComicLayer::getPage(int issueNumber
         switch (page)
         {
         case 1:
-            return {"Comic_ENG_04_01_001.png"_spr, "Comic_SPA_04_01_001.png"_spr};
+            return {"Comic_ENG_04_01.png", "Comic_SPA_04_01.png"};
             break;
 
         case 2:
-            return {"Comic_ENG_04_02_001.png"_spr, "Comic_SPA_04_02_001.png"_spr};
+            return {"Comic_ENG_04_02.png", "Comic_SPA_04_02.png"};
             break;
 
         case 3:
-            return {"Comic_ENG_04_03_001.png"_spr, "Comic_SPA_04_03_001.png"_spr};
+            return {"Comic_ENG_04_03.png", "Comic_SPA_04_03.png"};
             break;
 
         case 4:
-            return {"Comic_ENG_04_04_001.png"_spr, "Comic_SPA_04_04_001.png"_spr};
+            return {"Comic_ENG_04_04.png", "Comic_SPA_04_04.png"};
             break;
         }
     }
@@ -286,39 +287,39 @@ std::pair<const char *, const char *> OdysseyComicLayer::getPage(int issueNumber
         switch (page)
         {
         case 1:
-            return {"Comic_ENG_05_01_001.png"_spr, "Comic_SPA_05_01_001.png"_spr};
+            return {"Comic_ENG_05_01.png", "Comic_SPA_05_01.png"};
             break;
 
         case 2:
-            return {"Comic_ENG_05_02_001.png"_spr, "Comic_SPA_05_02_001.png"_spr};
+            return {"Comic_ENG_05_02.png", "Comic_SPA_05_02.png"};
             break;
 
         case 3:
-            return {"Comic_ENG_05_03_001.png"_spr, "Comic_SPA_05_03_001.png"_spr};
+            return {"Comic_ENG_05_03.png", "Comic_SPA_05_03.png"};
             break;
 
         case 4:
-            return {"Comic_ENG_05_04_001.png"_spr, "Comic_SPA_05_04_001.png"_spr};
+            return {"Comic_ENG_05_04.png", "Comic_SPA_05_04.png"};
             break;
 
         case 5:
-            return {"Comic_ENG_05_05_001.png"_spr, "Comic_SPA_05_05_001.png"_spr};
+            return {"Comic_ENG_05_05.png", "Comic_SPA_05_05.png"};
             break;
 
         case 6:
-            return {"Comic_ENG_05_06_001.png"_spr, "Comic_SPA_05_06_001.png"_spr};
+            return {"Comic_ENG_05_06.png", "Comic_SPA_05_06.png"};
             break;
 
         case 7:
-            return {"Comic_ENG_05_07_001.png"_spr, "Comic_SPA_05_07_001.png"_spr};
+            return {"Comic_ENG_05_07.png", "Comic_SPA_05_07.png"};
             break;
 
         case 8:
-            return {"Comic_ENG_05_08_001.png"_spr, "Comic_SPA_05_08_001.png"_spr};
+            return {"Comic_ENG_05_08.png", "Comic_SPA_05_08.png"};
             break;
 
         case 9:
-            return {"Comic_ENG_05_09_001.png"_spr, "Comic_SPA_05_09_001.png"_spr};
+            return {"Comic_ENG_05_09.png", "Comic_SPA_05_09.png"};
             break;
         }
     }
@@ -328,38 +329,38 @@ std::pair<const char *, const char *> OdysseyComicLayer::getPage(int issueNumber
         switch (page)
         {
         case 1:
-            return {"Comic_ENG_06_01_001.png"_spr, "Comic_SPA_06_01_001.png"_spr};
+            return {"Comic_ENG_06_01.png", "Comic_SPA_06_01.png"};
             break;
 
         case 2:
-            return {"Comic_ENG_06_02_001.png"_spr, "Comic_SPA_06_02_001.png"_spr};
+            return {"Comic_ENG_06_02.png", "Comic_SPA_06_02.png"};
             break;
 
         case 3:
-            return {"Comic_ENG_06_03_001.png"_spr, "Comic_SPA_06_03_001.png"_spr};
+            return {"Comic_ENG_06_03.png", "Comic_SPA_06_03.png"};
             break;
 
         case 4:
-            return {"Comic_ENG_06_04_001.png"_spr, "Comic_SPA_06_04_001.png"_spr};
+            return {"Comic_ENG_06_04.png", "Comic_SPA_06_04.png"};
             break;
 
         case 5:
-            return {"Comic_ENG_06_05_001.png"_spr, "Comic_SPA_06_05_001.png"_spr};
+            return {"Comic_ENG_06_05.png", "Comic_SPA_06_05.png"};
             break;
 
         case 6:
-            return {"Comic_ENG_06_06_001.png"_spr, "Comic_SPA_06_06_001.png"_spr};
+            return {"Comic_ENG_06_06.png", "Comic_SPA_06_06.png"};
             break;
         }
     }
 
-    return {"Comic_Error_001.png"_spr, "Comic_Error_001.png"_spr};
+    return {"Comic_Error.png", "Comic_Error.png"};
 };
 
 CCNode *OdysseyComicLayer::createComicPage(const char *spriteName)
 {
     auto node = CCNode::create();
-    auto comicSprite = CCSprite::createWithSpriteFrameName(spriteName);
+    auto comicSprite = CCSprite::create(spriteName);
     auto winSize = CCDirector::sharedDirector()->getWinSize();
 
     comicSprite->setPosition(winSize / 2);
@@ -391,32 +392,26 @@ void OdysseyComicLayer::onSecret(CCObject *sender)
 void OdysseyComicLayer::scrollLayerMoved(CCPoint point)
 {
     float transitionPoint = -point.x / CCDirector::sharedDirector()->getWinSize().width;
-
     int offset = std::floor(transitionPoint);
-
-    // float transitionOffset = transitionPoint - offset;
 
     if (transitionPoint == offset)
     {
         m_currentPage = offset % m_totalPages;
-        //  updateBackground();
     }
 };
 
 void OdysseyComicLayer::keyBackClicked()
 {
-    if (m_comicNumber == 1)
-    {
+    if(m_RedirectToMap){
         auto layer = OdysseySelectLayer::create(0);
         auto scene = CCScene::create();
         scene->addChild(layer);
+
         CCDirector::sharedDirector()->replaceScene(cocos2d::CCTransitionFade::create(0.5, scene));
-    }
-    else
-    {
-        CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
+        return;
     }
 
+    CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
     GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
 };
 
@@ -425,11 +420,11 @@ void OdysseyComicLayer::onBack(CCObject *)
     keyBackClicked();
 };
 
-OdysseyComicLayer *OdysseyComicLayer::create(int issueNumber)
+OdysseyComicLayer *OdysseyComicLayer::create(int issueNumber, bool redirectToMap)
 {
     auto ret = new OdysseyComicLayer();
 
-    if (ret->init(issueNumber))
+    if (ret->init(issueNumber, redirectToMap))
     {
         ret->autorelease();
         return ret;
@@ -439,9 +434,9 @@ OdysseyComicLayer *OdysseyComicLayer::create(int issueNumber)
     return nullptr;
 };
 
-CCScene *OdysseyComicLayer::scene(int issueNumber)
+CCScene *OdysseyComicLayer::scene(int issueNumber, bool redirectToMap)
 {
-    auto layer = OdysseyComicLayer::create(issueNumber);
+    auto layer = OdysseyComicLayer::create(issueNumber, redirectToMap);
     auto scene = CCScene::create();
     scene->addChild(layer);
     return scene;

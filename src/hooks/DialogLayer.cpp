@@ -17,7 +17,7 @@ class $modify(OdysseyDialogLayer, DialogLayer)
 
         if(!seenComic)
         {
-            auto layer = OdysseyComicLayer::create(1);
+            auto layer = OdysseyComicLayer::create(1, true);
             auto scene = CCScene::create();
             scene->addChild(layer);
 

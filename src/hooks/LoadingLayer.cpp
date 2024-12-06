@@ -1,6 +1,8 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/LoadingLayer.hpp>
 #include "../utils/Utils.hpp"
+#include <filesystem>
+#include <iostream>
 
 using namespace geode::prelude;
 
@@ -15,6 +17,14 @@ enum class Artist
 
 class $modify(OdysseyLoadingLayer, LoadingLayer)
 {
+    void loadAssets(){
+        LoadingLayer::loadAssets();
+
+        OdysseyLoadingLayer::addOdysseyAudioAssets();
+        OdysseyLoadingLayer::addOdysseyComicAssets();
+        OdysseyLoadingLayer::addCustomIconCredits();
+    };
+
     bool init(bool reload)
     {
         if (!LoadingLayer::init(reload))
@@ -46,10 +56,6 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         {
             GM->setUGV("30", true);
         }
-
-        OdysseyLoadingLayer::addOdysseyAudioAssets();
-        OdysseyLoadingLayer::addCustomIconCredits();
-
         return true;
     }
 
@@ -82,7 +88,48 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         Odyssey::insertAssetsToMap(true, {10006666});
     }
 
-    void addCustomIconCredits()
+    void addOdysseyComicAssets()
+    {
+        std::string zipPath;
+        std::string unzipDir;
+
+        #ifdef GEODE_IS_WINDOWS
+        zipPath = geode::Mod::get()->getResourcesDir().string() + "\\" + "ComicAssets.zip";
+        unzipDir = geode::Mod::get()->getResourcesDir().string() + "\\" + "ComicAssets";
+        #endif
+        #ifdef GEODE_IS_ANDROID
+        zipFilePath = geode::Mod::get()->getResourcesDir().string() + "/" + "ComicAssets.zip";
+        unzipDir = geode::Mod::get()->getResourcesDir().string() + "/" + "ComicAssets";
+        #endif
+
+        auto result = geode::utils::file::Unzip::intoDir(zipPath, unzipDir);
+
+        CCFileUtils::get()->addTexturePack(CCTexturePack{
+            .m_id = this->getID(),
+            .m_paths = {unzipDir}});
+
+        auto *textureCache = CCTextureCache::sharedTextureCache();
+        auto *spriteFrameCache = CCSpriteFrameCache::sharedSpriteFrameCache();
+
+        //  Proceso para meter todas las paginas
+        for (auto ii = 1; ii <= 6; ii++)
+        {
+            std::vector<int> pages = {9, 5, 4, 4, 9, 6};
+            
+            //  Agrega todas las paginas del comic al cache
+            for (auto jj = 1; jj <= pages[ii]; jj++)
+            {
+                auto pageENG = fmt::format("Comic_ENG_0{}_0{:02}.png"_spr, ii, jj);
+                auto pageSPA = fmt::format("Comic_SPA_0{}_0{:02}.png"_spr, ii, jj);
+
+                textureCache->addImage(pageENG.c_str(), false);
+                textureCache->addImage(pageSPA.c_str(), false);
+            }
+        }
+    }
+
+    void
+    addCustomIconCredits()
     {
         auto gs = GameStatsManager::sharedState();
         // 2102 - ML5
