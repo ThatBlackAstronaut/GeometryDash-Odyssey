@@ -10,9 +10,9 @@ class $modify(GDOItemInfoPopup, ItemInfoPopup)
     {
         if (!ItemInfoPopup::init(p0, p1))
             return false;
-        
+
         int type = static_cast<int>(p1);
-        
+
         if (type >= 900)
         {
             auto player = SimplePlayer::create(0);
@@ -30,7 +30,7 @@ class $modify(GDOItemInfoPopup, ItemInfoPopup)
         if (GameStatsManager::sharedState()->getItemUnlockState(p0, p1) != 1)
         {
             std::string iconName = nameForUnlockType(p0, p1);
-            const char* titleString = "Default";
+            const char *titleString = "Default";
             std::string descriptionString = fmt::format("You can <cl>get</c> this <cg>{}</c> in the full version of <cy>Geometry Dash</c>!", iconName);
 
             if ((p1 == UnlockType::Cube && p0 <= 4) || p0 == 1 || ((p1 == UnlockType::Col1 || p1 == UnlockType::Col2) && p0 <= 3))
@@ -69,9 +69,5 @@ class $modify(GDOItemInfoPopup, ItemInfoPopup)
         default:
             return ItemInfoPopup::nameForUnlockType(p0, p1);
         }
-        
-
-        
     }
-
 };

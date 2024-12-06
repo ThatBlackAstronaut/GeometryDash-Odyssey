@@ -38,23 +38,23 @@ class $modify(OdysseyLevelTools, LevelTools)
 	{
 		switch (levelID)
 		{
-			case 101:
-				return "TheDangerousSeas.mp3"_spr;
-			case 102:
-				return "GhostHouse.mp3"_spr;
-			case 103:
-				return "SuperUltra.mp3"_spr;
-			case 104:
-				return "CryptoFunk.mp3"_spr;
-			case 105:
-				return "Hellfire.mp3"_spr;
-			case 201:
-				return "BurningSands.mp3"_spr;
-			case 202:
-				return "ConclusiveJourney.mp3"_spr;
-				
-			default:
-				return LevelTools::getAudioFileName(levelID);
+		case 101:
+			return "TheDangerousSeas.mp3"_spr;
+		case 102:
+			return "GhostHouse.mp3"_spr;
+		case 103:
+			return "SuperUltra.mp3"_spr;
+		case 104:
+			return "CryptoFunk.mp3"_spr;
+		case 105:
+			return "Hellfire.mp3"_spr;
+		case 201:
+			return "BurningSands.mp3"_spr;
+		case 202:
+			return "ConclusiveJourney.mp3"_spr;
+
+		default:
+			return LevelTools::getAudioFileName(levelID);
 		}
 	}
 
@@ -78,15 +78,14 @@ class $modify(OdysseyLevelTools, LevelTools)
 			return 7;
 		case 108:
 			return 7;
-		case 201: 
-			return 9;	
-		case 202: 
+		case 201:
+			return 9;
+		case 202:
 			return 1;
 
 		default:
 			return LevelTools::artistForAudio(p0);
 		}
-		
 	}
 
 	static gd::string nameForArtist(int p0)
@@ -98,7 +97,6 @@ class $modify(OdysseyLevelTools, LevelTools)
 		default:
 			return LevelTools::nameForArtist(p0);
 		}
-		
 	}
 
 	static gd::string ngURLForArtist(int p0)
@@ -212,29 +210,29 @@ class $modify(OdysseyLevelTools, LevelTools)
 		switch (songID)
 		{
 		case 101:
-			return "https://youtu.be/izovSb5Z7lw?si=2ybicOLa5N8m5leC"; //The Dangerous Seas
+			return "https://youtu.be/izovSb5Z7lw?si=2ybicOLa5N8m5leC"; // The Dangerous Seas
 		case 102:
-			return "https://youtu.be/F5C6GIZkm64?si=fNWOMGENJ3A-pFIo"; //Ghost House
+			return "https://youtu.be/F5C6GIZkm64?si=fNWOMGENJ3A-pFIo"; // Ghost House
 		case 103:
-			return "https://youtu.be/PLEQGywWbV0?si=R46Lun6Sc_Csiiey"; //Super Ultra
+			return "https://youtu.be/PLEQGywWbV0?si=R46Lun6Sc_Csiiey"; // Super Ultra
 		case 104:
-			return "https://youtu.be/l3UnRInJuMY?si=k0Zn66wZf9ZgTvP-"; //CryptoFunk
+			return "https://youtu.be/l3UnRInJuMY?si=k0Zn66wZf9ZgTvP-"; // CryptoFunk
 		case 105:
-			return "https://youtu.be/wLOMwg0FPLA?si=TjTTz2g-XJvHWdON"; //Hellfire
+			return "https://youtu.be/wLOMwg0FPLA?si=TjTTz2g-XJvHWdON"; // Hellfire
 		case 106:
-			return "https://youtu.be/CxPFyu5AGng?si=2ZSWgul-Du_hI47u"; //Boss Rush
+			return "https://youtu.be/CxPFyu5AGng?si=2ZSWgul-Du_hI47u"; // Boss Rush
 		case 107:
-			return "https://youtu.be/5jt10MW1mFU?si=IHQcPTaB9KSimznE"; //Frostbite
+			return "https://youtu.be/5jt10MW1mFU?si=IHQcPTaB9KSimznE"; // Frostbite
 		case 108:
-			return "https://youtu.be/EnmAuu92RKo?si=Ywq4DfaiC0f2jr2d"; //Super Wubtendo
+			return "https://youtu.be/EnmAuu92RKo?si=Ywq4DfaiC0f2jr2d"; // Super Wubtendo
 		case 109:
-			return "https://youtu.be/rQZinpJoiYQ?si=w3xg-WNM5J9Q2-se"; //Critical Hit
-		case 110: 
-			return "https://www.newgrounds.com/audio/listen/678590"; //Harmony Of The Heart
-		case 201: 
-			return "https://youtu.be/gyxh9R59oj4?si=IhxSU7XQvwJX32z3"; //Burning Sands
+			return "https://youtu.be/rQZinpJoiYQ?si=w3xg-WNM5J9Q2-se"; // Critical Hit
+		case 110:
+			return "https://www.newgrounds.com/audio/listen/678590"; // Harmony Of The Heart
+		case 201:
+			return "https://youtu.be/gyxh9R59oj4?si=IhxSU7XQvwJX32z3"; // Burning Sands
 		case 202:
-			return "https://youtu.be/BcoURwJr9PI?si=Mb3Zi1azTN2bbrYE"; //Conclusive
+			return "https://youtu.be/BcoURwJr9PI?si=Mb3Zi1azTN2bbrYE"; // Conclusive
 		default:
 			return LevelTools::urlForAudio(songID);
 		}

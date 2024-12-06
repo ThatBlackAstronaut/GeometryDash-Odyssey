@@ -19,6 +19,10 @@ class $modify(OdysseyGameManager, GameManager)
             return 153;
         if (icon == IconType::Wave)
             return 100;
+        if (icon == IconType::Robot)
+            return 68;
+        if (icon == IconType::Spider)
+            return 69;
         if (icon == IconType::Swing)
             return 46;
         if (icon == IconType::Jetpack)
@@ -29,8 +33,8 @@ class $modify(OdysseyGameManager, GameManager)
 
     bool isIconUnlocked(int id, IconType type)
     {
-        //if (Odyssey::isCustomIcon(id, type)) return GameManager::isIconUnlocked(id, type);
-
+        if (Odyssey::isCustomIcon(id, type))
+            return GameManager::isIconUnlocked(id, type);
         return true;
     }
 
@@ -39,13 +43,14 @@ class $modify(OdysseyGameManager, GameManager)
         return true;
     }
 
-    void returnToLastScene(GJGameLevel* level) {
-        if(level->m_levelType == GJLevelType::Local) {
+    void returnToLastScene(GJGameLevel *level)
+    {
+        if (level->m_levelType == GJLevelType::Local)
+        {
             int page = Odyssey::islandPageForLevelID(level->m_levelID);
 
             CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, OdysseySelectLayer::scene(page)));
             GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
-
             return;
         }
 
@@ -55,21 +60,37 @@ class $modify(OdysseyGameManager, GameManager)
     void reportPercentageForLevel(int levelID, int percent, bool isPractice)
     {
         GameManager::reportPercentageForLevel(levelID, percent, isPractice);
-        if(levelID == 201){
-            if(isPractice){
+        log::info("Level: {}, {}, {}", levelID, percent, isPractice);
+
+        if (levelID == 201)
+        {
+            if (isPractice)
+            {
                 GameManager::sharedState()->reportAchievementWithID("geometry.ach.level201a", percent, false);
-            } else {
+            }
+            else
+            {
                 GameManager::sharedState()->reportAchievementWithID("geometry.ach.level201b", percent, false);
             }
         };
 
-        if(levelID == 202){
-            if(isPractice){
+        if (levelID == 202)
+        {
+            if (isPractice)
+            {
                 GameManager::sharedState()->reportAchievementWithID("geometry.ach.level202a", percent, false);
-            } else {
+            }
+            else
+            {
                 GameManager::sharedState()->reportAchievementWithID("geometry.ach.level202b", percent, false);
             }
         };
-    }
+    };
 
+    void reportAchievementWithId(const char *ach, int perc, bool flag)
+    {
+        GameManager::reportAchievementWithID(ach, perc, flag);
+
+        log::debug("ACH: {}, Percent: {}, Flag: {}", ach, perc, flag);
+    };
 };
