@@ -120,7 +120,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
 
     if (lower == "player" && !AM->isAchievementEarned("geometry.ach.odyssey.secret12"))
     {
-        response = "...Was it you?",
+        response = "...was it you?",
         GM->reportAchievementWithID("geometry.ach.odyssey.secret12", 100, false);
         updateMessage(response, MessageType::CorrectAnswer);
         return;
@@ -176,7 +176,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
 
     if (lower == "gargan")
     {
-        response = "What do you mean?...",
+        response = "What do you mean...?",
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
@@ -266,7 +266,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
         std::vector<std::string> messages = {
             "Sometimes, breaking isn't the end, but the start...",
             "Dive into the glitchy abyss I have for you",
-            "It's called fracture",
+            "It's called Fracture",
             "Hold on tight",
             "The beats here might just split reality",
         };
@@ -285,8 +285,8 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
     if (ID == 13 && !AM->isAchievementEarned("geometry.ach.odyssey.secret11"))
     {
         std::vector<std::string> messages = {
-            "That failed promise",
-            "That guardian of the forest temple",
+            "That failed promise...",
+            "That guardian of the forest temple...",
             "Delayed until the end of time...",
         };
 
@@ -324,7 +324,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
     {
         std::vector<std::string> messages = {
             "Her cross-shaped ribbon and blank eyes...",
-            "A traveler with pale, greyscale skin...",
+            "A traveller with pale, greyscale skin...",
             "Her pure black hair flows like a waterfall...",
         };
 
@@ -379,7 +379,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
     {
         std::vector<std::string> messages = {
             "Sail forth if you dare...",
-            "They used to be seven...",
+            "There used to be seven...",
             "And now they are dangerous...",
         };
 
@@ -397,7 +397,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
     if (ID == 19 && !AM->isAchievementEarned("geometry.ach.odyssey.secret17"))
     {
         std::vector<std::string> messages = {
-            "The warrior of Wubstep's worst enemy...",
+            "The Warrior of Wubstep's worst enemy...",
             "I am tired of hearing that saxophone...",
         };
 
@@ -443,12 +443,12 @@ std::string SecretVaultLayer::getBasicMessage()
         "Welcome to the shadow realm",
         "The shadow government fears me",
         "Greheheheheh...",
-        "How long you'll stay here?...",
+        "How long you'll stay here...",
         "This will be fun...",
         "Join me... become one with the darkness",
         "Amuse me... mortal",
         "He locked me in here...",
-        "It's been a while I seen someone here...",
+        "It's been a while since I've seen someone here...",
         "..."};
 
     int rand = (std::rand() % messages.size());
