@@ -142,7 +142,7 @@ void OdysseyLevelPopup::onComic(CCObject *sender)
     log::debug("LEVEL: {}", m_levelID);
 
     auto scene = CCScene::create();
-    scene->addChild(OdysseyComicLayer::create(m_levelID + 1));
+    scene->addChild(OdysseyComicLayer::create(m_levelID + 1, false));
 
     CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };

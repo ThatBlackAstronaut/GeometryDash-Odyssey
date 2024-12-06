@@ -1,6 +1,6 @@
 {
 	"geode": "4.0.1",
-	"version": "v1.0.0-alpha.7",
+	"version": "v1.0.0-alpha.10",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074"
@@ -14,114 +14,139 @@
 	"id": "teamtcm.geometry-dash-odyssey",
 	"name": "Geometry Dash: Odyssey",
 	"description": "",
+	"early-load": true,
 	"links": {
-		"community": "https://discord.gg/Kh3aJ2DW"
+		"community": "https://discord.gg/PNPrR4DEbw"
 	},
-	"dependencies": [
-		{
-			"id": "geode.node-ids",
-			"version": ">=v1.16.0",
-			"importance": "required"
-		}
-	],
 	"incompatibilities": [
 		{
 			"id": "hiimjustin000.more_icons",
 			"importance": "conflicting",
 			"version": "*",
-			"platforms": ["android"]
+			"platforms": [
+				"android"
+			]
 		},
 		{
 			"id": "capeling.geometry-dash-lunar",
 			"importance": "breaking",
 			"version": "*"
+		},
+		{
+			"id": "geode.custom-keybinds",
+			"importance": "breaking",
+			"version": "*"
 		}
 	],
-	"early-load": true,
 	"settings": {
+		"settings-title": {
+			"type": "title",
+			"name": "Settings"
+		},
 		"spanish-language": {
 			"type": "bool",
 			"name": "Spanish",
 			"description": "Changes the language of the mod to Spanish",
 			"default": false
 		},
-
-		"level-unlocks":{
+		"progress-title": {
 			"type": "title",
-			"name": "Level Unlocks"
+			"name": "Progress Testing",
+			"description": "Developer feature. To play the animations of the levels getting unlocked"
 		},
-
-		"level-extra-01-unlocked": {
-			"type": "bool",
-			"name": "Burning Sands",
-			"default": false
+		"island-01-progress": {
+			"type": "string",
+			"name": "The Dangerous Zones",
+			"one-of": [
+				"First Time",
+				"Met Wizard",
+				"Level 1 Completed",
+				"Level 2 Completed",
+				"Level 3 Completed",
+				"Level 4 Completed",
+				"Island Completed"
+			],
+			"default": "First Time"
 		},
-
 		"level-extra-02-unlocked": {
 			"type": "bool",
 			"name": "Conclusive Journey",
 			"default": false
 		},
-
-		"one-time-events":{
+		"level-extra-01-unlocked": {
+			"type": "bool",
+			"name": "Burning Sands",
+			"default": false
+		},
+		"warning-title": {
+			"type": "title",
+			"name": "Warning Events",
+			"description": "These messages are displayed once when the player enables them"
+		},
+		"warning-savefile": {
+			"type": "bool",
+			"name": "Savefile warning",
+			"default": false
+		},
+		"warning-translation": {
+			"type": "bool",
+			"name": "Translation warning",
+			"default": false
+		},
+		"events-title": {
 			"type": "title",
 			"name": "One Time Events",
 			"description": "Disable these if you want to see the one-time events again"
 		},
-
 		"meet-carp": {
 			"type": "bool",
 			"name": "Meet Carp",
 			"default": false
 		},
-
 		"meet-wizard": {
 			"type": "bool",
 			"name": "Meet Dumbledalf",
 			"default": false
 		},
-
+		"meet-ogre": {
+			"type": "bool",
+			"name": "Meet The Ogre",
+			"default": false
+		},
 		"meet-hollow": {
 			"type": "bool",
 			"name": "Meet Hollow",
 			"default": false
 		},
-
-		"comics-title":{
+		"comics-title": {
 			"type": "title",
 			"name": "Comic Events"
 		},
-
 		"watched-comic-01": {
 			"type": "bool",
 			"name": "Seen 1st Comic",
 			"default": false
 		},
-
 		"watched-comic-02": {
 			"type": "bool",
 			"name": "Seen 2nd Comic",
 			"default": false
 		},
-
 		"watched-comic-03": {
 			"type": "bool",
 			"name": "Seen 3rd Comic",
 			"default": false
 		},
-
 		"watched-comic-04": {
 			"type": "bool",
 			"name": "Seen 4th Comic",
 			"default": false
 		},
-
 		"watched-comic-05": {
 			"type": "bool",
 			"name": "Seen 5th Comic",
 			"default": false
 		},
-
 		"watched-comic-06": {
 			"type": "bool",
 			"name": "Seen 6th Comic",
@@ -133,12 +158,6 @@
 			"GJO_GameSheet01": [
 				"resources/OdysseySheet/*.png"
 			],
-			"GJO_ComicSheetENG": [
-				"resources/ComicSheetENG/*.png"
-			],
-			"GJO_ComicSheetSPA": [
-				"resources/ComicSheetSPA/*.png"
-			],
 			"GJO_IconSheet": [
 				"resources/IconSheet/*.png"
 			],
@@ -149,7 +168,8 @@
 		"files": [
 			"resources/Soundtrack/*.mp3",
 			"resources/Levels/*.txt",
-			"resources/SFX/*.ogg"
+			"resources/SFX/*.ogg",
+			"resources/*.zip"
 		],
 		"sprites": [
 			"resources/*.png"

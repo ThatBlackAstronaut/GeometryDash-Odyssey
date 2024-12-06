@@ -249,7 +249,7 @@ void OdysseyDevLayer::onComic(CCObject *sender)
     auto scene = CCScene::create();
     auto tag = sender->getTag();
 
-    scene->addChild(OdysseyComicLayer::create(tag));
+    scene->addChild(OdysseyComicLayer::create(tag, false));
 
     CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };

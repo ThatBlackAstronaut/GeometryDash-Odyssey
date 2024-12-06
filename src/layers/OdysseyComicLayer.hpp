@@ -14,8 +14,9 @@ public:
     int m_comicNumber = 1;
     int m_currentPage = 0;
     int m_totalPages = 1;
+    bool m_RedirectToMap;
 
-    virtual bool init(int);
+    virtual bool init(int, bool);
     virtual void keyBackClicked();
 
     CCNode *createPage(int);
@@ -32,6 +33,6 @@ public:
     void onHollow(CCObject *);
 
 public:
-    static OdysseyComicLayer *create(int);
-    CCScene *scene(int);
+    static OdysseyComicLayer *create(int, bool);
+    CCScene *scene(int, bool);
 };
