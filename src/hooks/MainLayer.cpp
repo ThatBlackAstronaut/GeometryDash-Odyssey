@@ -1,5 +1,7 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
+#include "../layers/OdysseyCreditsLayer.hpp"
+#include "../nodes/OdysseyCreditNode.hpp"
 #include "../layers/OdysseySelectLayer.hpp"
 #include "../layers/OdysseyDevLayer.hpp"
 #include "../layers/FanmadeGamesLayer.hpp"
@@ -99,9 +101,13 @@ class $modify(OdysseyMenuLayer, MenuLayer)
     {
         // auto credits = FLAlertLayer::create("Si", "Si", "ok");
         // credits->show();
-
+        /*
         auto shop = GJShopLayer::scene(static_cast<ShopType>(6));
 
         CCDirector::sharedDirector()->replaceScene(CCTransitionMoveInT::create(.63f, shop));
+        */
+
+        auto credits = OdysseyCreditsLayer::create();
+		credits->show();
     }
 };
