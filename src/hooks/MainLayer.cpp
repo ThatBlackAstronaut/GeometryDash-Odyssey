@@ -40,20 +40,27 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         auto bottomMenu = static_cast<CCMenu *>(this->getChildByID("bottom-menu"));
         auto seenComic = Mod::get()->getSettingValue<bool>("watched-comic-01");
 
+        auto geodeButton = bottomMenu->getChildByID("geode.loader/geode-button");
+        geodeButton->removeFromParentAndCleanup(false);
+
         if (seenComic)
         {
-            auto geodeButton = bottomMenu->getChildByID("geode.loader/geode-button");
-            geodeButton->removeFromParentAndCleanup(true);
-
             auto comicButton = CCMenuItemSpriteExtra::create(
                 CircleButtonSprite::createWithSpriteFrameName("GDO_comicBtn.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::MediumAlt),
                 this,
                 nullptr);
 
             bottomMenu->addChild(comicButton);
-            bottomMenu->addChild(geodeButton);
-            bottomMenu->updateLayout();
         }
+
+        auto devButton = CCMenuItemSpriteExtra::create(
+            CircleButtonSprite::createWithSpriteFrameName("geode.loader/settings.png", 1, CircleBaseColor::Green, CircleBaseSize::MediumAlt),
+            this,
+            menu_selector(OdysseyMenuLayer::onDev));
+
+        bottomMenu->addChild(devButton);
+        bottomMenu->addChild(geodeButton);
+        bottomMenu->updateLayout();
 
         //  Boton de more games es reemplazado por Creditos
         auto moreGamesMenu = static_cast<CCMenu *>(this->getChildByID("more-games-menu"));
@@ -71,15 +78,13 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         return true;
     }
 
-    /*
-    void onNewgrounds(CCObject *)
+    void onDev(CCObject *)
     {
         auto scene = CCScene::create();
         scene->addChild(OdysseyDevLayer::create());
 
         CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
     }
-    */
 
     void onPlay(CCObject *)
     {

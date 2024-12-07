@@ -182,7 +182,9 @@
 			"resources/*.zip"
 		],
 		"sprites": [
-			"resources/*.png"
+			"resources/*.png",
+			"resources/ComicSheetSPA/*.png",
+			"resources/ComicSheetENG/*.png"
 		]
 	}
 }
