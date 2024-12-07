@@ -30,25 +30,47 @@ class $modify(GDOItemInfoPopup, ItemInfoPopup)
         if (GameStatsManager::sharedState()->getItemUnlockState(p0, p1) != 1)
         {
             std::string iconName = nameForUnlockType(p0, p1);
-            const char *titleString = "Default";
+            const char *titleString = "Full version";
             std::string descriptionString = fmt::format("You can <cl>get</c> this <cg>{}</c> in the full version of <cy>Geometry Dash</c>!", iconName);
 
+            //  EL ICONO ES UNO DE LOS DEFAULT
             if ((p1 == UnlockType::Cube && p0 <= 4) || p0 == 1 || ((p1 == UnlockType::Col1 || p1 == UnlockType::Col2) && p0 <= 3))
+            {
                 descriptionString = fmt::format("This <cg>{}</c> is <cl>unlocked</c> by default.", iconName);
+                titleString = "Default";
+            }
 
-            if (Odyssey::isCustomIcon(p0, GameManager::sharedState()->unlockTypeToIconType(static_cast<int>(p1))) && GameStatsManager::sharedState()->getItemUnlockState(p0, p1) == 5)
+            //  EL ICONO ES DE LA TIENDA DE CARP
+            if (Odyssey::isIconCustom(p0, GameManager::sharedState()->unlockTypeToIconType(static_cast<int>(p1))) && GameStatsManager::sharedState()->getItemUnlockState(p0, p1) == 5)
             {
                 descriptionString = fmt::format("You can <cl>buy</c> this <cg>{}</c> in the <cd>Carp's shop</c>!", iconName);
                 titleString = "Carp's Shop";
             }
 
-            if (auto descriptionArea = static_cast<TextArea *>(m_mainLayer->getChildByID("description-area")))
+            //  EL ICONO ES PARA UNA ACTUALIZACION FUTURA
+            if (Odyssey::isIconCustom(p0, GameManager::sharedState()->unlockTypeToIconType(static_cast<int>(p1))) && GameStatsManager::sharedState()->getItemUnlockState(p0, p1) == 6)
             {
-                descriptionArea->setString(descriptionString);
+                descriptionString = fmt::format("This <cg>{}</c> can be <cl>unlocked</c> in update <cy>2.0</c>.", iconName);
+                titleString = "Coming Soon";
             }
+
+            if (auto descriptionArea = static_cast<TextArea *>(m_mainLayer->getChildByID("description-area")))
+                descriptionArea->setString(descriptionString);
 
             if (auto achievementLabel = static_cast<CCLabelBMFont *>(m_mainLayer->getChildByID("achievement-label")))
                 achievementLabel->setString(titleString);
+        }
+        else
+        {
+            if (Odyssey::isIconSecret(p0, GameManager::sharedState()->unlockTypeToIconType(static_cast<int>(p1))))
+            {
+                if (auto descriptionArea = static_cast<TextArea *>(m_mainLayer->getChildByID("description-area")))
+                {
+                    std::string iconName = nameForUnlockType(p0, p1);
+                    std::string descriptionString = fmt::format("A secret is required to unlock this <cg>{}</c>!", iconName);
+                    descriptionArea->setString(descriptionString);
+                }
+            }
         }
 
         return true;

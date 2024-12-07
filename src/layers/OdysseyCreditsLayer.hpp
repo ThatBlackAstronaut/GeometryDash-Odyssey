@@ -473,6 +473,9 @@ protected:
         auto MXSTOUser = OdysseyCreditNode::create("Mxst0", 296, 89, 2, 44, true, 24326682);
         MXSTOUser->setScale(0.85);
 
+        auto BlueSpaceUser = OdysseyCreditNode::create("Bluespace", 37, 3, 6, 6, true, 10206148);
+        BlueSpaceUser->setScale(0.85);
+
         CCArray *row1CreditArray = CCArray::create();
         CCArray *row2CreditArray = CCArray::create();
         CCArray *row3CreditArray = CCArray::create();
@@ -486,6 +489,7 @@ protected:
         row3CreditArray->addObject(CapelingUser);
         row3CreditArray->addObject(LimeGradientUser);
         row3CreditArray->addObject(MXSTOUser);
+        row3CreditArray->addObject(BlueSpaceUser);
 
         auto creditsReason = CCLabelBMFont::create("Special Thanks", "goldFont.fnt");
         creditsReason->setScale(0.7f);
@@ -509,6 +513,7 @@ protected:
         m_creditsrobLayer->addChild(CapelingUser, 4);
         m_creditsrobLayer->addChild(LimeGradientUser, 4);
         m_creditsrobLayer->addChild(MXSTOUser, 4);
+        m_creditsrobLayer->addChild(BlueSpaceUser, 4);
 
         m_creditsrobLayer->addChild(deeperspaceLabel, 4);
         m_creditsrobLayer->addChild(creditsReason, 4);

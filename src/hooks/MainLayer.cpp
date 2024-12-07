@@ -75,6 +75,9 @@ class $modify(OdysseyMenuLayer, MenuLayer)
             moreGamesButton->setNormalImage(creditsSprite);
         }
 
+        if (auto levelEditorHint = static_cast<CCSprite *>(this->getChildByID("level-editor-hint")))
+            levelEditorHint->setVisible(false);
+
         return true;
     }
 

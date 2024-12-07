@@ -10,12 +10,14 @@ bool OdysseySelectLayer::init(int page)
     if (!CCLayer::init())
         return false;
 
-    m_currentPage = page;
-
     setKeyboardEnabled(true);
     setKeypadEnabled(true);
 
+    m_currentPage = page;
     m_winSize = CCDirector::sharedDirector()->getWinSize();
+
+    //  Game Manager
+    auto GSM = GameStatsManager::sharedState();
 
     // canción
     std::string song = "TheMap.mp3"_spr;
@@ -40,7 +42,7 @@ bool OdysseySelectLayer::init(int page)
     case 2:
         bgID = 15;
         bgColor = {53, 7, 0};
-        islandTexture = "island_extra.png"_spr;
+        islandTexture = "island_extra_01.png"_spr;
         islandPosition = CCPoint{m_winSize.width / 2 - 100, islandPosition.y};
         islandScale = .5f;
         break;
@@ -52,11 +54,9 @@ bool OdysseySelectLayer::init(int page)
     FMODAudioEngine::sharedEngine()->playMusic(song, true, .25f, 0);
 
     m_background = CCSprite::create(GameManager::sharedState()->getBGTexture(bgID));
-
     m_background->setColor(bgColor);
     m_background->setAnchorPoint({0, 0});
     m_background->setPositionY(-100);
-
     m_background->setScale(m_winSize.width / m_background->getContentWidth());
 
     addChild(m_background, -1);
@@ -85,8 +85,8 @@ bool OdysseySelectLayer::init(int page)
 
     if (page == 2)
     {
-        auto extra01_unlocked = Mod::get()->getSettingValue<bool>("level-extra-01-unlocked");
-        auto extra02_unlocked = Mod::get()->getSettingValue<bool>("level-extra-02-unlocked");
+        auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1) || Mod::get()->getSettingValue<bool>("level-extra-01-unlocked");
+        auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2) || Mod::get()->getSettingValue<bool>("level-extra-02-unlocked");
 
         auto menu = CCMenu::create();
         menu->setPosition({0, 0});
@@ -103,7 +103,7 @@ bool OdysseySelectLayer::init(int page)
         firstIsland->setPosition(islandPosition);
         firstIsland->setTag(201);
 
-        auto secondSprite = CCSprite::createWithSpriteFrameName("island_extra2.png"_spr);
+        auto secondSprite = CCSprite::createWithSpriteFrameName("island_extra_02.png"_spr);
         secondSprite->setScale(islandScale);
 
         auto secondIsland = CCMenuItemSpriteExtra::create(
@@ -111,8 +111,8 @@ bool OdysseySelectLayer::init(int page)
             this,
             menu_selector(OdysseySelectLayer::onExtraLevel));
 
-        secondIsland->setTag(202);
         secondIsland->setPosition({m_winSize.width / 2 + 100, m_winSize.height / 2});
+        secondIsland->setTag(202);
 
         if (!extra01_unlocked)
         {
@@ -298,8 +298,10 @@ void OdysseySelectLayer::onLevel(CCObject *sender)
 
 void OdysseySelectLayer::onExtraLevel(CCObject *sender)
 {
-    auto extra01_unlocked = Mod::get()->getSettingValue<bool>("level-extra-01-unlocked");
-    auto extra02_unlocked = Mod::get()->getSettingValue<bool>("level-extra-02-unlocked");
+    //  Game Manager
+    auto GSM = GameStatsManager::sharedState();
+    auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1) || Mod::get()->getSettingValue<bool>("level-extra-01-unlocked");
+    auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2) || Mod::get()->getSettingValue<bool>("level-extra-02-unlocked");
 
     if ((extra01_unlocked && sender->getTag() == 201) || (extra02_unlocked && sender->getTag() == 202))
     {

@@ -7,6 +7,7 @@
 #include <Geode/modify/EditorPauseLayer.hpp>
 #include <Geode/modify/LocalLevelManager.hpp>
 #include <Geode/modify/MusicDownloadManager.hpp>
+#include <Geode/modify/GJShopLayer.hpp>
 #include <Geode/modify/SongsLayer.hpp>
 
 using namespace geode::prelude;
@@ -81,6 +82,40 @@ class $modify(CCSprite)
 		}
 
 		return CCSprite::create(pszFileName);
+	}
+};
+
+class $modify(OdysseyShop, GJShopLayer)
+{
+	bool init(ShopType p0)
+	{
+		return GJShopLayer::init(ShopType{6});
+	}
+
+	void onBack(CCObject *)
+	{
+		auto director = CCDirector::sharedDirector();
+		auto winSize = director->getWinSize();
+
+		this->retain();
+		this->removeFromParentAndCleanup(false);
+
+		auto garage = GJGarageLayer::scene();
+		director->replaceScene(garage);
+		garage->addChild(this, 1000);
+
+		this->release();
+
+		auto moveTo = CCMoveTo::create(0.3f, ccp(0, winSize.height));
+		auto easeIn = CCEaseIn::create(moveTo, 2.0f);
+		auto callFunc = CCCallFunc::create(this, callfunc_selector(OdysseyShop::removeFromParent));
+
+		auto ccSeq = CCSequence::create(easeIn, callFunc, 0);
+		this->runAction(ccSeq);
+		GameManager::sharedState()->fadeInMenuMusic();
+
+		setKeyboardEnabled(false);
+		setKeypadEnabled(false);
 	}
 };
 
@@ -170,18 +205,17 @@ class $modify(OdysseyEditorPauseLayer, EditorPauseLayer)
 class $modify(GDOLocalLevelManager, LocalLevelManager)
 {
 	$override gd::string getMainLevelString(int id)
-    {
-        auto file = CCString::createWithFormat("level-%i.txt"_spr, id);
-        if (file == nullptr)
-            return "";
-			
-        auto content = CCString::createWithContentsOfFile(file->getCString());
-        if (content == nullptr)
-            return "";
+	{
+		auto file = CCString::createWithFormat("level-%i.txt"_spr, id);
+		if (file == nullptr)
+			return "";
 
-        return gd::string(content->getCString());
+		auto content = CCString::createWithContentsOfFile(file->getCString());
+		if (content == nullptr)
+			return "";
 
-    }
+		return gd::string(content->getCString());
+	}
 };
 
 class $modify(GDOMusicDownloadManager, MusicDownloadManager)
@@ -207,9 +241,11 @@ class $modify(GDOMusicDownloadManager, MusicDownloadManager)
 	}
 };
 
-class $modify(SongsLayer) {
-	void customSetup() {
-		CCArray* songObjectArray = CCArray::create();
+class $modify(SongsLayer)
+{
+	void customSetup()
+	{
+		CCArray *songObjectArray = CCArray::create();
 		songObjectArray->addObject(SongObject::create(101));
 		songObjectArray->addObject(SongObject::create(102));
 		songObjectArray->addObject(SongObject::create(103));

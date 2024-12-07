@@ -68,12 +68,12 @@
 			],
 			"default": "First Time"
 		},
-		"level-extra-02-unlocked": {
+		"level-extra-01-unlocked": {
 			"type": "bool",
 			"name": "Conclusive Journey",
 			"default": false
 		},
-		"level-extra-01-unlocked": {
+		"level-extra-02-unlocked": {
 			"type": "bool",
 			"name": "Burning Sands",
 			"default": false
@@ -182,9 +182,7 @@
 			"resources/*.zip"
 		],
 		"sprites": [
-			"resources/*.png",
-			"resources/ComicSheetSPA/*.png",
-			"resources/ComicSheetENG/*.png"
+			"resources/*.png"
 		]
 	}
 }

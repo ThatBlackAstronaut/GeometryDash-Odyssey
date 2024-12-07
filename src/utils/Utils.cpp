@@ -446,7 +446,7 @@ void Odyssey::insertAssetsToMap(bool isSong, std::vector<int> IDs)
     }
 }
 
-bool Odyssey::isCustomIcon(int id, IconType type)
+bool Odyssey::isIconCustom(int id, IconType type)
 {
     if (id > 485 && type == IconType::Cube)
         return true;
@@ -467,6 +467,42 @@ bool Odyssey::isCustomIcon(int id, IconType type)
     if (id > 8 && type == IconType::Jetpack)
         return true;
     if (static_cast<int>(type) >= 900)
+        return true;
+
+    return false;
+}
+
+bool Odyssey::isIconSecret(int id, IconType type)
+{
+    if ((id >= 502 && id <= 508) && type == IconType::Cube)
+        return true;
+    if ((id >= 171 && id <= 172) && type == IconType::Ship)
+        return true;
+    if ((id >= 120 && id <= 123) && type == IconType::Ball)
+        return true;
+    if ((id >= 150 && id <= 153) && type == IconType::Ufo)
+        return true;
+    if ((id >= 98 && id <= 99) && type == IconType::Wave)
+        return true;
+    if ((id == 9) && type == IconType::Jetpack)
+        return true;
+
+    return false;
+}
+
+bool Odyssey::isIconUpcoming(int id, IconType type)
+{
+    if (id >= 509 && type == IconType::Cube)
+        return true;
+    if (id >= 173 && type == IconType::Ship)
+        return true;
+    if (id >= 124 && type == IconType::Ball)
+        return true;
+    if (id >= 154 && type == IconType::Ufo)
+        return true;
+    if (id >= 100 && type == IconType::Wave)
+        return true;
+    if (id >= 46 && type == IconType::Swing)
         return true;
 
     return false;
@@ -537,7 +573,7 @@ std::vector<std::string> Odyssey::getPlayerFrames(int iconID, IconType type)
 
 void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlayerObject)
 {
-    if (!isCustomIcon(iconID, type))
+    if (!isIconCustom(iconID, type))
         return;
 
     auto frameCache = CCSpriteFrameCache::get();
