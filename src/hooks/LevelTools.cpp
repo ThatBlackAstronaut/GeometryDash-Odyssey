@@ -26,9 +26,9 @@ class $modify(OdysseyLevelTools, LevelTools)
 		case 108:
 			return "Super Wubtendo";
 		case 201:
-			return "Burning Sands";
-		case 202:
 			return "Conclusion";
+		case 202:
+			return "Burning Sands";
 		default:
 			return LevelTools::getAudioTitle(levelID);
 		}
@@ -49,9 +49,9 @@ class $modify(OdysseyLevelTools, LevelTools)
 		case 105:
 			return "Hellfire.mp3"_spr;
 		case 201:
-			return "BurningSands.mp3"_spr;
-		case 202:
 			return "ConclusiveJourney.mp3"_spr;
+		case 202:
+			return "BurningSands.mp3"_spr;
 
 		default:
 			return LevelTools::getAudioFileName(levelID);
@@ -163,16 +163,16 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 		case 201:
-			setLevelInfo(level, 10, GJDifficulty::Demon, 0, 0); // Burning Sands
-			level->m_levelName = getAudioTitle(201);
+			setLevelInfo(level, 8, GJDifficulty::Insane, 0, 0); // Conclusive Journey
+			level->m_levelName = "Conclusive Journey";
 			level->m_audioTrack = 201;
-			level->m_demon = 1;
 			level->m_coins = 3;
 			break;
 		case 202:
-			setLevelInfo(level, 8, GJDifficulty::Insane, 0, 0); // Conclusive Journey
-			level->m_levelName = "Conclusive Journey";
+			setLevelInfo(level, 10, GJDifficulty::Demon, 0, 0); // Burning Sands
+			level->m_levelName = getAudioTitle(202);
 			level->m_audioTrack = 202;
+			level->m_demon = 1;
 			level->m_coins = 3;
 			break;
 		}
@@ -230,9 +230,9 @@ class $modify(OdysseyLevelTools, LevelTools)
 		case 110:
 			return "https://www.newgrounds.com/audio/listen/678590"; // Harmony Of The Heart
 		case 201:
-			return "https://youtu.be/gyxh9R59oj4?si=IhxSU7XQvwJX32z3"; // Burning Sands
-		case 202:
 			return "https://youtu.be/BcoURwJr9PI?si=Mb3Zi1azTN2bbrYE"; // Conclusive
+		case 202:
+			return "https://youtu.be/gyxh9R59oj4?si=IhxSU7XQvwJX32z3"; // Burning Sands
 		default:
 			return LevelTools::urlForAudio(songID);
 		}

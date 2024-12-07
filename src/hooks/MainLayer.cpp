@@ -22,7 +22,6 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         {
             auto odysseyTitle = CCSprite::createWithSpriteFrameName("GDO_MainLogo_001.png"_spr);
             gameTitle->setDisplayFrame(odysseyTitle->displayFrame());
-
             gameTitle->setPositionY(gameTitle->getPositionY() - 15);
         }
 
@@ -41,21 +40,29 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         auto bottomMenu = static_cast<CCMenu *>(this->getChildByID("bottom-menu"));
         auto seenComic = Mod::get()->getSettingValue<bool>("watched-comic-01");
 
+        auto geodeButton = bottomMenu->getChildByID("geode.loader/geode-button");
+        geodeButton->removeFromParentAndCleanup(false);
+
         if (seenComic)
         {
-            auto geodeButton = bottomMenu->getChildByID("geode.loader/geode-button");
-            geodeButton->removeFromParentAndCleanup(true);
-
             auto comicButton = CCMenuItemSpriteExtra::create(
                 CircleButtonSprite::createWithSpriteFrameName("GDO_comicBtn.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::MediumAlt),
                 this,
                 nullptr);
 
             bottomMenu->addChild(comicButton);
-            bottomMenu->addChild(geodeButton);
-            bottomMenu->updateLayout();
         }
 
+        auto devButton = CCMenuItemSpriteExtra::create(
+            CircleButtonSprite::createWithSpriteFrameName("geode.loader/settings.png", 1, CircleBaseColor::Green, CircleBaseSize::MediumAlt),
+            this,
+            menu_selector(OdysseyMenuLayer::onDev));
+
+        bottomMenu->addChild(devButton);
+        bottomMenu->addChild(geodeButton);
+        bottomMenu->updateLayout();
+
+        //  Boton de more games es reemplazado por Creditos
         auto moreGamesMenu = static_cast<CCMenu *>(this->getChildByID("more-games-menu"));
         auto moreGamesButton = static_cast<CCMenuItemSpriteExtra *>(moreGamesMenu->getChildByID("more-games-button"));
         if (moreGamesButton)
@@ -68,13 +75,18 @@ class $modify(OdysseyMenuLayer, MenuLayer)
             moreGamesButton->setNormalImage(creditsSprite);
         }
 
-        /*
-        for (int i = 0; i < GameManager::sharedState()->countForType(IconType::Cube); i++)
-        {
-            log::info("Unlock: {}, ID: {}", GameStatsManager::sharedState()->getItemUnlockState(i + 1, UnlockType::Cube), i + 1);
-        }*/
+        if (auto levelEditorHint = static_cast<CCSprite *>(this->getChildByID("level-editor-hint")))
+            levelEditorHint->setVisible(false);
 
         return true;
+    }
+
+    void onDev(CCObject *)
+    {
+        auto scene = CCScene::create();
+        scene->addChild(OdysseyDevLayer::create());
+
+        CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
     }
 
     void onPlay(CCObject *)
@@ -85,17 +97,19 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
     void onCreator(CCObject *sender)
     {
+        auto showFanmades = Mod::get()->getSettingValue<bool>("show-more-games");
+
+        if (showFanmades)
+        {
+            auto *layer = FanmadeGamesLayer::create();
+            addChild(layer, 100);
+
+            layer->showLayer(false);
+            return;
+        }
+
         MenuLayer::onCreator(sender);
-        // https://cdn.discordapp.com/attachments/1196219414090088492/1312260912178004028/652ded519286d.png?ex=674bd9b6&is=674a8836&hm=97941665f4143f33aaf60ef1b09f325d6d99e96121bd7f8b4729c1250d17b43b&
     }
-
-    void onRobTop(CCObject *)
-    {
-        auto scene = CCScene::create();
-        scene->addChild(OdysseyDevLayer::create());
-
-        CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
-    };
 
     void onMoreGames(CCObject *)
     {
@@ -108,6 +122,6 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         */
 
         auto credits = OdysseyCreditsLayer::create();
-		credits->show();
+        credits->show();
     }
 };

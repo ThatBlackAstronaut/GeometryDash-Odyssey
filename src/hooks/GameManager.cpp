@@ -33,7 +33,7 @@ class $modify(OdysseyGameManager, GameManager)
 
     bool isIconUnlocked(int id, IconType type)
     {
-        if (Odyssey::isCustomIcon(id, type))
+        if (Odyssey::isIconCustom(id, type))
             return GameManager::isIconUnlocked(id, type);
         return true;
     }

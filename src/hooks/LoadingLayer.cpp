@@ -23,7 +23,6 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
             return false;
 
         auto GM = GameManager::sharedState();
-
         auto SFC = CCSpriteFrameCache::get();
         auto searchPathRoot = dirs::getModRuntimeDir() / Mod::get()->getID() / "resources";
         CCFileUtils::sharedFileUtils()->addSearchPath(searchPathRoot.string().c_str());
@@ -48,10 +47,11 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         OdysseyLoadingLayer::addOdysseyComicAssets();
 
         //  La bandera de "Aceptar los ToS" del juego
-        if (!GM->getUGV("30"))
-        {
-            GM->setUGV("30", true);
-        }
+        if (!GM->getUGV("30")) GM->setUGV("30", true);
+
+        //  La bandera de primer dialogo del Shopkeeper (500 Orbes)
+        if (!GM->getUGV("17")) GM->setUGV("17", true);
+    
         return true;
     }
 

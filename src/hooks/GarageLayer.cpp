@@ -32,8 +32,8 @@ class $modify(GDOGarageLayer, GJGarageLayer)
                 //  Quita temporalmente los botones de efecto y trail
                 auto trailButton = categoryMenu->getChildByID("trail-button");
                 auto effectButton = categoryMenu->getChildByID("death-effect-button");
-                effectButton->removeFromParentAndCleanup(true);
-                trailButton->removeFromParentAndCleanup(true);
+                effectButton->removeFromParentAndCleanup(false);
+                trailButton->removeFromParentAndCleanup(false);
 
                 //  Agrega los botones de los gamemodes custom
                 for (int ii = 0; ii < 4; ii++)
