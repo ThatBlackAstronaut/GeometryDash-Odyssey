@@ -71,6 +71,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         return true;
     }
 
+    /*
     void onNewgrounds(CCObject *)
     {
         auto scene = CCScene::create();
@@ -78,6 +79,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
         CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
     }
+    */
 
     void onPlay(CCObject *)
     {
