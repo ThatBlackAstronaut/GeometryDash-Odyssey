@@ -29,7 +29,7 @@
 		},
 		{
 			"id": "capeling.geometry-dash-lunar",
-			"importance": "breaking",
+			"importance": "conflicting",
 			"version": "*"
 		},
 		{
