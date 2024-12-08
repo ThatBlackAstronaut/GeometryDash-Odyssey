@@ -26,6 +26,7 @@ public:
     CCNode * createComicPage(const char *);
     std::pair<const char *, const char *>getPage(int, int);
 
+    void verifySecretAchievement();
     void scrollLayerMoved(CCPoint);
     void onSecret(CCObject *);
     void onBack(CCObject *);

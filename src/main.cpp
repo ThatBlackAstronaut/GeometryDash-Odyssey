@@ -7,10 +7,30 @@
 #include <Geode/modify/EditorPauseLayer.hpp>
 #include <Geode/modify/LocalLevelManager.hpp>
 #include <Geode/modify/MusicDownloadManager.hpp>
-#include <Geode/modify/GJShopLayer.hpp>
 #include <Geode/modify/SongsLayer.hpp>
+#include <Geode/modify/PauseLayer.hpp>
 
 using namespace geode::prelude;
+
+class $modify(OdysseyGManager, GManager)
+{
+	void setup()
+	{
+		auto compare = std::string(m_fileName);
+
+		compare.insert(std::string_view(compare).find(".dat"), "Odyssey");
+
+		m_fileName = compare;
+		GManager::setup();
+	}
+};
+
+class $modify(PauseLayer){
+	void onQuit(CCObject * sender){
+		PauseLayer::onQuit(sender);
+		GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
+	}
+};
 
 class $modify(CCSprite)
 {
@@ -85,40 +105,6 @@ class $modify(CCSprite)
 	}
 };
 
-class $modify(OdysseyShop, GJShopLayer)
-{
-	bool init(ShopType p0)
-	{
-		return GJShopLayer::init(ShopType{6});
-	}
-
-	void onBack(CCObject *)
-	{
-		auto director = CCDirector::sharedDirector();
-		auto winSize = director->getWinSize();
-
-		this->retain();
-		this->removeFromParentAndCleanup(false);
-
-		auto garage = GJGarageLayer::scene();
-		director->replaceScene(garage);
-		garage->addChild(this, 1000);
-
-		this->release();
-
-		auto moveTo = CCMoveTo::create(0.3f, ccp(0, winSize.height));
-		auto easeIn = CCEaseIn::create(moveTo, 2.0f);
-		auto callFunc = CCCallFunc::create(this, callfunc_selector(OdysseyShop::removeFromParent));
-
-		auto ccSeq = CCSequence::create(easeIn, callFunc, 0);
-		this->runAction(ccSeq);
-		GameManager::sharedState()->fadeInMenuMusic();
-
-		setKeyboardEnabled(false);
-		setKeypadEnabled(false);
-	}
-};
-
 /*
 class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
 {
@@ -147,19 +133,6 @@ class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
 	}
 };
 */
-
-class $modify(OdysseyGManager, GManager)
-{
-	void setup()
-	{
-		auto compare = std::string(m_fileName);
-
-		compare.insert(std::string_view(compare).find(".dat"), "Odyssey");
-
-		m_fileName = compare;
-		GManager::setup();
-	}
-};
 
 class $modify(OdysseyEditorUI, EditorUI)
 {
