@@ -136,11 +136,6 @@ void OdysseyLevelPopup::onSettings(CCObject *sender)
 
 void OdysseyLevelPopup::onComic(CCObject *sender)
 {
-    //  Se cambiara por GameManager despues
-    Mod::get()->setSettingValue<bool>("watched-comic-0" + std::to_string(m_levelID + 1), true);
-
-    log::debug("LEVEL: {}", m_levelID);
-
     auto scene = CCScene::create();
     scene->addChild(OdysseyComicLayer::create(m_levelID + 1, false));
 

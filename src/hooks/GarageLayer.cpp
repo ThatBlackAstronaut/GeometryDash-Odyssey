@@ -38,13 +38,13 @@ class $modify(GDOGarageLayer, GJGarageLayer)
                 //  Agrega los botones de los gamemodes custom
                 for (int ii = 0; ii < 4; ii++)
                 {
-                    const char *buttonName[4] = {"boat", "drone", "slider", "minecart"};
+                    const char *buttonName[4] = {"Boat", "Drone", "Slider", "Minecart"};
                     //  log::debug("gamemode: {}", buttonName[ii]);
 
-                    auto sprOff = CCSprite::createWithSpriteFrameName(fmt::format("gdo_{}Btn_off_001.png"_spr, buttonName[ii]).c_str());
+                    auto sprOff = IconSelectButtonSprite::createWithSpriteFrameName(fmt::format("GDO_{}Icon_001.png"_spr, buttonName[ii]).c_str(), 1.5, IconSelectBaseColor::Unselected);
                     sprOff->setScale(.9f);
 
-                    auto sprOn = CCSprite::createWithSpriteFrameName(fmt::format("gdo_{}Btn_on_001.png"_spr, buttonName[ii]).c_str());
+                    auto sprOn = IconSelectButtonSprite::createWithSpriteFrameName(fmt::format("GDO_{}Icon_001.png"_spr, buttonName[ii]).c_str(), 1.5, IconSelectBaseColor::Selected);
                     sprOn->setScale(.9f);
 
                     auto toggler = CCMenuItemToggler::create(sprOff, sprOn, this, menu_selector(GJGarageLayer::onSelectTab));

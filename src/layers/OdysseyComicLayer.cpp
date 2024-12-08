@@ -84,6 +84,8 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
     m_cornerBR->setID("corner-br"_spr);
     addChild(m_cornerBR, 2);
 
+    Mod::get()->setSettingValue<bool>("watched-comic-0" + std::to_string(m_comicNumber), true);
+    verifySecretAchievement();
     setKeyboardEnabled(true);
     setKeypadEnabled(true);
 
@@ -149,7 +151,6 @@ void OdysseyComicLayer::createComic(CCArray *arr, int issueNumber)
 
 void OdysseyComicLayer::onHollow(CCObject *)
 {
-
     if (!Mod::get()->getSettingValue<bool>("meet-hollow"))
     {
         auto dialog = Odyssey::createDialog("hollowMeeting");
@@ -387,6 +388,20 @@ void OdysseyComicLayer::onSecret(CCObject *sender)
 
     auto btn = static_cast<CCMenuItemSpriteExtra *>(sender);
     btn->setVisible(false);
+};
+
+void OdysseyComicLayer::verifySecretAchievement(){
+    int comicProgress = 0;
+    for(auto ii = 1; ii <= 6; ii++){
+        comicProgress += Mod::get()->getSettingValue<bool>("watched-comic-0" + std::to_string(ii));
+        log::debug("Comic {} = {}", ii, Mod::get()->getSettingValue<bool>("watched-comic-0" + std::to_string(ii)));
+    };
+
+    log::debug("Comic progress: {}", comicProgress);
+
+    auto percent = (comicProgress * 100) / 6;
+    log::info("Secret Comic Achievement progress: {}", percent);
+    GameManager::sharedState()->reportAchievementWithID("geometry.ach.odyssey.secret19", percent, false);
 };
 
 void OdysseyComicLayer::scrollLayerMoved(CCPoint point)
