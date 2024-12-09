@@ -219,21 +219,9 @@ bool OdysseyDevLayer::init()
 
 void OdysseyDevLayer::onOgre(CCObject *)
 {
-
-    if (!Mod::get()->getSettingValue<bool>("meet-hollow"))
-    {
-        auto dialog = Odyssey::createDialog("hollowMeeting");
-        Mod::get()->setSettingValue("meet-hollow", true);
-        //  GM->setUGV("52", true);
-        this->addChild(dialog, 3);
-    }
-    else
-    {
-        auto scene = CCScene::create();
-        scene->addChild(SecretVaultLayer2::create());
-
-        CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
-    }
+    auto scene = CCScene::create();
+    scene->addChild(SecretVaultLayer2::create());
+    CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };
 
 void OdysseyDevLayer::onLevel(CCObject *sender)

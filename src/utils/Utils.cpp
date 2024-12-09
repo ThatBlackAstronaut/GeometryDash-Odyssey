@@ -81,7 +81,7 @@ CCNode *Odyssey::createProgressBar(int percentage, bool isPractice)
 CCNode *Odyssey::createDifficultyNode(GJDifficulty diff, int stars)
 {
     auto node = CCNode::create();
-    node->setContentSize({20.f, 32.5f});
+    node->setContentSize({22.f, 32.5f});
 
     std::string difficultyName = fmt::format("diffIcon_{:02}_btn_001.png", static_cast<int>(diff));
     auto diffSprite = CCSprite::createWithSpriteFrameName(difficultyName.c_str());
@@ -89,7 +89,7 @@ CCNode *Odyssey::createDifficultyNode(GJDifficulty diff, int stars)
     diffSprite->setScale(1.25f);
 
     auto starLabel = CCLabelBMFont::create(std::to_string(stars).c_str(), "bigFont.fnt");
-    starLabel->limitLabelWidth(10, 0.6f, 0.1f);
+    starLabel->limitLabelWidth(25, 0.6f, 0.1f);
     starLabel->setPosition({0, 0});
 
     auto starSprite = CCSprite::createWithSpriteFrameName("GJ_bigStar_noShadow_001.png");
@@ -107,7 +107,7 @@ DialogLayer *Odyssey::createDialog(const char *event)
     CCArray *arr = CCArray::create();
 
     //  SOLAMENTE REEMPLAZA ESTA LINEA CUANDO YA TENGAMOS EL SETTING MEJORADO
-    auto spanishText = Mod::get()->getSettingValue<bool>("spanish-language");
+    auto spanishText = GameManager::sharedState()->getGameVariable("0201");
 
     auto dialogColor = 2;
     if (event == "shopIntroduction")
@@ -295,7 +295,7 @@ DialogLayer *Odyssey::createDialog(const char *event)
 
 DialogLayer *Odyssey::createDialogResponse(const char *event, int times)
 {
-    auto spanishText = Mod::get()->getSettingValue<bool>("spanish-language");
+    auto spanishText = GameManager::sharedState()->getGameVariable("0201");
     CCArray *arr = CCArray::create();
     if (event == "playerIsPoor")
     {
@@ -484,7 +484,7 @@ bool Odyssey::isIconSecret(int id, IconType type)
         return true;
     if ((id >= 98 && id <= 99) && type == IconType::Wave)
         return true;
-    if ((id == 9) && type == IconType::Jetpack)
+    if ((id >= 9) && type == IconType::Jetpack)
         return true;
 
     return false;
@@ -492,8 +492,9 @@ bool Odyssey::isIconSecret(int id, IconType type)
 
 bool Odyssey::isIconUpcoming(int id, IconType type)
 {
-    if (id >= 509 && type == IconType::Cube)
+    if (id >= 514 && type == IconType::Cube)
         return true;
+    /*
     if (id >= 173 && type == IconType::Ship)
         return true;
     if (id >= 124 && type == IconType::Ball)
@@ -504,6 +505,7 @@ bool Odyssey::isIconUpcoming(int id, IconType type)
         return true;
     if (id >= 46 && type == IconType::Swing)
         return true;
+    */
 
     return false;
 }

@@ -9,6 +9,8 @@ class $modify(OdysseyGameManager, GameManager)
 {
     int countForType(IconType icon)
     {
+        //  auto hide = GameManager::sharedState()->getGameVariable("0202");
+
         if (icon == IconType::Cube)
             return 515;
         if (icon == IconType::Ship)
