@@ -14,7 +14,8 @@ class $modify(OdysseyGameStatsManager, GameStatsManager)
         auto achievementID = fmt::format("geometry.ach.level{:02}c", level->m_levelID.value());
         log::info("coinPercent: {}, achID: {}", coinPercent, achievementID);
 
-        if(level->m_levelType == GJLevelType::Local){
+        if (level->m_levelType == GJLevelType::Local)
+        {
             GM->reportAchievementWithID(achievementID.c_str(), coinPercent, false);
         }
     }
@@ -67,19 +68,19 @@ class $modify(OdysseyGameStatsManager, GameStatsManager)
             //  - Precio
             //  - Tienda
 
-            addStoreItem(1, 495, 1, 1, newShop);
-            addStoreItem(2, 496, 1, 1, newShop);
-            addStoreItem(3, 1, 12, 1, newShop);
-            addStoreItem(4, 2, 12, 1, newShop);
-            addStoreItem(5, 497, 1, 1, newShop);
-            addStoreItem(6, 498, 1, 1, newShop);
-            addStoreItem(7, 45, 13, 1, newShop);
-            addStoreItem(8, 499, 1, 1, newShop);
-            addStoreItem(9, 500, 1, 1, newShop);
-            addStoreItem(10, 501, 1, 1, newShop);
-
-            //  addStoreItem(13, 3, 12, 1, newShop);
-            //  addStoreItem(15, 5, 12, 1, newShop);
+            addStoreItem(0, 495, 1, 100, newShop);
+            addStoreItem(1, 496, 1, 100, newShop);
+            addStoreItem(2, 497, 1, 100, newShop);
+            addStoreItem(3, 498, 1, 100, newShop);
+            addStoreItem(4, 1, 12, 250, newShop);
+            addStoreItem(5, 2, 12, 250, newShop);
+            addStoreItem(6, 3, 12, 1, newShop);
+            addStoreItem(7, 5, 12, 1, newShop);
+            addStoreItem(8, 45, 13, 100, newShop);
+            addStoreItem(9, 499, 1, 100, newShop);
+            addStoreItem(10, 500, 1, 100, newShop);
+            addStoreItem(11, 501, 1, 100, newShop);
+            addStoreItem(11, 501, 1, 100, newShop);
         }
     }
 };

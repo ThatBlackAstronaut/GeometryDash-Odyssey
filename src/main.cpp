@@ -9,6 +9,7 @@
 #include <Geode/modify/MusicDownloadManager.hpp>
 #include <Geode/modify/SongsLayer.hpp>
 #include <Geode/modify/PauseLayer.hpp>
+#include <Geode/modify/GJItemIcon.hpp>
 
 using namespace geode::prelude;
 
@@ -17,16 +18,16 @@ class $modify(OdysseyGManager, GManager)
 	void setup()
 	{
 		auto compare = std::string(m_fileName);
-
 		compare.insert(std::string_view(compare).find(".dat"), "Odyssey");
-
 		m_fileName = compare;
 		GManager::setup();
 	}
 };
 
-class $modify(PauseLayer){
-	void onQuit(CCObject * sender){
+class $modify(PauseLayer)
+{
+	void onQuit(CCObject *sender)
+	{
 		PauseLayer::onQuit(sender);
 		GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
 	}
@@ -36,76 +37,45 @@ class $modify(CCSprite)
 {
 	static CCSprite *create(const char *pszFileName)
 	{
+		//	Si, es horrible esta manera, ahorita investigo otra.
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_019.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_005.png"_spr);
-		}
-
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_020.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_006.png"_spr);
-		}
-
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_021.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_007.png"_spr);
-		}
-
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_022.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_008.png"_spr);
-		}
-
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_023.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_009.png"_spr);
-		}
-
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_024.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_010.png"_spr);
-		}
-
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_025.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_011.png"_spr);
-		}
-
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_026.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_012.png"_spr);
-		}
-
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_053.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_001.png"_spr);
-		}
-
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_054.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_002.png"_spr);
-		}
-
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_055.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_003.png"_spr);
-		}
-
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_056.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_004.png"_spr);
-		}
-
 		if (std::string_view(pszFileName) == std::string_view("dialogIcon_028.png"))
-		{
 			return CCSprite::create("GDO_DialogIcon_013.png"_spr);
-		}
 
 		return CCSprite::create(pszFileName);
 	}
+
+	static CCSprite *createWithSpriteFrameName(const char *pszSpriteFrameName)
+	{
+		if (std::string_view(pszSpriteFrameName) == std::string_view("gjItem_01_001.png"))
+			return CCSprite::createWithSpriteFrameName("GDO_Key_01_001.png");
+		return CCSprite::createWithSpriteFrameName(pszSpriteFrameName);
+	}
 };
 
-/*
 class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
 {
 	bool init()
@@ -114,10 +84,8 @@ class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
 			return false;
 
 		//	Aun en fase de prueba
-		MoreOptionsLayer::addToggle("Pizza", "Pasta", "Ravioli");
-		MoreOptionsLayer::addToggle("Burger", "Pasta", "Ravioli");
-		MoreOptionsLayer::addToggle("Hot Dog", "Pasta", "Ravioli");
-		MoreOptionsLayer::addToggle("Soup", "Pasta", "Ravioli");
+		MoreOptionsLayer::addToggle("Spanish", "0201", "<cy>ENG</c>: Translates most of the mod's dialogue in Spanish. Due to character limitations, there will be spelling errors.\n\n<cy>ESP</c>: Traduce mayor parte del dialogo del mod en Espanol. Dado a las limitaciones de caracteres en el juego, habran errores ortograficos (como la falta de acentos)");
+		//	MoreOptionsLayer::addToggle("Hide upcoming", "0202", "<cy>ENG</c>: Hides icons that are tagged as upcoming (thus impossible to get for now).\n\n<cy>SPA</c>: Oculta los iconos etiquetados como proximos (por tanto, imposibles de conseguir por ahora).");
 
 		return true;
 	}
@@ -132,7 +100,6 @@ class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
 		}
 	}
 };
-*/
 
 class $modify(OdysseyEditorUI, EditorUI)
 {

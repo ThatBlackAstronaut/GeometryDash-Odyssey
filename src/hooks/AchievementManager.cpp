@@ -56,17 +56,105 @@ class $modify(OdysseyAchievementManager, AchievementManager)
         AchievementManager::addAchievement(
             "geometry.ach.level04a",
             "Digital Disco",
-            "Completed \"Criptofunk\" in practice mode",
-            "Complete \"Criptofunk\" in practice mode",
+            "Completed \"Cryptofunk\" in practice mode",
+            "Complete \"Cryptofunk\" in practice mode",
             "icon_491",
             1);
 
         AchievementManager::addAchievement(
             "geometry.ach.level04b",
-            "Criptofunk!",
-            "Completed \"Criptofunk\" in normal mode",
-            "Complete \"Criptofunk\" in normal mode",
+            "Cryptofunk!",
+            "Completed \"Cryptofunk\" in normal mode",
+            "Complete \"Cryptofunk\" in normal mode",
             "icon_492",
+            1);
+
+        AchievementManager::addAchievement(
+            "geometry.ach.level05a",
+            "Jungle Japes",
+            "Completed \"Hellfire\" in practice mode",
+            "Complete \"Hellfire\" in practice mode",
+            "icon_509",
+            1);
+
+        AchievementManager::addAchievement(
+            "geometry.ach.level05b",
+            "Hellfire!",
+            "Completed \"Hellfire\" in normal mode",
+            "Complete \"Hellfire\" in normal mode",
+            "ship_173",
+            1);
+
+        AchievementManager::addAchievement(
+            "geometry.ach.level06a",
+            "All bosses (No damage)",
+            "Completed \"Boss Rush\" in practice mode",
+            "Complete \"Boss Rush\" in practice mode",
+            "icon_510",
+            1);
+
+        AchievementManager::addAchievement(
+            "geometry.ach.level06b",
+            "Boss Rush!",
+            "Completed \"Boss Rush\" in normal mode",
+            "Complete \"Boss Rush\" in normal mode",
+            "ship_174",
+            1);
+
+        AchievementManager::addAchievement(
+            "geometry.ach.level07a",
+            "I'm freezing here...",
+            "Completed \"Frostbite\" in practice mode",
+            "Complete \"Frostbite\" in practice mode",
+            "icon_511",
+            1);
+
+        AchievementManager::addAchievement(
+            "geometry.ach.level07b",
+            "Frostbite!",
+            "Completed \"Frostbite\" in normal mode",
+            "Complete \"Frostbite\" in normal mode",
+            "ball_124",
+            1);
+
+        AchievementManager::addAchievement(
+            "geometry.ach.level08a",
+            "Retro Advanced",
+            "Completed \"Super Wubtendo\" in practice mode",
+            "Complete \"Super Wubtendo\" in practice mode",
+            "icon_512",
+            1);
+
+        AchievementManager::addAchievement(
+            "geometry.ach.level08b",
+            "Super Wubtendo!",
+            "Completed \"Super Wubtendo\" in normal mode",
+            "Complete \"Super Wubtendo\" in normal mode",
+            "swing_46",
+            1);
+
+        AchievementManager::addAchievement(
+            "geometry.ach.level09a",
+            "Bonus Round",
+            "Completed \"Critical Hit\" in practice mode",
+            "Complete \"Critical Hit\" in practice mode",
+            "dart_100",
+            1);
+
+        AchievementManager::addAchievement(
+            "geometry.ach.level09b",
+            "Critical Hit!",
+            "Completed \"Critical Hit\" in normal mode",
+            "Complete \"Critical Hit\" in normal mode",
+            "icon_513",
+            1);
+
+        AchievementManager::addAchievement(
+            "geometry.ach.level09c",
+            "Ultimate Critical Hit!",
+            "Completed \"Critical Hit\" with all coins",
+            "Complete \"Critical Hit\" with all coins",
+            "ship_175",
             1);
 
         AchievementManager::addAchievement(
@@ -104,8 +192,8 @@ class $modify(OdysseyAchievementManager, AchievementManager)
         AchievementManager::addAchievement(
             "geometry.ach.level202c",
             "Ultimate Burning Sands",
-            "Completed \"Burning Sands\" with all 3 coins",
-            "Complete \"Burning Sands\" with all 3 coins",
+            "Completed \"Burning Sands\" with all coins",
+            "Complete \"Burning Sands\" with all coins",
             "icon_494",
             1);
 
@@ -122,7 +210,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
 
         //  Hollow
         AchievementManager::addAchievement("geometry.ach.odyssey.secret10", "Rainbow power!", "Found the secret!", "It's a secret...", "ball_122", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret11", "Coming soon", "Found the secret!", "It's a secret...", "jetpack_9", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret11", "Coming soon", "Found the secret!", "It's a secret...", "jetpack_09", 1);
         AchievementManager::addAchievement("geometry.ach.odyssey.secret12", "Mortal", "Found the secret!", "It's a secret...", "icon_505", 1);
         AchievementManager::addAchievement("geometry.ach.odyssey.secret13", "About her", "Found the secret!", "It's a secret...", "icon_506", 1);
         AchievementManager::addAchievement("geometry.ach.odyssey.secret14", "Knockout!", "Found the secret!", "It's a secret...", "ship_171", 1);

@@ -1,10 +1,11 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 #include "../layers/OdysseyCreditsLayer.hpp"
-#include "../nodes/OdysseyCreditNode.hpp"
 #include "../layers/OdysseySelectLayer.hpp"
 #include "../layers/OdysseyDevLayer.hpp"
 #include "../layers/FanmadeGamesLayer.hpp"
+#include "../nodes/OdysseyCreditNode.hpp"
+#include "../nodes/OdysseyPopup.hpp"
 #include "../utils/Utils.hpp"
 
 using namespace geode::prelude;
@@ -15,6 +16,17 @@ class $modify(OdysseyMenuLayer, MenuLayer)
     {
         if (!MenuLayer::init())
             return false;
+
+        if (Mod::get()->getSettingValue<bool>("reset-variables"))
+            OdysseyMenuLayer::Restart();
+
+        if (!GameManager::sharedState()->getUGV("201"))
+        {
+            auto popup = OdysseyPopup::create("Savefile Notice", "<cr>Odyssey</c> stores the data in\na separate <cy>savefile</c>. Your data\nwill be <cg>restored</c> when you\n<cb>turn off</c> the Mod.");
+            popup->setWarning(true, false);
+            popup->m_scene = this;
+            popup->show();
+        };
 
         //  Reemplaza el titulo
         auto gameTitle = static_cast<CCSprite *>(this->getChildByID("main-title"));
@@ -38,7 +50,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
         //  Boton para acceder a los comics mas facil
         auto bottomMenu = static_cast<CCMenu *>(this->getChildByID("bottom-menu"));
-        auto seenComic = Mod::get()->getSettingValue<bool>("watched-comic-01");
+        auto seenComic = GameManager::sharedState()->getUGV("211");
 
         auto geodeButton = bottomMenu->getChildByID("geode.loader/geode-button");
         geodeButton->removeFromParentAndCleanup(false);
@@ -121,7 +133,26 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         CCDirector::sharedDirector()->replaceScene(CCTransitionMoveInT::create(.63f, shop));
         */
 
+        log::debug("{}", Mod::get()->getID());
+        log::debug("{}", Mod::get()->getResourcesDir().string());
+
+        GameManager::sharedState();
+
         auto credits = OdysseyCreditsLayer::create();
         credits->show();
+    }
+
+    void Restart()
+    {
+        Mod::get()->setSettingValue<bool>("reset-variables", false);
+
+        for (auto ii = 1; ii <= 22; ii++)
+        {   
+            auto variable = (ii < 10) ? fmt::format("20{}", ii) : fmt::format("2{}", ii);
+            GameManager::sharedState()->setUGV(variable.c_str(), false);
+            log::info("Restarting UGV = {}", variable);
+        };
+
+        log::info("Variables succesfully restarted");
     }
 };

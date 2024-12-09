@@ -11,9 +11,7 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		if (!GJShopLayer::init(ShopType{6}))
 			return false;
 
-		auto firstTime = Mod::get()->getSettingValue<bool>("meet-carp");
-
-		if (!firstTime)
+		if (!GameManager::sharedState()->getUGV("204"))
 		{
 			this->runAction(CCSequence::create(
 				CCDelayTime::create(0.5f),
@@ -27,6 +25,7 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 	void getCarpDialog()
 	{
 		auto dialog = Odyssey::createDialog("shopIntroduction");
+		GameManager::sharedState()->setUGV("204", true);
 		this->addChild(dialog, 200);
 	}
 
