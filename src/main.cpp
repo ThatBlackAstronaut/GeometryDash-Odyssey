@@ -77,7 +77,7 @@ class $modify(CCSprite)
 
 	void setDisplayFrame(CCSpriteFrame* p0)
 	{
-		if (p0->getFrameName().compare("shopKeeper_jaw_01_001.png") == 0)
+		if (p0->getFrameName() == std::string_view("shopKeeper_jaw_01_001.png"))
 		{
 			
 			auto frame = CCSpriteFrameCache::get()->spriteFrameByName("shopKeeper_jaw_01_001.png"_spr);
