@@ -483,7 +483,27 @@ void SecretVaultLayer::updateMessage(std::string message, MessageType type)
         m_messageIDX = 0;
         break;
     }
+
+    fadeInLabel();
+
 };
+
+void SecretVaultLayer::fadeInLabel()
+{
+    for (int i = 0; i < m_response->getChildrenCount(); i++)
+    {
+        auto child = static_cast<CCSprite*>(m_response->getChildren()->objectAtIndex(i));
+
+        child->setOpacity(0);
+
+        auto fadeInDelay = CCDelayTime::create(.1f * i);
+        auto fadeIn = CCFadeTo::create(.25f, 255);
+        auto fadeOutDelay = CCDelayTime::create(.14f * m_response->getChildrenCount());
+        auto fadeOut = CCFadeTo::create(.25f, 0);
+        child->runAction(CCSequence::create(fadeInDelay, fadeIn, fadeOutDelay, fadeOut, 0));
+    }
+    
+}
 
 void SecretVaultLayer::keyBackClicked()
 {

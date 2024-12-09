@@ -103,6 +103,18 @@ class $modify(CCSprite)
 
 		return CCSprite::create(pszFileName);
 	}
+
+	void setDisplayFrame(CCSpriteFrame* p0)
+	{
+		if (p0->getFrameName().compare("shopKeeper_jaw_01_001.png") == 0)
+		{
+			
+			auto frame = CCSpriteFrameCache::get()->spriteFrameByName("shopKeeper_jaw_01_001.png"_spr);
+			return CCSprite::setDisplayFrame(frame);
+		}
+
+		CCSprite::setDisplayFrame(p0);
+	}
 };
 
 /*

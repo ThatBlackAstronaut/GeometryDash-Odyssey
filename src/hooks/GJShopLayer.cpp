@@ -11,6 +11,25 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		if (!GJShopLayer::init(ShopType{6}))
 			return false;
 
+		FMODAudioEngine::sharedEngine()->playMusic("Shop.mp3"_spr, true, 0.1f, 0);
+
+		auto children = getChildren();
+
+		auto background = static_cast<CCSprite*>(children->objectAtIndex(0));
+		background->setDisplayFrame(CCSprite::createWithSpriteFrameName("shopBG_001.png"_spr)->displayFrame());
+
+		auto shopSign = static_cast<CCSprite*>(children->objectAtIndex(1));
+		shopSign->setDisplayFrame(CCSprite::createWithSpriteFrameName("shopSign_001.png"_spr)->displayFrame());
+
+		auto desk = static_cast<CCSprite*>(children->objectAtIndex(3));
+		desk->setDisplayFrame(CCSprite::createWithSpriteFrameName("storeDesk_001.png"_spr)->displayFrame());
+
+		auto particle = static_cast<CCParticleSystemQuad*>(children->objectAtIndex(7));
+		particle->setStartColor({ 193, 122, 5, 255 });
+		particle->setEndColor({ 255, 122, 0, 0 });
+
+		auto currency = static_cast<CCSprite*>(children->objectAtIndex(6));
+
 		auto firstTime = Mod::get()->getSettingValue<bool>("meet-carp");
 
 		if (!firstTime)

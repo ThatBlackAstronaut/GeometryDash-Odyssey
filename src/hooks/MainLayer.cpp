@@ -113,14 +113,6 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
     void onMoreGames(CCObject *)
     {
-        // auto credits = FLAlertLayer::create("Si", "Si", "ok");
-        // credits->show();
-        /*
-        auto shop = GJShopLayer::scene(static_cast<ShopType>(6));
-
-        CCDirector::sharedDirector()->replaceScene(CCTransitionMoveInT::create(.63f, shop));
-        */
-
         auto credits = OdysseyCreditsLayer::create();
         credits->show();
     }

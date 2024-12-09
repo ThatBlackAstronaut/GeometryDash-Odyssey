@@ -31,4 +31,6 @@ public:
     std::string getBasicMessage();
     std::string getMessage();
     std::string getThreadMessage(int, int);
+
+    void fadeInLabel();
 };
