@@ -70,7 +70,7 @@ bool OdysseyLevelPopup::setup(std::string const &title)
         menu_selector(OdysseyLevelPopup::onSettings));
     optionsButton->setPosition({8, 8});
 
-    auto seenComic = Mod::get()->getSettingValue<bool>("watched-comic-0" + std::to_string(m_levelID + 1));
+    auto seenComic = GameManager::sharedState()->getUGV(fmt::format("2{}", m_levelID + 11).c_str());
     auto baseColor = seenComic ? CircleBaseColor::Green : CircleBaseColor::Cyan;
 
     //  Comics Button

@@ -30,9 +30,7 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 
 		auto currency = static_cast<CCSprite*>(children->objectAtIndex(6));
 
-		auto firstTime = Mod::get()->getSettingValue<bool>("meet-carp");
-
-		if (!firstTime)
+		if (!GameManager::sharedState()->getUGV("204"))
 		{
 			this->runAction(CCSequence::create(
 				CCDelayTime::create(0.5f),
@@ -46,6 +44,7 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 	void getCarpDialog()
 	{
 		auto dialog = Odyssey::createDialog("shopIntroduction");
+		GameManager::sharedState()->setUGV("204", true);
 		this->addChild(dialog, 200);
 	}
 

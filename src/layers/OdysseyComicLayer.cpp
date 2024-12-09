@@ -84,7 +84,10 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
     m_cornerBR->setID("corner-br"_spr);
     addChild(m_cornerBR, 2);
 
-    Mod::get()->setSettingValue<bool>("watched-comic-0" + std::to_string(m_comicNumber), true);
+    //  Mod::get()->setSettingValue<bool>("watched-comic-0" + std::to_string(m_comicNumber), true);
+    GameManager::sharedState()->setUGV(fmt::format("2{}", m_comicNumber + 10).c_str(), true);
+
+    //  Llama a la funcion para el logro secreto
     verifySecretAchievement();
     setKeyboardEnabled(true);
     setKeypadEnabled(true);
@@ -94,7 +97,7 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
 
 void OdysseyComicLayer::createComic(CCArray *arr, int issueNumber)
 {
-    auto spanishText = Mod::get()->getSettingValue<bool>("spanish-language");
+    auto spanishText = GameManager::sharedState()->getGameVariable("0201");
 
     std::vector<ccColor3B> colors = {
         {33, 33, 33},
@@ -151,11 +154,10 @@ void OdysseyComicLayer::createComic(CCArray *arr, int issueNumber)
 
 void OdysseyComicLayer::onHollow(CCObject *)
 {
-    if (!Mod::get()->getSettingValue<bool>("meet-hollow"))
+    if (!GameManager::sharedState()->getUGV("205"))
     {
         auto dialog = Odyssey::createDialog("hollowMeeting");
-        Mod::get()->setSettingValue("meet-hollow", true);
-        //  GM->setUGV("52", true);
+        GameManager::sharedState()->setUGV("205", true);
         this->addChild(dialog, 3);
     }
     else
@@ -393,10 +395,9 @@ void OdysseyComicLayer::onSecret(CCObject *sender)
 void OdysseyComicLayer::verifySecretAchievement(){
     int comicProgress = 0;
     for(auto ii = 1; ii <= 6; ii++){
-        comicProgress += Mod::get()->getSettingValue<bool>("watched-comic-0" + std::to_string(ii));
-        log::debug("Comic {} = {}", ii, Mod::get()->getSettingValue<bool>("watched-comic-0" + std::to_string(ii)));
+        comicProgress += GameManager::sharedState()->getUGV(fmt::format("2{}", ii + 10).c_str());
+        log::debug("Comic {}, UGV {}, Value {}", ii, fmt::format("2{}", ii + 10).c_str(), GameManager::sharedState()->getUGV(fmt::format("2{}", ii + 10).c_str()));
     };
-
     log::debug("Comic progress: {}", comicProgress);
 
     auto percent = (comicProgress * 100) / 6;

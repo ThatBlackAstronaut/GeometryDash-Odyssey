@@ -10,9 +10,6 @@ bool OdysseySelectLayer::init(int page)
     if (!CCLayer::init())
         return false;
 
-    setKeyboardEnabled(true);
-    setKeypadEnabled(true);
-
     m_currentPage = page;
     m_winSize = CCDirector::sharedDirector()->getWinSize();
 
@@ -31,6 +28,7 @@ bool OdysseySelectLayer::init(int page)
     CCPoint islandPosition = {m_winSize.width / 2, m_winSize.height / 2 - 20};
     ccColor3B islandColor = {255, 255, 255};
     float islandScale = 1.8f;
+    int islandOpacity = 255;
 
     switch (page)
     {
@@ -39,6 +37,17 @@ bool OdysseySelectLayer::init(int page)
         bgColor = {32, 39, 46};
         m_levelAmount = 4;
         break;
+
+    case 1:
+        bgID = 30;
+        bgColor = { 200, 0, 0 };
+        islandTexture = "worldIsland_02.png"_spr;
+        islandColor = {0, 0, 0};
+        islandOpacity = 150;
+        islandScale = 1.f;
+        m_levelAmount = 5;
+        break;
+
     case 2:
         bgID = 15;
         bgColor = {53, 7, 0};
@@ -46,6 +55,7 @@ bool OdysseySelectLayer::init(int page)
         islandPosition = CCPoint{m_winSize.width / 2 - 100, islandPosition.y};
         islandScale = .5f;
         break;
+
     default:
         islandColor = {0, 0, 0};
         break;
@@ -73,20 +83,10 @@ bool OdysseySelectLayer::init(int page)
 
     m_islandNode = CCNode::create();
 
-    if (page == 1)
-    {
-        auto comingSoonLabel = CCLabelBMFont::create("Coming Soon! :)", "bigFont.fnt");
-
-        comingSoonLabel->setScale(.7f);
-        comingSoonLabel->setPosition(m_winSize / 2);
-
-        m_islandNode->addChild(comingSoonLabel, 999);
-    }
-
     if (page == 2)
     {
-        auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1) || Mod::get()->getSettingValue<bool>("level-extra-01-unlocked");
-        auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2) || Mod::get()->getSettingValue<bool>("level-extra-02-unlocked");
+        auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1);
+        auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2);
 
         auto menu = CCMenu::create();
         menu->setPosition({0, 0});
@@ -139,6 +139,7 @@ bool OdysseySelectLayer::init(int page)
     }
 
     auto island = CCSprite::createWithSpriteFrameName(islandTexture);
+    island->setOpacity(islandOpacity);
     island->setScale(islandScale);
     island->setColor(islandColor);
 
@@ -151,16 +152,18 @@ bool OdysseySelectLayer::init(int page)
     m_islandNode->addChild(island);
     addChild(m_islandNode);
 
+    //  Agrega los botones de niveles
     addLevelButtons();
+
+    //  Animacion de flotando para la Isla
     auto moveUp = CCEaseInOut::create(CCMoveTo::create(2.0f, {0, 5}), 1.8f);
     auto moveDown = CCEaseInOut::create(CCMoveTo::create(2.0f, {0, 0}), 1.8f);
-
     m_islandNode->runAction(CCRepeatForever::create(CCSequence::createWithTwoActions(moveUp, moveDown)));
-    auto islandTitle = CCSprite::createWithSpriteFrameName(fmt::format("island_title{:02}.png"_spr, page + 1).c_str());
 
+    //  Titulo de la Isla
+    auto islandTitle = CCSprite::createWithSpriteFrameName(fmt::format("island_title{:02}.png"_spr, page + 1).c_str());
     islandTitle->setScale(.85f);
     islandTitle->setPosition({m_winSize.width / 2, m_winSize.height - 30});
-
     addChild(islandTitle);
 
     auto switchMenu = CCMenu::create();
@@ -172,7 +175,6 @@ bool OdysseySelectLayer::init(int page)
 
         auto leftButton = CCMenuItemSpriteExtra::create(navSprite, this, menu_selector(OdysseySelectLayer::onBackPage));
         leftButton->setPositionX(-m_winSize.width / 2 + 45);
-
         switchMenu->addChild(leftButton);
     }
 
@@ -182,7 +184,6 @@ bool OdysseySelectLayer::init(int page)
 
         auto rightButton = CCMenuItemSpriteExtra::create(navSprite, this, menu_selector(OdysseySelectLayer::onNextPage));
         rightButton->setPositionX(m_winSize.width / 2 - 45);
-
         switchMenu->addChild(rightButton);
     }
 
@@ -202,11 +203,7 @@ bool OdysseySelectLayer::init(int page)
     addChild(m_cornerBR, 2);
 
     //  Se reemplazara esto con el Game Manager, pero lo tengo para Desarrollo
-    //  auto GM = GameManager::sharedState();
-    //  auto watchedComic01 = GM->getUGV("52");
-    auto firstTime = (Mod::get()->getSettingValue<std::string>("island-01-progress") == "First Time");
-
-    if (firstTime)
+    if (!GameManager::sharedState()->getUGV("203"))
     {
         this->runAction(CCSequence::create(
             CCDelayTime::create(0.5f),
@@ -214,12 +211,15 @@ bool OdysseySelectLayer::init(int page)
             0));
     };
 
+    setKeyboardEnabled(true);
+    setKeypadEnabled(true);
     return true;
 };
 
 void OdysseySelectLayer::getWizardDialog01()
 {
     auto dialog = Odyssey::createDialog("wizardIntroduction");
+    GameManager::sharedState()->setUGV("203", true);
     this->addChild(dialog, 3);
 };
 
@@ -246,27 +246,38 @@ std::vector<CCPoint> OdysseySelectLayer::getPositionForButtons()
             {130, 70},
             {40, 10},
             {-80, -55}};
+
+    case 1:
+        return {
+            {-160, 0},
+            {-80, 0},
+            {0, 0},
+            {80, 0},
+            {160, 0}};
     }
 
     return arr;
 }
 
+//  Agrega los botones de niveles
 void OdysseySelectLayer::addLevelButtons()
 {
     m_levelMenu = CCMenu::create();
-
     m_levelMenu->setPosition(m_winSize / 2);
+    auto offSet = (m_currentPage * 4);
 
+    //  Agrega los niveles con un ciclo
     if (m_levelAmount > 0)
     {
-        for (int i = 0; i < m_levelAmount; i++)
+        for (int ii = 0; ii < m_levelAmount; ii++)
         {
             auto levelSprite = CCSprite::createWithSpriteFrameName("worldLevelBtn_001.png"_spr);
             auto levelButton = CCMenuItemSpriteExtra::create(levelSprite, this, menu_selector(OdysseySelectLayer::onLevel));
-            levelButton->setTag(i + 1);
 
-            levelButton->setPosition(getPositionForButtons()[i]);
+            levelButton->setID(fmt::format("Level {}"_spr, offSet + ii + 1));
+            levelButton->setTag(offSet + ii + 1);
 
+            levelButton->setPosition(getPositionForButtons()[ii]);
             m_levelMenu->addChild(levelButton);
         }
     }
@@ -300,8 +311,8 @@ void OdysseySelectLayer::onExtraLevel(CCObject *sender)
 {
     //  Game Manager
     auto GSM = GameStatsManager::sharedState();
-    auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1) || Mod::get()->getSettingValue<bool>("level-extra-01-unlocked");
-    auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2) || Mod::get()->getSettingValue<bool>("level-extra-02-unlocked");
+    auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1);
+    auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2);
 
     if ((extra01_unlocked && sender->getTag() == 201) || (extra02_unlocked && sender->getTag() == 202))
     {

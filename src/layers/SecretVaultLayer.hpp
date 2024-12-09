@@ -1,7 +1,8 @@
 #pragma once
 using namespace geode::prelude;
 
-enum class MessageType {
+enum class MessageType
+{
     Basic = 0,
     Special = 1,
     WrongAnswer = 2,
