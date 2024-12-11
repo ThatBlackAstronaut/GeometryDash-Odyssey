@@ -10,6 +10,9 @@ bool SecretVaultLayer::init()
     auto title = CCLabelBMFont::create("The Hollow", "goldFont.fnt");
     addChildAtPosition(title, Anchor::Top, ccp(0, -22), false);
 
+    //  Data
+    m_achievementName = "";
+
     //  Background
     auto winSize = CCDirector::sharedDirector()->getWinSize();
     auto background = CCSprite::createWithSpriteFrameName("HollowBG_001.png"_spr);
@@ -43,36 +46,52 @@ bool SecretVaultLayer::init()
     m_textInput->setMaxCharCount(20);
     addChildAtPosition(m_textInput, Anchor::Center, ccp(0, 65), false);
 
+    //  Creating the Vault keeper
+    auto keeperMenu = CCMenu::create();
+    keeperMenu->setPosition({0, 0});
+    addChild(keeperMenu, 3);
+
+    m_keeperSprite = CCSprite::create();
+    m_keeperSprite->setContentSize({60, 60});
+
+    keeperSprite = CCSprite::createWithSpriteFrameName("HollowKeeper_001.png"_spr);
+    keeperSprite->setScale(1.15f);
+
+    keeperEyes = CCSprite::createWithSpriteFrameName("HollowKeeper_eyes_001.png"_spr);
+    keeperEyes->setScale(1.15f);
+    keeperEyes->setOpacity(0);
+
+    m_keeperSprite->addChildAtPosition(keeperSprite, Anchor::Center);
+    m_keeperSprite->addChildAtPosition(keeperEyes, Anchor::Center);
+
+    m_keeperBtn = CCMenuItemSpriteExtra::create(
+        m_keeperSprite,
+        this,
+        menu_selector(SecretVaultLayer::onSubmit));
+
+    m_keeperBtn->setPosition({winSize.width / 2, winSize.height / 2 - 20.f});
+    m_keeperBtn->m_colorEnabled = false;
+    m_keeperBtn->m_colorDip = 100.0f;
+    keeperMenu->addChild(m_keeperBtn);
+
+    // auto * test = new GameToolBox();
+
     //  Response message
     m_response = CCLabelBMFont::create("", "gjFont41.fnt");
     addChildAtPosition(m_response, Anchor::Center, ccp(0, 100), false);
     updateMessage("Welcome...", MessageType::Basic);
 
-    //  Creating the Vault keeper
-    auto keeperMenu = CCMenu::create();
-    keeperMenu->setPosition({0, 0});
-    addChild(keeperMenu);
+    bg_particle_01 = GameToolbox::particleFromString("50a-1a2a0.5a15a90a0a50a25a400a0a0a0a0a0a0a0a15a7a0a0a0a0a0a0a0a0a1a0a0a0a0a0a0a0a0a0a0a0a1a0a0.5a0.2a0.5a0.2a0a0a0a0a0a0a0a2a0a0a0a0a25a0a0a0a0a0a0a1a0a0a0a0a0a0a0", NULL, false);
+    bg_particle_01->setPositionX(winSize.width / 2);
+    addChild(bg_particle_01);
 
-    auto keeperSprite = CCSprite::createWithSpriteFrameName("HollowKeeper_001.png"_spr);
-    keeperSprite->setScale(1.15f);
+    bg_particle_02 = GameToolbox::particleFromString("10a-1a4a2a1a90a0a15a10a400a100a0a0a0a0a0a0a100a50a0a0a0a0a0a0a0a0a0.5a0.25a0a0a0a0a0a0a0a0a0a0a0.5a0.25a1a0a1a0a0a0a0a0a0a0a0a2a0a0a0a0a40a0a0a0a0a0a0a1a0a0a0a0a0a0a0", NULL, false);
+    bg_particle_02->setPosition(winSize / 2);
+    addChild(bg_particle_02);
 
-    auto keeperButton = CCMenuItemSpriteExtra::create(
-        keeperSprite,
-        this,
-        menu_selector(SecretVaultLayer::onSubmit));
-
-    keeperButton->setPosition({winSize.width / 2, winSize.height / 2 - 20.f});
-    keeperMenu->addChild(keeperButton);
-
-    // auto * test = new GameToolBox();
-
-    auto particles_01 = GameToolbox::particleFromString("50a-1a2a0.5a15a90a0a50a25a400a0a0a0a0a0a0a0a15a7a0a0a0a0a0a0a0a0a1a0a0a0a0a0a0a0a0a0a0a0a1a0a0.5a0.2a0.5a0.2a0a0a0a0a0a0a0a2a0a0a0a0a25a0a0a0a0a0a0a1a0a0a0a0a0a0a0", NULL, false);
-    particles_01->setPositionX(winSize.width / 2);
-    addChild(particles_01);
-
-    auto particles_02 = GameToolbox::particleFromString("10a-1a4a2a1a90a0a15a10a400a100a0a0a0a0a0a0a100a50a0a0a0a0a0a0a0a0a0.5a0.25a0a0a0a0a0a0a0a0a0a0a0.5a0.25a1a0a1a0a0a0a0a0a0a0a0a2a0a0a0a0a40a0a0a0a0a0a0a1a0a0a0a0a0a0a0", NULL, false);
-    particles_02->setPosition(winSize / 2);
-    addChild(particles_02);
+    keeper_auraParticles = GameToolbox::particleFromString("20a-1a2a1a6a90a180a29a0a11a0a0a0a0a0a0a0a6a4a0a0a0a0a0a0a0a0a1a0a0a0a0a0a0a0a0a0a0a0a1a0a0.5a0a0.5a0a25a20a30a15a0a0a1a2a0a0a0a0a2a0a0a0a0a0a0a1a1a0a0a0a0a0a0", NULL, false);
+    keeper_auraParticles->setPosition(m_keeperBtn->getPosition());
+    addChild(keeper_auraParticles, 1);
 
     GameManager::sharedState()->fadeInMusic("SecretLoop01.mp3"_spr);
     setKeyboardEnabled(true);
@@ -93,12 +112,15 @@ void SecretVaultLayer::onSubmit(CCObject *)
         lower += std::tolower(elem);
 
     m_textInput->setString("");
+    m_achievementName = "";
 
     //  List of codes
     if (lower == "color" && !AM->isAchievementEarned("geometry.ach.odyssey.secret10"))
     {
         response = "This is monochromatic, is it?",
-        GM->reportAchievementWithID("geometry.ach.odyssey.secret10", 100, false);
+        m_achievementName = "geometry.ach.odyssey.secret10";
+        FMODAudioEngine::sharedEngine()->playEffect("hollow_ENG_004.mp3"_spr);
+
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
@@ -106,6 +128,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "fracture")
     {
         response = "Embrace the chaos",
+        FMODAudioEngine::sharedEngine()->playEffect("hollow_ENG_010.mp3"_spr);
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
@@ -113,7 +136,9 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "explorers" && !AM->isAchievementEarned("geometry.ach.odyssey.secret11"))
     {
         response = "Maybe in the next update...",
-        GM->reportAchievementWithID("geometry.ach.odyssey.secret11", 100, false);
+        m_achievementName = "geometry.ach.odyssey.secret11";
+        FMODAudioEngine::sharedEngine()->playEffect("hollow_ENG_014.mp3"_spr);
+
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
@@ -121,7 +146,9 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "player" && !AM->isAchievementEarned("geometry.ach.odyssey.secret12"))
     {
         response = "...was it you?",
-        GM->reportAchievementWithID("geometry.ach.odyssey.secret12", 100, false);
+        m_achievementName = "geometry.ach.odyssey.secret12";
+        FMODAudioEngine::sharedEngine()->playEffect("hollow_ENG_018.mp3"_spr);
+
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
@@ -129,15 +156,19 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "mono" && !AM->isAchievementEarned("geometry.ach.odyssey.secret13"))
     {
         response = "Something about her feels off...",
-        GM->reportAchievementWithID("geometry.ach.odyssey.secret13", 100, false);
+        m_achievementName = "geometry.ach.odyssey.secret13";
+        FMODAudioEngine::sharedEngine()->playEffect("hollow_ENG_022.mp3"_spr);
+
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
 
     if (lower == "nock em" && !AM->isAchievementEarned("geometry.ach.odyssey.secret14"))
     {
-        response = "Enemy defeated... not",
-        GM->reportAchievementWithID("geometry.ach.odyssey.secret14", 100, false);
+        response = "Knock em out",
+        m_achievementName = "geometry.ach.odyssey.secret14";
+        FMODAudioEngine::sharedEngine()->playEffect("hollow_ENG_025.mp3"_spr);
+
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
@@ -145,7 +176,9 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "machina" && !AM->isAchievementEarned("geometry.ach.odyssey.secret15"))
     {
         response = "How sudden...",
-        GM->reportAchievementWithID("geometry.ach.odyssey.secret15", 100, false);
+        m_achievementName = "geometry.ach.odyssey.secret15";
+        FMODAudioEngine::sharedEngine()->playEffect("hollow_ENG_028.mp3"_spr);
+
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
@@ -153,7 +186,9 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "the seven seas" && !AM->isAchievementEarned("geometry.ach.odyssey.secret16"))
     {
         response = "Guide us, captain...",
-        GM->reportAchievementWithID("geometry.ach.odyssey.secret16", 100, false);
+        m_achievementName = "geometry.ach.odyssey.secret16";
+        FMODAudioEngine::sharedEngine()->playEffect("hollow_ENG_031.mp3"_spr);
+
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
@@ -161,7 +196,9 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "smooth jazz" && !AM->isAchievementEarned("geometry.ach.odyssey.secret17"))
     {
         response = "Blergh",
-        GM->reportAchievementWithID("geometry.ach.odyssey.secret17", 100, false);
+        m_achievementName = "geometry.ach.odyssey.secret17";
+        FMODAudioEngine::sharedEngine()->playEffect("hollow_ENG_034.mp3"_spr);
+
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
@@ -169,7 +206,9 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "angel" && !AM->isAchievementEarned("geometry.ach.odyssey.secret18"))
     {
         response = "The holy...",
-        GM->reportAchievementWithID("geometry.ach.odyssey.secret18", 100, false);
+        m_achievementName = "geometry.ach.odyssey.secret18";
+        FMODAudioEngine::sharedEngine()->playEffect("hollow_ENG_037.mp3"_spr);
+
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
@@ -178,6 +217,19 @@ void SecretVaultLayer::onSubmit(CCObject *)
     {
         response = "What do you mean...?",
         updateMessage(response, MessageType::CorrectAnswer);
+
+        keeper_angerParticles_01 = GameToolbox::particleFromString("50a-1a2a0a25a90a30a29a0a20a20a0a100a0a0a0a0a30a20a0a0a0a0a0a0a0a0a1a0a20a10a0a0a0a0a0a0a0a0a1a0a0.1a0a0.25a0a0a0a0a0a0a0a0a2a0a0a0a0a2a0a0a0a0a0a0a0a0a0a0a0a0a0a0", NULL, false);
+        keeper_angerParticles_01->setPosition(m_keeperBtn->getPosition());
+        addChild(keeper_angerParticles_01, 1);
+
+        keeper_angerParticles_02 = GameToolbox::particleFromString("30a-1a1a0.3a23a90a5a83a20a0a0a0a0a0a0a0a0a20a0a0a0a1a0a0a0a0a0a1a0a5a5a0a0a1a0a0a0a0a0a1a0a0a0a0.2a0.1a0a0a0a0a0a0a0a2a0a0a0a0a2a0a0a0a0a0a0a0a0a0a0a0a0a0a0", NULL, false);
+        keeper_angerParticles_02->setPosition(m_keeperBtn->getPosition());
+        keeperSprite->addChild(keeper_angerParticles_02, 4);
+
+        keeper_angerParticles_03 = GameToolbox::particleFromString("30a-1a1a0.3a23a90a5a83a20a0a0a0a0a0a0a0a0a20a0a0a0a1a0a0a0a0a0a1a0a5a5a0a0a1a0a0a0a0a0a1a0a0a0a0.2a0.1a0a0a0a0a0a0a0a2a0a0a0a0a2a0a0a0a0a0a0a0a0a0a0a0a0a0a0", NULL, false);
+        keeper_angerParticles_03->setPosition(m_keeperBtn->getPosition());
+        keeperSprite->addChild(keeper_angerParticles_03, 4);
+
         return;
     };
 
@@ -250,6 +302,12 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             "Without me, the world would be gray...",
         };
 
+        std::vector<gd::string> voiceFiles = {
+            "hollow_ENG_001.mp3"_spr,
+            "hollow_ENG_002.mp3"_spr,
+            "hollow_ENG_003.mp3"_spr,
+        };
+
         if (index >= messages.size())
         {
             m_messageID = 0;
@@ -257,6 +315,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             return "";
         }
 
+        FMODAudioEngine::sharedEngine()->playEffect(voiceFiles[index]);
         return messages[index];
     }
 
@@ -271,6 +330,14 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             "The beats here might just split reality",
         };
 
+        std::vector<gd::string> voiceFiles = {
+            "hollow_ENG_005.mp3"_spr,
+            "hollow_ENG_006.mp3"_spr,
+            "hollow_ENG_007.mp3"_spr,
+            "hollow_ENG_008.mp3"_spr,
+            "hollow_ENG_009.mp3"_spr,
+        };
+
         if (index >= messages.size())
         {
             m_messageID = 0;
@@ -278,6 +345,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             return "";
         }
 
+        FMODAudioEngine::sharedEngine()->playEffect(voiceFiles[index]);
         return messages[index];
     }
 
@@ -290,6 +358,12 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             "Delayed until the end of time...",
         };
 
+        std::vector<gd::string> voiceFiles = {
+            "hollow_ENG_011.mp3"_spr,
+            "hollow_ENG_012.mp3"_spr,
+            "hollow_ENG_013.mp3"_spr,
+        };
+
         if (index >= messages.size())
         {
             m_messageID = 0;
@@ -297,6 +371,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             return "";
         }
 
+        FMODAudioEngine::sharedEngine()->playEffect(voiceFiles[index]);
         return messages[index];
     }
 
@@ -309,6 +384,12 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             "Who could it be? Perhaps, is it in front of me?",
         };
 
+        std::vector<gd::string> voiceFiles = {
+            "hollow_ENG_015.mp3"_spr,
+            "hollow_ENG_016.mp3"_spr,
+            "hollow_ENG_017.mp3"_spr,
+        };
+
         if (index >= messages.size())
         {
             m_messageID = 0;
@@ -316,6 +397,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             return "";
         }
 
+        FMODAudioEngine::sharedEngine()->playEffect(voiceFiles[index]);
         return messages[index];
     }
 
@@ -328,6 +410,12 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             "Her pure black hair flows like a waterfall...",
         };
 
+        std::vector<gd::string> voiceFiles = {
+            "hollow_ENG_019.mp3"_spr,
+            "hollow_ENG_020.mp3"_spr,
+            "hollow_ENG_021.mp3"_spr,
+        };
+
         if (index >= messages.size())
         {
             m_messageID = 0;
@@ -335,6 +423,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             return "";
         }
 
+        FMODAudioEngine::sharedEngine()->playEffect(voiceFiles[index]);
         return messages[index];
     }
 
@@ -346,6 +435,11 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             "Predator or prey...",
         };
 
+        std::vector<gd::string> voiceFiles = {
+            "hollow_ENG_023.mp3"_spr,
+            "hollow_ENG_024.mp3"_spr,
+        };
+
         if (index >= messages.size())
         {
             m_messageID = 0;
@@ -353,6 +447,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             return "";
         }
 
+        FMODAudioEngine::sharedEngine()->playEffect(voiceFiles[index]);
         return messages[index];
     }
 
@@ -364,23 +459,9 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             "Deus ex...",
         };
 
-        if (index >= messages.size())
-        {
-            m_messageID = 0;
-            m_messageIDX = 0;
-            return "";
-        }
-
-        return messages[index];
-    }
-
-    //  The seven seas
-    if (ID == 18 && !AM->isAchievementEarned("geometry.ach.odyssey.secret16"))
-    {
-        std::vector<std::string> messages = {
-            "Sail forth if you dare...",
-            "There used to be seven...",
-            "And now they are dangerous...",
+        std::vector<gd::string> voiceFiles = {
+            "hollow_ENG_026.mp3"_spr,
+            "hollow_ENG_027.mp3"_spr,
         };
 
         if (index >= messages.size())
@@ -390,6 +471,31 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             return "";
         }
 
+        FMODAudioEngine::sharedEngine()->playEffect(voiceFiles[index]);
+        return messages[index];
+    }
+
+    //  The seven seas
+    if (ID == 18 && !AM->isAchievementEarned("geometry.ach.odyssey.secret16"))
+    {
+        std::vector<std::string> messages = {
+            "Sail forth if you dare...",
+            "There used to be seven, and now they are dangerous...",
+        };
+
+        std::vector<gd::string> voiceFiles = {
+            "hollow_ENG_029.mp3"_spr,
+            "hollow_ENG_030.mp3"_spr,
+        };
+
+        if (index >= messages.size())
+        {
+            m_messageID = 0;
+            m_messageIDX = 0;
+            return "";
+        }
+
+        FMODAudioEngine::sharedEngine()->playEffect(voiceFiles[index]);
         return messages[index];
     }
 
@@ -401,6 +507,11 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             "I am tired of hearing that saxophone...",
         };
 
+        std::vector<gd::string> voiceFiles = {
+            "hollow_ENG_032.mp3"_spr,
+            "hollow_ENG_033.mp3"_spr,
+        };
+
         if (index >= messages.size())
         {
             m_messageID = 0;
@@ -408,6 +519,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             return "";
         }
 
+        FMODAudioEngine::sharedEngine()->playEffect(voiceFiles[index]);
         return messages[index];
     }
 
@@ -419,6 +531,11 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             "Their voice echoes across heaven...",
         };
 
+        std::vector<gd::string> voiceFiles = {
+            "hollow_ENG_025.mp3"_spr,
+            "hollow_ENG_036.mp3"_spr,
+        };
+
         if (index >= messages.size())
         {
             m_messageID = 0;
@@ -426,6 +543,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             return "";
         }
 
+        FMODAudioEngine::sharedEngine()->playEffect(voiceFiles[index]);
         return messages[index];
     }
 
@@ -484,26 +602,68 @@ void SecretVaultLayer::updateMessage(std::string message, MessageType type)
         break;
     }
 
-    fadeInLabel();
-
+    auto flag = (message == "Welcome...");
+    log::debug("Test: {}", flag);
+    fadeInLabel(flag);
 };
 
-void SecretVaultLayer::fadeInLabel()
+void SecretVaultLayer::fadeInLabel(bool firstTime)
 {
-    for (int i = 0; i < m_response->getChildrenCount(); i++)
+    for (int i = 0; i < strlen(m_response->getString()); i++)
     {
-        auto child = static_cast<CCSprite*>(m_response->getChildren()->objectAtIndex(i));
-
+        auto child = static_cast<CCSprite *>(m_response->getChildren()->objectAtIndex(i));
         child->setOpacity(0);
 
-        auto fadeInDelay = CCDelayTime::create(.1f * i);
-        auto fadeIn = CCFadeTo::create(.25f, 255);
-        auto fadeOutDelay = CCDelayTime::create(.14f * m_response->getChildrenCount());
-        auto fadeOut = CCFadeTo::create(.25f, 0);
-        child->runAction(CCSequence::create(fadeInDelay, fadeIn, fadeOutDelay, fadeOut, 0));
+        if (i == 0 && !firstTime)
+        {
+            m_textInput->runAction(CCSequence::create(
+                CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::disableKeeper)),
+                CCDelayTime::create((strlen(m_response->getString()) * .175f) + 0.5),
+                CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::enableKeeper)),
+                nullptr));
+
+            keeperSprite->runAction(CCSequence::create(
+                CCTintTo::create(1.f, 80, 0, 0),
+                CCDelayTime::create((strlen(m_response->getString()) * .175f) - 1),
+                CCTintTo::create(1.f, 255, 255, 255),
+                nullptr));
+
+            keeperEyes->runAction(CCSequence::create(
+                CCFadeTo::create(1.f, 255),
+                CCDelayTime::create((strlen(m_response->getString()) * .175f) - 1),
+                CCFadeTo::create(1.f, 0),
+                nullptr));
+        }
+
+        auto fadeInDelay = CCDelayTime::create(.05f * i);
+        auto fadeIn = CCFadeTo::create(.2f, 255);
+        auto fadeOutDelay = CCDelayTime::create(.1f * strlen(m_response->getString()));
+        auto fadeOut = CCFadeTo::create(.2f, 0);
+
+        child->runAction(CCSequence::create(fadeInDelay, fadeIn, fadeOutDelay, fadeOut, nullptr));
     }
-    
-}
+};
+
+void SecretVaultLayer::enableKeeper()
+{
+    log::debug("Keeper enabled");
+
+    if (m_achievementName != "")
+    {
+        auto GM = GameManager::sharedState();
+        GM->reportAchievementWithID(m_achievementName.c_str(), 100, false);
+    };
+
+    m_textInput->setEnabled(true);
+    m_keeperBtn->setEnabled(true);
+};
+
+void SecretVaultLayer::disableKeeper()
+{
+    log::debug("Keeper Disabled");
+    m_textInput->setEnabled(false);
+    m_keeperBtn->setEnabled(false);
+};
 
 void SecretVaultLayer::keyBackClicked()
 {

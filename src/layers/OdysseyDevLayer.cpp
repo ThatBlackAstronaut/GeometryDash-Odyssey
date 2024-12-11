@@ -35,6 +35,7 @@ bool OdysseyDevLayer::init()
     menuBack->setID("back-menu"_spr);
     addChild(menuBack);
 
+    //  Menu de dialogos
     auto dialogMenu = CCMenu::create();
     dialogMenu->setID("dialog-menu"_spr);
     dialogMenu->setContentSize({480.0f, 140.0f});
@@ -54,7 +55,38 @@ bool OdysseyDevLayer::init()
     auto carp01 = CCMenuItemSpriteExtra::create(
         ButtonSprite::create("Carp (Shop)", 0.5f),
         this,
-        menu_selector(OdysseyDevLayer::onCarp01));
+        menu_selector(OdysseyDevLayer::onStoryDialog));
+    carp01->setTag(0);
+
+    auto wizard01 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("Dumbledalf (Introduction)", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onStoryDialog));
+    wizard01->setTag(1);
+
+    auto wizard02 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("Dumbledalf (Island)", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onStoryDialog));
+    wizard02->setTag(2);
+
+    auto wizard03 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("Dumbledalf (Finale)", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onStoryDialog));
+    wizard03->setTag(3);
+
+    auto hollow01 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("Hollow (Introduction)", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onStoryDialog));
+    hollow01->setTag(4);
+
+    auto hollow02 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("Hollow (Coin quota)", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onStoryDialog));
+    hollow02->setTag(5);
 
     auto carp02 = CCMenuItemSpriteExtra::create(
         ButtonSprite::create("Carp (Extras)", 0.5f),
@@ -74,37 +106,19 @@ bool OdysseyDevLayer::init()
         menu_selector(OdysseyDevLayer::onCarp04));
     carp04->setTag(0);
 
-    auto wizard01 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Dumbledalf (Introduction)", 0.5f),
-        this,
-        menu_selector(OdysseyDevLayer::onWizard01));
-
-    auto wizard02 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Dumbledalf (Island)", 0.5f),
-        this,
-        menu_selector(OdysseyDevLayer::onWizard02));
-
-    auto wizard03 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Dumbledalf (Finale)", 0.5f),
-        this,
-        menu_selector(OdysseyDevLayer::onWizard03));
-
-    auto wizard04 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Dumbledalf (Access)", 0.5f),
-        this,
-        menu_selector(OdysseyDevLayer::onWizard04));
-
     dialogMenu->addChild(carp01);
-    dialogMenu->addChild(carp02);
-    dialogMenu->addChild(carp03);
-    dialogMenu->addChild(carp04);
     dialogMenu->addChild(wizard01);
     dialogMenu->addChild(wizard02);
     dialogMenu->addChild(wizard03);
-    dialogMenu->addChild(wizard04);
+    dialogMenu->addChild(hollow01);
+    dialogMenu->addChild(hollow02);
+    dialogMenu->addChild(carp02);
+    dialogMenu->addChild(carp03);
+    dialogMenu->addChild(carp04);
     dialogMenu->updateLayout();
     addChild(dialogMenu);
 
+    //  Menu de Comics
     auto comicsMenu = CCMenu::create();
     comicsMenu->setID("comics-menu"_spr);
     comicsMenu->setContentSize({360.0f, 40.0f});
@@ -173,6 +187,7 @@ bool OdysseyDevLayer::init()
     comicsMenu->updateLayout();
     addChild(comicsMenu);
 
+    //  Menu de Niveles
     auto levelsMenu = CCMenu::create();
     levelsMenu->setID("levels-menu"_spr);
     levelsMenu->setContentSize({350.0f, 40.0f});
@@ -187,14 +202,18 @@ bool OdysseyDevLayer::init()
     levelsLabel->setPosition({winSize.width / 2, levelsMenu->getPositionY() + levelsMenu->getContentHeight() / 2 + 10.0f});
     levelsLabel->setScale(0.75f);
     addChild(levelsLabel);
+
+    /*
     auto level01 = CCMenuItemSpriteExtra::create(
         ButtonSprite::create("Hellfire", 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onLevel));
     level01->setTag(5);
+
     levelsMenu->addChild(level01);
     levelsMenu->updateLayout();
     addChild(levelsMenu);
+    */
 
     auto hollowSprite = CCSprite::createWithSpriteFrameName("HollowSkull_001.png"_spr);
     hollowSprite->setColor({50, 50, 50});
@@ -217,6 +236,7 @@ bool OdysseyDevLayer::init()
     return true;
 };
 
+//  Boton del Ogro
 void OdysseyDevLayer::onOgre(CCObject *)
 {
     auto scene = CCScene::create();
@@ -224,6 +244,7 @@ void OdysseyDevLayer::onOgre(CCObject *)
     CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };
 
+//  En Nivel
 void OdysseyDevLayer::onLevel(CCObject *sender)
 {
     auto scene = CCScene::create();
@@ -232,6 +253,7 @@ void OdysseyDevLayer::onLevel(CCObject *sender)
     popup->show();
 };
 
+//  En Comic
 void OdysseyDevLayer::onComic(CCObject *sender)
 {
     auto scene = CCScene::create();
@@ -242,9 +264,48 @@ void OdysseyDevLayer::onComic(CCObject *sender)
     CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };
 
+//  En dialogo de historia
+void OdysseyDevLayer::onStoryDialog(CCObject *sender)
+{
+    std::vector<const char *> events = {
+        "meetingShopkeeper",
+        "meetingWizard",
+        "firstIslandClear",
+        "end",
+        "meetingHollow",
+        "hollowGoals"};
+
+    auto dialog = Odyssey::createDialog(events[sender->getTag()]);
+    this->addChild(dialog, 10);
+}
+
 void OdysseyDevLayer::onCarp01(CCObject *)
 {
-    auto dialog = Odyssey::createDialog("shopIntroduction");
+    auto dialog = Odyssey::createDialog("meetingShopkeeper");
+    this->addChild(dialog, 3);
+};
+
+void OdysseyDevLayer::onWizard01(CCObject *)
+{
+    auto dialog = Odyssey::createDialog("meetingWizard");
+    this->addChild(dialog, 3);
+};
+
+void OdysseyDevLayer::onWizard02(CCObject *)
+{
+    auto dialog = Odyssey::createDialog("firstIslandClear");
+    this->addChild(dialog, 3);
+};
+
+void OdysseyDevLayer::onWizard03(CCObject *)
+{
+    auto dialog = Odyssey::createDialog("end");
+    this->addChild(dialog, 3);
+};
+
+void OdysseyDevLayer::onWizard04(CCObject *)
+{
+    auto dialog = Odyssey::createDialog("meetingHollow");
     this->addChild(dialog, 3);
 };
 
@@ -284,31 +345,6 @@ void OdysseyDevLayer::onCarp04(CCObject *sender)
                                         : 0;
 
     sender->setTag(tag);
-
-    this->addChild(dialog, 3);
-};
-
-void OdysseyDevLayer::onWizard01(CCObject *)
-{
-    auto dialog = Odyssey::createDialog("wizardIntroduction");
-    this->addChild(dialog, 3);
-};
-
-void OdysseyDevLayer::onWizard02(CCObject *)
-{
-    auto dialog = Odyssey::createDialog("wizardIslandComplete");
-    this->addChild(dialog, 3);
-};
-
-void OdysseyDevLayer::onWizard03(CCObject *)
-{
-    auto dialog = Odyssey::createDialog("wizardEnding");
-    this->addChild(dialog, 3);
-};
-
-void OdysseyDevLayer::onWizard04(CCObject *)
-{
-    auto dialog = Odyssey::createDialog("blockedAccess");
     this->addChild(dialog, 3);
 };
 

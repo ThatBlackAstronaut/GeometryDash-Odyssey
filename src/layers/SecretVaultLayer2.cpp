@@ -329,7 +329,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
 
 std::string SecretVaultLayer2::getMessage()
 {
-    int rand = std::rand() % 30 + 1;
+    int rand = std::rand() % 25 + 1;
 
     if (m_messageID == 0)
     {
@@ -626,16 +626,13 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
     if (ID == 21 && !AM->isAchievementEarned("geometry.ach.odyssey.secret13"))
     {
         std::vector<std::string> messages = {
-            "I sometimes believe...",
-            "My brother was kind of a wacko",
-            "Kept talking about some gal...",
-            "With a weirdly shaped ribbon...",
+            "My brother doesn't stop talking...",
+            "About some gal...",
+            "Weirdly shaped ribbon, black hair",
             "Other details I don't care",
-            "All I know is that her name...",
-            "Was Mono?",
-            "Who the hell names themselves Mono?",
-            "If you find my brother, Player...",
-            "Mention her name",
+            "Kept murmuring her name...",
+            "Mono...?",
+            "Who the heck names themselves Mono?",
         };
 
         if (index >= messages.size())
@@ -652,18 +649,40 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
     }
 
     //  Comic fan
-    if (ID == 22 && !AM->isAchievementEarned("geometry.ach.odyssey.secret20"))
+    if (ID == 22 && !AM->isAchievementEarned("geometry.ach.odyssey.secret19"))
     {
         std::vector<std::string> messages = {
             "Wanna know something?",
-            "I hid a secret in the game",
-            "How do you get it?",
-            "Maybe stay up to date with the story...",
-            "Someone will appreciate it...",
+            "I hid a secret reward in the game",
+            "Here's a hint to get it...",
+            "Stay up to date with the story",
+            "The artists will appreciate it",
         };
 
         if (index >= messages.size())
         {
+            m_messageID = 0;
+            m_messageIDX = 0;
+            return "";
+        }
+
+        return messages[index];
+    }
+
+    //  Programmer's secret
+    if (ID == 23 && !AM->isAchievementEarned("geometry.ach.odyssey.secret20"))
+    {
+        std::vector<std::string> messages = {
+            "Alright, fine",
+            "I hid another secret as well...",
+            "Forgot where I put it, though",
+            "Don't blame me, blame the programmer!",
+            "One of the three..."
+        };
+
+        if (index >= messages.size())
+        {
+            GameManager::sharedState()->setUGV("209", true);
             m_messageID = 0;
             m_messageIDX = 0;
             return "";

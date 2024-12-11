@@ -156,7 +156,7 @@ void OdysseyComicLayer::onHollow(CCObject *)
 {
     if (!GameManager::sharedState()->getUGV("205"))
     {
-        auto dialog = Odyssey::createDialog("hollowMeeting");
+        auto dialog = Odyssey::createDialog("meetingHollow");
         GameManager::sharedState()->setUGV("205", true);
         this->addChild(dialog, 3);
     }

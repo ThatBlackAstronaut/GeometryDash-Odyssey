@@ -18,6 +18,8 @@ class OdysseyDevLayer : public cocos2d::CCLayer {
         void onWizard03(CCObject *);
         void onWizard04(CCObject *);
 
+        void onStoryDialog(CCObject *);
+
         void onComic(CCObject *);
         void onLevel(CCObject *);
         void onOgre(CCObject *);
