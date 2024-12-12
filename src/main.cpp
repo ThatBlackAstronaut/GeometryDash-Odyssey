@@ -44,31 +44,6 @@ class $modify(PauseLayer)
 	}
 };
 
-class $modify(CCSprite)
-{
-	static CCSprite *createWithSpriteFrameName(const char *pszSpriteFrameName)
-	{
-		if (std::string_view(pszSpriteFrameName) == std::string_view("gjItem_01_001.png"))
-			return CCSprite::createWithSpriteFrameName("GDO_Key_01_001.png"_spr);
-		return CCSprite::createWithSpriteFrameName(pszSpriteFrameName);
-	}
-
-	/*
-	virtual void setDisplayFrame(CCSpriteFrame* p0)
-	{
-		const auto test = p0->getFrameName();
-		if (test == std::string_view("shopKeeper_jaw_01_001.png"))
-		{
-
-			auto frame = CCSpriteFrameCache::get()->spriteFrameByName("shopKeeper_jaw_01_001.png"_spr);
-			return CCSprite::setDisplayFrame(frame);
-		}
-
-		CCSprite::setDisplayFrame(p0);
-	}
-	*/
-};
-
 class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
 {
 	bool init()
@@ -78,7 +53,7 @@ class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
 
 		//	Aun en fase de prueba
 		MoreOptionsLayer::addToggle("Spanish", "0201", "<cy>ENG</c>: Translates most of the mod's dialogue in Spanish. Due to character limitations, there will be spelling errors.\n\n<cy>ESP</c>: Traduce mayor parte del dialogo del mod en Espanol. Dado a las limitaciones de caracteres en el juego, habran errores ortograficos (como la falta de acentos)");
-		//	MoreOptionsLayer::addToggle("Hide upcoming", "0202", "<cy>ENG</c>: Hides icons that are tagged as upcoming (thus impossible to get for now).\n\n<cy>SPA</c>: Oculta los iconos etiquetados como proximos (por tanto, imposibles de conseguir por ahora).");
+		MoreOptionsLayer::addToggle("Hide upcoming", "0202", "<cy>ENG</c>: Hides icons that are tagged as upcoming (thus impossible to get for now).\n\n<cy>SPA</c>: Oculta los iconos etiquetados como proximos (por tanto, imposibles de conseguir por ahora).");
 
 		return true;
 	}
@@ -131,6 +106,7 @@ class $modify(OdysseyEditorPauseLayer, EditorPauseLayer)
 
 	void copyStringToClipboard(CCObject *)
 	{
+		log::debug("{}", m_editorLayer->m_level->m_levelString);
 		clipboard::write(m_editorLayer->m_level->m_levelString);
 	}
 };
@@ -187,8 +163,8 @@ class $modify(SongsLayer)
 		songObjectArray->addObject(SongObject::create(106));
 		songObjectArray->addObject(SongObject::create(107));
 		songObjectArray->addObject(SongObject::create(108));
-		songObjectArray->addObject(SongObject::create(201));
-		songObjectArray->addObject(SongObject::create(202));
+		songObjectArray->addObject(SongObject::create(501));
+		songObjectArray->addObject(SongObject::create(502));
 		songObjectArray->addObject(SongObject::create(-1));
 
 		m_listLayer->m_listView = CustomListView::create(songObjectArray, nullptr, 220.0, 356.0, 0, BoomListType::Song, 0.0);

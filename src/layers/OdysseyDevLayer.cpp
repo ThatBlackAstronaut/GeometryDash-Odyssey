@@ -203,17 +203,15 @@ bool OdysseyDevLayer::init()
     levelsLabel->setScale(0.75f);
     addChild(levelsLabel);
 
-    /*
     auto level01 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Hellfire", 0.5f),
+        ButtonSprite::create("Super Wubtendo", 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onLevel));
-    level01->setTag(5);
+    level01->setTag(503);
 
     levelsMenu->addChild(level01);
     levelsMenu->updateLayout();
     addChild(levelsMenu);
-    */
 
     auto hollowSprite = CCSprite::createWithSpriteFrameName("HollowSkull_001.png"_spr);
     hollowSprite->setColor({50, 50, 50});
@@ -311,7 +309,7 @@ void OdysseyDevLayer::onWizard04(CCObject *)
 
 void OdysseyDevLayer::onCarp02(CCObject *sender)
 {
-    auto dialog = Odyssey::createDialogResponse("extraIslandLocked", sender->getTag());
+    auto dialog = Odyssey::createDialogResponse("onExtraLevel", sender->getTag());
 
     int tag = (sender->getTag() == 0)   ? 1
               : (sender->getTag() == 1) ? 2
@@ -324,7 +322,7 @@ void OdysseyDevLayer::onCarp02(CCObject *sender)
 
 void OdysseyDevLayer::onCarp03(CCObject *sender)
 {
-    auto dialog = Odyssey::createDialogResponse("finalComicLocked", sender->getTag());
+    auto dialog = Odyssey::createDialogResponse("onFinalComic", sender->getTag());
 
     int tag = (sender->getTag() == 0)   ? 1
               : (sender->getTag() == 1) ? 2
@@ -338,7 +336,7 @@ void OdysseyDevLayer::onCarp03(CCObject *sender)
 
 void OdysseyDevLayer::onCarp04(CCObject *sender)
 {
-    auto dialog = Odyssey::createDialogResponse("playerIsPoor", sender->getTag());
+    auto dialog = Odyssey::createDialogResponse("onShopItem", sender->getTag());
 
     int tag = (sender->getTag() == 0)   ? 1
               : (sender->getTag() == 1) ? 2

@@ -71,7 +71,7 @@ const std::vector<std::vector<gd::string>> WizardIntroduction = {
     {
         "????",
         "56",
-        "Hello there!<d040> Before you begin, <d020>I want to let you know something.",
+        "Hello there!<d040> Before you begin, <d020>I want to let you know something",
         "Hola ahi! <d040>Antes de comenzar, dejame decirte algo",
     },
     {
@@ -90,7 +90,7 @@ const std::vector<std::vector<gd::string>> WizardIntroduction = {
         "????",
         "53",
         "Alright, <d020>I will stop breaking the 4th wall and go back to <co>the bunker</c>",
-        "Ok, <d020>No mas romper la 4ta pared, devuelta al <co>bunker</c>",
+        "Ok, <d020>Ya no mas romper la cuarta pared, volvere <co>al bunker</c>",
     },
     {
         "????",
@@ -101,8 +101,8 @@ const std::vector<std::vector<gd::string>> WizardIntroduction = {
     {
         "????",
         "55",
-        "<s250><cy>Goodbye boy</c>!</s>",
-        "<s250><cy>Adios muchacho</c>!</s>",
+        "<s250><cy>Goodbye boy!</c></s>",
+        "<s250><cy>Adios muchacho!</c></s>",
     },
 };
 
@@ -110,7 +110,7 @@ const std::vector<std::vector<gd::string>> FirstIslandClear = {
     {
         "Dumbledalf",
         "55",
-        "<s250><co>WOW,<d020> such skill!</c></s>",
+        "<s250><co>WOW,<d020> such skill!!!</c></s>",
         "<s250><co>WOW, <d020>Que destrezas!!!</c></s>",
     },
     {
@@ -168,7 +168,7 @@ const std::vector<std::vector<gd::string>> Ending = {
         "Dumbledalf",
         "56",
         "Up to you, <d030>we shall meet again.",
-        "Tu decision, <d030>nos encontraremos de nuevo.",
+        "Tu decision, <d030>nos volveremos a encontrar.",
     },
     {
         "Dumbledalf",
@@ -230,7 +230,123 @@ const std::vector<std::vector<gd::string>> HollowIntroduction = {
     {
         "????",
         "28",
-        "Now <cr>go</c>.",
-        "Ahora <cr>Vete</c>.",
+        "Now <cr>go.</c>",
+        "Ahora <cr>Vete.</c>",
     },
 };
+
+const std::vector<std::vector<gd::string>> LockedExtraLevel = {
+    {
+        "Carp",
+        "25",
+        "You can buy the <cy>Key</c> to unlock that in my <cp>Shop</c>.",
+        "Puedes comprar la <cy>Llave</c> que desbloquea eso en mi <cp>Tienda</c>.",
+    },
+    {
+        "Carp",
+        "20",
+        "Uh yeah, <d030>you still need to <cg>buy</c> the key for it.",
+        "Uh si, <d030>aun tienes que <cg>comprar</c> la llave para esto.",
+    },
+    {
+        "Carp",
+        "23",
+        "If not enough money, try to complete more <ca>Levels</c>!",
+        "Si no tienes dinero, intenta completar mas <ca>Niveles</c>!",
+    },
+};
+
+const std::vector<std::vector<gd::string>> LockedFinalComic = {
+    {
+        "Carp",
+        "19",
+        "You must <cg>complete</c> the story mode before showing you that.",
+        "Tu debes <cg>completar</c> el modo historia antes de ver el comic",
+    },
+    {
+        "Carp",
+        "21",
+        "Try to <cg>complete</c> the game first.",
+        "Trata de <cg>completar</c> el juego primero.",
+    },
+    {
+        "Carp",
+        "22",
+        "Someone's impatient<d010>.<d010>.<d010>.",
+        "Alguien es impaciente<d010>.<d010>.<d010>.",
+    },
+    {
+        "Carp",
+        "25",
+        "Alright man,<d020> you want to <cr>spoil</c> you the story?",
+        "Vamos hombre, <d030>quieres <cr>spoilear</c> la historia?",
+    },
+    {
+        "Carp",
+        "21",
+        "You are getting on my nerves,<d020> <cg>complete the game</c>!",
+        "Ya me tienes harto, <d020><cg>completa el Juego</c>!",
+    },
+    {
+        "Carp",
+        "26",
+        "<s500><cg>COMPLETE THE GAME.</c></s>",
+        "<s500><cg>COMPLETA EL JUEGO.</c></s>",
+    },
+};
+
+const std::vector<std::vector<gd::string>> HollowNotEnough = {
+    {
+        "????",
+        "28",
+        "That's not enough<d020>.<d020>.<d020>.",
+        "No es lo suficiente<d020>.<d020>.",
+    },
+    {
+        "????",
+        "28",
+        "I require <s100><cr>more</c></s><d020>.<d020>.<d020>.",
+        "Requiero <s100><cr>mas</c></s><d020>.<d020>.<d020>.",
+    },
+    {
+        "????",
+        "28",
+        "A <cg>dozen</c> of them <cy>sparkies</c><d020>.<d020>.<d020>.",
+        "Una <cg>docena</c> de las <cy>doradas</c><d020>.<d020>.<d020>.",
+    },
+};
+
+const std::vector<std::vector<gd::string>> HollowEnough = {
+    {
+        "????",
+        "28",
+        "I see them<d020>.<d020>.<d020>.",
+        "Las veo<d020>.<d020>.<d020>.",
+    },
+    {
+        "????",
+        "28",
+        "You have enough <cy>gold</c><d020>.<d020>.<d020>.",
+        "Tienes <cy>oro</c> suficiente<d020>.<d020>.<d020>.",
+    },
+    {
+        "????",
+        "28",
+        "Step ahead, mortal<d020>.<d020>.<d020>.",
+        "Ya puedes entrar, mortal<d020>.<d020>.<d020>.",
+    },
+    {
+        "Hollow",
+        "28",
+        "<cr>Welcome to my chamber<d020>.<d020>.<d020>.</c>",
+        "<cr>Bienvenido a mi recamara<d020>.<d020>.<d020>.</c>",
+    },
+};
+
+const std::vector<std::vector<gd::string>> Base = {
+    {
+        "Nombre del personaje",
+        "Imagen a usar (tiene que ser una cadena a juro)",
+        "Texto en ingles",
+        "Texto en español",
+    }};

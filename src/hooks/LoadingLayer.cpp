@@ -149,7 +149,9 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         //  21113321 - Cyanflower
         //  gs->m_usernameForAccountID.insert(std::make_pair(21113321, "cyanflower"));
 
-        for (int i = 486; i < 498; i++) Odyssey::addCreditsToIcon(std::make_pair(i, UnlockType::Cube), 14178231);
+        for (int i = 486; i < 498; i++)
+            Odyssey::addCreditsToIcon(std::make_pair(i, UnlockType::Cube), 14178231);
+    
         Odyssey::addCreditsToIcon(std::make_pair(498, UnlockType::Cube), 13284787); // MinoX
         Odyssey::addCreditsToIcon(std::make_pair(499, UnlockType::Cube), 14178231); // Danky
         Odyssey::addCreditsToIcon(std::make_pair(500, UnlockType::Cube), 14178231); // Danky

@@ -33,6 +33,18 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		auto currency = static_cast<CCSprite*>(children->objectAtIndex(6));
 		*/
 
+		auto GSM = GameStatsManager::sharedState();
+
+		log::debug("* Dangerous Seas: {}", GSM->getBaseCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(1, false)));
+		log::debug("* Ghost House: {}", GSM->getBaseCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(2, false)));
+		log::debug("* Super Ultra: {}", GSM->getBaseCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(3, false)));
+		log::debug("* Cryptofunk: {}", GSM->getBaseCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(4, false)));
+
+		log::debug("\n* Dangerous Seas: {}", GSM->getAwardedCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(1, false)));
+		log::debug("* Ghost House: {}", GSM->getAwardedCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(2, false)));
+		log::debug("* Super Ultra: {}", GSM->getAwardedCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(3, false)));
+		log::debug("* Cryptofunk: {}", GSM->getAwardedCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(4, false)));
+
 		if (!GameManager::sharedState()->getUGV("204"))
 		{
 			this->runAction(CCSequence::create(
@@ -46,7 +58,7 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 
 	void getCarpDialog()
 	{
-		auto dialog = Odyssey::createDialog("shopIntroduction");
+		auto dialog = Odyssey::createDialog("meetingShopkeeper");
 		GameManager::sharedState()->setUGV("204", true);
 		this->addChild(dialog, 200);
 	}
