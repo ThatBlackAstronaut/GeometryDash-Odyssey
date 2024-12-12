@@ -50,7 +50,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
         //  Boton para acceder a los comics mas facil
         auto bottomMenu = static_cast<CCMenu *>(this->getChildByID("bottom-menu"));
-        auto seenComic = GameManager::sharedState()->getUGV("211");
+        auto seenComic = GameManager::sharedState()->getUGV("222");
 
         auto geodeButton = bottomMenu->getChildByID("geode.loader/geode-button");
         geodeButton->removeFromParentAndCleanup(false);
@@ -146,7 +146,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
     {
         Mod::get()->setSettingValue<bool>("reset-variables", false);
 
-        for (auto ii = 1; ii <= 22; ii++)
+        for (auto ii = 1; ii <= 40; ii++)
         {   
             auto variable = (ii < 10) ? fmt::format("20{}", ii) : fmt::format("2{}", ii);
             GameManager::sharedState()->setUGV(variable.c_str(), false);

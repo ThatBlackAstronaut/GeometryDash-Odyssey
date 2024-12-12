@@ -12,7 +12,8 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 			return false;
 
 		FMODAudioEngine::sharedEngine()->playMusic("Shop.mp3"_spr, true, 0.1f, 0);
-
+		
+		/*
 		auto children = getChildren();
 
 		auto background = static_cast<CCSprite*>(children->objectAtIndex(0));
@@ -23,12 +24,26 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 
 		auto desk = static_cast<CCSprite*>(children->objectAtIndex(3));
 		desk->setDisplayFrame(CCSprite::createWithSpriteFrameName("storeDesk_001.png"_spr)->displayFrame());
+		desk->setPositionY(93);
 
 		auto particle = static_cast<CCParticleSystemQuad*>(children->objectAtIndex(7));
 		particle->setStartColor({ 193, 122, 5, 255 });
 		particle->setEndColor({ 255, 122, 0, 0 });
 
 		auto currency = static_cast<CCSprite*>(children->objectAtIndex(6));
+		*/
+
+		auto GSM = GameStatsManager::sharedState();
+
+		log::debug("* Dangerous Seas: {}", GSM->getBaseCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(1, false)));
+		log::debug("* Ghost House: {}", GSM->getBaseCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(2, false)));
+		log::debug("* Super Ultra: {}", GSM->getBaseCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(3, false)));
+		log::debug("* Cryptofunk: {}", GSM->getBaseCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(4, false)));
+
+		log::debug("\n* Dangerous Seas: {}", GSM->getAwardedCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(1, false)));
+		log::debug("* Ghost House: {}", GSM->getAwardedCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(2, false)));
+		log::debug("* Super Ultra: {}", GSM->getAwardedCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(3, false)));
+		log::debug("* Cryptofunk: {}", GSM->getAwardedCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(4, false)));
 
 		if (!GameManager::sharedState()->getUGV("204"))
 		{
@@ -43,7 +58,7 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 
 	void getCarpDialog()
 	{
-		auto dialog = Odyssey::createDialog("shopIntroduction");
+		auto dialog = Odyssey::createDialog("meetingShopkeeper");
 		GameManager::sharedState()->setUGV("204", true);
 		this->addChild(dialog, 200);
 	}

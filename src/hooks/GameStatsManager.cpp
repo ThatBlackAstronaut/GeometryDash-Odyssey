@@ -68,19 +68,29 @@ class $modify(OdysseyGameStatsManager, GameStatsManager)
             //  - Precio
             //  - Tienda
 
-            addStoreItem(0, 495, 1, 100, newShop);
-            addStoreItem(1, 496, 1, 100, newShop);
-            addStoreItem(2, 497, 1, 100, newShop);
-            addStoreItem(3, 498, 1, 100, newShop);
-            addStoreItem(4, 1, 12, 250, newShop);
-            addStoreItem(5, 2, 12, 250, newShop);
-            addStoreItem(6, 3, 12, 1, newShop);
-            addStoreItem(7, 5, 12, 1, newShop);
-            addStoreItem(8, 45, 13, 100, newShop);
-            addStoreItem(9, 499, 1, 100, newShop);
-            addStoreItem(10, 500, 1, 100, newShop);
-            addStoreItem(11, 501, 1, 100, newShop);
-            addStoreItem(11, 501, 1, 100, newShop);
+            addStoreItem(1, 495, 1, 100, newShop); // CUBO
+            addStoreItem(2, 496, 1, 100, newShop); // CUBO
+            addStoreItem(3, 497, 1, 100, newShop); // CUBO
+            addStoreItem(4, 498, 1, 100, newShop); // CUBO
+
+            addStoreItem(5, 1, 12, 500, newShop);  // LLAVE
+            addStoreItem(6, 2, 12, 500, newShop);  // LLAVE
+            addStoreItem(7, 45, 13, 100, newShop); // SWING
+            addStoreItem(8, 1, 13, 100, newShop);  // SWING
+
+            addStoreItem(9, 499, 1, 100, newShop);  // CUBO
+            addStoreItem(10, 500, 1, 100, newShop);  // CUBO
+            addStoreItem(11, 501, 1, 100, newShop); // CUBO
+            addStoreItem(12, 1, 1, 100, newShop);   // CUBO
+
+            addStoreItem(13, 1, 5, 100, newShop); // BOLA
+            addStoreItem(14, 1, 5, 100, newShop); // BOLA
+            addStoreItem(15, 1, 4, 100, newShop); // NAVE
+            addStoreItem(16, 1, 4, 100, newShop); // NAVE
+
+            addStoreItem(17, 18, 12, 50, newShop);  // ANIMACION
+            addStoreItem(18, 19, 12, 50, newShop);  // ANIMACION
+            addStoreItem(19, 20, 12, 50, newShop);  // ANIMACION
         }
     }
 };

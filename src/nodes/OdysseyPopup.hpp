@@ -10,5 +10,6 @@ class OdysseyPopup : public geode::Popup<std::string const &, std::string const 
     public:
         static OdysseyPopup * create(std::string, std::string);
         void setWarning(bool, bool);
-        void onClose(CCObject *);
+
+        void onClose(CCObject *) override;
 };
