@@ -31,7 +31,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
 
         AchievementManager::addAchievement(
             "geometry.ach.level02b",
-            "Ghost house!",
+            "Ghost House!",
             "Completed \"Ghost House\" in normal mode",
             "Complete \"Ghost House\" in normal mode",
             "icon_489",
@@ -39,7 +39,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
 
         AchievementManager::addAchievement(
             "geometry.ach.level03a",
-            "Under Powered",
+            "Underpowered",
             "Completed \"Super Ultra\" in practice mode",
             "Complete \"Super Ultra\" in practice mode",
             "icon_490",
@@ -87,7 +87,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
 
         AchievementManager::addAchievement(
             "geometry.ach.level06a",
-            "All bosses (No damage)",
+            "All Bosses (No Damage)",
             "Completed \"Boss Rush\" in practice mode",
             "Complete \"Boss Rush\" in practice mode",
             "icon_510",
@@ -159,7 +159,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
 
         AchievementManager::addAchievement(
             "geometry.ach.level501a",
-            "End of the road",
+            "End of the Road",
             "Completed \"Conclusive Journey\" in practice mode",
             "Complete \"Conclusive Journey\" in practice mode",
             "icon_493",
@@ -215,7 +215,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
         AchievementManager::addAchievement("geometry.ach.odyssey.secret13", "About her", "Found the secret!", "It's a secret...", "icon_506", 1);
         AchievementManager::addAchievement("geometry.ach.odyssey.secret14", "Knockout!", "Found the secret!", "It's a secret...", "ship_171", 1);
         AchievementManager::addAchievement("geometry.ach.odyssey.secret15", "Coincidence!", "Found the secret!", "It's a secret...", "", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret16", "Pirate manners", "Found the secret!", "It's a secret...", "ball_123", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret16", "Pirate Manners", "Found the secret!", "It's a secret...", "ball_123", 1);
         AchievementManager::addAchievement("geometry.ach.odyssey.secret17", "Don't make no sense", "Found the secret!", "It's a secret...", "icon_507", 1);
         AchievementManager::addAchievement("geometry.ach.odyssey.secret18", "Salvation", "Found the secret!", "It's a secret...", "ship_172", 1);
 
