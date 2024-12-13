@@ -15,7 +15,12 @@ using namespace geode::prelude;
 
 $on_mod(Loaded)
 {
+#ifdef GEODE_IS_WINDOWS
 	auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "\\" + "Assets.zip";
+#endif
+#ifdef GEODE_IS_ANDROID
+	auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "/" + "Assets.zip";
+#endif
 	auto unzipDir = geode::Mod::get()->getResourcesDir().string();
 	auto result = geode::utils::file::Unzip::intoDir(zipFilePath, unzipDir);
 

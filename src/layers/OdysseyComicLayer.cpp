@@ -159,33 +159,37 @@ void OdysseyComicLayer::onHollow(CCObject *)
     auto GM = GameManager::sharedState();
     auto GSM = GameStatsManager::sharedState();
 
-    //  Conoce al Hollow por primera vez
-    if (!GM->getUGV("205"))
+    if (!Mod::get()->getSettingValue<bool>("skip-requirements"))
     {
-        log::info("MEETING HOLLOW");
-        auto dialog = Odyssey::createDialog("meetingHollow");
-        this->addChild(dialog, 3);
-        GM->setUGV("205", true);
-        return;
-    }
 
-    //  No tiene las monedas
-    if (GSM->getStat("8") < HOLLOW_COIN_QUOTA)
-    {
-        log::info("HOLLOW NOT ENOUGH");
-        auto dialog = Odyssey::createDialog("belowHollowQuota");
-        this->addChild(dialog, 3);
-        return;
-    }
+        //  Conoce al Hollow por primera vez
+        if (!GM->getUGV("205"))
+        {
+            log::info("MEETING HOLLOW");
+            auto dialog = Odyssey::createDialog("meetingHollow");
+            this->addChild(dialog, 3);
+            GM->setUGV("205", true);
+            return;
+        }
 
-    //  Suficientes monedas pero no vio el dialogo
-    if (GSM->getStat("8") >= HOLLOW_COIN_QUOTA && !GM->getUGV("210"))
-    {
-        log::info("HOLLOW ENOUGH");
-        auto dialog = Odyssey::createDialog("hollowQuotaReached");
-        this->addChild(dialog, 3);
-        GM->setUGV("210", true);
-        return;
+        //  No tiene las monedas
+        if (GSM->getStat("8") < HOLLOW_COIN_QUOTA)
+        {
+            log::info("HOLLOW NOT ENOUGH");
+            auto dialog = Odyssey::createDialog("belowHollowQuota");
+            this->addChild(dialog, 3);
+            return;
+        }
+
+        //  Suficientes monedas pero no vio el dialogo
+        if (GSM->getStat("8") >= HOLLOW_COIN_QUOTA && !GM->getUGV("210"))
+        {
+            log::info("HOLLOW ENOUGH");
+            auto dialog = Odyssey::createDialog("hollowQuotaReached");
+            this->addChild(dialog, 3);
+            GM->setUGV("210", true);
+            return;
+        }
     }
 
     auto scene = CCScene::create();

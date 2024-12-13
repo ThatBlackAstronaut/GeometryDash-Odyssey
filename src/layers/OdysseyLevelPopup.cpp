@@ -93,6 +93,10 @@ bool OdysseyLevelPopup::setup(std::string const &title)
     buttonsMenu->addChild(comicButton);
     buttonsMenu->addChild(optionsButton);
 
+    if(m_levelID > 5){
+        comicButton->setVisible(false);
+    }
+
     //  Coin Array
     auto coinMenu = CCMenu::create();
     auto coinArray = CCArray::create();
@@ -138,6 +142,9 @@ void OdysseyLevelPopup::onComic(CCObject *sender)
 {
     auto scene = CCScene::create();
     scene->addChild(OdysseyComicLayer::create(m_levelID + 1, false));
+
+    auto button = static_cast<CCMenuItemSpriteExtra *>(sender);
+    button->setSprite(CircleButtonSprite::createWithSpriteFrameName("GDO_comicBtn.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::Small));
 
     CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };
