@@ -194,7 +194,7 @@ void OdysseyComicLayer::onHollow(CCObject *)
 
     auto scene = CCScene::create();
     scene->addChild(SecretVaultLayer::create());
-    CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
+    CCDirector::sharedDirector()->pushScene(CCTransitionJumpZoom::create(0.5f, scene));
 };
 
 std::pair<const char *, const char *> OdysseyComicLayer::getPage(int issueNumber, int page)

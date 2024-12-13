@@ -9,7 +9,7 @@ bool SecretVaultLayer::init()
     //  Title
     auto title = CCLabelBMFont::create("The Hollow", "goldFont.fnt");
     addChildAtPosition(title, Anchor::Top, ccp(0, -22), false);
-    title->setColor({ 180, 0, 0});
+    title->setColor({180, 0, 0});
 
     //  Data
     m_achievementName = "";
@@ -814,7 +814,7 @@ void SecretVaultLayer::fadeInLabel(bool firstTime, bool skipAnimation)
         for (int ii = 0; ii < strlen(m_response->getString()); ii++)
         {
             auto child = static_cast<CCSprite *>(m_response->getChildren()->objectAtIndex(ii));
-            child->setOpacity(255);
+            child->setOpacity(0);
         }
         return;
     }
@@ -824,14 +824,14 @@ void SecretVaultLayer::fadeInLabel(bool firstTime, bool skipAnimation)
         auto child = static_cast<CCSprite *>(m_response->getChildren()->objectAtIndex(ii));
         child->setOpacity(0);
 
+        m_textInput->runAction(CCSequence::create(
+            CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::disableKeeper)),
+            CCDelayTime::create((strlen(m_response->getString()) * .175f) + 0.5),
+            CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::enableKeeper)),
+            nullptr));
+
         if (ii == 0 && !firstTime)
         {
-            m_textInput->runAction(CCSequence::create(
-                CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::disableKeeper)),
-                CCDelayTime::create((strlen(m_response->getString()) * .175f) + 0.5),
-                CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::enableKeeper)),
-                nullptr));
-
             keeperSprite->runAction(CCSequence::create(
                 CCTintTo::create(1.f, 80, 0, 0),
                 CCDelayTime::create((strlen(m_response->getString()) * .175f) - 1),
@@ -878,7 +878,8 @@ void SecretVaultLayer::disableKeeper()
 void SecretVaultLayer::keyBackClicked()
 {
     CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
-    GameManager::sharedState()->fadeInMenuMusic();
+    GameManager::sharedState()->fadeInMusic("comic_04.mp3"_spr);
+    FMODAudioEngine::sharedEngine()->stopAllEffects();
 };
 
 void SecretVaultLayer::onBack(CCObject *)

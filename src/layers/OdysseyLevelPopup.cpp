@@ -4,7 +4,9 @@
 
 bool OdysseyLevelPopup::setup(std::string const &title)
 {
-    m_level = GameLevelManager::sharedState()->getMainLevel(m_levelID, false);
+    //  El Nivel
+    m_level = GameLevelManager::get()->getMainLevel(m_levelID, true);
+    m_level->m_levelString = LocalLevelManager::get()->getMainLevelString(m_levelID);
     auto contentSize = m_mainLayer->getContentSize();
 
     //  Titulo
@@ -99,6 +101,8 @@ bool OdysseyLevelPopup::setup(std::string const &title)
 
     //  Coin Array
     auto coinMenu = CCMenu::create();
+    coinMenu->setContentSize({80.0f, 25.f});
+
     auto coinArray = CCArray::create();
     for(int i = 0; i < 3; i++) {
         bool isCollected = GameStatsManager::sharedState()->hasSecretCoin(fmt::format("{}_{}", m_level->m_levelID.value(), i + 1).c_str());
@@ -110,7 +114,7 @@ bool OdysseyLevelPopup::setup(std::string const &title)
     }
 
     coinMenu->alignItemsHorizontally();
-    coinMenu->setPosition(m_mainLayer->getContentWidth() / 2, 10);
+    coinMenu->setPosition(m_mainLayer->getContentWidth() / 2, 6.f);
     m_mainLayer->addChild(coinMenu);
 
     return true;

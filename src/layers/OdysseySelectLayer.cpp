@@ -41,7 +41,7 @@ bool OdysseySelectLayer::init(int page)
     case 1:
         bgID = 30;
         bgColor = { 200, 0, 0 };
-        islandTexture = "worldIsland_02.png"_spr;
+        islandTexture = "odyssey_island02.png"_spr;
         islandColor = {0, 0, 0};
         islandOpacity = 150;
         islandScale = 1.f;
