@@ -1,6 +1,6 @@
 {
 	"geode": "4.0.1",
-	"version": "v1.0.0-alpha.10",
+	"version": "v1.0.0-alpha.15",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074"
@@ -51,6 +51,12 @@
 			"name": "Show Fanmades",
 			"description": "Disable this if you want to have access to the Online Menu. (This will be removed on the official release)",
 			"default": true
+		},
+		"skip-requirements":{
+			"type": "bool",
+			"name": "Skip requirements",
+			"description": "Disables the requirements to unlock stuff (Like hollow's coin quota and such",
+			"default": false
 		},
 		"reset-variables":{
 			"type": "bool",

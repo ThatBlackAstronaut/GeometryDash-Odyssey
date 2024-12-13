@@ -8,26 +8,16 @@ enum class MessageType {
     CorrectAnswer = 3
 };
 
-enum class SpecialCodes {
-    odyssey = 0,
-    invaders = 1,
-    astral = 2,
-    dumbledalf = 3,
-    carp = 4,
-    comfort_food = 5,
-    colon = 6,
-    robtop = 7,
-    elemental = 8
-};
-
 class SecretVaultLayer2 : public CCLayer
 {
 protected:
     CCLabelBMFont *m_response = nullptr;
     TextInput *m_textInput = nullptr;
+    bool m_spanish = false;
 
     int m_messageID;
     int m_messageIDX;
+    int m_randomMessageIDX = 0;
 
     virtual bool init();
     virtual void keyBackClicked();
