@@ -89,8 +89,17 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
     //  Mod::get()->setSettingValue<bool>("watched-comic-0" + std::to_string(m_comicNumber), true);
     GameManager::sharedState()->setUGV(fmt::format("2{}", m_comicNumber + 10).c_str(), true);
 
+    //  Para verificar el achievement de Comic Book fan
+    auto AM = AchievementManager::sharedState();
+    if (!AM->isAchievementEarned("geometry.ach.odyssey.secret19"))
+    {
+        this->runAction(CCSequence::create(
+            CCDelayTime::create(1.f),
+            CCCallFunc::create(this, callfunc_selector(OdysseyComicLayer::verifySecretAchievement)),
+            0));
+    }
+
     //  Llama a la funcion para el logro secreto
-    verifySecretAchievement();
     setKeyboardEnabled(true);
     setKeypadEnabled(true);
 
@@ -194,7 +203,7 @@ void OdysseyComicLayer::onHollow(CCObject *)
 
     auto scene = CCScene::create();
     scene->addChild(SecretVaultLayer::create());
-    CCDirector::sharedDirector()->pushScene(CCTransitionJumpZoom::create(0.5f, scene));
+    CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(1.f, scene));
 };
 
 std::pair<const char *, const char *> OdysseyComicLayer::getPage(int issueNumber, int page)

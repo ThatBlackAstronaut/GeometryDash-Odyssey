@@ -7,9 +7,9 @@ bool SecretVaultLayer::init()
         return false;
 
     //  Title
-    auto title = CCLabelBMFont::create("The Hollow", "goldFont.fnt");
-    addChildAtPosition(title, Anchor::Top, ccp(0, -22), false);
-    title->setColor({180, 0, 0});
+    m_title = CCLabelBMFont::create("The Hollow", "goldFont.fnt");
+    addChildAtPosition(m_title, Anchor::Top, ccp(0, -22), false);
+    m_title->setColor({180, 0, 0});
 
     //  Data
     m_achievementName = "";
@@ -17,15 +17,15 @@ bool SecretVaultLayer::init()
 
     //  Background
     auto winSize = CCDirector::sharedDirector()->getWinSize();
-    auto background = CCSprite::createWithSpriteFrameName("HollowBG_001.png"_spr);
+    m_background = CCSprite::createWithSpriteFrameName("HollowBG_001.png"_spr);
 
-    background->setScaleX((winSize.width) / background->getTextureRect().size.width);
-    background->setScaleY((winSize.height) / background->getTextureRect().size.height);
-    background->setAnchorPoint({0, 0});
-    background->setPosition({0, 0});
-    background->setColor({120, 0, 0});
-    background->setID("background"_spr);
-    addChild(background, -2);
+    m_background->setScaleX((winSize.width) / m_background->getTextureRect().size.width);
+    m_background->setScaleY((winSize.height) / m_background->getTextureRect().size.height);
+    m_background->setAnchorPoint({0, 0});
+    m_background->setPosition({0, 0});
+    m_background->setColor({120, 0, 0});
+    m_background->setID("background"_spr);
+    addChild(m_background, -2);
 
     //  Back Button
     auto menuBack = CCMenu::create();
@@ -221,6 +221,26 @@ void SecretVaultLayer::onSubmit(CCObject *)
     };
 
     /*
+    if (lower == "gargan")
+    {
+        FMODAudioEngine::sharedEngine()->fadeOutMusic(5.f, 0);
+
+        m_textInput->runAction(CCSequence::create(
+            CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::disableKeeper)),
+            nullptr));
+
+        keeperSprite->runAction(CCSequence::create(
+            CCTintTo::create(2.f, 40, 0, 0),
+            CCEaseSineInOut::create(CCScaleTo::create(3.f, 5)),
+            nullptr));
+
+        m_background->runAction(CCSequence::create(
+            CCTintTo::create(3.f, 0, 0, 0),
+            nullptr));
+
+        return;
+    };
+
     if (lower == "gargan")
     {
         response = "What do you mean...?",

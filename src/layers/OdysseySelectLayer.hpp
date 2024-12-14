@@ -29,8 +29,10 @@ public:
     void onBack(CCObject *);
     void onLevel(CCObject *);
     void onExtraLevel(CCObject *);
+    void onOgre(CCObject *);
 
     void getWizardDialog01();
+    void getWizardDialog02();
 
 public:
     static OdysseySelectLayer *create(int);

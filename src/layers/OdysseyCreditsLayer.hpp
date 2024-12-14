@@ -390,7 +390,7 @@ protected:
         row2CreditArray->addObject(MichTopGDMTUser);
         row2CreditArray->addObject(dreenUser);
 
-        auto creditsReason = CCLabelBMFont::create("PlayTesters", "goldFont.fnt");
+        auto creditsReason = CCLabelBMFont::create("Playtesters", "goldFont.fnt");
         creditsReason->setScale(0.7f);
         creditsReason->setAlignment(CCTextAlignment::kCCTextAlignmentCenter);
         creditsReason->setAnchorPoint({0.5f, 1.0f});

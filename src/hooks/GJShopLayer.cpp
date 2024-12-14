@@ -12,7 +12,7 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 			return false;
 
 		FMODAudioEngine::sharedEngine()->playMusic("Shop.mp3"_spr, true, 0.1f, 0);
-		
+
 		/*
 		auto children = getChildren();
 
@@ -33,17 +33,17 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		auto currency = static_cast<CCSprite*>(children->objectAtIndex(6));
 		*/
 
+		auto winSize = CCDirector::sharedDirector()->getWinSize();
+		int rand = (std::rand() % 2) + 1;
+
+		auto wantedPoster = CCSprite::createWithSpriteFrameName(fmt::format("Wanted0{}_001.png"_spr, rand).c_str());
+		wantedPoster->setPosition({ (winSize.width / 4) + (std::rand() % 3 * 40) , winSize.height / 2 + 65.f });
+		wantedPoster->setScale(0.8f);
+		wantedPoster->setZOrder(-1);
+
+		this->addChild(wantedPoster);
+
 		auto GSM = GameStatsManager::sharedState();
-
-		log::debug("* Dangerous Seas: {}", GSM->getBaseCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(1, false)));
-		log::debug("* Ghost House: {}", GSM->getBaseCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(2, false)));
-		log::debug("* Super Ultra: {}", GSM->getBaseCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(3, false)));
-		log::debug("* Cryptofunk: {}", GSM->getBaseCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(4, false)));
-
-		log::debug("\n* Dangerous Seas: {}", GSM->getAwardedCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(1, false)));
-		log::debug("* Ghost House: {}", GSM->getAwardedCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(2, false)));
-		log::debug("* Super Ultra: {}", GSM->getAwardedCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(3, false)));
-		log::debug("* Cryptofunk: {}", GSM->getAwardedCurrencyForLevel(GameLevelManager::sharedState()->getMainLevel(4, false)));
 
 		if (!GameManager::sharedState()->getUGV("204"))
 		{

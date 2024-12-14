@@ -22,14 +22,14 @@ bool OdysseyLevelPopup::setup(std::string const &title)
 
     //  La cara de Dificultad
     auto difficultyNode = Odyssey::createDifficultyNode(m_level->m_difficulty, m_level->m_stars);
-    difficultyNode->setPosition({contentSize.width / 5, contentSize.height / 2 + 25});
+    difficultyNode->setPosition({contentSize.width / 5, contentSize.height / 2 + 35});
     difficultyNode->setAnchorPoint({0.5f, 0.5f});
     difficultyNode->setID("difficulty-node"_spr);
     m_mainLayer->addChild(difficultyNode);
 
     //  Barra de progreso en Normal
     auto normalProgress = Odyssey::createProgressBar(m_level->m_normalPercent, false);
-    normalProgress->setPosition({contentSize.width / 2, contentSize.height / 2 - 55.0f});
+    normalProgress->setPosition({contentSize.width / 2, contentSize.height / 2 - 45.0f});
     normalProgress->setID("normal-progress-node"_spr);
     m_mainLayer->addChild(normalProgress);
 
@@ -51,7 +51,7 @@ bool OdysseyLevelPopup::setup(std::string const &title)
         CCSprite::createWithSpriteFrameName("GJ_playBtn2_001.png"),
         this,
         menu_selector(OdysseyLevelPopup::onPlay));
-    playButton->setPosition({buttonsMenu->getContentWidth() / 2, buttonsMenu->getContentHeight() / 2 + 30.f});
+    playButton->setPosition({buttonsMenu->getContentWidth() / 2, buttonsMenu->getContentHeight() / 2 + 40.f});
     playButton->setID("play-button"_spr);
 
     //  Level stats
@@ -95,7 +95,7 @@ bool OdysseyLevelPopup::setup(std::string const &title)
     buttonsMenu->addChild(comicButton);
     buttonsMenu->addChild(optionsButton);
 
-    if(m_levelID > 5){
+    if(m_levelID > 4){
         comicButton->setVisible(false);
     }
 
@@ -114,7 +114,7 @@ bool OdysseyLevelPopup::setup(std::string const &title)
     }
 
     coinMenu->alignItemsHorizontally();
-    coinMenu->setPosition(m_mainLayer->getContentWidth() / 2, 6.f);
+    coinMenu->setPosition(m_mainLayer->getContentWidth() / 2, 20.f);
     m_mainLayer->addChild(coinMenu);
 
     return true;
@@ -145,7 +145,7 @@ void OdysseyLevelPopup::onSettings(CCObject *sender)
 void OdysseyLevelPopup::onComic(CCObject *sender)
 {
     auto scene = CCScene::create();
-    scene->addChild(OdysseyComicLayer::create(m_levelID + 1, false));
+    scene->addChild(OdysseyComicLayer::create(m_levelID + 1 + Odyssey::islandPageForLevelID(m_levelID), false));
 
     auto button = static_cast<CCMenuItemSpriteExtra *>(sender);
     button->setSprite(CircleButtonSprite::createWithSpriteFrameName("GDO_comicBtn.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::Small));
