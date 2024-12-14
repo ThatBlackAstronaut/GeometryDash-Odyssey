@@ -181,7 +181,7 @@ protected:
         auto DankyUser = OdysseyCreditNode::create("Danky99", 88, 9, 11, 3, true, 14178231);
         DankyUser->setScale(0.85);
 
-        auto MasterTheCubeUser = OdysseyCreditNode::create("MasterTheCube5", 107, 8, 10, 11, true, 13319860);
+        auto MasterTheCubeUser = OdysseyCreditNode::create("MasterTheCube5", 107, 6, 10, 11, true, 13319860);
         MasterTheCubeUser->setScale(0.85);
 
         auto GenaUser = OdysseyCreditNode::create("GenaMorphosis", 467, 6, 83, 40, true, 10026833);
@@ -202,7 +202,7 @@ protected:
         auto SearUser = OdysseyCreditNode::create("Sear15", 51, 7, 12, 3, true, 28639090);
         SearUser->setScale(0.85);
 
-        auto BreadUser = OdysseyCreditNode::create("TheBreadCat24", 1, 0, 3, 3, true, 14604196);
+        auto BreadUser = OdysseyCreditNode::create("TheBreadCat24", 371, 12, 3, 3, true, 14604196);
         BreadUser->setScale(0.85);
 
         auto BenUser = OdysseyCreditNode::create("ReyBenGDYT", 1, 86, 0, 0, true, 13492478);
@@ -293,7 +293,7 @@ protected:
         auto AngelozDDUser = OdysseyCreditNode::create("AngelozDD", 431, 0, 3, 12, true, 18718615);
         AngelozDDUser->setScale(0.85);
 
-        auto MasterTheCubeUser = OdysseyCreditNode::create("MasterTheCube5", 107, 8, 10, 11, true, 13319860);
+        auto MasterTheCubeUser = OdysseyCreditNode::create("MasterTheCube5", 107, 6, 10, 11, true, 13319860);
         MasterTheCubeUser->setScale(0.85);
 
         auto SweeSwagUser = OdysseyCreditNode::create("SweeSwag", 102, 12, 8, 8, true, 21644186);
