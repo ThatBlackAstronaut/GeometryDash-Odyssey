@@ -32,7 +32,7 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
 
     m_scrollLayer = BoomScrollLayer::create(arr, 0, false, nullptr, static_cast<DynamicScrollDelegate *>(this));
     m_scrollLayer->m_extendedLayer->m_delegate = static_cast<BoomScrollLayerDelegate *>(this);
-    m_scrollLayer->m_looped = true;
+    m_scrollLayer->m_looped = false;
 
     m_scrollLayer->instantMoveToPage(m_currentPage);
     addChild(m_scrollLayer);
@@ -85,6 +85,25 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
     m_cornerBR->setFlipX(true);
     m_cornerBR->setID("corner-br"_spr);
     addChild(m_cornerBR, 2);
+
+    //  Navigation menu
+    CCMenu *navMenu = CCMenu::create();
+    navMenu->setPosition({0, 0});
+
+    auto leftArrow = CCSprite::createWithSpriteFrameName("navArrowBtn_001.png");
+    auto rightArrow = CCSprite::createWithSpriteFrameName("navArrowBtn_001.png");
+    leftArrow->setFlipX(true);
+
+    m_leftBtn = CCMenuItemSpriteExtra::create(leftArrow, this, menu_selector(OdysseyComicLayer::onPrev));
+    m_rightBtn = CCMenuItemSpriteExtra::create(rightArrow, this, menu_selector(OdysseyComicLayer::onNext));
+
+    m_leftBtn->setPosition({20.f, m_winSize.height / 2});
+    m_leftBtn->setVisible(false);
+    m_rightBtn->setPosition({m_winSize.width - 20.f, m_winSize.height / 2});
+
+    navMenu->addChild(m_leftBtn);
+    navMenu->addChild(m_rightBtn);
+    this->addChild(navMenu);
 
     //  Mod::get()->setSettingValue<bool>("watched-comic-0" + std::to_string(m_comicNumber), true);
     GameManager::sharedState()->setUGV(fmt::format("2{}", m_comicNumber + 10).c_str(), true);
@@ -142,22 +161,6 @@ void OdysseyComicLayer::createComic(CCArray *arr, int issueNumber)
         auto pageSprite = spanishText ? pages.second : pages.first;
 
         arr->addObject(createComicPage(pageSprite));
-    };
-
-    if (issueNumber < 1 || issueNumber > 6)
-    {
-        m_totalPages = 2;
-        auto test = CCNode::create();
-        auto menu = CCMenu::create();
-
-        auto button = CCMenuItemSpriteExtra::create(
-            CCSprite::createWithSpriteFrameName("chest_02_02_001.png"),
-            this,
-            menu_selector(OdysseyComicLayer::onSecret));
-
-        menu->addChild(button);
-        test->addChild(menu);
-        arr->addObject(test);
     };
 
     GameManager::sharedState()->fadeInMusic(m_backgroundMusic);
@@ -450,9 +453,13 @@ void OdysseyComicLayer::scrollLayerMoved(CCPoint point)
     int offset = std::floor(transitionPoint);
 
     if (transitionPoint == offset)
-    {
         m_currentPage = offset % m_totalPages;
-    }
+
+    if (m_rightBtn)
+        m_rightBtn->setVisible(m_currentPage < m_totalPages - 1);
+
+    if (m_leftBtn)
+        m_leftBtn->setVisible(m_currentPage > 0);
 };
 
 void OdysseyComicLayer::keyBackClicked()
@@ -475,6 +482,18 @@ void OdysseyComicLayer::onBack(CCObject *)
 {
     keyBackClicked();
 };
+
+void OdysseyComicLayer::onNext(CCObject *)
+{
+    m_scrollLayer->quickUpdate();
+    m_scrollLayer->moveToPage(m_currentPage + 1);
+}
+
+void OdysseyComicLayer::onPrev(CCObject *)
+{
+    m_scrollLayer->quickUpdate();
+    m_scrollLayer->moveToPage(m_currentPage - 1);
+}
 
 OdysseyComicLayer *OdysseyComicLayer::create(int issueNumber, bool redirectToMap)
 {

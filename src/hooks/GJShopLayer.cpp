@@ -36,8 +36,8 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		auto winSize = CCDirector::sharedDirector()->getWinSize();
 		int rand = (std::rand() % 2) + 1;
 
-		auto wantedPoster = CCSprite::createWithSpriteFrameName(fmt::format("Wanted0{}_001.png"_spr, rand).c_str());
-		wantedPoster->setPosition({ (winSize.width / 4) + (std::rand() % 3 * 40) , winSize.height / 2 + 65.f });
+		auto wantedPoster = CCSprite::createWithSpriteFrameName(fmt::format("GDO_Wanted0{}_001.png"_spr, rand).c_str());
+		wantedPoster->setPosition({(winSize.width / 4) + (std::rand() % 3 * 40), winSize.height / 2 + 65.f});
 		wantedPoster->setScale(0.8f);
 		wantedPoster->setZOrder(-1);
 
