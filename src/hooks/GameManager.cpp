@@ -12,11 +12,11 @@ class $modify(OdysseyGameManager, GameManager)
         //  auto hide = GameManager::sharedState()->getGameVariable("0202");
 
         if (icon == IconType::Cube)
-            return 515;
+            return 514;
         if (icon == IconType::Ship)
-            return 175;
+            return 177;
         if (icon == IconType::Ball)
-            return 124;
+            return 126;
         if (icon == IconType::Ufo)
             return 153;
         if (icon == IconType::Wave)
@@ -26,7 +26,7 @@ class $modify(OdysseyGameManager, GameManager)
         if (icon == IconType::Spider)
             return 69;
         if (icon == IconType::Swing)
-            return 46;
+            return 47;
         if (icon == IconType::Jetpack)
             return 9;
 
@@ -100,4 +100,9 @@ class $modify(OdysseyGameManager, GameManager)
 
         log::debug("ACH: {}, Percent: {}, Flag: {}", ach, perc, flag);
     };
+
+    void dataLoaded(DS_Dictionary *dict)
+    {
+        GameManager::dataLoaded(dict);
+    }
 };

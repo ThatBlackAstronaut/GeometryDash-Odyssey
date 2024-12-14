@@ -1,6 +1,6 @@
 {
 	"geode": "4.0.1",
-	"version": "v1.0.0-alpha.15",
+	"version": "v1.0.0-alpha.16",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074"
@@ -42,6 +42,22 @@
 		}
 	],
 	"settings": {
+		"options-title":{
+			"type": "title",
+			"name": "Main Settings"
+		},
+		"spanish-language":{
+			"type": "bool",
+			"name": "Spanish",
+			"description": "<cy>ENG</c>: Translates most of the mod's dialogue in Spanish. Due to character limitations, there will be spelling errors.\n\n<cy>ESP</c>: Traduce mayor parte del dialogo del mod en Espanol. Dado a las limitaciones de caracteres en el juego, habran errores ortograficos (como la falta de acentos)",
+			"default": false
+		},
+		"hide-upcoming":{
+			"type": "bool",
+			"name": "Hide upcoming",
+			"description": "<cy>ENG</c>: Hides icons that are tagged as upcoming (thus impossible to get for now).\n\n<cy>SPA</c>: Oculta los iconos etiquetados como proximos (por tanto, imposibles de conseguir por ahora).",
+			"default": false
+		},
 		"dev-mode": {
 			"type": "title",
 			"name": "Development Options"

@@ -9,16 +9,11 @@ class OdysseyDevLayer : public cocos2d::CCLayer {
         virtual void keyBackClicked();
         void onBack(cocos2d::CCObject*);
 
-        void onCarp01(CCObject *);
         void onCarp02(CCObject *);
         void onCarp03(CCObject *);
         void onCarp04(CCObject *);
-        void onWizard01(CCObject *);
-        void onWizard02(CCObject *);
-        void onWizard03(CCObject *);
-        void onWizard04(CCObject *);
-
         void onStoryDialog(CCObject *);
+        void onPopup(CCObject *);
 
         void onComic(CCObject *);
         void onLevel(CCObject *);

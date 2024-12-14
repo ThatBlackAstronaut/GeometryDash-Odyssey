@@ -17,6 +17,15 @@ class $modify(OdysseyDialogLayer, DialogLayer)
             CCDirector::sharedDirector()->replaceScene(cocos2d::CCTransitionFade::create(0.5, scene));
         };
 
+        if(GameManager::sharedState()->getUGV("207") && !GameManager::sharedState()->getUGV("216"))
+        {
+            auto layer = OdysseyComicLayer::create(6, true);
+            auto scene = CCScene::create();
+            scene->addChild(layer);
+
+            CCDirector::sharedDirector()->replaceScene(cocos2d::CCTransitionFade::create(0.5, scene));
+        };
+
         DialogLayer::onClose();
     };
 };
