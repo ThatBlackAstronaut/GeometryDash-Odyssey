@@ -21,6 +21,7 @@ public:
     std::vector<CCPoint> getPositionForButtons();
 
     void addLevelButtons();
+    void addLevelDots();
 
     void switchToPage(int);
     void onNextPage(CCObject *);

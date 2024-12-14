@@ -10,6 +10,7 @@
 #include <Geode/modify/SongsLayer.hpp>
 #include <Geode/modify/PauseLayer.hpp>
 #include <Geode/modify/GJItemIcon.hpp>
+#include <Geode/modify/CurrencySprite.hpp>
 
 using namespace geode::prelude;
 
@@ -71,7 +72,10 @@ class $modify(CCSprite)
 	static CCSprite *createWithSpriteFrameName(const char *pszSpriteFrameName)
 	{
 		if (std::string_view(pszSpriteFrameName) == std::string_view("gjItem_01_001.png"))
-			return CCSprite::createWithSpriteFrameName("GDO_Key_01_001.png");
+			return CCSprite::createWithSpriteFrameName("GDO_Key_01_001.png"_spr);
+		if (std::string_view(pszSpriteFrameName) == std::string_view("currencyOrbIcon_001.png"))
+			return CCSprite::createWithSpriteFrameName("currencyIcon.png"_spr);
+
 		return CCSprite::createWithSpriteFrameName(pszSpriteFrameName);
 	}
 
@@ -79,12 +83,31 @@ class $modify(CCSprite)
 	{
 		if (p0->getFrameName() == std::string_view("shopKeeper_jaw_01_001.png"))
 		{
-			
 			auto frame = CCSpriteFrameCache::get()->spriteFrameByName("shopKeeper_jaw_01_001.png"_spr);
 			return CCSprite::setDisplayFrame(frame);
 		}
 
 		CCSprite::setDisplayFrame(p0);
+	}
+};
+
+class $modify(CurrencySprite)
+{
+	bool init(CurrencySpriteType p0, bool p1)
+	{
+		if (!CurrencySprite::init(p0, p1)) return false;
+
+		if (p0 == CurrencySpriteType::Orb)
+		{
+			this->setBatchNode(nullptr);
+			this->initWithSpriteFrameName("currencyOrb.png"_spr);
+			/*auto coinSprite = CCSprite::createWithSpriteFrameName("currencyOrb.png"_spr);
+			coinSprite->setScale(1.2f);
+			coinSprite->setAnchorPoint({ .5f, .5f });
+			coinSprite->setPosition(getContentSize() / 2);
+			addChild(coinSprite);*/
+		}
+		return true;
 	}
 };
 
