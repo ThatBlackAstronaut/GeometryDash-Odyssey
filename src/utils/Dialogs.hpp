@@ -83,7 +83,7 @@ const std::vector<std::vector<gd::string>> WizardIntroduction = {
     {
         "????",
         "56",
-        "These cab be read from the menu of each level! <d020>Look at them before playing!",
+        "These can be read from the menu of each level! <d020>Look at them before playing!",
         "Disponibles en el menu de cada nivel! <d020>Leelos antes de jugar los niveles!",
     },
     {

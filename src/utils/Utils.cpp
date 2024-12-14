@@ -269,15 +269,15 @@ bool Odyssey::isIconCustom(int id, IconType type)
 
 bool Odyssey::isIconSecret(int id, IconType type)
 {
-    if ((id >= 502 && id <= 508) && type == IconType::Cube)
+    if ((id >= 508 && id <= 514) && type == IconType::Cube)
         return true;
-    if ((id >= 171 && id <= 172) && type == IconType::Ship)
+    if ((id >= 176) && type == IconType::Ship)
         return true;
-    if ((id >= 120 && id <= 123) && type == IconType::Ball)
+    if ((id >= 123) && type == IconType::Ball)
         return true;
-    if ((id >= 150 && id <= 153) && type == IconType::Ufo)
+    if ((id >= 150) && type == IconType::Ufo)
         return true;
-    if ((id >= 98 && id <= 99) && type == IconType::Wave)
+    if ((id >= 99) && type == IconType::Wave)
         return true;
     if ((id >= 9) && type == IconType::Jetpack)
         return true;
@@ -364,8 +364,9 @@ std::vector<std::string> Odyssey::getPlayerFrames(int iconID, IconType type)
     std::string frame2 = fmt::format("{}_{:02}_2_001.png"_spr, iconName, iconID);
     std::string frameExtra = fmt::format("{}_{:02}_extra_001.png"_spr, iconName, iconID);
     std::string frameGlow = fmt::format("{}_{:02}_glow_001.png"_spr, iconName, iconID);
+    std::string frameDome = fmt::format("{}_{:02}_3_001.png"_spr, iconName, iconID);
 
-    return {frame1, frame2, frameExtra, frameGlow};
+    return {frame1, frame2, frameExtra, frameGlow, frameDome};
 }
 
 void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlayerObject)
@@ -380,6 +381,7 @@ void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlaye
     auto frame2Texture = frames[1];
     auto extraTexture = frames[2];
     auto glowTexture = frames[3];
+    gd::string domeTexture = frames[4];
 
     CCSprite *firstLayer;
     CCSprite *secondLayer;
@@ -454,6 +456,11 @@ void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlaye
         glowLayer->setDisplayFrame(glowFrame);
         if (!isPlayerObject)
             glowLayer->setPosition(firstLayer->getContentSize() / 2);
+    }
+
+    if (auto domeFrame = frameCache->spriteFrameByName(domeTexture.c_str())){
+        ufoDome->setDisplayFrame(domeFrame);
+        ufoDome->setPosition(firstLayer->getContentSize() / 2);
     }
 }
 
@@ -540,7 +547,7 @@ int Odyssey::islandPageForLevelID(int levelID)
     if (levelID < 5)
         return 0;
 
-    if (levelID > 200)
+    if (levelID > 500)
         return 2;
 
     return 1;

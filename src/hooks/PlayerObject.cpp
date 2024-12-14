@@ -23,6 +23,7 @@ class $modify(OdysseyPlayerObject, PlayerObject)
     
         return true;
     }
+
     void updatePlayerFrame(int id)
     {
         PlayerObject::updatePlayerFrame(id);
@@ -35,6 +36,13 @@ class $modify(OdysseyPlayerObject, PlayerObject)
         PlayerObject::updatePlayerRollFrame(id);
 
         Odyssey::updateIcon(this, id, IconType::Ball, true);
+    }
+
+    void updatePlayerBirdFrame(int id)
+    {
+        PlayerObject::updatePlayerBirdFrame(id);
+
+        Odyssey::updateIcon(this, id, IconType::Ufo, true);
     }
 
     void updatePlayerSwingFrame(int id)

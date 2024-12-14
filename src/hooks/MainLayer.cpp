@@ -28,6 +28,15 @@ class $modify(OdysseyMenuLayer, MenuLayer)
             popup->show();
         };
 
+        if (!GameManager::sharedState()->getUGV("202") && GameManager::sharedState()->getGameVariable("0201"))
+        {
+            auto popup = OdysseyPopup::create("Language Notice", "Dado a limitaciones de\ncaracteres en el juego, habran\n<cr>errores ortograficos</c>\n(como la falta de acentos)");
+            popup->setWarning(false, true);
+            popup->setZOrder(104);
+            popup->m_scene = this;
+            popup->show();
+        };
+
         //  Reemplaza el titulo
         auto gameTitle = static_cast<CCSprite *>(this->getChildByID("main-title"));
         if (gameTitle)

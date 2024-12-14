@@ -2,6 +2,8 @@
 #include "OdysseyComicLayer.hpp"
 #include "OdysseyLevelPopup.hpp"
 #include "SecretVaultLayer2.hpp"
+
+#include "../nodes/OdysseyPopup.hpp"
 #include "../utils/Utils.hpp"
 
 bool OdysseyDevLayer::init()
@@ -47,7 +49,7 @@ bool OdysseyDevLayer::init()
                               ->setCrossAxisLineAlignment(AxisAlignment::Even));
     dialogMenu->setPositionY(winSize.height / 2 + 40.0f);
 
-    auto dialogLabel = CCLabelBMFont::create("Dialogs", "goldFont.fnt");
+    auto dialogLabel = CCLabelBMFont::create("Eventos", "goldFont.fnt");
     dialogLabel->setPosition({winSize.width / 2, dialogMenu->getPositionY() + dialogMenu->getContentHeight() / 2 + 10.0f});
     dialogLabel->setScale(0.75f);
     addChild(dialogLabel);
@@ -106,6 +108,18 @@ bool OdysseyDevLayer::init()
         menu_selector(OdysseyDevLayer::onCarp04));
     carp04->setTag(0);
 
+    auto popup01 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("Savefile Notice", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onPopup));
+    popup01->setTag(1);
+
+    auto popup02 = CCMenuItemSpriteExtra::create(
+        ButtonSprite::create("Translation Notice", 0.5f),
+        this,
+        menu_selector(OdysseyDevLayer::onPopup));
+    popup02->setTag(2);
+
     dialogMenu->addChild(carp01);
     dialogMenu->addChild(wizard01);
     dialogMenu->addChild(wizard02);
@@ -114,7 +128,8 @@ bool OdysseyDevLayer::init()
     dialogMenu->addChild(hollow02);
     dialogMenu->addChild(carp02);
     dialogMenu->addChild(carp03);
-    dialogMenu->addChild(carp04);
+    dialogMenu->addChild(popup01);
+    dialogMenu->addChild(popup02);
     dialogMenu->updateLayout();
     addChild(dialogMenu);
 
@@ -171,19 +186,12 @@ bool OdysseyDevLayer::init()
         menu_selector(OdysseyDevLayer::onComic));
     comic06->setTag(6);
 
-    auto comic07 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("?", 0.5f),
-        this,
-        menu_selector(OdysseyDevLayer::onComic));
-    comic07->setTag(0);
-
     comicsMenu->addChild(comic01);
     comicsMenu->addChild(comic02);
     comicsMenu->addChild(comic03);
     comicsMenu->addChild(comic04);
     comicsMenu->addChild(comic05);
     comicsMenu->addChild(comic06);
-    comicsMenu->addChild(comic07);
     comicsMenu->updateLayout();
     addChild(comicsMenu);
 
@@ -271,40 +279,33 @@ void OdysseyDevLayer::onStoryDialog(CCObject *sender)
         "firstIslandClear",
         "end",
         "meetingHollow",
-        "hollowGoals"};
+        "hollowQuotaReached",
+    };
 
     auto dialog = Odyssey::createDialog(events[sender->getTag()]);
     this->addChild(dialog, 10);
 }
 
-void OdysseyDevLayer::onCarp01(CCObject *)
+void OdysseyDevLayer::onPopup(CCObject *sender)
 {
-    auto dialog = Odyssey::createDialog("meetingShopkeeper");
-    this->addChild(dialog, 3);
-};
+    auto tag = sender->getTag();
 
-void OdysseyDevLayer::onWizard01(CCObject *)
-{
-    auto dialog = Odyssey::createDialog("meetingWizard");
-    this->addChild(dialog, 3);
-};
+    if (tag == 1)
+    {
+        auto popup = OdysseyPopup::create("Savefile Notice", "<cr>Odyssey</c> stores the data in\na separate <cy>savefile</c>. Your data\nwill be <cg>restored</c> when you\n<cb>turn off</c> the Mod.");
+        popup->setWarning(true, false);
+        popup->m_scene = this;
+        popup->show();
+    }
 
-void OdysseyDevLayer::onWizard02(CCObject *)
-{
-    auto dialog = Odyssey::createDialog("firstIslandClear");
-    this->addChild(dialog, 3);
-};
-
-void OdysseyDevLayer::onWizard03(CCObject *)
-{
-    auto dialog = Odyssey::createDialog("end");
-    this->addChild(dialog, 3);
-};
-
-void OdysseyDevLayer::onWizard04(CCObject *)
-{
-    auto dialog = Odyssey::createDialog("meetingHollow");
-    this->addChild(dialog, 3);
+    if (tag == 2)
+    {
+        auto popup = OdysseyPopup::create("Language Notice", "Dado a limitaciones de\ncaracteres en el juego, habran\n<cr>errores ortograficos</c>\n(como la falta de acentos)");
+        popup->setWarning(false, true);
+        popup->m_scene = this;
+        popup->setZOrder(104);
+        popup->show();
+    }
 };
 
 void OdysseyDevLayer::onCarp02(CCObject *sender)

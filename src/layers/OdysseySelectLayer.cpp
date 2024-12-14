@@ -1,6 +1,7 @@
 #include "OdysseySelectLayer.hpp"
 #include "OdysseyLevelPopup.hpp"
 #include "OdysseyComicLayer.hpp"
+#include "SecretVaultLayer2.hpp"
 #include "../utils/Utils.hpp"
 
 using namespace geode::prelude;
@@ -40,11 +41,11 @@ bool OdysseySelectLayer::init(int page)
 
     case 1:
         bgID = 30;
-        bgColor = { 200, 0, 0 };
-        islandTexture = "worldIsland_02.png"_spr;
+        bgColor = {200, 0, 0};
+        islandTexture = "odyssey_island02.png"_spr;
         islandColor = {0, 0, 0};
         islandOpacity = 150;
-        islandScale = 1.f;
+        islandScale = 1.0f;
         m_levelAmount = 5;
         break;
 
@@ -82,6 +83,26 @@ bool OdysseySelectLayer::init(int page)
     addChild(backMenu);
 
     m_islandNode = CCNode::create();
+
+    if (page == 1)
+    {
+        auto hollowSprite = CCSprite::createWithSpriteFrameName("HollowSkull_001.png"_spr);
+        hollowSprite->setColor({50, 50, 50});
+        hollowSprite->setOpacity(50);
+
+        auto hollowBtn = CCMenuItemSpriteExtra::create(
+            hollowSprite,
+            this,
+            menu_selector(OdysseySelectLayer::onOgre));
+
+        hollowBtn->setPosition({m_winSize.width - 20, m_winSize.height - 20});
+        hollowBtn->setTag(0);
+
+        auto secretMenu = CCMenu::create();
+        secretMenu->addChild(hollowBtn);
+        secretMenu->setPosition({0, 0});
+        addChild(secretMenu);
+    }
 
     if (page == 2)
     {
@@ -211,6 +232,15 @@ bool OdysseySelectLayer::init(int page)
             0));
     };
 
+    //  Si el jugador completo Cryptofunk (y activo anteriormente el primer dialogo), ejecuta el segundo dialogo del Wizard
+    if (GameManager::sharedState()->getUGV("203") && !GameManager::sharedState()->getUGV("207") && AchievementManager::sharedState()->isAchievementEarned("geometry.ach.level04b"))
+    {
+        this->runAction(CCSequence::create(
+            CCDelayTime::create(0.5f),
+            CCCallFunc::create(this, callfunc_selector(OdysseySelectLayer::getWizardDialog02)),
+            0));
+    }
+
     setKeyboardEnabled(true);
     setKeypadEnabled(true);
     return true;
@@ -220,6 +250,13 @@ void OdysseySelectLayer::getWizardDialog01()
 {
     auto dialog = Odyssey::createDialog("meetingWizard");
     GameManager::sharedState()->setUGV("203", true);
+    this->addChild(dialog, 3);
+};
+
+void OdysseySelectLayer::getWizardDialog02()
+{
+    auto dialog = Odyssey::createDialog("firstIslandClear");
+    GameManager::sharedState()->setUGV("207", true);
     this->addChild(dialog, 3);
 };
 
@@ -306,6 +343,14 @@ void OdysseySelectLayer::onLevel(CCObject *sender)
     auto popup = OdysseyLevelPopup::create(sender->getTag());
     popup->show();
 }
+
+//  Boton del Ogro
+void OdysseySelectLayer::onOgre(CCObject *)
+{
+    auto scene = CCScene::create();
+    scene->addChild(SecretVaultLayer2::create());
+    CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
+};
 
 void OdysseySelectLayer::onExtraLevel(CCObject *sender)
 {
