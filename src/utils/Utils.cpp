@@ -124,6 +124,9 @@ DialogLayer *Odyssey::createDialog(const char *event)
     if (event == "end")
         dialogList = Ending;
 
+    if (event == "lockedOgre")
+        dialogList = LockedOgre;
+
     if (event == "meetingHollow")
     {
         dialogList = HollowIntroduction;
@@ -268,8 +271,8 @@ bool Odyssey::isIconCustom(int id, IconType type)
 }
 
 bool Odyssey::isIconSecret(int id, IconType type)
-{
-    if ((id >= 508 && id <= 514) && type == IconType::Cube)
+{   
+   if ((id >= 511 && id <= 514) && type == IconType::Cube)
         return true;
     if ((id >= 176) && type == IconType::Ship)
         return true;
@@ -287,9 +290,9 @@ bool Odyssey::isIconSecret(int id, IconType type)
 
 bool Odyssey::isIconUpcoming(int id, IconType type)
 {
+    /*
     if (id >= 514 && type == IconType::Cube)
         return true;
-    /*
     if (id >= 173 && type == IconType::Ship)
         return true;
     if (id >= 124 && type == IconType::Ball)
@@ -458,7 +461,8 @@ void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlaye
             glowLayer->setPosition(firstLayer->getContentSize() / 2);
     }
 
-    if (auto domeFrame = frameCache->spriteFrameByName(domeTexture.c_str())){
+    if (auto domeFrame = frameCache->spriteFrameByName(domeTexture.c_str()))
+    {
         ufoDome->setDisplayFrame(domeFrame);
         ufoDome->setPosition(firstLayer->getContentSize() / 2);
     }

@@ -18,6 +18,8 @@ bool SecretVaultLayer::init()
     //  Background
     auto winSize = CCDirector::sharedDirector()->getWinSize();
     m_background = CCSprite::createWithSpriteFrameName("HollowBG_001.png"_spr);
+    m_bg_2 = CCSprite::createWithSpriteFrameName("HollowBG_2_001.png"_spr);
+    m_bg_3 = CCSprite::createWithSpriteFrameName("HollowBG_3_001.png"_spr);
 
     m_background->setScaleX((winSize.width) / m_background->getTextureRect().size.width);
     m_background->setScaleY((winSize.height) / m_background->getTextureRect().size.height);
@@ -25,7 +27,24 @@ bool SecretVaultLayer::init()
     m_background->setPosition({0, 0});
     m_background->setColor({120, 0, 0});
     m_background->setID("background"_spr);
-    addChild(m_background, -2);
+    addChild(m_background, -4);
+
+    m_bg_2->setScaleX((winSize.width) / m_bg_2->getTextureRect().size.width);
+    m_bg_2->setScaleY((winSize.height) / m_bg_2->getTextureRect().size.height);
+    m_bg_2->setID("background-layer-2"_spr);
+    m_bg_2->setAnchorPoint({0, 0});
+    m_bg_2->setPosition({0, 0});
+    m_bg_2->setColor({0, 0, 0});
+    m_bg_2->setOpacity(90);
+    addChild(m_bg_2, -3);
+
+    m_bg_3->setScaleX((winSize.width) / m_bg_3->getTextureRect().size.width);
+    m_bg_3->setScaleY((winSize.height) / m_bg_3->getTextureRect().size.height);
+    m_bg_3->setID("background-layer-3"_spr);
+    m_bg_3->setAnchorPoint({0, 0});
+    m_bg_3->setPosition({0, 0});
+    m_bg_3->setColor({0, 0, 0});
+    addChild(m_bg_3, -2);
 
     //  Back Button
     auto menuBack = CCMenu::create();
@@ -119,6 +138,28 @@ void SecretVaultLayer::onSubmit(CCObject *)
 
     m_textInput->setString("");
     m_achievementName = "";
+
+    /*
+    if (lower == "gargan")
+    {
+        if (m_garganIDX > 3)
+        {
+            messages = {
+                "Stop.",
+                "Don't provoke him.",
+                "Get out while you can.",
+                "..."};
+
+            m_title->setString(messages[m_garganIDX % 3].c_str());
+        }
+
+        m_garganIDX++;
+        return;
+    }
+
+    m_title->setString("The Hollow");
+    m_garganIDX = 0;
+    */
 
     //  List of codes
     if (lower == "color" && !AM->isAchievementEarned("geometry.ach.odyssey.secret10"))

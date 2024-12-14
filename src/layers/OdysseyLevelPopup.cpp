@@ -77,10 +77,17 @@ bool OdysseyLevelPopup::setup(std::string const &title)
 
     //  Comics Button
     auto comicButton = CCMenuItemSpriteExtra::create(
-        CircleButtonSprite::createWithSpriteFrameName("GDO_comicBtn.png"_spr, 1, baseColor, CircleBaseSize::Small),
+        CircleButtonSprite::createWithSpriteFrameName("GDO_ComicIcon_001.png"_spr, 1, baseColor, CircleBaseSize::Small),
         this,
         menu_selector(OdysseyLevelPopup::onComic));
     comicButton->setPosition({buttonsMenu->getContentWidth() - 8, 8});
+
+    auto loreButton = CCMenuItemSpriteExtra::create(
+        CCSprite::createWithSpriteFrameName("GJ_infoBtn_001.png"),
+        this,
+        menu_selector(OdysseyLevelPopup::onLore));
+    loreButton->setPosition({buttonsMenu->getContentWidth() - 8, 8});
+    loreButton->setVisible(false);
 
     if (!seenComic)
     {
@@ -93,10 +100,13 @@ bool OdysseyLevelPopup::setup(std::string const &title)
     buttonsMenu->addChild(playButton);
     buttonsMenu->addChild(infoButton);
     buttonsMenu->addChild(comicButton);
+    buttonsMenu->addChild(loreButton);
     buttonsMenu->addChild(optionsButton);
 
-    if(m_levelID > 4){
+    if (m_levelID > 4)
+    {
         comicButton->setVisible(false);
+        loreButton->setVisible(true);
     }
 
     //  Coin Array
@@ -104,7 +114,8 @@ bool OdysseyLevelPopup::setup(std::string const &title)
     coinMenu->setContentSize({80.0f, 25.f});
 
     auto coinArray = CCArray::create();
-    for(int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++)
+    {
         bool isCollected = GameStatsManager::sharedState()->hasSecretCoin(fmt::format("{}_{}", m_level->m_levelID.value(), i + 1).c_str());
 
         auto node = CCSprite::createWithSpriteFrameName(isCollected ? "GJ_coinsIcon_001.png" : "GJ_coinsIcon_gray_001.png");
@@ -148,10 +159,32 @@ void OdysseyLevelPopup::onComic(CCObject *sender)
     scene->addChild(OdysseyComicLayer::create(m_levelID + 1 + Odyssey::islandPageForLevelID(m_levelID), false));
 
     auto button = static_cast<CCMenuItemSpriteExtra *>(sender);
-    button->setSprite(CircleButtonSprite::createWithSpriteFrameName("GDO_comicBtn.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::Small));
+    button->setSprite(CircleButtonSprite::createWithSpriteFrameName("GDO_ComicIcon_001.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::Small));
 
     CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };
+
+void OdysseyLevelPopup::onLore(CCObject *sender)
+{
+    auto spanish = GameManager::sharedState()->getGameVariable("0201");
+
+    if (m_levelID == 501)
+    {
+        auto lore = spanish ? "<cg>\"Conclusive Journey\"</c> cuenta la historia de un Antiguo Camino que conduce al desolado desierto. Antes de que ocurran los eventos de <cy>GD: Odyssey</c>, el equipo de aventureros deambula por aqui en busca de mas pistas que ayuden a comprender lo que esta ocurriendo en Geometry City." : "<cg>\"Conclusive Journey\"</c> tells the tale of an Ancient Road leading to the desolate desert. Before the events of <cy>GD: Odyssey</c>, the team of adventurers wander here in search for more clues to help understand what's happening in Geometry City.";
+
+        auto credits = FLAlertLayer::create("Info", lore, "ok");
+        credits->show();
+    }
+
+    if (m_levelID == 502)
+    {
+        auto lore = spanish ? "<cg>\"Burning Sands\"</c> cuenta la historia de Nefferkitty, un antiguo dios egipcio y protector de la Piedra de los elementos. Antes de los eventos de <cy>GD: Odyssey</c>, el equipo de aventureros visito el desierto durante la invasion del <cr>Wanderer</c>. Los acontecimientos de este juego ocurren despues de completar este nivel." : "<cg>\"Burning Sands\"</c> tells the story of Nefferkitty, an ancient Egyptian god and protector of the Stone of elements. Before the events of <cy>GD: Odyssey</c>, the team of adventurers visited the desert during the <cr>Wanderer's</c> invasion. The events of this game take place after completing this level.";
+
+        //  auto credits = FLAlertLayer::create("Info", lore, "ok");
+        auto credits = Popup::create("Info", lore, "Ok");
+        credits->show();
+    }
+}
 
 OdysseyLevelPopup *OdysseyLevelPopup::create(int levelID)
 {

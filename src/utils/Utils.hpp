@@ -2,22 +2,23 @@
 
 using namespace geode::prelude;
 
-namespace Odyssey {
+namespace Odyssey
+{
     //  Dialogos
-    DialogLayer * createDialog(const char* event);
-    DialogLayer * createDialogResponse(const char * event, int times);
+    DialogLayer *createDialog(const char *event);
+    DialogLayer *createDialogResponse(const char *event, int times);
 
     //  Nodos para el Level Popup
-    CCNode * createDifficultyNode(GJDifficulty, int);
-    CCNode * createProgressBar(int, bool);
+    CCNode *createDifficultyNode(GJDifficulty, int);
+    CCNode *createProgressBar(int, bool);
 
     //  Funciones
-    void addCorners(CCLayer *, const char * , float);
+    void addCorners(CCLayer *, const char *, float);
     void insertAssetsToMap(bool, std::vector<int>);
-    void updateIcon(CCNode*, int, IconType, bool);
-    void updateRobotSprite(GJRobotSprite*, int, IconType);
+    void updateIcon(CCNode *, int, IconType, bool);
+    void updateRobotSprite(GJRobotSprite *, int, IconType);
     void addCreditsToIcon(std::pair<int, UnlockType>, int);
-    
+
     //  Banderas
     bool isIconCustom(int, IconType);
     bool isIconSecret(int, IconType);

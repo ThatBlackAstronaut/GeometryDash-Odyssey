@@ -25,7 +25,7 @@ bool OdysseySelectLayer::init(int page)
     ccColor3B bgColor = {26, 12, 43};
 
     // islas
-    const char *islandTexture = "odyssey_island01.png"_spr;
+    const char *islandTexture = "GDO_MainIsland_01_001.png"_spr;
     CCPoint islandPosition = {m_winSize.width / 2, m_winSize.height / 2 - 20};
     ccColor3B islandColor = {255, 255, 255};
     float islandScale = 1.8f;
@@ -42,17 +42,17 @@ bool OdysseySelectLayer::init(int page)
     case 1:
         bgID = 30;
         bgColor = {200, 0, 0};
-        islandTexture = "odyssey_island02.png"_spr;
+        islandTexture = "GDO_MainIsland_02_001.png"_spr;
         islandColor = {0, 0, 0};
         islandOpacity = 150;
         islandScale = 1.0f;
-        m_levelAmount = 5;
+        m_levelAmount = 0;
         break;
 
     case 2:
         bgID = 15;
         bgColor = {53, 7, 0};
-        islandTexture = "island_extra_01.png"_spr;
+        islandTexture = "GDO_ExtraIsland_01_001.png"_spr;
         islandPosition = CCPoint{m_winSize.width / 2 - 100, islandPosition.y};
         islandScale = .5f;
         break;
@@ -88,7 +88,7 @@ bool OdysseySelectLayer::init(int page)
     {
         auto hollowSprite = CCSprite::createWithSpriteFrameName("HollowSkull_001.png"_spr);
         hollowSprite->setColor({50, 50, 50});
-        hollowSprite->setOpacity(50);
+        hollowSprite->setOpacity(90);
 
         auto hollowBtn = CCMenuItemSpriteExtra::create(
             hollowSprite,
@@ -102,6 +102,12 @@ bool OdysseySelectLayer::init(int page)
         secretMenu->addChild(hollowBtn);
         secretMenu->setPosition({0, 0});
         addChild(secretMenu);
+
+        auto comingSoonLabel = CCLabelBMFont::create("In the full version! :)", "bigFont.fnt");
+        comingSoonLabel->setScale(.7f);
+        comingSoonLabel->setPosition(m_winSize / 2);
+
+        m_islandNode->addChild(comingSoonLabel, 999);
     }
 
     if (page == 2)
@@ -124,7 +130,7 @@ bool OdysseySelectLayer::init(int page)
         firstIsland->setPosition(islandPosition);
         firstIsland->setTag(501);
 
-        auto secondSprite = CCSprite::createWithSpriteFrameName("island_extra_02.png"_spr);
+        auto secondSprite = CCSprite::createWithSpriteFrameName("GDO_ExtraIsland_02_001.png"_spr);
         secondSprite->setScale(islandScale);
 
         auto secondIsland = CCMenuItemSpriteExtra::create(
@@ -182,7 +188,7 @@ bool OdysseySelectLayer::init(int page)
     m_islandNode->runAction(CCRepeatForever::create(CCSequence::createWithTwoActions(moveUp, moveDown)));
 
     //  Titulo de la Isla
-    auto islandTitle = CCSprite::createWithSpriteFrameName(fmt::format("island_title{:02}.png"_spr, page + 1).c_str());
+    auto islandTitle = CCSprite::createWithSpriteFrameName(fmt::format("GDO_IslandTitle_0{}_001.png"_spr, page + 1).c_str());
     islandTitle->setScale(.85f);
     islandTitle->setPosition({m_winSize.width / 2, m_winSize.height - 30});
     addChild(islandTitle);
@@ -347,6 +353,14 @@ void OdysseySelectLayer::onLevel(CCObject *sender)
 //  Boton del Ogro
 void OdysseySelectLayer::onOgre(CCObject *)
 {
+    if (!Mod::get()->getSettingValue<bool>("skip-requirements"))
+    {
+        log::info("LOCKED OGRE");
+        auto dialog = Odyssey::createDialog("lockedOgre");
+        this->addChild(dialog, 3);
+        return;
+    }
+
     auto scene = CCScene::create();
     scene->addChild(SecretVaultLayer2::create());
     CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
@@ -359,7 +373,7 @@ void OdysseySelectLayer::onExtraLevel(CCObject *sender)
     auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1);
     auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2);
 
-    if ((extra01_unlocked && sender->getTag() == 501) || (extra02_unlocked && sender->getTag() == 502))
+    if ((extra01_unlocked && sender->getTag() == 501) || (extra02_unlocked && sender->getTag() == 502) || Mod::get()->getSettingValue<bool>("skip-requirements"))
     {
         auto popup = OdysseyLevelPopup::create(sender->getTag());
         popup->show();

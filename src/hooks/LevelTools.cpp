@@ -5,6 +5,11 @@ using namespace geode::prelude;
 
 class $modify(OdysseyLevelTools, LevelTools)
 {
+	$override static bool verifyLevelIntegrity(std::string verifyString, int levelID)
+	{
+		return true;
+	}
+
 	$override static gd::string getAudioTitle(int levelID)
 	{
 		switch (levelID)
@@ -99,9 +104,9 @@ class $modify(OdysseyLevelTools, LevelTools)
 			return 7;
 
 		case 501:
-			return 9;
-		case 502:
 			return 1;
+		case 502:
+			return 9;
 		case 503:
 			return 7;
 
@@ -261,19 +266,13 @@ class $modify(OdysseyLevelTools, LevelTools)
 		}
 
 		if (!loaded)
-		{
 			level->m_levelString = LocalLevelManager::sharedState()->getMainLevelString(levelID);
-		}
+
 		level->m_levelID = levelID;
 		level->m_levelType = GJLevelType::Local;
 
 		return level;
 	};
-
-	$override static bool verifyLevelIntegrity(std::string verifyString, int levelID)
-	{
-		return true;
-	}
 
 	$override static gd::string getAudioString(int levelID)
 	{

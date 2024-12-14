@@ -343,10 +343,38 @@ const std::vector<std::vector<gd::string>> HollowEnough = {
     },
 };
 
+const std::vector<std::vector<gd::string>> LockedOgre = {
+    {
+        "Dumbledalf",
+        "53",
+        "Huh? <d020>What did ya find?",
+        "Eh? <d020>Que has encontrado?",
+    },
+    {
+        "Dumbledalf",
+        "54",
+        "Oh<d020>.<d020>.<d020>. That <cg>guy</c>.",
+        "Oh<d020>.<d020>.<d020>. Ese <cg>tipo</c>.",
+    },
+    {
+        "Dumbledalf",
+        "56",
+        "Yeah, apologies. He's still not ready to accept visitors<d020>.<d020>.<d020>.",
+        "Mis disculpas, muchacho. Todavia el no esta listo para aceptar visitas<d020>.<d020>.<d020>.",
+    },
+    {
+        "Dumbledalf",
+        "53",
+        "He will soon! I guess?",
+        "Pronto lo estara! Eso espero?",
+    },
+};
+
 const std::vector<std::vector<gd::string>> Base = {
     {
         "Nombre del personaje",
         "Imagen a usar (tiene que ser una cadena a juro)",
         "Texto en ingles",
         "Texto en español",
-    }};
+    },
+};

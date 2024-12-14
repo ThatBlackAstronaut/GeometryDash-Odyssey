@@ -22,7 +22,7 @@ bool SecretVaultLayer2::init()
     background->setScaleY((winSize.height) / background->getTextureRect().size.height);
     background->setAnchorPoint({0, 0});
     background->setPosition({0, 0});
-    background->setColor({120, 0, 0});
+    background->setColor({0, 120, 0});
     background->setID("background"_spr);
     addChild(background, -2);
 
@@ -62,6 +62,11 @@ bool SecretVaultLayer2::init()
 
     auto keeperSprite = CCSprite::createWithSpriteFrameName("GJ_secretLock_001.png");
     keeperSprite->setScale(1.15f);
+    keeperSprite->setColor({0, 0, 0});
+
+    auto questionMark = CCLabelBMFont::create("?", "bigFont.fnt");
+    questionMark->setPosition({32, 60});
+    keeperSprite->addChild(questionMark);
 
     auto keeperButton = CCMenuItemSpriteExtra::create(
         keeperSprite,
@@ -608,7 +613,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
         messages = {
             "Oh, yeah... I remember",
             "The old man isn't the only one...",
-            "This pink, metallic guy would come too",
+            "This pink guy would come too",
             "Oh... I hate him!",
             "Always getting in the way!",
             "Selling his junk!",
@@ -829,7 +834,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
     {
         messages = {
             "My brother doesn't stop talking...",
-            "About this mysterious gal...",
+            "About this gal...",
             "Weirdly shaped ribbon, black hair",
             "Other details I don't care",
             "Kept murmuring her name...",
@@ -1048,8 +1053,8 @@ void SecretVaultLayer2::updateMessage(std::string message, MessageType type)
 
 void SecretVaultLayer2::keyBackClicked()
 {
+    GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
     CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
-    GameManager::sharedState()->fadeInMenuMusic();
 };
 
 void SecretVaultLayer2::onBack(CCObject *)

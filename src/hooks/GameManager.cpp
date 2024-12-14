@@ -51,17 +51,11 @@ class $modify(OdysseyGameManager, GameManager)
 
     void returnToLastScene(GJGameLevel *level)
     {
-        if (level->m_levelType == GJLevelType::Local)
-        {
-            int page = Odyssey::islandPageForLevelID(level->m_levelID);
+        int page = Odyssey::islandPageForLevelID(level->m_levelID);
 
-            //  CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, OdysseySelectLayer::scene(page)));
-            CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
-            GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
-            return;
-        }
-
-        GameManager::returnToLastScene(level);
+        GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
+        CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, OdysseySelectLayer::scene(page)));
+        return;
     }
 
     void reportPercentageForLevel(int levelID, int percent, bool isPractice)

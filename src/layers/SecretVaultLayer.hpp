@@ -21,7 +21,10 @@ protected:
     CCSprite *m_keeperSprite = nullptr;
     CCSprite *keeperSprite = nullptr;
     CCSprite *keeperEyes = nullptr;
+
     CCSprite *m_background = nullptr;
+    CCSprite *m_bg_2 = nullptr;
+    CCSprite *m_bg_3 = nullptr;
 
     CCParticleSystemQuad *bg_particle_01 = nullptr;
     CCParticleSystemQuad *bg_particle_02 = nullptr;
