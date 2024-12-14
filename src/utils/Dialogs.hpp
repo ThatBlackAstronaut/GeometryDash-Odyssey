@@ -20,14 +20,14 @@ const std::vector<std::vector<gd::string>> CarpIntroduction = {
     {
         "????",
         "20",
-        "A <cg>customer</c>! <d020>No way! <d020>I thought no one would ever come here!",
+        "A <cg>customer</c>! <d020>No way! <d020>I never thought anyone would ever come here!",
         "Un <cg>cliente!</c><d020> No puede ser! <d020>Crei que nadie llegaria aqui jamas!",
     },
     {
         "????",
         "21",
-        "Name's <cp>Carp</c>, <d020>I'm the shopkeeper of <cl>The Dangerous Zones</c>",
-        "Mi nombre es <cp>Carp</c>, soy el vendedor de <cl>The Dangerous Zones</c>",
+        "Name's <cp>Carp</c>, <d020>I'm the shopkeeper of <cl>The Dangerous Zones</c>!",
+        "Mi nombre es <cp>Carp</c>, soy el vendedor de <cl>The Dangerous Zones</c>!",
     },
     {
         "Carp",
@@ -45,7 +45,7 @@ const std::vector<std::vector<gd::string>> CarpIntroduction = {
         "Carp",
         "23",
         "Don't check <cy>RubRub's</c> computer search history...",
-        "No revises el historial de busqueda de la computadora de <cy>RubRub</c>.",
+        "No revises el historial de busqueda de la computadora de <cy>RubRub</c>...",
     },
     {
         "Carp",
@@ -56,7 +56,7 @@ const std::vector<std::vector<gd::string>> CarpIntroduction = {
     {
         "Carp",
         "20",
-        "I have stuff to sell! <d020>So if you need anything you can get it here!",
+        "I have stuff to sell! <d020>If you need anything, come around right here!",
         "¡Tengo cosas para vender! <d020>Asi que si necesitas algo puedes obtenerlo aqui!",
     },
     {
@@ -71,14 +71,14 @@ const std::vector<std::vector<gd::string>> WizardIntroduction = {
     {
         "????",
         "56",
-        "Hello there!<d040> Before you begin, <d020>I want to let you know something",
-        "Hola ahi! <d040>Antes de comenzar, dejame decirte algo",
+        "Hello there!<d040> Before you begin, <d020>I want to let you know something.",
+        "Hola ahi! <d040>Antes de comenzar, dejame decirte algo.",
     },
     {
         "????",
         "56",
-        "To get the <cy>full experience</c>, <d020>I'd recommend to check the <cg>comics</c>",
-        "Para tener la <cy>experiencia completa</c>, te recomiendo leer los <cg>comics</c>",
+        "To get the <cy>full experience</c>, <d020>I'd recommend checking the <cg>comics</c>.",
+        "Para tener la <cy>experiencia completa</c>, te recomiendo leer los <cg>comics</c>.",
     },
     {
         "????",
@@ -89,8 +89,8 @@ const std::vector<std::vector<gd::string>> WizardIntroduction = {
     {
         "????",
         "53",
-        "Alright, <d020>I will stop breaking the 4th wall and go back to <co>the bunker</c>",
-        "Ok, <d020>Ya no mas romper la cuarta pared, volvere <co>al bunker</c>",
+        "Alright, <d020>enough wall breaking. Time to head back to <co>The Bunker</c>!",
+        "Ok, <d020>Ya no mas romper la cuarta pared, volvere <co>al Bunker</c>!",
     },
     {
         "????",
@@ -101,8 +101,8 @@ const std::vector<std::vector<gd::string>> WizardIntroduction = {
     {
         "????",
         "55",
-        "<s250><cy>Goodbye boy!</c></s>",
-        "<s250><cy>Adios muchacho!</c></s>",
+        "<s250><cy>Goodbye, boy!</c></s>",
+        "<s250><cy>Adios, muchacho!</c></s>",
     },
 };
 
@@ -116,13 +116,13 @@ const std::vector<std::vector<gd::string>> FirstIslandClear = {
     {
         "Dumbledalf",
         "56",
-        "You have played these kinds of <cg>games</c> before, <d020>don't cha?",
+        "You have played these kinds of <cg>games</c> before, <d020>haven't cha?",
         "Tu has jugado estos tipos de <cg>juegos</c> antes, <d020>verdad?",
     },
     {
         "Dumbledalf",
         "56",
-        "Well, <d020>let's venture to the <cl>next island</c>, <d020>boy.",
+        "Well, <d020>let's venture forth to the <cl>next island</c>, <d020>boy.",
         "Bien, <d020>ahora a viajar a la <cl>siguiente isla</c>, <d020>muchacho.",
     },
     {
@@ -144,7 +144,7 @@ const std::vector<std::vector<gd::string>> Ending = {
         "Dumbledalf",
         "53",
         "Amazing work! <d030>We'll continue our adventure in the next <cg>Update</c>.",
-        "Gran trabajo! <d030>Continuaremos la adventura en una <cg>futura actualizacion</c>",
+        "Gran trabajo! <d030>Continuaremos la adventura en una <cg>futura actualizacion</c>.",
     },
     {
         "Dumbledalf",
@@ -206,7 +206,7 @@ const std::vector<std::vector<gd::string>> HollowIntroduction = {
     {
         "????",
         "28",
-        "But I don't see anything worthy of you<d020>.<d020>.<d020>.",
+        "But I don't see anything worthy in you<d020>.<d020>.<d020>.",
         "Pero no veo nada de valor en ti<d020>.<d020>.<d020>.",
     },
     {
@@ -251,7 +251,7 @@ const std::vector<std::vector<gd::string>> LockedExtraLevel = {
     {
         "Carp",
         "23",
-        "If not enough money, try to complete more <ca>Levels</c>!",
+        "If you don't have enough money, try to complete more <ca>Levels</c>!",
         "Si no tienes dinero, intenta completar mas <ca>Niveles</c>!",
     },
 };
@@ -260,7 +260,7 @@ const std::vector<std::vector<gd::string>> LockedFinalComic = {
     {
         "Carp",
         "19",
-        "You must <cg>complete</c> the story mode before showing you that.",
+        "You must <cg>complete</c> the story mode before you can check this comic.",
         "Tu debes <cg>completar</c> el modo historia antes de ver el comic",
     },
     {
@@ -278,20 +278,20 @@ const std::vector<std::vector<gd::string>> LockedFinalComic = {
     {
         "Carp",
         "25",
-        "Alright man,<d020> you want to <cr>spoil</c> you the story?",
+        "Alright man,<d020> you want me to <cr>spoil</c> you the story?",
         "Vamos hombre, <d030>quieres <cr>spoilear</c> la historia?",
     },
     {
         "Carp",
         "21",
-        "You are getting on my nerves,<d020> <cg>complete the game</c>!",
+        "You're getting on my nerves,<d020> <cg>complete the game</c>!",
         "Ya me tienes harto, <d020><cg>completa el Juego</c>!",
     },
     {
         "Carp",
         "26",
-        "<s500><cg>COMPLETE THE GAME.</c></s>",
-        "<s500><cg>COMPLETA EL JUEGO.</c></s>",
+        "<s500><cg>COMPLETE. THE GAME.</c></s>",
+        "<s500><cg>COMPLETA. EL JUEGO.</c></s>",
     },
 };
 

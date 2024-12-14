@@ -124,7 +124,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "color" && !AM->isAchievementEarned("geometry.ach.odyssey.secret10"))
     {
         FMODAudioEngine::sharedEngine()->playEffect(fmt::format("hollow_{}_004.mp3"_spr, language));
-        response = m_spanish ? "Esto es monocromatico, cierto?" : "This is monochromatic, is it?";
+        response = m_spanish ? "Esto es monocromatico, cierto?" : "This isn't monochromatic, is it?";
 
         updateMessage(response, MessageType::CorrectAnswer);
         m_achievementName = "geometry.ach.odyssey.secret10";
@@ -134,7 +134,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "fracture")
     {
         FMODAudioEngine::sharedEngine()->playEffect(fmt::format("hollow_{}_010.mp3"_spr, language));
-        response = m_spanish ? "Abraza el caos" : "Embrace the chaos";
+        response = m_spanish ? "Abraza el caos" : "Embrace the chaos...";
 
         updateMessage(response, MessageType::CorrectAnswer);
         return;
@@ -659,7 +659,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
     {
         messages = {
             "Sail forth if you dare...",
-            "There used to be seven, and now they are dangerous...",
+            "There used to be seven, now they are dangerous...",
         };
 
         voiceFiles = {

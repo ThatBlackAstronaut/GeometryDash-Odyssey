@@ -97,7 +97,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
     if (lower == "odyssey" && !AM->isAchievementEarned("geometry.ach.odyssey.secret01"))
     {
         reply = {
-            "So you know how to adventure...",
+            "So... you know how to adventure...",
             "Entonces sabes como Adventurar...",
         };
         updateMessage(reply.at(m_spanish), MessageType::CorrectAnswer);
@@ -121,7 +121,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
     if (lower == "astral" && !AM->isAchievementEarned("geometry.ach.odyssey.secret03"))
     {
         reply = {
-            "It strikes fear into my heart...",
+            "Strikes fear into my heart...",
             "Solo con oirlo me da escalofrios...",
         };
         updateMessage(reply.at(m_spanish), MessageType::CorrectAnswer);
@@ -204,7 +204,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
     if (lower == "demon gauntlet" && !AM->isAchievementEarned("geometry.ach.odyssey.secret09"))
     {
         reply = {
-            "SEE? I wasn't lying!",
+            "See? No lies!",
             "Ves? No te estaba mintiendo!",
         };
         updateMessage(reply.at(m_spanish), MessageType::CorrectAnswer);
@@ -453,10 +453,10 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
         messages = {
             "So...",
             "Look how far you've come",
-            "Went through molten lands",
+            "You've went through molten lands",
             "Explored floating worlds",
-            "And endure subzero temperatures",
-            "Now, you set for to an...",
+            "And endured subzero temperatures",
+            "Now, you've set forth on an...",
             "Uh..."
             "What was the word again?"};
 
@@ -530,7 +530,8 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
             "The galactic eradicator...",
             "It's hunger never satisfied",
             "For only one thing it truthfully desires",
-            "The phoenix from castle of jello is against him",
+            "The phoenix from castle of jello",
+            "Its greatest foe and sole threat",
             "I've forgotten that foul shellfish's name",
             "I wish I knew what it was again...",
         };
@@ -607,7 +608,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
         messages = {
             "Oh, yeah... I remember",
             "The old man isn't the only one...",
-            "That pink guy would come too",
+            "This pink, metallic guy would come too",
             "Oh... I hate him!",
             "Always getting in the way!",
             "Selling his junk!",
@@ -646,7 +647,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
             "Sometimes I think about strange things",
             "There's a hidden level here...",
             "It makes me think about that stuff",
-            "Its name is, uncertain...",
+            "Its name, <cr>uncertain</c>...",
         };
 
         if (m_spanish)
@@ -655,7 +656,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
                 "A veces pienso en cosas extrañas",
                 "Hay un nivel oculto aqui...",
                 "me hace pensar en esas cosas",
-                "Su nombre es uncertain",
+                "Su nombre, <cr>uncertain</c>...",
             };
 
         if (index >= messages.size())
@@ -677,7 +678,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
         messages = {
             "Riddle me this, riddle me that...",
             "I am a fox with many tails",
-            "Afraid of arachnids with sharp turns",
+            "Afraid of arachnids and their many sharp turns",
             "They say I smell great, they love me even",
             "You better be hiding your gold well",
             "Else I will be ashamed of its ease...",
@@ -717,7 +718,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
             "Betraying us for the sake of secrets",
             "And don't get me started",
             "How long it took him",
-            "To give us the legendary creation tools",
+            "To give us... the legendary creation tools",
         };
 
         if (m_spanish)
@@ -751,7 +752,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
             "Without this, our world would be gone",
             "It's influence spreads around it",
             "It's the key to everything",
-            "It even gave it's name..."
+            "It even gave its name..."
             "To this whole odyssey",
             "Whatever that means, really",
             "I'm just reciting from this book I have",
@@ -793,7 +794,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
             "A large, monstrous cave",
             "They say demons lurk there",
             "If you were to challenge it",
-            "Be ready to face hell"};
+            "Be ready... to face hell"};
 
         if (m_spanish)
             messages = {
@@ -807,7 +808,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
                 "Dicen que los demonios acechan ahi,",
                 "Esperando a que llegue un retador.",
                 "Si tu fueras a desafiarlos",
-                "Preparate para un Infierno",
+                "Preparate... para un Infierno",
             };
 
         if (index >= messages.size())
@@ -828,12 +829,12 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
     {
         messages = {
             "My brother doesn't stop talking...",
-            "About some gal...",
+            "About this mysterious gal...",
             "Weirdly shaped ribbon, black hair",
             "Other details I don't care",
             "Kept murmuring her name...",
             "Mono...?",
-            "Who the heck names themselves Mono?",
+            "What kind of name even is Mono...?",
         };
 
         if (m_spanish)
@@ -865,7 +866,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
     {
         messages = {
             "Wanna know something?",
-            "I hid a secret reward in the game",
+            "I hid a secret reward in this game",
             "Here's a hint to get it...",
             "Stay up to date with the story",
             "The artists will appreciate it",

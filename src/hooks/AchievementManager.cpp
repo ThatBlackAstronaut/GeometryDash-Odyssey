@@ -87,7 +87,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
 
         AchievementManager::addAchievement(
             "geometry.ach.level06a",
-            "All bosses (No Damage)",
+            "All Bosses (No Damage)",
             "Completed \"Boss Rush\" in practice mode",
             "Complete \"Boss Rush\" in practice mode",
             "icon_494",
