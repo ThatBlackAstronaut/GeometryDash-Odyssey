@@ -53,7 +53,7 @@ bool SecretVaultLayer::init()
     addChild(menuBack);
 
     auto backBtn = CCMenuItemSpriteExtra::create(
-        CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png"),
+        CCSprite::createWithSpriteFrameName("HollowArrow_001.png"_spr),
         this,
         menu_selector(SecretVaultLayer::onBack));
 
