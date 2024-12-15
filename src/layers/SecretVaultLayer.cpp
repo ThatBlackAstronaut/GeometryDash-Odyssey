@@ -165,7 +165,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "color" && !AM->isAchievementEarned("geometry.ach.odyssey.secret10"))
     {
         FMODAudioEngine::sharedEngine()->playEffect(fmt::format("hollow_{}_004.mp3"_spr, language));
-        response = m_spanish ? "Esto es monocromatico, cierto?" : "This isn't monochromatic, is it?";
+        response = m_spanish ? "Esto es monocromatico, cierto?" : "This is monochromatic, is it?";
 
         updateMessage(response, MessageType::CorrectAnswer);
         m_achievementName = "geometry.ach.odyssey.secret10";
@@ -175,7 +175,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "fracture")
     {
         FMODAudioEngine::sharedEngine()->playEffect(fmt::format("hollow_{}_010.mp3"_spr, language));
-        response = m_spanish ? "Abraza el caos" : "Embrace the chaos...";
+        response = m_spanish ? "Abraza el caos" : "Embrace the chaos";
 
         updateMessage(response, MessageType::CorrectAnswer);
         return;
@@ -281,7 +281,28 @@ void SecretVaultLayer::onSubmit(CCObject *)
 
         return;
     };
+    
+    if (lower == "gargan")
+    {
+        FMODAudioEngine::sharedEngine()->fadeOutMusic(5.f, 0);
 
+        m_textInput->runAction(CCSequence::create(
+            CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::disableKeeper)),
+            nullptr));
+
+        keeperSprite->runAction(CCSequence::create(
+            CCTintTo::create(2.f, 40, 0, 0),
+            CCEaseSineInOut::create(CCScaleTo::create(3.f, 5)),
+            nullptr));
+
+        m_background->runAction(CCSequence::create(
+            CCTintTo::create(3.f, 0, 0, 0),
+            nullptr));
+
+        return;
+    };
+
+    /*
     if (lower == "gargan")
     {
         response = "What do you mean...?",
@@ -700,7 +721,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
     {
         messages = {
             "Sail forth if you dare...",
-            "There used to be seven, now they are dangerous...",
+            "There used to be seven, and now they are dangerous...",
         };
 
         voiceFiles = {

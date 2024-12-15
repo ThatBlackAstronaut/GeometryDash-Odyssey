@@ -9,12 +9,28 @@
 #include <Geode/modify/SongsLayer.hpp>
 #include <Geode/modify/PauseLayer.hpp>
 #include <Geode/modify/GJItemIcon.hpp>
-#include <Geode/modify/CurrencySprite.hpp>
 #include "layers/OdysseySelectLayer.hpp"
 #include "nodes/OdysseyPopup.hpp"
 #include "utils/Utils.hpp"
+#include <Geode/modify/CurrencySprite.hpp>
 
 using namespace geode::prelude;
+
+$on_mod(Loaded)
+{
+#ifdef GEODE_IS_WINDOWS
+	auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "\\" + "Assets.zip";
+#endif
+#ifdef GEODE_IS_ANDROID
+	auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "/" + "Assets.zip";
+#endif
+	auto unzipDir = geode::Mod::get()->getResourcesDir().string();
+	auto result = geode::utils::file::Unzip::intoDir(zipFilePath, unzipDir);
+
+	CCFileUtils::get()->addTexturePack(CCTexturePack{
+		.m_id = Mod::get()->getID(),
+		.m_paths = {geode::Mod::get()->getResourcesDir().string()}});
+};
 
 $on_mod(Loaded)
 {

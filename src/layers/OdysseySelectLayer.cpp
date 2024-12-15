@@ -189,7 +189,7 @@ bool OdysseySelectLayer::init(int page)
 
     //  Titulo de la Isla
     auto islandTitle = CCSprite::createWithSpriteFrameName(fmt::format("GDO_IslandTitle_0{}_001.png"_spr, page + 1).c_str());
-    islandTitle->setScale(.85f);
+    islandTitle->setScale(.75f);
     islandTitle->setPosition({m_winSize.width / 2, m_winSize.height - 30});
     addChild(islandTitle);
 
@@ -216,6 +216,33 @@ bool OdysseySelectLayer::init(int page)
 
     addChild(switchMenu);
 
+    auto ropeMenu = CCMenu::create();
+    ropeMenu->setPosition(m_winSize / 2);
+
+    auto ropeSprite = CCSprite::createWithSpriteFrameName("garageRope_001.png");
+    ropeSprite->setScale(.7f);
+
+    auto ropeBtn = CCMenuItemSpriteExtra::create(ropeSprite, this, menu_selector(LevelInfoLayer::onGarage));
+    ropeBtn->m_animationType = MenuAnimationType::Move;
+
+    ropeBtn->m_startPosition = ropeSprite->getPosition();
+    ropeBtn->m_offset = CCPoint(0, -10);
+
+    ropeBtn->setPosition({ m_winSize.width / 2 - 65, m_winSize.height / 2 - 20 });
+
+    ropeMenu->addChild(ropeBtn);
+
+    auto infoSprite = CCSpriteGrayscale::createWithSpriteFrameName("GJ_infoIcon_001.png");
+    //infoSprite->setScale(.5f);
+
+    auto infoButton = CCMenuItemSpriteExtra::create(infoSprite, this, nullptr);
+
+    infoButton->setPosition({ m_winSize.width / 2 - 25, m_winSize.height / 2 - 25 });
+
+    ropeMenu->addChild(infoButton);
+    
+    addChild(ropeMenu);
+
     auto m_cornerBL = CCSprite::createWithSpriteFrameName("GJ_sideArt_001.png");
     m_cornerBL->setPosition({-1, -1});
     m_cornerBL->setAnchorPoint({0, 0});
@@ -237,6 +264,7 @@ bool OdysseySelectLayer::init(int page)
             CCCallFunc::create(this, callfunc_selector(OdysseySelectLayer::getWizardDialog01)),
             0));
     };
+    
 
     //  Si el jugador completo Cryptofunk (y activo anteriormente el primer dialogo), ejecuta el segundo dialogo del Wizard
     if (GameManager::sharedState()->getUGV("203") && !GameManager::sharedState()->getUGV("207") && AchievementManager::sharedState()->isAchievementEarned("geometry.ach.level04b"))
@@ -327,6 +355,11 @@ void OdysseySelectLayer::addLevelButtons()
 
     m_islandNode->addChild(m_levelMenu);
 };
+
+void OdysseySelectLayer::addLevelDots()
+{
+    
+}
 
 void OdysseySelectLayer::switchToPage(int page)
 {

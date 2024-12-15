@@ -102,7 +102,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
     if (lower == "odyssey" && !AM->isAchievementEarned("geometry.ach.odyssey.secret01"))
     {
         reply = {
-            "So... you know how to adventure...",
+            "So you know how to adventure...",
             "Entonces sabes como Adventurar...",
         };
         updateMessage(reply.at(m_spanish), MessageType::CorrectAnswer);
@@ -126,7 +126,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
     if (lower == "astral" && !AM->isAchievementEarned("geometry.ach.odyssey.secret03"))
     {
         reply = {
-            "Strikes fear into my heart...",
+            "It strikes fear into my heart...",
             "Solo con oirlo me da escalofrios...",
         };
         updateMessage(reply.at(m_spanish), MessageType::CorrectAnswer);
@@ -209,7 +209,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
     if (lower == "demon gauntlet" && !AM->isAchievementEarned("geometry.ach.odyssey.secret09"))
     {
         reply = {
-            "See? No lies!",
+            "SEE? I wasn't lying!",
             "Ves? No te estaba mintiendo!",
         };
         updateMessage(reply.at(m_spanish), MessageType::CorrectAnswer);
@@ -814,6 +814,21 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
                 "Esperando a que llegue un retador.",
                 "Si tu fueras a desafiarlos",
                 "Preparate... para un Infierno",
+            };
+
+        if (m_spanish)
+            messages = {
+                "Asi que sabes mucho sobre llaves",
+                "Eso me recuerda...",
+                "Recuerdas aquella vez...",
+                "Que alguien libero al Demon Guardian?",
+                "Que ingenuo...",
+                "Aunque trajo consigo algo mas...",
+                "Una cueva grande y monstruosa.",
+                "Dicen que los demonios acechan ahi,",
+                "Esperando a que llegue un retador.",
+                "Si tu fueras a desafiarlos",
+                "Preparate para un Infierno",
             };
 
         if (index >= messages.size())
