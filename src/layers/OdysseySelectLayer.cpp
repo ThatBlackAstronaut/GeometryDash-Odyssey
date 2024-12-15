@@ -101,7 +101,7 @@ bool OdysseySelectLayer::init(int page)
 
         firstIsland->setColor(islandColor);
         firstIsland->setPosition(islandPosition);
-        firstIsland->setTag(201);
+        firstIsland->setTag(501);
 
         auto secondSprite = CCSprite::createWithSpriteFrameName("island_extra_02.png"_spr);
         secondSprite->setScale(islandScale);
@@ -112,7 +112,7 @@ bool OdysseySelectLayer::init(int page)
             menu_selector(OdysseySelectLayer::onExtraLevel));
 
         secondIsland->setPosition({m_winSize.width / 2 + 100, m_winSize.height / 2});
-        secondIsland->setTag(202);
+        secondIsland->setTag(502);
 
         if (!extra01_unlocked)
         {
@@ -246,7 +246,7 @@ bool OdysseySelectLayer::init(int page)
 
 void OdysseySelectLayer::getWizardDialog01()
 {
-    auto dialog = Odyssey::createDialog("wizardIntroduction");
+    auto dialog = Odyssey::createDialog("meetingWizard");
     GameManager::sharedState()->setUGV("203", true);
     this->addChild(dialog, 3);
 };
@@ -254,7 +254,7 @@ void OdysseySelectLayer::getWizardDialog01()
 void OdysseySelectLayer::keyBackClicked()
 {
     CCDirector::sharedDirector()->replaceScene(cocos2d::CCTransitionFade::create(0.5, MenuLayer::scene(false)));
-    FMODAudioEngine::sharedEngine()->playMusic(GameManager::sharedState()->getMenuMusicFile(), true, .25f, 0);
+    GameManager::sharedState()->fadeInMenuMusic();
 };
 
 void OdysseySelectLayer::onBack(CCObject *)
@@ -347,14 +347,14 @@ void OdysseySelectLayer::onExtraLevel(CCObject *sender)
     auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1);
     auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2);
 
-    if ((extra01_unlocked && sender->getTag() == 201) || (extra02_unlocked && sender->getTag() == 202))
+    if ((extra01_unlocked && sender->getTag() == 501) || (extra02_unlocked && sender->getTag() == 502))
     {
         auto popup = OdysseyLevelPopup::create(sender->getTag());
         popup->show();
     }
     else
     {
-        auto dialog = Odyssey::createDialogResponse("extraIslandLocked", m_extraTimes);
+        auto dialog = Odyssey::createDialogResponse("onExtraLevel", m_extraTimes);
         //  GM->setUGV("52", true);
         this->addChild(dialog, 3);
 

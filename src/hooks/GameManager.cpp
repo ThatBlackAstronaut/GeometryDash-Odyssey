@@ -37,6 +37,10 @@ class $modify(OdysseyGameManager, GameManager)
     {
         if (Odyssey::isIconCustom(id, type))
             return GameManager::isIconUnlocked(id, type);
+
+        if (type == IconType::Item)
+            return GameManager::isIconUnlocked(id, type);
+
         return true;
     }
 
@@ -65,27 +69,27 @@ class $modify(OdysseyGameManager, GameManager)
         GameManager::reportPercentageForLevel(levelID, percent, isPractice);
         log::info("Level: {}, {}, {}", levelID, percent, isPractice);
 
-        if (levelID == 201)
+        if (levelID == 501)
         {
             if (isPractice)
             {
-                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level201a", percent, false);
+                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level501a", percent, false);
             }
             else
             {
-                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level201b", percent, false);
+                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level501b", percent, false);
             }
         };
 
-        if (levelID == 202)
+        if (levelID == 502)
         {
             if (isPractice)
             {
-                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level202a", percent, false);
+                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level502a", percent, false);
             }
             else
             {
-                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level202b", percent, false);
+                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level502b", percent, false);
             }
         };
     };

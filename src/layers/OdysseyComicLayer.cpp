@@ -3,6 +3,8 @@
 #include "SecretVaultLayer.hpp"
 #include "../utils/Utils.hpp"
 
+const int HOLLOW_COIN_QUOTA = 12;
+
 bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
 {
     if (!CCLayer::init())
@@ -154,19 +156,45 @@ void OdysseyComicLayer::createComic(CCArray *arr, int issueNumber)
 
 void OdysseyComicLayer::onHollow(CCObject *)
 {
-    if (!GameManager::sharedState()->getUGV("205"))
-    {
-        auto dialog = Odyssey::createDialog("hollowMeeting");
-        GameManager::sharedState()->setUGV("205", true);
-        this->addChild(dialog, 3);
-    }
-    else
-    {
-        auto scene = CCScene::create();
-        scene->addChild(SecretVaultLayer::create());
+    auto GM = GameManager::sharedState();
+    auto GSM = GameStatsManager::sharedState();
 
-        CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
+    if (!Mod::get()->getSettingValue<bool>("skip-requirements"))
+    {
+
+        //  Conoce al Hollow por primera vez
+        if (!GM->getUGV("205"))
+        {
+            log::info("MEETING HOLLOW");
+            auto dialog = Odyssey::createDialog("meetingHollow");
+            this->addChild(dialog, 3);
+            GM->setUGV("205", true);
+            return;
+        }
+
+        //  No tiene las monedas
+        if (GSM->getStat("8") < HOLLOW_COIN_QUOTA)
+        {
+            log::info("HOLLOW NOT ENOUGH");
+            auto dialog = Odyssey::createDialog("belowHollowQuota");
+            this->addChild(dialog, 3);
+            return;
+        }
+
+        //  Suficientes monedas pero no vio el dialogo
+        if (GSM->getStat("8") >= HOLLOW_COIN_QUOTA && !GM->getUGV("210"))
+        {
+            log::info("HOLLOW ENOUGH");
+            auto dialog = Odyssey::createDialog("hollowQuotaReached");
+            this->addChild(dialog, 3);
+            GM->setUGV("210", true);
+            return;
+        }
     }
+
+    auto scene = CCScene::create();
+    scene->addChild(SecretVaultLayer::create());
+    CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };
 
 std::pair<const char *, const char *> OdysseyComicLayer::getPage(int issueNumber, int page)
@@ -392,9 +420,11 @@ void OdysseyComicLayer::onSecret(CCObject *sender)
     btn->setVisible(false);
 };
 
-void OdysseyComicLayer::verifySecretAchievement(){
+void OdysseyComicLayer::verifySecretAchievement()
+{
     int comicProgress = 0;
-    for(auto ii = 1; ii <= 6; ii++){
+    for (auto ii = 1; ii <= 6; ii++)
+    {
         comicProgress += GameManager::sharedState()->getUGV(fmt::format("2{}", ii + 10).c_str());
         log::debug("Comic {}, UGV {}, Value {}", ii, fmt::format("2{}", ii + 10).c_str(), GameManager::sharedState()->getUGV(fmt::format("2{}", ii + 10).c_str()));
     };
@@ -418,7 +448,8 @@ void OdysseyComicLayer::scrollLayerMoved(CCPoint point)
 
 void OdysseyComicLayer::keyBackClicked()
 {
-    if(m_RedirectToMap){
+    if (m_RedirectToMap)
+    {
         auto layer = OdysseySelectLayer::create(0);
         auto scene = CCScene::create();
         scene->addChild(layer);

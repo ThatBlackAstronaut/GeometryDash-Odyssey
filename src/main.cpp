@@ -14,6 +14,22 @@
 
 using namespace geode::prelude;
 
+$on_mod(Loaded)
+{
+#ifdef GEODE_IS_WINDOWS
+	auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "\\" + "Assets.zip";
+#endif
+#ifdef GEODE_IS_ANDROID
+	auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "/" + "Assets.zip";
+#endif
+	auto unzipDir = geode::Mod::get()->getResourcesDir().string();
+	auto result = geode::utils::file::Unzip::intoDir(zipFilePath, unzipDir);
+
+	CCFileUtils::get()->addTexturePack(CCTexturePack{
+		.m_id = Mod::get()->getID(),
+		.m_paths = {geode::Mod::get()->getResourcesDir().string()}});
+};
+
 class $modify(OdysseyGManager, GManager)
 {
 	void setup()
@@ -34,83 +50,6 @@ class $modify(PauseLayer)
 	}
 };
 
-class $modify(CCSprite)
-{
-	static CCSprite *create(const char *pszFileName)
-	{
-		//	Si, es horrible esta manera, ahorita investigo otra.
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_019.png"))
-			return CCSprite::create("GDO_DialogIcon_005.png"_spr);
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_020.png"))
-			return CCSprite::create("GDO_DialogIcon_006.png"_spr);
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_021.png"))
-			return CCSprite::create("GDO_DialogIcon_007.png"_spr);
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_022.png"))
-			return CCSprite::create("GDO_DialogIcon_008.png"_spr);
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_023.png"))
-			return CCSprite::create("GDO_DialogIcon_009.png"_spr);
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_024.png"))
-			return CCSprite::create("GDO_DialogIcon_010.png"_spr);
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_025.png"))
-			return CCSprite::create("GDO_DialogIcon_011.png"_spr);
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_026.png"))
-			return CCSprite::create("GDO_DialogIcon_012.png"_spr);
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_053.png"))
-			return CCSprite::create("GDO_DialogIcon_001.png"_spr);
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_054.png"))
-			return CCSprite::create("GDO_DialogIcon_002.png"_spr);
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_055.png"))
-			return CCSprite::create("GDO_DialogIcon_003.png"_spr);
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_056.png"))
-			return CCSprite::create("GDO_DialogIcon_004.png"_spr);
-		if (std::string_view(pszFileName) == std::string_view("dialogIcon_028.png"))
-			return CCSprite::create("GDO_DialogIcon_013.png"_spr);
-
-		return CCSprite::create(pszFileName);
-	}
-
-	static CCSprite *createWithSpriteFrameName(const char *pszSpriteFrameName)
-	{
-		if (std::string_view(pszSpriteFrameName) == std::string_view("gjItem_01_001.png"))
-			return CCSprite::createWithSpriteFrameName("GDO_Key_01_001.png"_spr);
-		if (std::string_view(pszSpriteFrameName) == std::string_view("currencyOrbIcon_001.png"))
-			return CCSprite::createWithSpriteFrameName("currencyIcon.png"_spr);
-
-		return CCSprite::createWithSpriteFrameName(pszSpriteFrameName);
-	}
-
-	void setDisplayFrame(CCSpriteFrame* p0)
-	{
-		if (p0->getFrameName() == std::string_view("shopKeeper_jaw_01_001.png"))
-		{
-			auto frame = CCSpriteFrameCache::get()->spriteFrameByName("shopKeeper_jaw_01_001.png"_spr);
-			return CCSprite::setDisplayFrame(frame);
-		}
-
-		CCSprite::setDisplayFrame(p0);
-	}
-};
-
-class $modify(CurrencySprite)
-{
-	bool init(CurrencySpriteType p0, bool p1)
-	{
-		if (!CurrencySprite::init(p0, p1)) return false;
-
-		if (p0 == CurrencySpriteType::Orb)
-		{
-			this->setBatchNode(nullptr);
-			this->initWithSpriteFrameName("currencyOrb.png"_spr);
-			/*auto coinSprite = CCSprite::createWithSpriteFrameName("currencyOrb.png"_spr);
-			coinSprite->setScale(1.2f);
-			coinSprite->setAnchorPoint({ .5f, .5f });
-			coinSprite->setPosition(getContentSize() / 2);
-			addChild(coinSprite);*/
-		}
-		return true;
-	}
-};
-
 class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
 {
 	bool init()
@@ -120,7 +59,7 @@ class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
 
 		//	Aun en fase de prueba
 		MoreOptionsLayer::addToggle("Spanish", "0201", "<cy>ENG</c>: Translates most of the mod's dialogue in Spanish. Due to character limitations, there will be spelling errors.\n\n<cy>ESP</c>: Traduce mayor parte del dialogo del mod en Espanol. Dado a las limitaciones de caracteres en el juego, habran errores ortograficos (como la falta de acentos)");
-		//	MoreOptionsLayer::addToggle("Hide upcoming", "0202", "<cy>ENG</c>: Hides icons that are tagged as upcoming (thus impossible to get for now).\n\n<cy>SPA</c>: Oculta los iconos etiquetados como proximos (por tanto, imposibles de conseguir por ahora).");
+		MoreOptionsLayer::addToggle("Hide upcoming", "0202", "<cy>ENG</c>: Hides icons that are tagged as upcoming (thus impossible to get for now).\n\n<cy>SPA</c>: Oculta los iconos etiquetados como proximos (por tanto, imposibles de conseguir por ahora).");
 
 		return true;
 	}
@@ -173,6 +112,7 @@ class $modify(OdysseyEditorPauseLayer, EditorPauseLayer)
 
 	void copyStringToClipboard(CCObject *)
 	{
+		log::debug("{}", m_editorLayer->m_level->m_levelString);
 		clipboard::write(m_editorLayer->m_level->m_levelString);
 	}
 };
@@ -229,8 +169,8 @@ class $modify(SongsLayer)
 		songObjectArray->addObject(SongObject::create(106));
 		songObjectArray->addObject(SongObject::create(107));
 		songObjectArray->addObject(SongObject::create(108));
-		songObjectArray->addObject(SongObject::create(201));
-		songObjectArray->addObject(SongObject::create(202));
+		songObjectArray->addObject(SongObject::create(501));
+		songObjectArray->addObject(SongObject::create(502));
 		songObjectArray->addObject(SongObject::create(-1));
 
 		m_listLayer->m_listView = CustomListView::create(songObjectArray, nullptr, 220.0, 356.0, 0, BoomListType::Song, 0.0);

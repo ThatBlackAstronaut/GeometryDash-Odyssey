@@ -8,7 +8,7 @@ class $modify(OdysseyDialogLayer, DialogLayer)
 {
     void onClose()
     {
-        if(!GameManager::sharedState()->getUGV("211"))
+        if(GameManager::sharedState()->getUGV("203") && !GameManager::sharedState()->getUGV("211"))
         {
             auto layer = OdysseyComicLayer::create(1, true);
             auto scene = CCScene::create();

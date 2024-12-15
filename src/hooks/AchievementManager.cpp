@@ -119,17 +119,17 @@ class $modify(OdysseyAchievementManager, AchievementManager)
 
         AchievementManager::addAchievement(
             "geometry.ach.level08a",
-            "Retro Advanced",
-            "Completed \"Super Wubtendo\" in practice mode",
-            "Complete \"Super Wubtendo\" in practice mode",
+            "Yummers",
+            "Completed \"Comfort Food\" in practice mode",
+            "Complete \"Comfort Food\" in practice mode",
             "icon_512",
             1);
 
         AchievementManager::addAchievement(
             "geometry.ach.level08b",
-            "Super Wubtendo!",
-            "Completed \"Super Wubtendo\" in normal mode",
-            "Complete \"Super Wubtendo\" in normal mode",
+            "Comfort Food!",
+            "Completed \"Comfort Food\" in normal mode",
+            "Complete \"Comfort Food\" in normal mode",
             "swing_46",
             1);
 
@@ -158,7 +158,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             1);
 
         AchievementManager::addAchievement(
-            "geometry.ach.level201a",
+            "geometry.ach.level501a",
             "End of the road",
             "Completed \"Conclusive Journey\" in practice mode",
             "Complete \"Conclusive Journey\" in practice mode",
@@ -166,7 +166,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             1);
 
         AchievementManager::addAchievement(
-            "geometry.ach.level201b",
+            "geometry.ach.level501b",
             "Conclusive Journey!",
             "Completed \"Conclusive Journey\" in normal mode",
             "Complete \"Conclusive Journey\" in normal mode",
@@ -174,7 +174,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             1);
 
         AchievementManager::addAchievement(
-            "geometry.ach.level202a",
+            "geometry.ach.level502a",
             "Neferkitty's curse",
             "Completed \"Burning Sands\" in practice mode",
             "Complete \"Burning Sands\" in practice mode",
@@ -182,7 +182,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             1);
 
         AchievementManager::addAchievement(
-            "geometry.ach.level202b",
+            "geometry.ach.level502b",
             "Burning Sands!",
             "Completed \"Burning Sands\" in normal mode",
             "Complete \"Burning Sands\" in normal mode",
@@ -190,7 +190,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             1);
 
         AchievementManager::addAchievement(
-            "geometry.ach.level202c",
+            "geometry.ach.level502c",
             "Ultimate Burning Sands",
             "Completed \"Burning Sands\" with all coins",
             "Complete \"Burning Sands\" with all coins",
