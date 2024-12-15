@@ -31,7 +31,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
 
         AchievementManager::addAchievement(
             "geometry.ach.level02b",
-            "Ghost house!",
+            "Ghost House!",
             "Completed \"Ghost House\" in normal mode",
             "Complete \"Ghost House\" in normal mode",
             "icon_489",
@@ -39,7 +39,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
 
         AchievementManager::addAchievement(
             "geometry.ach.level03a",
-            "Under Powered",
+            "Underpowered",
             "Completed \"Super Ultra\" in practice mode",
             "Complete \"Super Ultra\" in practice mode",
             "icon_490",
@@ -74,7 +74,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Jungle Japes",
             "Completed \"Hellfire\" in practice mode",
             "Complete \"Hellfire\" in practice mode",
-            "icon_509",
+            "icon_493",
             1);
 
         AchievementManager::addAchievement(
@@ -82,15 +82,15 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Hellfire!",
             "Completed \"Hellfire\" in normal mode",
             "Complete \"Hellfire\" in normal mode",
-            "ship_173",
+            "ship_170",
             1);
 
         AchievementManager::addAchievement(
             "geometry.ach.level06a",
-            "All bosses (No damage)",
+            "All Bosses (No Damage)",
             "Completed \"Boss Rush\" in practice mode",
             "Complete \"Boss Rush\" in practice mode",
-            "icon_510",
+            "icon_494",
             1);
 
         AchievementManager::addAchievement(
@@ -98,7 +98,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Boss Rush!",
             "Completed \"Boss Rush\" in normal mode",
             "Complete \"Boss Rush\" in normal mode",
-            "ship_174",
+            "ship_171",
             1);
 
         AchievementManager::addAchievement(
@@ -106,7 +106,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "I'm freezing here...",
             "Completed \"Frostbite\" in practice mode",
             "Complete \"Frostbite\" in practice mode",
-            "icon_511",
+            "icon_495",
             1);
 
         AchievementManager::addAchievement(
@@ -114,7 +114,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Frostbite!",
             "Completed \"Frostbite\" in normal mode",
             "Complete \"Frostbite\" in normal mode",
-            "ball_124",
+            "ball_120",
             1);
 
         AchievementManager::addAchievement(
@@ -122,7 +122,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Yummers",
             "Completed \"Comfort Food\" in practice mode",
             "Complete \"Comfort Food\" in practice mode",
-            "icon_512",
+            "icon_496",
             1);
 
         AchievementManager::addAchievement(
@@ -130,7 +130,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Comfort Food!",
             "Completed \"Comfort Food\" in normal mode",
             "Complete \"Comfort Food\" in normal mode",
-            "swing_46",
+            "swing_44",
             1);
 
         AchievementManager::addAchievement(
@@ -138,7 +138,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Bonus Round",
             "Completed \"Critical Hit\" in practice mode",
             "Complete \"Critical Hit\" in practice mode",
-            "dart_100",
+            "dart_97",
             1);
 
         AchievementManager::addAchievement(
@@ -146,7 +146,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Critical Hit!",
             "Completed \"Critical Hit\" in normal mode",
             "Complete \"Critical Hit\" in normal mode",
-            "icon_513",
+            "icon_497",
             1);
 
         AchievementManager::addAchievement(
@@ -154,15 +154,15 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Ultimate Critical Hit!",
             "Completed \"Critical Hit\" with all coins",
             "Complete \"Critical Hit\" with all coins",
-            "ship_175",
+            "ship_172",
             1);
 
         AchievementManager::addAchievement(
             "geometry.ach.level501a",
-            "End of the road",
+            "End of the Road",
             "Completed \"Conclusive Journey\" in practice mode",
             "Complete \"Conclusive Journey\" in practice mode",
-            "icon_493",
+            "icon_498",
             1);
 
         AchievementManager::addAchievement(
@@ -170,7 +170,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Conclusive Journey!",
             "Completed \"Conclusive Journey\" in normal mode",
             "Complete \"Conclusive Journey\" in normal mode",
-            "swing_44",
+            "swing_45",
             1);
 
         AchievementManager::addAchievement(
@@ -178,7 +178,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Neferkitty's curse",
             "Completed \"Burning Sands\" in practice mode",
             "Complete \"Burning Sands\" in practice mode",
-            "dart_97",
+            "dart_98",
             1);
 
         AchievementManager::addAchievement(
@@ -186,7 +186,7 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Burning Sands!",
             "Completed \"Burning Sands\" in normal mode",
             "Complete \"Burning Sands\" in normal mode",
-            "ship_170",
+            "ship_173",
             1);
 
         AchievementManager::addAchievement(
@@ -194,34 +194,34 @@ class $modify(OdysseyAchievementManager, AchievementManager)
             "Ultimate Burning Sands",
             "Completed \"Burning Sands\" with all coins",
             "Complete \"Burning Sands\" with all coins",
-            "icon_494",
+            "icon_499",
             1);
 
         //  Ogre
         AchievementManager::addAchievement("geometry.ach.odyssey.secret01", "Odyssey, ya see!", "Found the secret!", "It's a secret...", "bird_150", 1);
         AchievementManager::addAchievement("geometry.ach.odyssey.secret02", "Threat from the stars", "Found the secret!", "It's a secret...", "bird_151", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret03", "Finish him!", "Found the secret!", "It's a secret...", "icon_502", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret04", "Funny old man!", "Found the secret!", "It's a secret...", "icon_503", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret05", "Annoying robot", "Found the secret!", "It's a secret...", "ball_120", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret06", "Sightless Kitsune", "Found the secret!", "It's a secret...", "icon_504", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret03", "Finish him!", "Found the secret!", "It's a secret...", "icon_508", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret04", "Funny old man!", "Found the secret!", "It's a secret...", "icon_509", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret05", "Annoying robot", "Found the secret!", "It's a secret...", "ball_123", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret06", "Sightless Kitsune", "Found the secret!", "It's a secret...", "icon_510", 1);
         AchievementManager::addAchievement("geometry.ach.odyssey.secret07", "Seven years...", "Found the secret!", "It's a secret...", "bird_152", 1);
         AchievementManager::addAchievement("geometry.ach.odyssey.secret08", "Global energy", "Found the secret!", "It's a secret...", "bird_153", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret09", "Devil's lair", "Found the secret!", "It's a secret...", "ball_121", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret09", "Devil's lair", "Found the secret!", "It's a secret...", "ball_124", 1);
 
         //  Hollow
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret10", "Rainbow power!", "Found the secret!", "It's a secret...", "ball_122", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret10", "Rainbow power!", "Found the secret!", "It's a secret...", "ball_125", 1);
         AchievementManager::addAchievement("geometry.ach.odyssey.secret11", "Coming soon", "Found the secret!", "It's a secret...", "jetpack_09", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret12", "Mortal", "Found the secret!", "It's a secret...", "icon_505", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret13", "About her", "Found the secret!", "It's a secret...", "icon_506", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret14", "Knockout!", "Found the secret!", "It's a secret...", "ship_171", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret12", "Mortal", "Found the secret!", "It's a secret...", "icon_511", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret13", "About her", "Found the secret!", "It's a secret...", "icon_512", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret14", "Knockout!", "Found the secret!", "It's a secret...", "ship_176", 1);
         AchievementManager::addAchievement("geometry.ach.odyssey.secret15", "Coincidence!", "Found the secret!", "It's a secret...", "", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret16", "Pirate manners", "Found the secret!", "It's a secret...", "ball_123", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret17", "Don't make no sense", "Found the secret!", "It's a secret...", "icon_507", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret18", "Salvation", "Found the secret!", "It's a secret...", "ship_172", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret16", "Pirate Manners", "Found the secret!", "It's a secret...", "ball_126", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret17", "Don't make no sense", "Found the secret!", "It's a secret...", "icon_513", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret18", "Salvation", "Found the secret!", "It's a secret...", "ship_177", 1);
 
         //  Special
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret19", "Comic book fan!", "Found the secret!", "It's a secret...", "dart_98", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret20", "Programmer's secret", "Found the secret!", "It's a secret...", "dart_99", 1);
-        AchievementManager::addAchievement("geometry.ach.odyssey.secret21", "Must not be named", "Found the secret!", "It's a secret...", "icon_508", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret19", "Comic book fan!", "Found the secret!", "It's a secret...", "dart_99", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret20", "Programmer's secret", "Found the secret!", "It's a secret...", "dart_100", 1);
+        AchievementManager::addAchievement("geometry.ach.odyssey.secret21", "Must not be named", "Found the secret!", "It's a secret...", "icon_514", 1);
     }
 };

@@ -5,12 +5,14 @@ class OdysseyComicLayer : public cocos2d::CCLayer, public BoomScrollLayerDelegat
 {
 public:
     BoomScrollLayer *m_scrollLayer = nullptr;
+    CCMenuItemSpriteExtra *m_rightBtn = nullptr;
+    CCMenuItemSpriteExtra *m_leftBtn = nullptr;
     CCSprite *m_background = nullptr;
     CCSprite *m_cornerBL = nullptr;
     CCSprite *m_cornerBR = nullptr;
     CCSize m_winSize;
 
-    const char * m_backgroundMusic = "menuLoop.mp3";
+    const char *m_backgroundMusic = "menuLoop.mp3";
     int m_comicNumber = 1;
     int m_currentPage = 0;
     int m_totalPages = 1;
@@ -22,9 +24,9 @@ public:
     CCNode *createPage(int);
 
     //  Para crear el Scroll layer
-    void createComic(CCArray * , int);
-    CCNode * createComicPage(const char *);
-    std::pair<const char *, const char *>getPage(int, int);
+    void createComic(CCArray *, int);
+    CCNode *createComicPage(const char *);
+    std::pair<const char *, const char *> getPage(int, int);
 
     void verifySecretAchievement();
     void scrollLayerMoved(CCPoint);
@@ -32,6 +34,9 @@ public:
     void onBack(CCObject *);
     void onComic(CCObject *);
     void onHollow(CCObject *);
+
+    void onPrev(CCObject *);
+    void onNext(CCObject *);
 
 public:
     static OdysseyComicLayer *create(int, bool);

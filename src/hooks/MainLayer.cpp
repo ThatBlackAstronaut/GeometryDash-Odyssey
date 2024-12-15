@@ -28,6 +28,15 @@ class $modify(OdysseyMenuLayer, MenuLayer)
             popup->show();
         };
 
+        if (!GameManager::sharedState()->getUGV("202") && GameManager::sharedState()->getGameVariable("0201"))
+        {
+            auto popup = OdysseyPopup::create("Language Notice", "Dado a limitaciones de\ncaracteres en el juego, habran\n<cr>errores ortograficos</c>\n(como la falta de acentos)");
+            popup->setWarning(false, true);
+            popup->setZOrder(104);
+            popup->m_scene = this;
+            popup->show();
+        };
+
         //  Reemplaza el titulo
         auto gameTitle = static_cast<CCSprite *>(this->getChildByID("main-title"));
         if (gameTitle)
@@ -50,29 +59,30 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
         //  Boton para acceder a los comics mas facil
         auto bottomMenu = static_cast<CCMenu *>(this->getChildByID("bottom-menu"));
+
+        /*
         auto seenComic = GameManager::sharedState()->getUGV("222");
-
-        auto geodeButton = bottomMenu->getChildByID("geode.loader/geode-button");
-        geodeButton->removeFromParentAndCleanup(false);
-
         if (seenComic)
         {
             auto comicButton = CCMenuItemSpriteExtra::create(
-                CircleButtonSprite::createWithSpriteFrameName("GDO_comicBtn.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::MediumAlt),
+                CircleButtonSprite::createWithSpriteFrameName("GDO_ComicIcon_001.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::MediumAlt),
                 this,
                 nullptr);
 
             bottomMenu->addChild(comicButton);
         }
+        */
 
-        auto devButton = CCMenuItemSpriteExtra::create(
-            CircleButtonSprite::createWithSpriteFrameName("geode.loader/settings.png", 1, CircleBaseColor::Green, CircleBaseSize::MediumAlt),
-            this,
-            menu_selector(OdysseyMenuLayer::onDev));
+        if (Mod::get()->getSettingValue<bool>("dev-mode"))
+        {
+            auto devButton = CCMenuItemSpriteExtra::create(
+                CircleButtonSprite::createWithSpriteFrameName("geode.loader/settings.png", 1, CircleBaseColor::Green, CircleBaseSize::MediumAlt),
+                this,
+                menu_selector(OdysseyMenuLayer::onDev));
 
-        bottomMenu->addChild(devButton);
-        bottomMenu->addChild(geodeButton);
-        bottomMenu->updateLayout();
+            bottomMenu->addChild(devButton);
+            bottomMenu->updateLayout();
+        }
 
         //  Boton de more games es reemplazado por Creditos
         auto moreGamesMenu = static_cast<CCMenu *>(this->getChildByID("more-games-menu"));
@@ -111,7 +121,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
     {
         auto showFanmades = Mod::get()->getSettingValue<bool>("show-more-games");
 
-        if (showFanmades)
+        if (!showFanmades)
         {
             auto *layer = FanmadeGamesLayer::create();
             addChild(layer, 100);
@@ -125,17 +135,6 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
     void onMoreGames(CCObject *)
     {
-        // auto credits = FLAlertLayer::create("Si", "Si", "ok");
-        // credits->show();
-        /*
-        auto shop = GJShopLayer::scene(static_cast<ShopType>(6));
-
-        CCDirector::sharedDirector()->replaceScene(CCTransitionMoveInT::create(.63f, shop));
-        */
-
-        log::debug("{}", Mod::get()->getID());
-        log::debug("{}", Mod::get()->getResourcesDir().string());
-
         GameManager::sharedState();
 
         auto credits = OdysseyCreditsLayer::create();
@@ -147,7 +146,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         Mod::get()->setSettingValue<bool>("reset-variables", false);
 
         for (auto ii = 1; ii <= 40; ii++)
-        {   
+        {
             auto variable = (ii < 10) ? fmt::format("20{}", ii) : fmt::format("2{}", ii);
             GameManager::sharedState()->setUGV(variable.c_str(), false);
             log::info("Restarting UGV = {}", variable);

@@ -7,9 +7,9 @@ bool SecretVaultLayer::init()
         return false;
 
     //  Title
-    auto title = CCLabelBMFont::create("The Hollow", "goldFont.fnt");
-    addChildAtPosition(title, Anchor::Top, ccp(0, -22), false);
-    title->setColor({ 180, 0, 0});
+    m_title = CCLabelBMFont::create("The Hollow", "goldFont.fnt");
+    addChildAtPosition(m_title, Anchor::Top, ccp(0, -22), false);
+    m_title->setColor({180, 0, 0});
 
     //  Data
     m_achievementName = "";
@@ -17,15 +17,34 @@ bool SecretVaultLayer::init()
 
     //  Background
     auto winSize = CCDirector::sharedDirector()->getWinSize();
-    auto background = CCSprite::createWithSpriteFrameName("HollowBG_001.png"_spr);
+    m_background = CCSprite::createWithSpriteFrameName("HollowBG_001.png"_spr);
+    m_bg_2 = CCSprite::createWithSpriteFrameName("HollowBG_2_001.png"_spr);
+    m_bg_3 = CCSprite::createWithSpriteFrameName("HollowBG_3_001.png"_spr);
 
-    background->setScaleX((winSize.width) / background->getTextureRect().size.width);
-    background->setScaleY((winSize.height) / background->getTextureRect().size.height);
-    background->setAnchorPoint({0, 0});
-    background->setPosition({0, 0});
-    background->setColor({120, 0, 0});
-    background->setID("background"_spr);
-    addChild(background, -2);
+    m_background->setScaleX((winSize.width) / m_background->getTextureRect().size.width);
+    m_background->setScaleY((winSize.height) / m_background->getTextureRect().size.height);
+    m_background->setAnchorPoint({0, 0});
+    m_background->setPosition({0, 0});
+    m_background->setColor({120, 0, 0});
+    m_background->setID("background"_spr);
+    addChild(m_background, -4);
+
+    m_bg_2->setScaleX((winSize.width) / m_bg_2->getTextureRect().size.width);
+    m_bg_2->setScaleY((winSize.height) / m_bg_2->getTextureRect().size.height);
+    m_bg_2->setID("background-layer-2"_spr);
+    m_bg_2->setAnchorPoint({0, 0});
+    m_bg_2->setPosition({0, 0});
+    m_bg_2->setColor({0, 0, 0});
+    m_bg_2->setOpacity(90);
+    addChild(m_bg_2, -3);
+
+    m_bg_3->setScaleX((winSize.width) / m_bg_3->getTextureRect().size.width);
+    m_bg_3->setScaleY((winSize.height) / m_bg_3->getTextureRect().size.height);
+    m_bg_3->setID("background-layer-3"_spr);
+    m_bg_3->setAnchorPoint({0, 0});
+    m_bg_3->setPosition({0, 0});
+    m_bg_3->setColor({0, 0, 0});
+    addChild(m_bg_3, -2);
 
     //  Back Button
     auto menuBack = CCMenu::create();
@@ -34,7 +53,7 @@ bool SecretVaultLayer::init()
     addChild(menuBack);
 
     auto backBtn = CCMenuItemSpriteExtra::create(
-        CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png"),
+        CCSprite::createWithSpriteFrameName("HollowArrow_001.png"_spr),
         this,
         menu_selector(SecretVaultLayer::onBack));
 
@@ -119,6 +138,28 @@ void SecretVaultLayer::onSubmit(CCObject *)
 
     m_textInput->setString("");
     m_achievementName = "";
+
+    /*
+    if (lower == "gargan")
+    {
+        if (m_garganIDX > 3)
+        {
+            messages = {
+                "Stop.",
+                "Don't provoke him.",
+                "Get out while you can.",
+                "..."};
+
+            m_title->setString(messages[m_garganIDX % 3].c_str());
+        }
+
+        m_garganIDX++;
+        return;
+    }
+
+    m_title->setString("The Hollow");
+    m_garganIDX = 0;
+    */
 
     //  List of codes
     if (lower == "color" && !AM->isAchievementEarned("geometry.ach.odyssey.secret10"))
@@ -217,6 +258,47 @@ void SecretVaultLayer::onSubmit(CCObject *)
 
         m_achievementName = "geometry.ach.odyssey.secret18";
         updateMessage(response, MessageType::CorrectAnswer);
+        return;
+    };
+
+    /*
+    if (lower == "gargan")
+    {
+        FMODAudioEngine::sharedEngine()->fadeOutMusic(5.f, 0);
+
+        m_textInput->runAction(CCSequence::create(
+            CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::disableKeeper)),
+            nullptr));
+
+        keeperSprite->runAction(CCSequence::create(
+            CCTintTo::create(2.f, 40, 0, 0),
+            CCEaseSineInOut::create(CCScaleTo::create(3.f, 5)),
+            nullptr));
+
+        m_background->runAction(CCSequence::create(
+            CCTintTo::create(3.f, 0, 0, 0),
+            nullptr));
+
+        return;
+    };
+    
+    if (lower == "gargan")
+    {
+        FMODAudioEngine::sharedEngine()->fadeOutMusic(5.f, 0);
+
+        m_textInput->runAction(CCSequence::create(
+            CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::disableKeeper)),
+            nullptr));
+
+        keeperSprite->runAction(CCSequence::create(
+            CCTintTo::create(2.f, 40, 0, 0),
+            CCEaseSineInOut::create(CCScaleTo::create(3.f, 5)),
+            nullptr));
+
+        m_background->runAction(CCSequence::create(
+            CCTintTo::create(3.f, 0, 0, 0),
+            nullptr));
+
         return;
     };
 
@@ -814,7 +896,7 @@ void SecretVaultLayer::fadeInLabel(bool firstTime, bool skipAnimation)
         for (int ii = 0; ii < strlen(m_response->getString()); ii++)
         {
             auto child = static_cast<CCSprite *>(m_response->getChildren()->objectAtIndex(ii));
-            child->setOpacity(255);
+            child->setOpacity(0);
         }
         return;
     }
@@ -824,14 +906,14 @@ void SecretVaultLayer::fadeInLabel(bool firstTime, bool skipAnimation)
         auto child = static_cast<CCSprite *>(m_response->getChildren()->objectAtIndex(ii));
         child->setOpacity(0);
 
+        m_textInput->runAction(CCSequence::create(
+            CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::disableKeeper)),
+            CCDelayTime::create((strlen(m_response->getString()) * .175f) + 0.5),
+            CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::enableKeeper)),
+            nullptr));
+
         if (ii == 0 && !firstTime)
         {
-            m_textInput->runAction(CCSequence::create(
-                CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::disableKeeper)),
-                CCDelayTime::create((strlen(m_response->getString()) * .175f) + 0.5),
-                CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::enableKeeper)),
-                nullptr));
-
             keeperSprite->runAction(CCSequence::create(
                 CCTintTo::create(1.f, 80, 0, 0),
                 CCDelayTime::create((strlen(m_response->getString()) * .175f) - 1),
@@ -878,7 +960,8 @@ void SecretVaultLayer::disableKeeper()
 void SecretVaultLayer::keyBackClicked()
 {
     CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
-    GameManager::sharedState()->fadeInMenuMusic();
+    GameManager::sharedState()->fadeInMusic("comic_04.mp3"_spr);
+    FMODAudioEngine::sharedEngine()->stopAllEffects();
 };
 
 void SecretVaultLayer::onBack(CCObject *)

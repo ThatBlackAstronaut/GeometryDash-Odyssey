@@ -5,7 +5,12 @@ using namespace geode::prelude;
 
 class $modify(OdysseyLevelTools, LevelTools)
 {
-	static gd::string getAudioTitle(int levelID)
+	$override static bool verifyLevelIntegrity(std::string verifyString, int levelID)
+	{
+		return true;
+	}
+
+	$override static gd::string getAudioTitle(int levelID)
 	{
 		switch (levelID)
 		{
@@ -40,7 +45,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 		}
 	}
 
-	static gd::string getAudioFileName(int levelID)
+	$override static gd::string getAudioFileName(int levelID)
 	{
 		switch (levelID)
 		{
@@ -75,7 +80,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 		}
 	}
 
-	static int artistForAudio(int p0)
+	$override static int artistForAudio(int p0)
 	{
 		switch (p0)
 		{
@@ -99,9 +104,9 @@ class $modify(OdysseyLevelTools, LevelTools)
 			return 7;
 
 		case 501:
-			return 9;
-		case 502:
 			return 1;
+		case 502:
+			return 9;
 		case 503:
 			return 7;
 
@@ -110,7 +115,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 		}
 	}
 
-	static gd::string nameForArtist(int p0)
+	$override static gd::string nameForArtist(int p0)
 	{
 		switch (p0)
 		{
@@ -121,7 +126,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 		}
 	}
 
-	static gd::string ngURLForArtist(int p0)
+	$override static gd::string ngURLForArtist(int p0)
 	{
 		switch (p0)
 		{
@@ -131,7 +136,8 @@ class $modify(OdysseyLevelTools, LevelTools)
 			return LevelTools::ngURLForArtist(p0);
 		}
 	}
-	static GJGameLevel *getLevel(int levelID, bool loaded)
+
+	$override static GJGameLevel *getLevel(int levelID, bool loaded)
 	{
 		GJGameLevel *level = GJGameLevel::create();
 		switch (levelID)
@@ -260,34 +266,23 @@ class $modify(OdysseyLevelTools, LevelTools)
 		}
 
 		if (!loaded)
-		{
 			level->m_levelString = LocalLevelManager::sharedState()->getMainLevelString(levelID);
-		}
+
 		level->m_levelID = levelID;
 		level->m_levelType = GJLevelType::Local;
 
 		return level;
 	};
 
-	static void setLevelInfo(GJGameLevel *level, int stars, GJDifficulty difficulty, int coinsRequired, int frameTime)
+	$override static gd::string getAudioString(int levelID)
 	{
-		level->m_stars = stars;
-		level->m_difficulty = difficulty;
-		level->m_requiredCoins = coinsRequired;
-		level->m_timestamp = frameTime;
-	};
+		if (levelID > 500)
+			return LevelTools::getAudioString(levelID);
 
-	static bool verifyLevelIntegrity(std::string verifyString, int levelID)
-	{
-		return true;
-	}
-
-	static gd::string getAudioString(int levelID)
-	{
 		return LevelTools::getAudioString(99 + levelID);
 	}
 
-	static gd::string urlForAudio(int songID)
+	$override static gd::string urlForAudio(int songID)
 	{
 		switch (songID)
 		{

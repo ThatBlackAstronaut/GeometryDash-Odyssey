@@ -1,6 +1,6 @@
 {
-	"geode": "4.0.1",
-	"version": "v1.0.0-alpha.15",
+	"geode": "4.1.0",
+	"version": "v1.0.0-alpha.20",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074"
@@ -42,26 +42,47 @@
 		}
 	],
 	"settings": {
-		"dev-mode": {
+		"options-title":{
+			"type": "title",
+			"name": "Main Settings"
+		},
+		"spanish-language":{
+			"type": "bool",
+			"name": "Spanish",
+			"description": "<cy>ENG</c>: Translates most of the mod's dialogue in Spanish. Due to character limitations, there will be spelling errors.\n\n<cy>ESP</c>: Traduce mayor parte del dialogo del mod en Espanol. Dado a las limitaciones de caracteres en el juego, habran errores ortograficos (como la falta de acentos)",
+			"default": false
+		},
+		"dev-title": {
 			"type": "title",
 			"name": "Development Options"
 		},
+		"dev-mode": {
+			"type": "bool",
+			"name": "Developer Mode",
+			"default": false
+		},
 		"show-more-games":{
 			"type": "bool",
-			"name": "Show Fanmades",
+			"name": "Disable fanmades",
 			"description": "Disable this if you want to have access to the Online Menu. (This will be removed on the official release)",
-			"default": true
+			"enable-if": "dev-mode",
+			"enable-if-description": "Dev. Mode required",
+			"default": false
 		},
 		"skip-requirements":{
 			"type": "bool",
 			"name": "Skip requirements",
 			"description": "Disables the requirements to unlock stuff (Like hollow's coin quota and such",
+			"enable-if": "dev-mode",
+			"enable-if-description": "Dev. Mode required",
 			"default": false
 		},
 		"reset-variables":{
 			"type": "bool",
 			"name": "Reset Mod Variables",
 			"description": "Resets all the one-time events of the mod when you enter the Menu Layer. <cr>Only enable this</c> if you want to see the Dialogs and scenes.",
+			"enable-if": "dev-mode",
+			"enable-if-description": "Dev. Mode required",
 			"default": false
 		}
 	},

@@ -12,11 +12,11 @@ class $modify(OdysseyGameManager, GameManager)
         //  auto hide = GameManager::sharedState()->getGameVariable("0202");
 
         if (icon == IconType::Cube)
-            return 515;
+            return 514;
         if (icon == IconType::Ship)
-            return 175;
+            return 177;
         if (icon == IconType::Ball)
-            return 124;
+            return 126;
         if (icon == IconType::Ufo)
             return 153;
         if (icon == IconType::Wave)
@@ -26,7 +26,7 @@ class $modify(OdysseyGameManager, GameManager)
         if (icon == IconType::Spider)
             return 69;
         if (icon == IconType::Swing)
-            return 46;
+            return 47;
         if (icon == IconType::Jetpack)
             return 9;
 
@@ -51,17 +51,11 @@ class $modify(OdysseyGameManager, GameManager)
 
     void returnToLastScene(GJGameLevel *level)
     {
-        if (level->m_levelType == GJLevelType::Local)
-        {
-            int page = Odyssey::islandPageForLevelID(level->m_levelID);
+        int page = Odyssey::islandPageForLevelID(level->m_levelID);
 
-            //  CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, OdysseySelectLayer::scene(page)));
-            CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
-            GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
-            return;
-        }
-
-        GameManager::returnToLastScene(level);
+        GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
+        CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, OdysseySelectLayer::scene(page)));
+        return;
     }
 
     void reportPercentageForLevel(int levelID, int percent, bool isPractice)
@@ -100,4 +94,9 @@ class $modify(OdysseyGameManager, GameManager)
 
         log::debug("ACH: {}, Percent: {}, Flag: {}", ach, perc, flag);
     };
+
+    void dataLoaded(DS_Dictionary *dict)
+    {
+        GameManager::dataLoaded(dict);
+    }
 };

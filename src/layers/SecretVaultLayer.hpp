@@ -13,6 +13,7 @@ class SecretVaultLayer : public CCLayer
 {
 protected:
     CCMenuItemSpriteExtra *m_keeperBtn = nullptr;
+    CCLabelBMFont *m_title = nullptr;
     CCLabelBMFont *m_response = nullptr;
     TextInput *m_textInput = nullptr;
     bool m_spanish = false;
@@ -20,6 +21,10 @@ protected:
     CCSprite *m_keeperSprite = nullptr;
     CCSprite *keeperSprite = nullptr;
     CCSprite *keeperEyes = nullptr;
+
+    CCSprite *m_background = nullptr;
+    CCSprite *m_bg_2 = nullptr;
+    CCSprite *m_bg_3 = nullptr;
 
     CCParticleSystemQuad *bg_particle_01 = nullptr;
     CCParticleSystemQuad *bg_particle_02 = nullptr;

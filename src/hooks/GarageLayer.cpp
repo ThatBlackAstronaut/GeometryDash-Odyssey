@@ -23,18 +23,14 @@ class $modify(GDOGarageLayer, GJGarageLayer)
         if (auto paint = menu->getChildByID("color-button"))
             paint->setPositionY(paint->getPositionY() + 25);
 
+        /*
         if (auto shopButton = getChildByID("top-left-menu")->getChildByID("shop-button"))
             //  shopButton->setVisible(false);
+
 
             //  Agregar los botones de gamemodes nuevos al menu de categorias
             if (auto categoryMenu = static_cast<CCMenu *>(getChildByID("category-menu")))
             {
-                //  Quita temporalmente los botones de efecto y trail
-                auto trailButton = categoryMenu->getChildByID("trail-button");
-                auto effectButton = categoryMenu->getChildByID("death-effect-button");
-                effectButton->removeFromParentAndCleanup(false);
-                trailButton->removeFromParentAndCleanup(false);
-
                 //  Agrega los botones de los gamemodes custom
                 for (int ii = 0; ii < 4; ii++)
                 {
@@ -55,10 +51,10 @@ class $modify(GDOGarageLayer, GJGarageLayer)
                     categoryMenu->addChild(toggler);
                 }
 
-                categoryMenu->addChild(trailButton);
-                categoryMenu->addChild(effectButton);
                 categoryMenu->updateLayout();
             }
+        */
+
         return true;
     }
 

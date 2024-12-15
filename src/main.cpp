@@ -1,15 +1,17 @@
 #include <Geode/Geode.hpp>
-#include <Geode/modify/CCSprite.hpp>
-#include <Geode/modify/MoreOptionsLayer.hpp>
-#include <Geode/modify/GameManager.hpp>
-#include <Geode/modify/GManager.hpp>
 #include <Geode/modify/EditorUI.hpp>
 #include <Geode/modify/EditorPauseLayer.hpp>
-#include <Geode/modify/LocalLevelManager.hpp>
+#include <Geode/modify/GManager.hpp>
+#include <Geode/modify/MoreOptionsLayer.hpp>
 #include <Geode/modify/MusicDownloadManager.hpp>
+#include <Geode/modify/LocalLevelManager.hpp>
+#include <Geode/modify/OptionsLayer.hpp>
 #include <Geode/modify/SongsLayer.hpp>
 #include <Geode/modify/PauseLayer.hpp>
 #include <Geode/modify/GJItemIcon.hpp>
+#include "layers/OdysseySelectLayer.hpp"
+#include "nodes/OdysseyPopup.hpp"
+#include "utils/Utils.hpp"
 #include <Geode/modify/CurrencySprite.hpp>
 
 using namespace geode::prelude;
@@ -30,7 +32,23 @@ $on_mod(Loaded)
 		.m_paths = {geode::Mod::get()->getResourcesDir().string()}});
 };
 
-class $modify(OdysseyGManager, GManager)
+$on_mod(Loaded)
+{
+#ifdef GEODE_IS_WINDOWS
+	auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "\\" + "Assets.zip";
+#endif
+#ifdef GEODE_IS_ANDROID
+	auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "/" + "Assets.zip";
+#endif
+	auto unzipDir = geode::Mod::get()->getResourcesDir().string();
+	auto result = geode::utils::file::Unzip::intoDir(zipFilePath, unzipDir);
+
+	CCFileUtils::get()->addTexturePack(CCTexturePack{
+		.m_id = Mod::get()->getID(),
+		.m_paths = {geode::Mod::get()->getResourcesDir().string()}});
+};
+
+class $modify(GDO_GManager, GManager)
 {
 	void setup()
 	{
@@ -41,21 +59,28 @@ class $modify(OdysseyGManager, GManager)
 	}
 };
 
-class $modify(PauseLayer)
+class $modify(GDO_OptionsLayer, OptionsLayer)
 {
-	void onQuit(CCObject *sender)
+	virtual void customSetup()
 	{
-		PauseLayer::onQuit(sender);
-		GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
+		OptionsLayer::customSetup();
+
+		if (auto button = this->getChildByIDRecursive("vault-button"))
+		{
+			button->setVisible(false);
+		}
 	}
 };
 
-class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
+class $modify(GDO_MoreOptionsLayer, MoreOptionsLayer)
 {
 	bool init()
 	{
 		if (!MoreOptionsLayer::init())
 			return false;
+
+		GameManager::sharedState()->setGameVariable("0201", Mod::get()->getSettingValue<bool>("spanish-language"));
+		GameManager::sharedState()->setGameVariable("0202", Mod::get()->getSettingValue<bool>("hide-upcoming"));
 
 		//	Aun en fase de prueba
 		MoreOptionsLayer::addToggle("Spanish", "0201", "<cy>ENG</c>: Translates most of the mod's dialogue in Spanish. Due to character limitations, there will be spelling errors.\n\n<cy>ESP</c>: Traduce mayor parte del dialogo del mod en Espanol. Dado a las limitaciones de caracteres en el juego, habran errores ortograficos (como la falta de acentos)");
@@ -69,55 +94,25 @@ class $modify(GDOMoreOptionsLayer, MoreOptionsLayer)
 		MoreOptionsLayer::goToPage(p0);
 
 		if (MoreOptionsLayer::m_page == 7)
-		{
 			MoreOptionsLayer::m_categoryLabel->setString("GD Odyssey Options");
-		}
+	}
+
+	void onToggle(CCObject *sender)
+	{
+		MoreOptionsLayer::onToggle(sender);
+
+		auto tag = sender->getTag();
+		log::debug("TAG: {}", tag);
+
+		if (sender->getTag() == 201)
+			Mod::get()->setSettingValue<bool>("spanish-language", GameManager::sharedState()->getGameVariable("0201"));
+
+		if (sender->getTag() == 202)
+			Mod::get()->setSettingValue<bool>("hide-upcoming", GameManager::sharedState()->getGameVariable("0202"));
 	}
 };
 
-class $modify(OdysseyEditorUI, EditorUI)
-{
-	void setupCreateMenu()
-	{
-		EditorUI::setupCreateMenu();
-
-		auto m_tab8 = static_cast<EditButtonBar *>(this->m_createButtonBars->objectAtIndex(8));
-		m_tab8->m_buttonArray->insertObject(this->getCreateBtn(142, 4), 1);
-
-		int rowCount = GameManager::get()->getIntGameVariable("0049");
-		int columnCount = GameManager::get()->getIntGameVariable("0050");
-
-		m_tab8->reloadItems(rowCount, columnCount);
-	}
-};
-
-class $modify(OdysseyEditorPauseLayer, EditorPauseLayer)
-{
-	bool init(LevelEditorLayer *editorLayer)
-	{
-		if (!EditorPauseLayer::init(editorLayer))
-			return false;
-
-		auto copySpr = ButtonSprite::create("Save\nString", 50, 30, 0.4f, true, "bigFont.fnt", "GJ_button_04.png");
-		copySpr->setScale(0.8);
-
-		auto copyBtn = CCMenuItemSpriteExtra::create(copySpr, this, menu_selector(OdysseyEditorPauseLayer::copyStringToClipboard));
-		copyBtn->setPositionX(70);
-
-		auto menu = static_cast<CCMenu *>(this->getChildren()->objectAtIndex(1));
-		menu->addChild(copyBtn);
-
-		return true;
-	}
-
-	void copyStringToClipboard(CCObject *)
-	{
-		log::debug("{}", m_editorLayer->m_level->m_levelString);
-		clipboard::write(m_editorLayer->m_level->m_levelString);
-	}
-};
-
-class $modify(GDOLocalLevelManager, LocalLevelManager)
+class $modify(GDO_LocalLevelManager, LocalLevelManager)
 {
 	$override gd::string getMainLevelString(int id)
 	{
@@ -130,10 +125,11 @@ class $modify(GDOLocalLevelManager, LocalLevelManager)
 			return "";
 
 		return gd::string(content->getCString());
+		return LocalLevelManager::getMainLevelString(id);
 	}
 };
 
-class $modify(GDOMusicDownloadManager, MusicDownloadManager)
+class $modify(GDO_MusicDownloadManager, MusicDownloadManager)
 {
 	gd::string pathForSFXFolder(int sfxID)
 	{
@@ -169,11 +165,54 @@ class $modify(SongsLayer)
 		songObjectArray->addObject(SongObject::create(106));
 		songObjectArray->addObject(SongObject::create(107));
 		songObjectArray->addObject(SongObject::create(108));
+		songObjectArray->addObject(SongObject::create(109));
 		songObjectArray->addObject(SongObject::create(501));
 		songObjectArray->addObject(SongObject::create(502));
 		songObjectArray->addObject(SongObject::create(-1));
 
 		m_listLayer->m_listView = CustomListView::create(songObjectArray, nullptr, 220.0, 356.0, 0, BoomListType::Song, 0.0);
 		m_listLayer->addChild(m_listLayer->m_listView);
+	}
+};
+
+class $modify(GDO_EditorUI, EditorUI)
+{
+	void setupCreateMenu()
+	{
+		EditorUI::setupCreateMenu();
+
+		auto m_tab8 = static_cast<EditButtonBar *>(this->m_createButtonBars->objectAtIndex(8));
+		m_tab8->m_buttonArray->insertObject(this->getCreateBtn(142, 4), 1);
+
+		int rowCount = GameManager::get()->getIntGameVariable("0049");
+		int columnCount = GameManager::get()->getIntGameVariable("0050");
+
+		m_tab8->reloadItems(rowCount, columnCount);
+	}
+};
+
+class $modify(GDO_EditorPauseLayer, EditorPauseLayer)
+{
+	bool init(LevelEditorLayer *editorLayer)
+	{
+		if (!EditorPauseLayer::init(editorLayer))
+			return false;
+
+		auto copySpr = ButtonSprite::create("Save\nString", 50, 30, 0.4f, true, "bigFont.fnt", "GJ_button_04.png");
+		copySpr->setScale(0.8);
+
+		auto copyBtn = CCMenuItemSpriteExtra::create(copySpr, this, menu_selector(GDO_EditorPauseLayer::copyStringToClipboard));
+		copyBtn->setPositionX(70);
+
+		auto menu = static_cast<CCMenu *>(this->getChildren()->objectAtIndex(1));
+		menu->addChild(copyBtn);
+
+		return true;
+	}
+
+	void copyStringToClipboard(CCObject *)
+	{
+		log::debug("{}", m_editorLayer->m_level->m_levelString);
+		clipboard::write(m_editorLayer->m_level->m_levelString);
 	}
 };
