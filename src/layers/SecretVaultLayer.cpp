@@ -281,7 +281,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
 
         return;
     };
-    
+
     if (lower == "gargan")
     {
         FMODAudioEngine::sharedEngine()->fadeOutMusic(5.f, 0);
@@ -906,25 +906,28 @@ void SecretVaultLayer::fadeInLabel(bool firstTime, bool skipAnimation)
         auto child = static_cast<CCSprite *>(m_response->getChildren()->objectAtIndex(ii));
         child->setOpacity(0);
 
-        m_textInput->runAction(CCSequence::create(
-            CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::disableKeeper)),
-            CCDelayTime::create((strlen(m_response->getString()) * .175f) + 0.5),
-            CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::enableKeeper)),
-            nullptr));
-
-        if (ii == 0 && !firstTime)
+        if (ii == 0)
         {
-            keeperSprite->runAction(CCSequence::create(
-                CCTintTo::create(1.f, 80, 0, 0),
-                CCDelayTime::create((strlen(m_response->getString()) * .175f) - 1),
-                CCTintTo::create(1.f, 255, 255, 255),
+            m_textInput->runAction(CCSequence::create(
+                CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::disableKeeper)),
+                CCDelayTime::create((strlen(m_response->getString()) * .175f) + 0.5),
+                CCCallFunc::create(this, callfunc_selector(SecretVaultLayer::enableKeeper)),
                 nullptr));
 
-            keeperEyes->runAction(CCSequence::create(
-                CCFadeTo::create(1.f, 255),
-                CCDelayTime::create((strlen(m_response->getString()) * .175f) - 1),
-                CCFadeTo::create(1.f, 0),
-                nullptr));
+            if (!firstTime)
+            {
+                keeperSprite->runAction(CCSequence::create(
+                    CCTintTo::create(1.f, 80, 0, 0),
+                    CCDelayTime::create((strlen(m_response->getString()) * .175f) - 1),
+                    CCTintTo::create(1.f, 255, 255, 255),
+                    nullptr));
+
+                keeperEyes->runAction(CCSequence::create(
+                    CCFadeTo::create(1.f, 255),
+                    CCDelayTime::create((strlen(m_response->getString()) * .175f) - 1),
+                    CCFadeTo::create(1.f, 0),
+                    nullptr));
+            }
         }
 
         auto fadeInDelay = CCDelayTime::create(.05f * ii);

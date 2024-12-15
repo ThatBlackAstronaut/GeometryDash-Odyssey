@@ -161,9 +161,6 @@ void OdysseyLevelPopup::onComic(CCObject *sender)
     auto button = static_cast<CCMenuItemSpriteExtra *>(sender);
     button->setSprite(CircleButtonSprite::createWithSpriteFrameName("GDO_ComicIcon_001.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::Small));
 
-    auto button = static_cast<CCMenuItemSpriteExtra *>(sender);
-    button->setSprite(CircleButtonSprite::createWithSpriteFrameName("GDO_comicBtn.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::Small));
-
     CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };
 

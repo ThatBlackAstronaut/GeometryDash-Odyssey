@@ -35,10 +35,7 @@
 		{
 			"id": "geode.custom-keybinds",
 			"importance": "conflicting",
-			"version": "*",
-			"platforms": [
-				"win"
-			]
+			"version": "*"
 		}
 	],
 	"settings": {

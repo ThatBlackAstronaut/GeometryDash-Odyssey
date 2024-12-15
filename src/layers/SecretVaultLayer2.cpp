@@ -14,7 +14,7 @@ bool SecretVaultLayer2::init()
     auto title = CCLabelBMFont::create("The Ogre", "goldFont.fnt");
     addChildAtPosition(title, Anchor::Top, ccp(0, -22), false);
 
-    //  Background
+    //  Background Details
     auto winSize = CCDirector::sharedDirector()->getWinSize();
     auto background = CCSprite::create("GJ_gradientBG.png");
 
@@ -22,9 +22,41 @@ bool SecretVaultLayer2::init()
     background->setScaleY((winSize.height) / background->getTextureRect().size.height);
     background->setAnchorPoint({0, 0});
     background->setPosition({0, 0});
-    background->setColor({0, 120, 0});
+    background->setColor({0, 30, 0});
     background->setID("background"_spr);
-    addChild(background, -2);
+    addChild(background, -5);
+
+    auto bgDeco = CCSprite::createWithSpriteFrameName("OgreBG_2_001.png"_spr);
+    bgDeco->setPosition({0, 0});
+    bgDeco->setAnchorPoint({0, 0});
+    bgDeco->setColor({0, 50, 0});
+    bgDeco->setOpacity(180);
+    bgDeco->setScaleX((winSize.width) / bgDeco->getTextureRect().size.width);
+    bgDeco->setScaleY((winSize.height) / bgDeco->getTextureRect().size.height);
+    bgDeco->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+
+    auto bgDeco1A = CCSprite::createWithSpriteFrameName("OgreBG_3_001.png"_spr);
+    bgDeco1A->setPosition({0, 0});
+    bgDeco1A->setAnchorPoint({0, 0});
+    bgDeco1A->setColor({0, 0, 0});
+    bgDeco1A->setScaleY((winSize.height) / bgDeco1A->getTextureRect().size.height);
+    //  bgDeco1A->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+
+    auto bgDeco1B = CCSprite::createWithSpriteFrameName("OgreBG_3_001.png"_spr);
+    bgDeco1B->setPosition({winSize.width, 0});
+    bgDeco1B->setAnchorPoint({1, 0});
+    bgDeco1B->setColor({0, 0, 0});
+    bgDeco1B->setFlipX(true);
+    bgDeco1B->setScaleY((winSize.height) / bgDeco1B->getTextureRect().size.height);
+    //  bgDeco1B->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+
+    addChild(bgDeco, -3);
+    addChild(bgDeco1A, -1);
+    addChild(bgDeco1B, -1);
+
+    auto bg_particle_01 = GameToolbox::particleFromString("30a-1a5a1a5a90a180a50a25a300a150a0a0a0a0a0a0a8a4a0a0a1a0a1a0a0a0a1a0a0a0a0a0a1a0a1a0a0a0a1a0a0.3a0.15a0.3a0.15a0a0a0a0a0a0a0a2a1a0a0a0a159a0a0a0a0a0a0a1a0a0a0a0a0a0a0", NULL, false);
+    bg_particle_01->setPosition(winSize / 2);
+    addChild(bg_particle_01, 10);
 
     //  Back Button
     auto menuBack = CCMenu::create();
@@ -60,20 +92,18 @@ bool SecretVaultLayer2::init()
     keeperMenu->setPosition({0, 0});
     addChild(keeperMenu);
 
-    auto keeperSprite = CCSprite::createWithSpriteFrameName("GJ_secretLock_001.png");
+    auto keeperSprite = CCSprite::createWithSpriteFrameName("OgreKeeper_001.png"_spr);
     keeperSprite->setScale(1.15f);
-    keeperSprite->setColor({0, 0, 0});
-
-    auto questionMark = CCLabelBMFont::create("?", "bigFont.fnt");
-    questionMark->setPosition({32, 60});
-    keeperSprite->addChild(questionMark);
 
     auto keeperButton = CCMenuItemSpriteExtra::create(
         keeperSprite,
         this,
         menu_selector(SecretVaultLayer2::onSubmit));
 
+    keeperButton->setContentSize({72.f, 72.f});
     keeperButton->setPosition({winSize.width / 2, winSize.height / 2 - 20.f});
+    keeperSprite->setAnchorPoint({0.5, 1});
+    keeperSprite->setPositionY(72.f);
     keeperMenu->addChild(keeperButton);
 
     GameManager::sharedState()->fadeInMusic("SecretLoop02.mp3"_spr);
@@ -1068,7 +1098,7 @@ void SecretVaultLayer2::updateMessage(std::string message, MessageType type)
 
 void SecretVaultLayer2::keyBackClicked()
 {
-    GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
+    GameManager::sharedState()->fadeInMusic("IslandLoop02.mp3"_spr);
     CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
 };
 

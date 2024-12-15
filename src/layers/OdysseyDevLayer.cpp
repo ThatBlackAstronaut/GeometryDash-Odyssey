@@ -279,21 +279,6 @@ void OdysseyDevLayer::onStoryDialog(CCObject *sender)
         "firstIslandClear",
         "end",
         "meetingHollow",
-        "hollowGoals"};
-
-    auto dialog = Odyssey::createDialog(events[sender->getTag()]);
-    this->addChild(dialog, 10);
-}
-
-//  En dialogo de historia
-void OdysseyDevLayer::onStoryDialog(CCObject *sender)
-{
-    std::vector<const char *> events = {
-        "meetingShopkeeper",
-        "meetingWizard",
-        "firstIslandClear",
-        "end",
-        "meetingHollow",
         "hollowQuotaReached",
     };
 

@@ -1,5 +1,6 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/GJShopLayer.hpp>
+#include "../layers/OdysseySelectLayer.hpp"
 #include "../utils/Utils.hpp"
 
 using namespace geode::prelude;
@@ -26,12 +27,12 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		desk->setDisplayFrame(CCSprite::createWithSpriteFrameName("storeDesk_001.png"_spr)->displayFrame());
 		desk->setPositionY(93);
 
-		auto particle = static_cast<CCParticleSystemQuad*>(children->objectAtIndex(7));
-		particle->setStartColor({ 193, 122, 5, 255 });
-		particle->setEndColor({ 255, 122, 0, 0 });
-
 		auto currency = static_cast<CCSprite*>(children->objectAtIndex(6));
 		*/
+	
+		auto particle = static_cast<CCParticleSystemQuad*>(getChildren()->objectAtIndex(7));
+		particle->setStartColor({ 193, 122, 5, 255 });
+		particle->setEndColor({ 255, 122, 0, 0 });
 
 		auto winSize = CCDirector::sharedDirector()->getWinSize();
 		int rand = (std::rand() % 3) + 1;
@@ -71,9 +72,9 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		this->retain();
 		this->removeFromParentAndCleanup(false);
 
-		auto garage = GJGarageLayer::scene();
-		director->replaceScene(garage);
-		garage->addChild(this, 1000);
+		auto selectLayer = OdysseySelectLayer::scene(GameManager::sharedState()->getIntGameVariable("1001") - 1);
+		director->replaceScene(selectLayer);
+		selectLayer->addChild(this, 1000);
 
 		this->release();
 
@@ -83,7 +84,6 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 
 		auto ccSeq = CCSequence::create(easeIn, callFunc, 0);
 		this->runAction(ccSeq);
-		GameManager::sharedState()->fadeInMenuMusic();
 
 		setKeyboardEnabled(false);
 		setKeypadEnabled(false);

@@ -53,34 +53,7 @@ class $modify(GDOProfilePage, ProfilePage)
 
             menu->addChild(button);
             m_mainLayer->addChild(menu);
-        }
-
-        auto AM = AchievementManager::sharedState();
-        auto GM = GameManager::sharedState();
-
-        //  Para el award secreto de "Programmer"
-        if (p0->m_accountID == 25521533 && GM->getUGV("209") && !AM->isAchievementEarned("geometry.ach.odyssey.secret20"))
-        {
-            auto menu = CCMenu::create();
-            menu->setZOrder(10);
-
-            auto sprite = CCSprite::createWithSpriteFrameName("chest_02_02_001.png");
-            sprite->setScale(0.5);
-
-            auto button = CCMenuItemSpriteExtra::create(
-                sprite,
-                this,
-                menu_selector(GDOProfilePage::onSecret));
-
-            button->m_selectSound = "chestClick.ogg";
-            button->m_scaleMultiplier = 1;
-            button->m_colorEnabled = true;
-            button->m_colorDip = 100.f;
-            button->setPositionY(-55);
-
-            menu->addChild(button);
-            m_mainLayer->addChild(menu);
-        }
+        };
     }
 
     //  Al encontrar el secreto, se le asigna al usuario orbes gratis
