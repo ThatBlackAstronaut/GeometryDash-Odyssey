@@ -54,6 +54,8 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         if (!GM->getUGV("17"))
             GM->setUGV("17", true);
 
+        GameManager::sharedState()->setIntGameVariable("1001", 0);
+
         return true;
     }
 
@@ -142,68 +144,72 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
     addCustomIconCredits()
     {
         auto gs = GameStatsManager::sharedState();
-        //  2102 - ML5
         gs->m_usernameForAccountID.insert(std::make_pair(14178231, "Danky99"));
         gs->m_usernameForAccountID.insert(std::make_pair(18718615, "AngelozDD"));
         gs->m_usernameForAccountID.insert(std::make_pair(13284787, "MinoX28"));
-        //  21113321 - Cyanflower
-        //  gs->m_usernameForAccountID.insert(std::make_pair(21113321, "cyanflower"));
 
+        //  Cubes
         for (int i = 486; i < 493; i++)
-            Odyssey::addCreditsToIcon(std::make_pair(i, UnlockType::Cube), 14178231);
-        Odyssey::addCreditsToIcon(std::make_pair(493, UnlockType::Cube), 13284787); // MinoX
-        Odyssey::addCreditsToIcon(std::make_pair(494, UnlockType::Cube), 2102);     // ML5
-        Odyssey::addCreditsToIcon(std::make_pair(495, UnlockType::Cube), 21113321); // Cyan
-        Odyssey::addCreditsToIcon(std::make_pair(496, UnlockType::Cube), 18718615); // Angelo
-        Odyssey::addCreditsToIcon(std::make_pair(497, UnlockType::Cube), 18718615); // Angelo
+            Odyssey::addCreditsToIcon(std::make_pair(i, UnlockType::Cube), (int)Artist::Danky);
+        Odyssey::addCreditsToIcon(std::make_pair(493, UnlockType::Cube), (int)Artist::Minox);  // MinoX
+        Odyssey::addCreditsToIcon(std::make_pair(494, UnlockType::Cube), (int)Artist::ML500);  // ML5
+        Odyssey::addCreditsToIcon(std::make_pair(495, UnlockType::Cube), (int)Artist::Cyan);   // Cyan
+        Odyssey::addCreditsToIcon(std::make_pair(496, UnlockType::Cube), (int)Artist::Angelo); // Angelo
+        Odyssey::addCreditsToIcon(std::make_pair(497, UnlockType::Cube), (int)Artist::Angelo); // Angelo
         for (int i = 498; i < 503; i++)
-            Odyssey::addCreditsToIcon(std::make_pair(i, UnlockType::Cube), 14178231);
-        Odyssey::addCreditsToIcon(std::make_pair(503, UnlockType::Cube), 13284787); // MinoX
-        Odyssey::addCreditsToIcon(std::make_pair(504, UnlockType::Cube), 14178231); // Danky
-        Odyssey::addCreditsToIcon(std::make_pair(505, UnlockType::Cube), 14178231); // Danky
-        Odyssey::addCreditsToIcon(std::make_pair(506, UnlockType::Cube), 14178231); // Danky
-        Odyssey::addCreditsToIcon(std::make_pair(507, UnlockType::Cube), 14178231); // Danky
-        Odyssey::addCreditsToIcon(std::make_pair(508, UnlockType::Cube), 21113321); // Cyan
-        Odyssey::addCreditsToIcon(std::make_pair(509, UnlockType::Cube), 21113321); // Cyan
-        Odyssey::addCreditsToIcon(std::make_pair(510, UnlockType::Cube), 21113321); // Cyan
-        Odyssey::addCreditsToIcon(std::make_pair(511, UnlockType::Cube), 18718615); // Angelo
-        Odyssey::addCreditsToIcon(std::make_pair(512, UnlockType::Cube), 21113321); // Cyan
-        Odyssey::addCreditsToIcon(std::make_pair(513, UnlockType::Cube), 2102);     // ML5
-        Odyssey::addCreditsToIcon(std::make_pair(514, UnlockType::Cube), 14178231); // Danky
+            Odyssey::addCreditsToIcon(std::make_pair(i, UnlockType::Cube), (int)Artist::Danky);
+        Odyssey::addCreditsToIcon(std::make_pair(503, UnlockType::Cube), (int)Artist::Minox);  // MinoX
+        Odyssey::addCreditsToIcon(std::make_pair(504, UnlockType::Cube), (int)Artist::Danky);  // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(505, UnlockType::Cube), (int)Artist::Danky);  // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(506, UnlockType::Cube), (int)Artist::Danky);  // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(507, UnlockType::Cube), (int)Artist::Danky);  // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(508, UnlockType::Cube), (int)Artist::Cyan);   // Cyan
+        Odyssey::addCreditsToIcon(std::make_pair(509, UnlockType::Cube), (int)Artist::Cyan);   // Cyan
+        Odyssey::addCreditsToIcon(std::make_pair(510, UnlockType::Cube), (int)Artist::Cyan);   // Cyan
+        Odyssey::addCreditsToIcon(std::make_pair(511, UnlockType::Cube), (int)Artist::Angelo); // Angelo
+        Odyssey::addCreditsToIcon(std::make_pair(512, UnlockType::Cube), (int)Artist::Cyan);   // Cyan
+        Odyssey::addCreditsToIcon(std::make_pair(513, UnlockType::Cube), (int)Artist::ML500);  // ML5
+        Odyssey::addCreditsToIcon(std::make_pair(514, UnlockType::Cube), (int)Artist::Danky);  // Danky
 
-        Odyssey::addCreditsToIcon(std::make_pair(170, UnlockType::Ship), 14178231); // Danky
-        Odyssey::addCreditsToIcon(std::make_pair(171, UnlockType::Ship), 18718615); // Angelo
-        Odyssey::addCreditsToIcon(std::make_pair(172, UnlockType::Ship), 18718615); // Angelo
-        Odyssey::addCreditsToIcon(std::make_pair(173, UnlockType::Ship), 14178231); // Danky
-        //  Odyssey::addCreditsToIcon(std::make_pair(174, UnlockType::Ship), ACCOUNT ID DEL ARTISTA);
-        //  Odyssey::addCreditsToIcon(std::make_pair(175, UnlockType::Ship), ACCOUNT ID DEL ARTISTA);
-        Odyssey::addCreditsToIcon(std::make_pair(176, UnlockType::Ship), 2102); // ML5
-        Odyssey::addCreditsToIcon(std::make_pair(177, UnlockType::Ship), 2102); // ML5
+        //  Ships
+        Odyssey::addCreditsToIcon(std::make_pair(170, UnlockType::Ship), (int)Artist::Danky);  // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(171, UnlockType::Ship), (int)Artist::Angelo); // Angelo
+        Odyssey::addCreditsToIcon(std::make_pair(172, UnlockType::Ship), (int)Artist::Angelo); // Angelo
+        Odyssey::addCreditsToIcon(std::make_pair(173, UnlockType::Ship), (int)Artist::Danky);  // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(174, UnlockType::Ship), (int)Artist::ML500);  // ML5
+        Odyssey::addCreditsToIcon(std::make_pair(175, UnlockType::Ship), (int)Artist::Angelo); // Angelo
+        Odyssey::addCreditsToIcon(std::make_pair(176, UnlockType::Ship), (int)Artist::ML500);  // ML5
+        Odyssey::addCreditsToIcon(std::make_pair(177, UnlockType::Ship), (int)Artist::ML500);  // ML5
 
-        Odyssey::addCreditsToIcon(std::make_pair(119, UnlockType::Ball), 14178231); // Danky
-        Odyssey::addCreditsToIcon(std::make_pair(120, UnlockType::Ball), 2102);     // ML5
-        //  Odyssey::addCreditsToIcon(std::make_pair(121, UnlockType::Ball), ACCOUNT ID DEL ARTISTA);
+        //  Balls
+        Odyssey::addCreditsToIcon(std::make_pair(119, UnlockType::Ball), (int)Artist::Danky); // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(120, UnlockType::Ball), (int)Artist::ML500); // ML5
+        Odyssey::addCreditsToIcon(std::make_pair(121, UnlockType::Ball), (int)Artist::Danky); // Danky
         //  Odyssey::addCreditsToIcon(std::make_pair(122, UnlockType::Ball), ACCOUNT ID DEL ARTISTA);
-        Odyssey::addCreditsToIcon(std::make_pair(123, UnlockType::Ball), 18718615); // Angelo
-        Odyssey::addCreditsToIcon(std::make_pair(124, UnlockType::Ball), 2102);     // ML5
-        Odyssey::addCreditsToIcon(std::make_pair(125, UnlockType::Ball), 2102);     // ML5
-        Odyssey::addCreditsToIcon(std::make_pair(126, UnlockType::Ball), 21113321); // Angelo
+        Odyssey::addCreditsToIcon(std::make_pair(123, UnlockType::Ball), (int)Artist::Angelo); // Angelo
+        Odyssey::addCreditsToIcon(std::make_pair(124, UnlockType::Ball), (int)Artist::ML500);  // ML5
+        Odyssey::addCreditsToIcon(std::make_pair(125, UnlockType::Ball), (int)Artist::ML500);  // ML5
+        Odyssey::addCreditsToIcon(std::make_pair(126, UnlockType::Ball), (int)Artist::Cyan);   // Angelo
 
-        Odyssey::addCreditsToIcon(std::make_pair(150, UnlockType::Bird), 18718615); // Angelo
-        Odyssey::addCreditsToIcon(std::make_pair(151, UnlockType::Bird), 2102);     // ML5
-        Odyssey::addCreditsToIcon(std::make_pair(152, UnlockType::Bird), 2102);     // ML5
-        Odyssey::addCreditsToIcon(std::make_pair(153, UnlockType::Bird), 18718615); // Angelo
+        //  UFOs
+        Odyssey::addCreditsToIcon(std::make_pair(150, UnlockType::Bird), (int)Artist::Angelo); // Angelo
+        Odyssey::addCreditsToIcon(std::make_pair(151, UnlockType::Bird), (int)Artist::ML500);  // ML5
+        Odyssey::addCreditsToIcon(std::make_pair(152, UnlockType::Bird), (int)Artist::ML500);  // ML5
+        Odyssey::addCreditsToIcon(std::make_pair(153, UnlockType::Bird), (int)Artist::Angelo); // Angelo
 
-        Odyssey::addCreditsToIcon(std::make_pair(97, UnlockType::Dart), 18718615); // Angelo
-        Odyssey::addCreditsToIcon(std::make_pair(98, UnlockType::Dart), 14178231); // Danky
-        Odyssey::addCreditsToIcon(std::make_pair(99, UnlockType::Dart), 2102);     // ML5
-        Odyssey::addCreditsToIcon(std::make_pair(100, UnlockType::Dart), 2102);    // ML5
+        //  Waves
+        Odyssey::addCreditsToIcon(std::make_pair(97, UnlockType::Dart), (int)Artist::Angelo); // Angelo
+        Odyssey::addCreditsToIcon(std::make_pair(98, UnlockType::Dart), (int)Artist::Danky);  // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(99, UnlockType::Dart), (int)Artist::ML500);  // ML5
+        Odyssey::addCreditsToIcon(std::make_pair(100, UnlockType::Dart), (int)Artist::ML500); // ML5
 
-        Odyssey::addCreditsToIcon(std::make_pair(44, UnlockType::Swing), 14178231); // Danky
-        Odyssey::addCreditsToIcon(std::make_pair(45, UnlockType::Swing), 14178231); // Danky
-        Odyssey::addCreditsToIcon(std::make_pair(46, UnlockType::Swing), 14178231); // Danky
-        //  Odyssey::addCreditsToIcon(std::make_pair(46, UnlockType::Swing), ACCOUNT ID DEL ARTISTA);
+        //  Swings
+        Odyssey::addCreditsToIcon(std::make_pair(44, UnlockType::Swing), (int)Artist::Danky); // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(45, UnlockType::Swing), (int)Artist::Danky); // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(46, UnlockType::Swing), (int)Artist::Danky); // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(46, UnlockType::Swing), (int)Artist::ML500); // ML5
 
-        Odyssey::addCreditsToIcon(std::make_pair(9, UnlockType::Jetpack), 13284787); // MinoX
+        //  Jetpack
+        Odyssey::addCreditsToIcon(std::make_pair(9, UnlockType::Jetpack), (int)Artist::Minox); // MinoX
     }
 };

@@ -1,6 +1,6 @@
 {
 	"geode": "4.1.0",
-	"version": "v1.0.0-alpha.17",
+	"version": "v1.0.0-alpha.20",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074"
@@ -35,10 +35,7 @@
 		{
 			"id": "geode.custom-keybinds",
 			"importance": "conflicting",
-			"version": "*",
-			"platforms": [
-				"win"
-			]
+			"version": "*"
 		}
 	],
 	"settings": {

@@ -346,27 +346,21 @@ const std::vector<std::vector<gd::string>> HollowEnough = {
 const std::vector<std::vector<gd::string>> LockedOgre = {
     {
         "Dumbledalf",
-        "53",
-        "Huh? <d020>What did ya find?",
-        "Eh? <d020>Que has encontrado?",
-    },
-    {
-        "Dumbledalf",
-        "54",
-        "Oh<d020>.<d020>.<d020>. That <cg>guy</c>.",
-        "Oh<d020>.<d020>.<d020>. Ese <cg>tipo</c>.",
+        "56",
+        "Apologies<d020>.<d020>.<d020>. <d040><cg>He's</c> not ready to accept visitors yet",
+        "Disculpas<d020>.<d020>.<d020>. <d040><cg>El</c> no esta listo para aceptar visitantes todavia",
     },
     {
         "Dumbledalf",
         "56",
-        "Yeah, apologies. He's still not ready to accept visitors<d020>.<d020>.<d020>.",
-        "Mis disculpas, muchacho. Todavia el no esta listo para aceptar visitas<d020>.<d020>.<d020>.",
+        "I believe once you collect the <co>first element</c>, <d030>he would let you in",
+        "Creo que una vez que colecciones el <co>primer elemento</c>, <d030>te dejara entrar",
     },
     {
         "Dumbledalf",
         "53",
-        "He will soon! I guess?",
-        "Pronto lo estara! Eso espero?",
+        "Until then, nothing<d020>.<d020>.<d020>.",
+        "Hasta entonces, nada<d020>.<d020>.<d020>.",
     },
 };
 

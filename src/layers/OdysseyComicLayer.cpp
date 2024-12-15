@@ -474,7 +474,7 @@ void OdysseyComicLayer::keyBackClicked()
         return;
     }
 
-    GameManager::sharedState()->fadeInMusic("TheMap.mp3"_spr);
+    GameManager::sharedState()->fadeInMusic("IslandLoop01.mp3"_spr);
     CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
 };
 

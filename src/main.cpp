@@ -1,15 +1,15 @@
 #include <Geode/Geode.hpp>
+#include <Geode/modify/MoreOptionsLayer.hpp>
+#include <Geode/modify/GManager.hpp>
 #include <Geode/modify/EditorUI.hpp>
 #include <Geode/modify/EditorPauseLayer.hpp>
-#include <Geode/modify/GManager.hpp>
-#include <Geode/modify/MoreOptionsLayer.hpp>
-#include <Geode/modify/MusicDownloadManager.hpp>
 #include <Geode/modify/LocalLevelManager.hpp>
+#include <Geode/modify/MusicDownloadManager.hpp>
 #include <Geode/modify/OptionsLayer.hpp>
 #include <Geode/modify/SongsLayer.hpp>
-
-#include "layers/OdysseySelectLayer.hpp"
-#include "nodes/OdysseyPopup.hpp"
+#include <Geode/modify/PauseLayer.hpp>
+#include <Geode/modify/GJItemIcon.hpp>
+#include <Geode/modify/CurrencySprite.hpp>
 #include "utils/Utils.hpp"
 
 using namespace geode::prelude;
@@ -38,6 +38,18 @@ class $modify(GDO_GManager, GManager)
 		compare.insert(std::string_view(compare).find(".dat"), "Odyssey");
 		m_fileName = compare;
 		GManager::setup();
+	}
+};
+
+class $modify(PauseLayer)
+{
+	void onQuit(CCObject *sender)
+	{
+		PauseLayer::onQuit(sender);
+
+		int page = Odyssey::islandPageForLevelID(PlayLayer::get()->m_level->m_levelID);
+
+		GameManager::sharedState()->fadeInMusic(fmt::format("IslandLoop{:02}.mp3"_spr, page));
 	}
 };
 
@@ -91,6 +103,48 @@ class $modify(GDO_MoreOptionsLayer, MoreOptionsLayer)
 
 		if (sender->getTag() == 202)
 			Mod::get()->setSettingValue<bool>("hide-upcoming", GameManager::sharedState()->getGameVariable("0202"));
+	}
+};
+
+class $modify(GDO_EditorUI, EditorUI)
+{
+	void setupCreateMenu()
+	{
+		EditorUI::setupCreateMenu();
+
+		auto m_tab8 = static_cast<EditButtonBar *>(this->m_createButtonBars->objectAtIndex(8));
+		m_tab8->m_buttonArray->insertObject(this->getCreateBtn(142, 4), 1);
+
+		int rowCount = GameManager::get()->getIntGameVariable("0049");
+		int columnCount = GameManager::get()->getIntGameVariable("0050");
+
+		m_tab8->reloadItems(rowCount, columnCount);
+	}
+};
+
+class $modify(GDO_EditorPauseLayer, EditorPauseLayer)
+{
+	bool init(LevelEditorLayer *editorLayer)
+	{
+		if (!EditorPauseLayer::init(editorLayer))
+			return false;
+
+		auto copySpr = ButtonSprite::create("Save\nString", 50, 30, 0.4f, true, "bigFont.fnt", "GJ_button_04.png");
+		copySpr->setScale(0.8);
+
+		auto copyBtn = CCMenuItemSpriteExtra::create(copySpr, this, menu_selector(GDO_EditorPauseLayer::copyStringToClipboard));
+		copyBtn->setPositionX(70);
+
+		auto menu = static_cast<CCMenu *>(this->getChildren()->objectAtIndex(1));
+		menu->addChild(copyBtn);
+
+		return true;
+	}
+
+	void copyStringToClipboard(CCObject *)
+	{
+		log::debug("{}", m_editorLayer->m_level->m_levelString);
+		clipboard::write(m_editorLayer->m_level->m_levelString);
 	}
 };
 
@@ -154,47 +208,5 @@ class $modify(SongsLayer)
 
 		m_listLayer->m_listView = CustomListView::create(songObjectArray, nullptr, 220.0, 356.0, 0, BoomListType::Song, 0.0);
 		m_listLayer->addChild(m_listLayer->m_listView);
-	}
-};
-
-class $modify(GDO_EditorUI, EditorUI)
-{
-	void setupCreateMenu()
-	{
-		EditorUI::setupCreateMenu();
-
-		auto m_tab8 = static_cast<EditButtonBar *>(this->m_createButtonBars->objectAtIndex(8));
-		m_tab8->m_buttonArray->insertObject(this->getCreateBtn(142, 4), 1);
-
-		int rowCount = GameManager::get()->getIntGameVariable("0049");
-		int columnCount = GameManager::get()->getIntGameVariable("0050");
-
-		m_tab8->reloadItems(rowCount, columnCount);
-	}
-};
-
-class $modify(GDO_EditorPauseLayer, EditorPauseLayer)
-{
-	bool init(LevelEditorLayer *editorLayer)
-	{
-		if (!EditorPauseLayer::init(editorLayer))
-			return false;
-
-		auto copySpr = ButtonSprite::create("Save\nString", 50, 30, 0.4f, true, "bigFont.fnt", "GJ_button_04.png");
-		copySpr->setScale(0.8);
-
-		auto copyBtn = CCMenuItemSpriteExtra::create(copySpr, this, menu_selector(GDO_EditorPauseLayer::copyStringToClipboard));
-		copyBtn->setPositionX(70);
-
-		auto menu = static_cast<CCMenu *>(this->getChildren()->objectAtIndex(1));
-		menu->addChild(copyBtn);
-
-		return true;
-	}
-
-	void copyStringToClipboard(CCObject *)
-	{
-		log::debug("{}", m_editorLayer->m_level->m_levelString);
-		clipboard::write(m_editorLayer->m_level->m_levelString);
 	}
 };

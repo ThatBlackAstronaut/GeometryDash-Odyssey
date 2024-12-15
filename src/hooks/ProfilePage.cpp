@@ -53,7 +53,7 @@ class $modify(GDOProfilePage, ProfilePage)
 
             menu->addChild(button);
             m_mainLayer->addChild(menu);
-        }
+        };
     }
 
     //  Al encontrar el secreto, se le asigna al usuario orbes gratis
