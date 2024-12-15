@@ -7,7 +7,9 @@
 #include <Geode/modify/LocalLevelManager.hpp>
 #include <Geode/modify/OptionsLayer.hpp>
 #include <Geode/modify/SongsLayer.hpp>
-
+#include <Geode/modify/PauseLayer.hpp>
+#include <Geode/modify/GJItemIcon.hpp>
+#include <Geode/modify/CurrencySprite.hpp>
 #include "layers/OdysseySelectLayer.hpp"
 #include "nodes/OdysseyPopup.hpp"
 #include "utils/Utils.hpp"
