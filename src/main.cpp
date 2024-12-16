@@ -67,7 +67,7 @@ class $modify(GDO_OptionsLayer, OptionsLayer)
 
 	void onAccount(CCObject * ){
 		auto spanish = GameManager::sharedState()->getGameVariable("0201");
-		auto info = spanish ? "Para evitar el riesgo de sobrescribir accidentalmente tus datos con el <cy>save-file</c> de un mod de juego, nosotros <cr>desactivamos esta funcion</c>. Tus datos actuales se restauraran cuando se desactive este mod." : "To avoid the risk of accidentally overwriting your data with the <cy>save-file</c> of a modded game, we <cr>disabled this feature</c>. Your actual data will be restored when this mod is turned off.\n\nThe levels from this fan-game will be available in the <cy>full game</c> after the public release of the mod.\n\nLos niveles de este fan-game estaran disponibles en el <cy>juego completo</c> despues del lanzamiento publico del mod.";
+		auto info = spanish ? "Para evitar riesgos de sobrescribir tus datos por accidente, esta <cr>funcion esta desactivada</c>. Tus datos actuales se restauraran cuando desactives el mod." : "To avoid risks of accidentally overwriting your data, this <cr>feature is disabled</c>. Your actual data will be restored when you disable the mod.";
 
 		auto alert = FLAlertLayer::create("Disabled", info, "OK");
         alert->show();
