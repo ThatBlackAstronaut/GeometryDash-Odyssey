@@ -104,10 +104,10 @@ bool OdysseyLevelPopup::setup(std::string const &title)
     buttonsMenu->addChild(optionsButton);
 
     if (m_levelID > 4)
-    {
         comicButton->setVisible(false);
+
+    if (m_levelID > 500)
         loreButton->setVisible(true);
-    }
 
     //  Coin Array
     auto coinMenu = CCMenu::create();

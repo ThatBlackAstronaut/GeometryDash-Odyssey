@@ -29,6 +29,25 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 
 		auto currency = static_cast<CCSprite*>(children->objectAtIndex(6));
 		*/
+		auto extraMenu = CCMenu::create();
+		extraMenu->setPosition({0, 0});
+		
+		auto spriteTV = CCSprite::createWithSpriteFrameName("gj_videoRewardBtn_001.png");
+		spriteTV->setScale(0.9f);
+
+		auto buttonTV = CCMenuItemSpriteExtra::create(
+			spriteTV,
+			this,
+			menu_selector(OdysseyShopLayer::onPlayVideo)
+		);
+
+		buttonTV->setPosition({250, 222});
+		buttonTV->m_scaleMultiplier = 1;
+		buttonTV->m_colorEnabled = true;
+		buttonTV->m_colorDip = 100;
+
+		extraMenu->addChild(buttonTV);
+		this->addChild(extraMenu);
 	
 		auto particle = static_cast<CCParticleSystemQuad*>(getChildren()->objectAtIndex(7));
 		particle->setStartColor({ 193, 122, 5, 255 });
@@ -55,6 +74,17 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		};
 
 		return true;
+	}
+
+	void onPlayVideo(CCObject *){
+		std::vector<gd::string>  videoLinks = {
+			"https://youtu.be/34ajXNmtI4U?si=cLptfnth-uhYDq9E",
+			"https://youtu.be/aRdpABVEKho?si=2huyHafEWQFz1R58",
+			"https://youtu.be/uvN5OGo_fcY?si=piU_ncFAZvQJCUUD",
+			"https://youtu.be/abB1-zyyHSI?si=1XBhha5sC1ho9MqU"
+		};
+
+		CCApplication::sharedApplication()->openURL(videoLinks.at(rand() % videoLinks.size()).c_str());
 	}
 
 	void getCarpDialog()

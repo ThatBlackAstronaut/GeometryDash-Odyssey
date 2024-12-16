@@ -302,7 +302,6 @@ void SecretVaultLayer::onSubmit(CCObject *)
         return;
     };
 
-    /*
     if (lower == "gargan")
     {
         response = "What do you mean...?",

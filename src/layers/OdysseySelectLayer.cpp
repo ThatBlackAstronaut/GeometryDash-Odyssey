@@ -74,9 +74,11 @@ bool OdysseySelectLayer::init(int page)
     m_background->setScale(m_winSize.width / m_background->getContentWidth());
     addChild(m_background, -2);
 
+#ifdef GEODE_IS_WINDOWS
     auto gradient = CCLayerGradient::create(gradientColorTop, gradientColorBottom);
     gradient->setBlendFunc({GL_ADD, GL_ADD});
     addChild(gradient, -1);
+#endif
 
     auto backMenu = CCMenu::create();
     backMenu->setPosition(24, m_winSize.height - 24);
@@ -120,7 +122,7 @@ bool OdysseySelectLayer::init(int page)
     if (page == 1)
     {
         auto hollowSprite = CCSprite::createWithSpriteFrameName("HollowSkull_001.png"_spr);
-        hollowSprite->setColor({ 255, 255, 255 });
+        hollowSprite->setColor({255, 255, 255});
         hollowSprite->setOpacity(150);
 
         auto hollowBtn = CCMenuItemSpriteExtra::create(
@@ -128,7 +130,7 @@ bool OdysseySelectLayer::init(int page)
             this,
             menu_selector(OdysseySelectLayer::onOgre));
 
-        hollowBtn->setPosition({ 48, 102});
+        hollowBtn->setPosition({48, 102});
         hollowBtn->setOpacity(0);
         hollowBtn->setTag(0);
 
@@ -412,10 +414,10 @@ void OdysseySelectLayer::addLevelButtons()
     if (m_currentPage == 0)
     {
         auto shopSprite = CCSprite::createWithSpriteFrameName("GDO_shopButton.png"_spr);
-        shopSprite->setScale(.3f);
+        shopSprite->setScale(0.9f);
 
         auto shopSpriteSel = CCSprite::createWithSpriteFrameName("GDO_shopButton.png"_spr);
-        shopSpriteSel->setScale(.3f);
+        shopSpriteSel->setScale(0.9f);
         shopSpriteSel->setColor({100, 100, 100});
 
         m_shopButton = CCMenuItemSpriteExtra::create(shopSprite, this, menu_selector(OdysseySelectLayer::onShop));
@@ -665,7 +667,7 @@ void OdysseySelectLayer::onLevel(CCObject *sender)
 
     log::info("Tag: {}", sender->getTag());
 
-    if (sender->getTag() != 1 && !isLevelComplete(sender->getTag() - 1))
+    if (sender->getTag() != 1 && !isLevelComplete(sender->getTag() - 1) && !Mod::get()->getSettingValue<bool>("skip-requirements"))
         return;
 
     auto popup = OdysseyLevelPopup::create(sender->getTag());
