@@ -25,8 +25,15 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         auto GM = GameManager::sharedState();
         auto SFC = CCSpriteFrameCache::get();
         auto searchPathRoot = dirs::getModRuntimeDir() / Mod::get()->getID() / "resources";
+
         CCFileUtils::sharedFileUtils()->addSearchPath(searchPathRoot.string().c_str());
         SFC->addSpriteFramesWithFile("GJO_GameSheet01.plist"_spr);
+
+        auto version = CCLabelBMFont::create(fmt::format("{}", Mod::get()->getVersion().toVString(true)).c_str(), "goldFont.fnt");
+        version->setPosition({5, 5});
+        version->setAnchorPoint({0, 0});
+        version->setScale(0.5f);
+        this->addChild(version);
 
         auto mainTitle = static_cast<CCSprite *>(this->getChildByID("gd-logo"));
         if (mainTitle)
@@ -58,6 +65,24 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
 
         return true;
     }
+
+    const char *getLoadingString()
+    {
+        if (m_fromRefresh)
+            return LoadingLayer::getLoadingString();
+
+        std::vector<std::string> messages =
+            {
+                "Remember to play\nNukebound first!",
+                "Increasing the amount\nof mod incompatibilities...",
+                "Are you recording this right now?",
+                "Adding more wanted posters\non the shop",
+                "Why the vaults talk about\nthis random gal?",
+                "If something breaks,\nblame it on Chumiu",
+                "Mathi Approved"};
+
+        return messages.at(rand() % messages.size()).c_str();
+    };
 
     void addOdysseyAudioAssets()
     {

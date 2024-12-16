@@ -210,33 +210,7 @@ bool OdysseyDevLayer::init()
     levelsLabel->setPosition({winSize.width / 2, levelsMenu->getPositionY() + levelsMenu->getContentHeight() / 2 + 10.0f});
     levelsLabel->setScale(0.75f);
     addChild(levelsLabel);
-
-    auto level01 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Super Wubtendo", 0.5f),
-        this,
-        menu_selector(OdysseyDevLayer::onLevel));
-    level01->setTag(503);
-
-    levelsMenu->addChild(level01);
-    levelsMenu->updateLayout();
-    addChild(levelsMenu);
-
-    auto hollowSprite = CCSprite::createWithSpriteFrameName("HollowSkull_001.png"_spr);
-    hollowSprite->setColor({50, 50, 50});
-    hollowSprite->setOpacity(50);
-
-    auto hollowBtn = CCMenuItemSpriteExtra::create(
-        hollowSprite,
-        this,
-        menu_selector(OdysseyDevLayer::onOgre));
-
-    hollowBtn->setPosition({winSize.width - 20, winSize.height - 20});
-    hollowBtn->setTag(0);
-
-    auto secretMenu = CCMenu::create();
-    secretMenu->addChild(hollowBtn);
-    secretMenu->setPosition({0, 0});
-    addChild(secretMenu);
+    //  addChild(levelsMenu);
 
     setKeypadEnabled(true);
     return true;

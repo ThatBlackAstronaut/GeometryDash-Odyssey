@@ -54,10 +54,10 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		particle->setEndColor({ 255, 122, 0, 0 });
 
 		auto winSize = CCDirector::sharedDirector()->getWinSize();
-		int rand = (std::rand() % 3) + 1;
+		int rand = (std::rand() % 4) + 1;
 
 		auto wantedPoster = CCSprite::createWithSpriteFrameName(fmt::format("GDO_Wanted0{}_001.png"_spr, rand).c_str());
-		wantedPoster->setPosition({(winSize.width / 4) + (std::rand() % 3 * 40), winSize.height / 2 + 65.f});
+		wantedPoster->setPosition({(winSize.width / 4) + (std::rand() % 3 * 30), winSize.height / 2 + 70.f});
 		wantedPoster->setScale(0.8f);
 		wantedPoster->setZOrder(-1);
 

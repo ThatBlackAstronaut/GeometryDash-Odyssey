@@ -124,10 +124,10 @@ bool SecretVaultLayer::init()
 
 void SecretVaultLayer::onSubmit(CCObject *)
 {
-    std::string response = getMessage();
     std::string language = m_spanish ? "SPA" : "ENG";
     std::vector<gd::string> messages;
     std::vector<gd::string> voiceFiles;
+    std::string response;
     std::string lower;
 
     auto GM = GameManager::sharedState();
@@ -172,6 +172,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
         return;
     };
 
+    /*
     if (lower == "fracture")
     {
         FMODAudioEngine::sharedEngine()->playEffect(fmt::format("hollow_{}_010.mp3"_spr, language));
@@ -180,6 +181,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
+    */
 
     if (lower == "explorers" && !AM->isAchievementEarned("geometry.ach.odyssey.secret11"))
     {
@@ -204,7 +206,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "mono" && !AM->isAchievementEarned("geometry.ach.odyssey.secret13"))
     {
         FMODAudioEngine::sharedEngine()->playEffect(fmt::format("hollow_{}_022.mp3"_spr, language));
-        response = m_spanish ? "Algo en ella se siente extrano..." : "Something about her feels off...",
+        response = m_spanish ? "Hay algo en ella se siente extrano..." : "Something about her feels off...",
 
         m_achievementName = "geometry.ach.odyssey.secret13";
         updateMessage(response, MessageType::CorrectAnswer);
@@ -214,7 +216,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
     if (lower == "nock em" && !AM->isAchievementEarned("geometry.ach.odyssey.secret14"))
     {
         FMODAudioEngine::sharedEngine()->playEffect(fmt::format("hollow_{}_025.mp3"_spr, language));
-        response = m_spanish ? "Enemigo derrotado... nah" : "Enemy defeated... not";
+        response = m_spanish ? "Knock em out" : "Knock em out";
 
         m_achievementName = "geometry.ach.odyssey.secret14";
         updateMessage(response, MessageType::CorrectAnswer);
@@ -388,6 +390,8 @@ void SecretVaultLayer::onSubmit(CCObject *)
         return;
     };
 
+    response = getMessage();
+
     //  Gets the type color
     MessageType type = (m_messageID > 10) ? MessageType::Special : MessageType::Basic;
     updateMessage(response, type);
@@ -448,7 +452,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
             messages = {
                 "Soy el lenguaje de la luz,",
                 "Doy vida a todo lo que ves.",
-                "Sin mí, el mundo sería gris...",
+                "Sin mi, el mundo seria gris...",
             };
 
             voiceFiles = {
@@ -469,6 +473,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
         return messages[index];
     }
 
+    /*
     //  Fracture
     if (ID == 12)
     {
@@ -495,7 +500,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
                 "Sumérgete en esta prueba que tengo para ti",
                 "Se llama Fracture",
                 "Aguanta fuerte",
-                "Los ritmos aquí podrían partir la realidad",
+                "Los ritmos aqui podrian partir la realidad",
             };
 
             voiceFiles = {
@@ -517,6 +522,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
         FMODAudioEngine::sharedEngine()->playEffect(voiceFiles[index]);
         return messages[index];
     }
+    */
 
     //  Explorers
     if (ID == 13 && !AM->isAchievementEarned("geometry.ach.odyssey.secret11"))
@@ -769,7 +775,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
         {
             messages = {
                 "El peor enemigo del Guerrero del Wubstep...",
-                "Estoy cansado de oír ese saxofon...",
+                "Estoy cansado de oir ese saxofon...",
             };
 
             voiceFiles = {

@@ -57,7 +57,7 @@ bool OdysseySelectLayer::init(int page)
         bgColor = {53, 7, 0};
         islandTexture = "GDO_ExtraIsland_01_001.png"_spr;
         islandPosition = CCPoint{m_winSize.width / 2 - 100, islandPosition.y};
-        islandScale = .5f;
+        islandScale = 1.f;
         break;
 
     default:
@@ -677,7 +677,7 @@ void OdysseySelectLayer::onLevel(CCObject *sender)
 //  Boton del Ogro
 void OdysseySelectLayer::onOgre(CCObject *)
 {
-    if (!AchievementManager::sharedState()->isAchievementEarned("geometry.ach.level05b") || !Mod::get()->getSettingValue<bool>("skip-requirements"))
+    if (!AchievementManager::sharedState()->isAchievementEarned("geometry.ach.level05b") && !Mod::get()->getSettingValue<bool>("skip-requirements"))
     {
         log::info("LOCKED OGRE");
         auto dialog = Odyssey::createDialog("lockedOgre");
