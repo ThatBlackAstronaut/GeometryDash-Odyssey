@@ -1,6 +1,10 @@
 # Changelog
 
-### <cg>v1.2.0-alpha.20 (Latest)</c>
+### <cg>v1.0.0-Beta.1 (Latest)</c>
+
+* <cp>Private beta playtesting</c>
+
+### <cb>v1.1.0-alpha.20 </c>
 
 * <cp>Latest alpha registered</c>
 * <cg>Added</c> first Island redesign.

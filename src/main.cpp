@@ -64,6 +64,14 @@ class $modify(GDO_OptionsLayer, OptionsLayer)
 			button->setVisible(false);
 		}
 	}
+
+	void onAccount(CCObject * ){
+		auto spanish = GameManager::sharedState()->getGameVariable("0201");
+		auto info = spanish ? "Para evitar el riesgo de sobrescribir accidentalmente tus datos con el <cy>save-file</c> de un mod de juego, nosotros <cr>desactivamos esta funcion</c>. Tus datos actuales se restauraran cuando se desactive este mod." : "To avoid the risk of accidentally overwriting your data with the <cy>save-file</c> of a modded game, we <cr>disabled this feature</c>. Your actual data will be restored when this mod is turned off.\n\nThe levels from this fan-game will be available in the <cy>full game</c> after the public release of the mod.\n\nLos niveles de este fan-game estaran disponibles en el <cy>juego completo</c> despues del lanzamiento publico del mod.";
+
+		auto alert = FLAlertLayer::create("Disabled", info, "OK");
+        alert->show();
+	}
 };
 
 class $modify(GDO_MoreOptionsLayer, MoreOptionsLayer)
@@ -78,7 +86,7 @@ class $modify(GDO_MoreOptionsLayer, MoreOptionsLayer)
 
 		//	Aun en fase de prueba
 		MoreOptionsLayer::addToggle("Spanish", "0201", "<cy>ENG</c>: Translates most of the mod's dialogue in Spanish. Due to character limitations, there will be spelling errors.\n\n<cy>ESP</c>: Traduce mayor parte del dialogo del mod en Espanol. Dado a las limitaciones de caracteres en el juego, habran errores ortograficos (como la falta de acentos)");
-		MoreOptionsLayer::addToggle("Hide upcoming", "0202", "<cy>ENG</c>: Hides icons that are tagged as upcoming (thus impossible to get for now).\n\n<cy>SPA</c>: Oculta los iconos etiquetados como proximos (por tanto, imposibles de conseguir por ahora).");
+		//	MoreOptionsLayer::addToggle("Hide upcoming", "0202", "<cy>ENG</c>: Hides icons that are tagged as upcoming (thus impossible to get for now).\n\n<cy>SPA</c>: Oculta los iconos etiquetados como proximos (por tanto, imposibles de conseguir por ahora).");
 
 		return true;
 	}

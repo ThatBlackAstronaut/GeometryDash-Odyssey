@@ -4,6 +4,8 @@ Geometry Dash: Odyssey is a fanmade spin-off made by Team TCM that includes it's
 
 This mod uses it's own save file, your save data will not be modified. You will go back to your actual save data when the mod is turned off. Regardless, be aware to save your data beforehand.
 
+**<cr>WARNING:</c>** This mod is still under development, and will come across many incompatibilities with well-known mods to prevent issues
+
 ## **Features**:
 
 - Storymode told via it's comics and unique characters!

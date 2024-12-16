@@ -189,6 +189,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
+    /*
     if (lower == "uncertain")
     {
         reply = {
@@ -199,6 +200,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
 
         return;
     };
+    */
 
     if (lower == "colon" && !AM->isAchievementEarned("geometry.ach.odyssey.secret06"))
     {
@@ -674,6 +676,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
         return messages[index];
     }
 
+    /*
     //  Uncertain
     if (ID == 16)
     {
@@ -682,16 +685,16 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
             "Sometimes I think about strange things",
             "There's a hidden level here...",
             "It makes me think about that stuff",
-            "Its name, <cr>uncertain</c>...",
+            "Its name, uncertain...",
         };
 
         if (m_spanish)
             messages = {
                 "Alguna vez has estado seguro de algo?",
-                "A veces pienso en cosas extrañas",
+                "A veces pienso en cosas extranas",
                 "Hay un nivel oculto aqui...",
                 "me hace pensar en esas cosas",
-                "Su nombre, <cr>uncertain</c>...",
+                "Su nombre, uncertain...",
             };
 
         if (index >= messages.size())
@@ -706,6 +709,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
 
         return messages[index];
     }
+    */
 
     //  Colon
     if (ID == 17 && !AM->isAchievementEarned("geometry.ach.odyssey.secret06"))
@@ -1030,7 +1034,7 @@ std::string SecretVaultLayer2::getBasicMessage()
             "......",
             "A quien voy a tomar el pelo",
             "Estas aqui para molestarme, verdad?",
-            "Pequeña plaga inutil.",
+            "Diminuta plaga inutil.",
             "No es la primera vez que alguien hace eso,",
             "y ciertamente no sera la ultima.",
             "Si pudiera aplastarte con mi poderoso garrote, seria grandioso",
