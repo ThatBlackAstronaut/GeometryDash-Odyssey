@@ -556,21 +556,21 @@ void OdysseySelectLayer::animateLevelCompletation()
 
     if (m_currentPage == 0)
     {
-        if (level1->m_normalPercent == 100 && level2->m_normalPercent == 0)
+        if (level1->m_normalPercent == 100 && level2->m_normalPercent < 100)
         {
             firstDot = 0;
             lastDot = 11;
             nextLevel = 2;
         }
 
-        if (level2->m_normalPercent == 100 && level3->m_normalPercent == 0)
+        if (level2->m_normalPercent == 100 && level3->m_normalPercent < 100)
         {
             firstDot = 12;
             lastDot = 29;
             nextLevel = 3;
         }
 
-        if (level3->m_normalPercent == 100 && level4->m_normalPercent == 0)
+        if (level3->m_normalPercent == 100)
         {
             firstDot = 30;
             lastDot = 37;
@@ -583,7 +583,7 @@ void OdysseySelectLayer::animateLevelCompletation()
             shouldAnimate = true;
         }
     }
-
+    
     log::info("Count: {}", m_dotNode->getChildrenCount());
 
     for (int ii = 0; ii < m_dotNode->getChildrenCount(); ii++)

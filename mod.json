@@ -15,6 +15,13 @@
 	"name": "Geometry Dash: Odyssey",
 	"description": "",
 	"early-load": true,
+	"dependencies": [
+		{
+		  "id": "geode.node-ids",
+		  "version": ">=1.18.0",
+		  "importance": "required"
+		}
+	],
 	"links": {
 		"community": "https://discord.gg/PNPrR4DEbw"
 	},
