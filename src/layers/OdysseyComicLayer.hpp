@@ -20,23 +20,19 @@ public:
 
     virtual bool init(int, bool);
     virtual void keyBackClicked();
-
-    CCNode *createPage(int);
+    void scrollLayerMoved(CCPoint);
 
     //  Para crear el Scroll layer
     void createComic(CCArray *, int);
     CCNode *createComicPage(const char *);
-    std::pair<const char *, const char *> getPage(int, int);
+    //  CCNode *createPage(int);
 
     void verifySecretAchievement();
-    void scrollLayerMoved(CCPoint);
-    void onSecret(CCObject *);
-    void onBack(CCObject *);
-    void onComic(CCObject *);
-    void onHollow(CCObject *);
 
+    void onHollow(CCObject *);
     void onPrev(CCObject *);
     void onNext(CCObject *);
+    void onBack(CCObject *);
 
 public:
     static OdysseyComicLayer *create(int, bool);
