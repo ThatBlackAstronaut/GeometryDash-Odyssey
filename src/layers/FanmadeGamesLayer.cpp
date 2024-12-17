@@ -8,27 +8,21 @@ void FanmadeGamesLayer::customSetup()
 
     //  Nexitron
     auto game_01 = FanmadeGamesCell::create("Promo_GDNX.png"_spr, this, menu_selector(FanmadeGamesLayer::onNexitron));
-    game_01->setTag(0);
 
     //  Time Reborn
-    auto game_02 = FanmadeGamesCell::create("Promo_GDTR.png"_spr, this, nullptr);
-    game_02->setTag(1);
+    auto game_02 = FanmadeGamesCell::create("Promo_GDTR.png"_spr, this, menu_selector(FanmadeGamesLayer::onTimeReborn));
 
     //  Mega World
-    auto game_03 = FanmadeGamesCell::create("Promo_GDMW.png"_spr, this, nullptr);
-    game_03->setTag(2);
+    auto game_03 = FanmadeGamesCell::create("Promo_GDMW.png"_spr, this, menu_selector(FanmadeGamesLayer::onMegaWorld));
 
     //  Unnamed GDPS
-    auto game_04 = FanmadeGamesCell::create("Promo_UGDPS.png"_spr, this, nullptr);
-    game_04->setTag(3);
+    auto game_04 = FanmadeGamesCell::create("Promo_UGDPS.png"_spr, this, menu_selector(FanmadeGamesLayer::onUnnamed));
 
     //  Lightsync
-    auto game_05 = FanmadeGamesCell::create("Promo_LIGHT.png"_spr, this, nullptr);
-    game_05->setTag(4);
+    auto game_05 = FanmadeGamesCell::create("Promo_LIGHT.png"_spr, this, menu_selector(FanmadeGamesLayer::onLight));
 
     //  GDNA
-    auto game_06 = FanmadeGamesCell::create("Promo_GDNA.png"_spr, this, nullptr);
-    game_06->setTag(5);
+    auto game_06 = FanmadeGamesCell::create("Promo_GDNA.png"_spr, this, menu_selector(FanmadeGamesLayer::onAdventure));
 
     m_games->addObject(game_01);
     m_games->addObject(game_02);
@@ -44,6 +38,31 @@ void FanmadeGamesLayer::customSetup()
 void FanmadeGamesLayer::onNexitron(CCObject *sender)
 {
     CCApplication::sharedApplication()->openURL("https://gamejolt.com/games/nexitron/797397");
+};
+
+void FanmadeGamesLayer::onTimeReborn(CCObject *sender)
+{
+    CCApplication::sharedApplication()->openURL("https://gamejolt.com/games/timereborn/908956");
+};
+
+void FanmadeGamesLayer::onMegaWorld(CCObject *sender)
+{
+    CCApplication::sharedApplication()->openURL("https://www.youtube.com/watch?v=5XNSWryOhV4&list=PLv_H3yhLON9FY0okZ0cYIIEppZXvRkPIz");
+};
+
+void FanmadeGamesLayer::onUnnamed(CCObject *sender)
+{
+    CCApplication::sharedApplication()->openURL("https://discord.gg/EHMUfj6EE2?event=1313001542730907770");
+};
+
+void FanmadeGamesLayer::onLight(CCObject *sender)
+{
+    CCApplication::sharedApplication()->openURL("https://discord.com/invite/mvbjWdC6cF");
+};
+
+void FanmadeGamesLayer::onAdventure(CCObject *sender)
+{
+    CCApplication::sharedApplication()->openURL("https://discord.gg/SYWfGKY4nu");
 };
 
 FanmadeGamesLayer *FanmadeGamesLayer::create()

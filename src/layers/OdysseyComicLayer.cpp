@@ -28,6 +28,7 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
     auto arr = CCArray::create();
     auto dotMenu = CCMenu::create();
 
+    //  Calls the function to create the whole comic (by adding it to the Array for BoomScrollLayer)
     createComic(arr, issueNumber);
 
     m_scrollLayer = BoomScrollLayer::create(arr, 0, false, nullptr, static_cast<DynamicScrollDelegate *>(this));
@@ -105,6 +106,11 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
     navMenu->addChild(m_rightBtn);
     this->addChild(navMenu);
 
+    //  Cancion de musica para el cuarto
+    m_backgroundMusic = fmt::format("comic_{:02}.mp3"_spr, issueNumber).c_str();
+    log::debug("Comic MP3: {}", fmt::format("comic_{:02}.mp3"_spr, issueNumber).c_str());
+    GameManager::sharedState()->fadeInMusic(m_backgroundMusic);
+
     //  Mod::get()->setSettingValue<bool>("watched-comic-0" + std::to_string(m_comicNumber), true);
     GameManager::sharedState()->setUGV(fmt::format("2{}", m_comicNumber + 10).c_str(), true);
 
@@ -135,17 +141,40 @@ void OdysseyComicLayer::createComic(CCArray *arr, int issueNumber)
         {0, 32, 59},
         {29, 24, 51},
         {173, 41, 66},
-        {120, 0, 0}};
+        {120, 0, 0},
+        {0, 142, 17},
+        {0, 69, 184},
+        {0, 207, 228},
+        {0, 207, 228},
+        {4, 0, 171},
+        {107, 0, 10},
+    };
+
+    std::vector<int> totalPages = {
+        9, // 1st
+        5, // 2nd
+        4, // 3rd
+        4, // 4th
+        9, // 5th
+        6, // 6th
+        1, // 7th
+        1, // 8th
+        1, // 9th
+        5, // 10th
+        7, // 11th
+        6  // 12th
+    };
 
     m_background->setColor(colors[issueNumber - 1]);
+    m_totalPages = totalPages[issueNumber - 1];
 
-    m_totalPages = (issueNumber == 1)   ? 9
-                   : (issueNumber == 2) ? 5
-                   : (issueNumber == 3) ? 4
-                   : (issueNumber == 4) ? 4
-                   : (issueNumber == 5) ? 9
-                   : (issueNumber == 6) ? 6
-                                        : 1;
+    /*
+    m_totalPages = (issueNumber == 1) ? 9 : (issueNumber == 2) ? 5
+                                        : (issueNumber == 3)   ? 4
+                                        : (issueNumber == 4)   ? 4
+                                        : (issueNumber == 5)   ? 9
+                                        : (issueNumber == 6)   ? 6
+                                                               : 1;
 
     m_backgroundMusic = (issueNumber == 1)   ? "comic_01.mp3"_spr
                         : (issueNumber == 2) ? "comic_02.mp3"_spr
@@ -154,16 +183,19 @@ void OdysseyComicLayer::createComic(CCArray *arr, int issueNumber)
                         : (issueNumber == 5) ? "comic_05.mp3"_spr
                         : (issueNumber == 6) ? "comic_06.mp3"_spr
                                              : "shop5.mp3";
+    */
 
     for (int ii = 0; ii < m_totalPages; ii++)
     {
-        auto pages = getPage(issueNumber, ii + 1);
-        auto pageSprite = spanishText ? pages.second : pages.first;
+        //  auto pages = getPage(issueNumber, ii + 1);
+        //  auto pageSprite = spanishText ? pages.second : pages.first;
 
-        arr->addObject(createComicPage(pageSprite));
+        auto language = spanishText ? "SPA" : "ENG";
+        auto spriteName = fmt::format("Comic_{}_{:02}_{:02}.png", language, issueNumber, ii + 1);
+
+        log::debug("Page Sprite Name = {}", fmt::format("Comic_{}_{:02}_{:02}.png", language, issueNumber, ii + 1));
+        arr->addObject(createComicPage(spriteName.c_str()));
     };
-
-    GameManager::sharedState()->fadeInMusic(m_backgroundMusic);
 };
 
 void OdysseyComicLayer::onHollow(CCObject *)
@@ -173,7 +205,6 @@ void OdysseyComicLayer::onHollow(CCObject *)
 
     if (!Mod::get()->getSettingValue<bool>("skip-requirements"))
     {
-
         //  Conoce al Hollow por primera vez
         if (!GM->getUGV("205"))
         {
@@ -209,6 +240,7 @@ void OdysseyComicLayer::onHollow(CCObject *)
     CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(1.f, scene));
 };
 
+/*
 std::pair<const char *, const char *> OdysseyComicLayer::getPage(int issueNumber, int page)
 {
     std::pair<const char *, const char *> names;
@@ -399,6 +431,7 @@ std::pair<const char *, const char *> OdysseyComicLayer::getPage(int issueNumber
 
     return {"Comic_Error.png", "Comic_Error.png"};
 };
+*/
 
 CCNode *OdysseyComicLayer::createComicPage(const char *spriteName)
 {
@@ -412,6 +445,7 @@ CCNode *OdysseyComicLayer::createComicPage(const char *spriteName)
     return node;
 };
 
+/*
 void OdysseyComicLayer::onSecret(CCObject *sender)
 {
     AchievementNotifier::sharedState()->notifyAchievement("Programmer's secret", "Unlocked achievement!", "gk-icon", false);
@@ -431,6 +465,7 @@ void OdysseyComicLayer::onSecret(CCObject *sender)
     auto btn = static_cast<CCMenuItemSpriteExtra *>(sender);
     btn->setVisible(false);
 };
+*/
 
 void OdysseyComicLayer::verifySecretAchievement()
 {
@@ -478,11 +513,6 @@ void OdysseyComicLayer::keyBackClicked()
     CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
 };
 
-void OdysseyComicLayer::onBack(CCObject *)
-{
-    keyBackClicked();
-};
-
 void OdysseyComicLayer::onNext(CCObject *)
 {
     m_scrollLayer->quickUpdate();
@@ -494,6 +524,11 @@ void OdysseyComicLayer::onPrev(CCObject *)
     m_scrollLayer->quickUpdate();
     m_scrollLayer->moveToPage(m_currentPage - 1);
 }
+
+void OdysseyComicLayer::onBack(CCObject *)
+{
+    keyBackClicked();
+};
 
 OdysseyComicLayer *OdysseyComicLayer::create(int issueNumber, bool redirectToMap)
 {
