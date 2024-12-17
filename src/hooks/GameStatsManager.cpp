@@ -11,7 +11,7 @@ class $modify(OdysseyGameStatsManager, GameStatsManager)
         auto GM = GameManager::sharedState();
         int coinPercent = (getCollectedCoinsForLevel(level) / 3.f) * 100.f;
 
-        auto achievementID = fmt::format("geometry.ach.level{:02}c", level->m_levelID.value());
+        auto achievementID = fmt::format("geometry.ach.level{:02}c", level->m_levelID.value() - 7000);
         log::info("coinPercent: {}, achID: {}", coinPercent, achievementID);
 
         if (level->m_levelType == GJLevelType::Local)

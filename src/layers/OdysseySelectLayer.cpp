@@ -526,10 +526,10 @@ void OdysseySelectLayer::animateLevelCompletation()
         return;
 
     auto GLM = GameLevelManager::sharedState();
-    auto level1 = GLM->getMainLevel(1, false);
-    auto level2 = GLM->getMainLevel(2, false);
-    auto level3 = GLM->getMainLevel(3, false);
-    auto level4 = GLM->getMainLevel(4, false);
+    auto level1 = GLM->getMainLevel(7001, false);
+    auto level2 = GLM->getMainLevel(7002, false);
+    auto level3 = GLM->getMainLevel(7003, false);
+    auto level4 = GLM->getMainLevel(7004, false);
 
     auto buttonSprite = CCSprite::createWithSpriteFrameName("worldLevelBtn_001.png"_spr);
     for (int i = 0; i < m_levelMenu->getChildrenCount(); i++)
@@ -670,7 +670,7 @@ void OdysseySelectLayer::onLevel(CCObject *sender)
     if (sender->getTag() != 1 && !isLevelComplete(sender->getTag() - 1) && !Mod::get()->getSettingValue<bool>("skip-requirements"))
         return;
 
-    auto popup = OdysseyLevelPopup::create(sender->getTag());
+    auto popup = OdysseyLevelPopup::create(sender->getTag() + 7000);
     popup->show();
 }
 
@@ -699,7 +699,7 @@ void OdysseySelectLayer::onExtraLevel(CCObject *sender)
 
     if ((extra01_unlocked && sender->getTag() == 501) || (extra02_unlocked && sender->getTag() == 502) || Mod::get()->getSettingValue<bool>("skip-requirements"))
     {
-        auto popup = OdysseyLevelPopup::create(sender->getTag());
+        auto popup = OdysseyLevelPopup::create(sender->getTag() + 7000);
         popup->show();
     }
     else

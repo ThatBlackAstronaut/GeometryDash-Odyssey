@@ -142,7 +142,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 		GJGameLevel *level = GJGameLevel::create();
 		switch (levelID)
 		{
-		case 1: // The Dangerous Seas
+		case 7001: // The Dangerous Seas
 			level->m_levelName = "The Dangerous Seas";
 			level->m_audioTrack = 101;
 			level->m_stars = 6;
@@ -152,7 +152,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 
-		case 2: // Ghost House
+		case 7002: // Ghost House
 			level->m_levelName = getAudioTitle(102);
 			level->m_audioTrack = 102;
 			level->m_stars = 8;
@@ -162,7 +162,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 
-		case 3: // Super Ultra
+		case 7003: // Super Ultra
 			level->m_levelName = getAudioTitle(103);
 			level->m_audioTrack = 103;
 			level->m_stars = 10;
@@ -172,7 +172,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 
-		case 4: // Cryptofunk
+		case 7004: // Cryptofunk
 			level->m_levelName = getAudioTitle(104);
 			level->m_audioTrack = 104;
 			level->m_stars = 12;
@@ -182,7 +182,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 
-		case 5: // Hellfire
+		case 7005: // Hellfire
 			level->m_levelName = getAudioTitle(105);
 			level->m_audioTrack = 105;
 			level->m_stars = 10;
@@ -192,7 +192,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 
-		case 6: // Boss Rush
+		case 7006: // Boss Rush
 			level->m_levelName = getAudioTitle(106);
 			level->m_audioTrack = 106;
 			level->m_stars = 8;
@@ -202,7 +202,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 
-		case 7: // Frostbite
+		case 7007: // Frostbite
 			level->m_levelName = getAudioTitle(107);
 			level->m_audioTrack = 107;
 			level->m_stars = 10;
@@ -212,7 +212,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 
-		case 8: // Comfort Food
+		case 7008: // Comfort Food
 			level->m_levelName = getAudioTitle(108);
 			level->m_audioTrack = 108;
 			level->m_stars = 12;
@@ -222,7 +222,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 
-		case 9: // Critical Hit
+		case 7009: // Critical Hit
 			level->m_levelName = getAudioTitle(109);
 			level->m_audioTrack = 109;
 			level->m_stars = 15;
@@ -233,7 +233,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 
-		case 501: // Conclusive Journey
+		case 7501: // Conclusive Journey
 			level->m_levelName = "Conclusive Journey";
 			level->m_audioTrack = 501;
 			level->m_stars = 10;
@@ -243,7 +243,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 
-		case 502: // Burning Sands
+		case 7502: // Burning Sands
 			level->m_levelName = getAudioTitle(502);
 			level->m_audioTrack = 502;
 			level->m_stars = 15;
@@ -254,7 +254,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 
-		case 503: // Super Wubtendo
+		case 7503: // Super Wubtendo
 			level->m_levelName = getAudioTitle(503);
 			level->m_audioTrack = 503;
 			level->m_stars = 12;
@@ -276,7 +276,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 
 	$override static gd::string getAudioString(int levelID)
 	{
-		if (levelID > 500)
+		if (levelID > 7500)
 			return LevelTools::getAudioString(levelID);
 
 		return LevelTools::getAudioString(99 + levelID);

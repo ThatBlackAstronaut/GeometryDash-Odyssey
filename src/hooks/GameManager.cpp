@@ -69,29 +69,11 @@ class $modify(OdysseyGameManager, GameManager)
         GameManager::reportPercentageForLevel(levelID, percent, isPractice);
         log::info("Level: {}, {}, {}", levelID, percent, isPractice);
 
-        if (levelID == 501)
-        {
-            if (isPractice)
-            {
-                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level501a", percent, false);
-            }
-            else
-            {
-                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level501b", percent, false);
-            }
-        };
+        std::string achievementID = fmt::format("geometry.ach.level{:02}{}", levelID - 7000, isPractice ? "a" : "b");
 
-        if (levelID == 502)
-        {
-            if (isPractice)
-            {
-                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level502a", percent, false);
-            }
-            else
-            {
-                GameManager::sharedState()->reportAchievementWithID("geometry.ach.level502b", percent, false);
-            }
-        };
+        GameManager::sharedState()->reportAchievementWithID(achievementID.c_str(), percent, false);
+
+        
     };
 
     void reportAchievementWithId(const char *ach, int perc, bool flag)
