@@ -31,4 +31,6 @@ namespace Odyssey
 
     //  Vectores
     std::vector<std::string> getPlayerFrames(int, IconType);
+
+    void unlockObject(int, int);
 };

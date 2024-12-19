@@ -10,6 +10,7 @@
 #include <Geode/modify/PauseLayer.hpp>
 #include <Geode/modify/GJItemIcon.hpp>
 #include <Geode/modify/CurrencySprite.hpp>
+#include <Geode/modify/PurchaseItemPopup.hpp>
 #include "utils/Utils.hpp"
 
 using namespace geode::prelude;
@@ -216,5 +217,17 @@ class $modify(SongsLayer)
 
 		m_listLayer->m_listView = CustomListView::create(songObjectArray, nullptr, 220.0, 356.0, 0, BoomListType::Song, 0.0);
 		m_listLayer->addChild(m_listLayer->m_listView);
+	}
+};
+
+
+class $modify(PurchaseItemPopup)
+{
+	void onPurchase(CCObject* sender)
+	{
+		PurchaseItemPopup::onPurchase(sender);
+		log::info("Purchased! {}", "\n");
+
+		Odyssey::unlockObject(m_storeItem->m_typeID.value(), m_storeItem->m_unlockType.value());
 	}
 };

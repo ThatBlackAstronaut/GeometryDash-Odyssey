@@ -105,6 +105,18 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         auto dailyCButton = static_cast<CCMenuItemSpriteExtra *>(rightMenu->getChildByID("daily-chest-button"));
         if (dailyCButton) dailyCButton->setVisible(false);
 
+
+        auto dict = GameManager::sharedState()->m_valueKeeper;
+        auto keys = dict->allKeys();
+
+        for (int i = 0; i < keys->count(); ++i)
+        {
+            CCString *key = (CCString *)keys->objectAtIndex(i);
+            CCString *value = (CCString *)dict->objectForKey(key->getCString());
+
+            log::info("Key: {} Value: {} \n", key->getCString(), value->getCString());
+        };
+
         return true;
     }
 

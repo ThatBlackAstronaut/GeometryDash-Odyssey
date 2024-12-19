@@ -556,3 +556,66 @@ int Odyssey::islandPageForLevelID(int levelID)
 
     return 1;
 };
+
+void Odyssey::unlockObject(int iconID, int type)
+{
+    auto gm = GameManager::sharedState();
+
+    auto icon = "i";
+    
+    auto typeCast = static_cast<UnlockType>(type);
+
+    switch (typeCast)
+    {
+    case UnlockType::Ship:
+        icon = "ship";
+        break;
+    case UnlockType::Ball:
+        icon = "ball";
+        break;
+    case UnlockType::Bird:
+        icon = "bird";
+        break;
+    case UnlockType::Dart:
+        icon = "dart";
+        break;
+    case UnlockType::Robot:
+        icon = "robot";
+        break;
+    case UnlockType::Spider:
+        icon = "spider";
+        break;
+    case UnlockType::Swing:
+        icon = "swing";
+        break;
+    case UnlockType::Jetpack:
+        icon = "jetpack";
+        break;
+    case UnlockType::Death:
+        icon = "death_";
+        break;
+    case UnlockType::ShipFire:
+        icon = "shipstreak";
+        break;
+    case UnlockType::Streak:
+        icon = "special";
+        break;
+    case UnlockType::GJItem:
+        icon = "item";
+        break;
+    }
+
+
+
+    const char* iconKey = fmt::format("{}_{}", icon, iconID).c_str();
+
+    if (typeCast == UnlockType::Col1 || typeCast == UnlockType::Col2)
+        return;
+    
+
+    auto var = CCString::createWithFormat("%i", true);
+
+    gm->m_valueKeeper->setObject(var, iconKey);
+
+
+}

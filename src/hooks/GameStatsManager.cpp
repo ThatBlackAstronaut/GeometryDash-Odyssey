@@ -46,7 +46,7 @@ class $modify(OdysseyGameStatsManager, GameStatsManager)
         //  Icono de tienda
         return 5;
     }
-
+    
     void createStoreItems()
     {
         auto newShop = static_cast<ShopType>(6);
