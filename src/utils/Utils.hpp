@@ -1,5 +1,4 @@
 #pragma once
-
 using namespace geode::prelude;
 
 namespace Odyssey
@@ -18,6 +17,7 @@ namespace Odyssey
     void updateIcon(CCNode *, int, IconType, bool);
     void updateRobotSprite(GJRobotSprite *, int, IconType);
     void addCreditsToIcon(std::pair<int, UnlockType>, int);
+    void hasAllVaultRewards();
 
     //  Banderas
     bool isIconCustom(int, IconType);

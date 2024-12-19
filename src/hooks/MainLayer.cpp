@@ -103,8 +103,8 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         auto rightMenu = static_cast<CCMenu *>(this->getChildByID("right-side-menu"));
 
         auto dailyCButton = static_cast<CCMenuItemSpriteExtra *>(rightMenu->getChildByID("daily-chest-button"));
-        if (dailyCButton) dailyCButton->setVisible(false);
-
+        if (dailyCButton)
+            dailyCButton->setVisible(false);
 
         auto dict = GameManager::sharedState()->m_valueKeeper;
         auto keys = dict->allKeys();
@@ -162,12 +162,26 @@ class $modify(OdysseyMenuLayer, MenuLayer)
     {
         Mod::get()->setSettingValue<bool>("reset-variables", false);
 
-        for (auto ii = 1; ii <= 40; ii++)
+        for (auto ii = 1; ii <= 60; ii++)
         {
             auto variable = (ii < 10) ? fmt::format("20{}", ii) : fmt::format("2{}", ii);
             GameManager::sharedState()->setUGV(variable.c_str(), false);
             log::info("Restarting UGV = {}", variable);
         };
+
+        /*  REINICIA TODO PARA EL JUGADOR, SOLAMENTE EN DEV
+        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7001, true));
+        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7002, true));
+        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7003, true));
+        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7004, true));
+        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7005, true));
+        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7006, true));
+        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7007, true));
+        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7008, true));
+        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7009, true));
+        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7501, true));
+        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7502, true));
+        */
 
         log::info("Variables succesfully restarted");
     }

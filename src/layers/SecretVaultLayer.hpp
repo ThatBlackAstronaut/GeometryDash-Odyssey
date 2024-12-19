@@ -13,18 +13,22 @@ class SecretVaultLayer : public CCLayer
 {
 protected:
     CCMenuItemSpriteExtra *m_keeperBtn = nullptr;
+    CCMenuItemSpriteExtra *m_backBtn = nullptr;
     CCLabelBMFont *m_title = nullptr;
     CCLabelBMFont *m_response = nullptr;
     TextInput *m_textInput = nullptr;
+    TextArea *m_spookyText = nullptr;
     bool m_spanish = false;
-
-    CCSprite *m_keeperSprite = nullptr;
-    CCSprite *keeperSprite = nullptr;
-    CCSprite *keeperEyes = nullptr;
 
     CCSprite *m_background = nullptr;
     CCSprite *m_bg_2 = nullptr;
     CCSprite *m_bg_3 = nullptr;
+
+    CCSprite *m_keeper = nullptr;
+    CCSprite *keeper_body = nullptr;
+    CCSprite *keeper_eyes = nullptr;
+    CCSprite *keeper_eyesGlow = nullptr;
+    CCSprite *keeper_lock = nullptr;
 
     CCParticleSystemQuad *bg_particle_01 = nullptr;
     CCParticleSystemQuad *bg_particle_02 = nullptr;
@@ -42,10 +46,26 @@ protected:
     virtual bool init();
     virtual void keyBackClicked();
 
+    //  Yes, this is terrible, I will look for a way to fix it later
+    void executeJumpscare();
+    void scareText01();
+    void scareText02();
+    void scareText03();
+    void scareText04();
+    void scareText05();
+    void scareEnding();
+    void scareKick();
+
     void enableKeeper();
     void disableKeeper();
     void onSubmit(CCObject *);
     void onBack(CCObject *);
+    void onSecret(CCObject *);
+
+    CCNode * m_levelNode = nullptr;
+    CCMenuItemSpriteExtra * m_levelBtn = nullptr;
+    CCLabelBMFont * m_levelTitle = nullptr;
+    void addLevelAnimation();
 
 public:
     static SecretVaultLayer *create();
