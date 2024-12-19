@@ -106,11 +106,70 @@ bool SecretVaultLayer2::init()
     keeperSprite->setPositionY(72.f);
     keeperMenu->addChild(keeperButton);
 
+    //  Boton para el nivel secreto "Uncertain"
+    m_levelNode = CCNode::create();
+    m_levelNode->setContentSize({0, 30});
+    m_levelNode->setAnchorPoint({0.5, 0.5});
+    m_levelNode->setPosition({winSize.width - 60.f, winSize.height / 2});
+
+    if (GameManager::sharedState()->getUGV("235"))
+    {
+        auto m_levelMenu = CCMenu::create();
+        m_levelMenu->setContentSize(m_levelNode->getContentSize());
+        m_levelMenu->setPosition({0, 0});
+
+        auto m_levelBtnSprite = CCSprite::createWithSpriteFrameName("GJ_playBtn2_001.png");
+        m_levelBtnSprite->setScale(0.45f);
+
+        m_levelBtn = CCMenuItemSpriteExtra::create(
+            m_levelBtnSprite,
+            this,
+            nullptr);
+        m_levelMenu->addChildAtPosition(m_levelBtn, Anchor::Center);
+
+        m_levelTitle = CCLabelBMFont::create("Uncertain", "bigFont.fnt");
+        m_levelTitle->setScale(0.5f);
+
+        m_levelNode->addChildAtPosition(m_levelTitle, Anchor::Top);
+        m_levelNode->addChild(m_levelMenu);
+    };
+
+    addChild(m_levelNode);
+
+    Odyssey::hasAllVaultRewards();
+
     GameManager::sharedState()->fadeInMusic("SecretLoop02.mp3"_spr);
     setKeyboardEnabled(true);
     setKeypadEnabled(true);
 
     return true;
+};
+
+void SecretVaultLayer2::addLevelAnimation()
+{
+    auto m_levelMenu = CCMenu::create();
+    m_levelMenu->setContentSize(m_levelNode->getContentSize());
+    m_levelMenu->setPosition({0, 0});
+
+    auto m_levelBtnSprite = CCSprite::createWithSpriteFrameName("GJ_playBtn2_001.png");
+    m_levelBtnSprite->setScale(0.45f);
+
+    m_levelBtn = CCMenuItemSpriteExtra::create(
+        m_levelBtnSprite,
+        this,
+        nullptr);
+    m_levelMenu->addChildAtPosition(m_levelBtn, Anchor::Center);
+    m_levelBtn->setPositionX(100);
+
+    m_levelTitle = CCLabelBMFont::create("Uncertain", "bigFont.fnt");
+    m_levelTitle->setScale(0.5f);
+    m_levelTitle->setOpacity(0);
+
+    m_levelNode->addChildAtPosition(m_levelTitle, Anchor::Top);
+    m_levelNode->addChild(m_levelMenu);
+
+    m_levelTitle->runAction(CCFadeTo::create(0.5f, 255));
+    m_levelBtn->runAction(CCEaseSineOut::create(CCMoveTo::create(0.5, {0, 15})));
 };
 
 void SecretVaultLayer2::onSubmit(CCObject *)
@@ -189,18 +248,18 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    /*
     if (lower == "uncertain")
     {
         reply = {
             "Good luck",
             "Buena suerte",
         };
+
+        addLevelAnimation();
         updateMessage(reply.at(m_spanish), MessageType::CorrectAnswer);
 
         return;
     };
-    */
 
     if (lower == "colon" && !AM->isAchievementEarned("geometry.ach.odyssey.secret06"))
     {
@@ -409,6 +468,16 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
+    if (lower == "scarlet" || lower == "melissa")
+    {
+        reply = {
+            "That name sounds familiar...",
+            "Ese nombre suena familiar...",
+        };
+        updateMessage(reply.at(m_spanish), MessageType::CorrectAnswer);
+        return;
+    };
+
     //  Wrong answers
     if (lower != "")
     {
@@ -481,7 +550,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
 {
     //  auto GM = GameManager::sharedState();
     auto AM = AchievementManager::sharedState();
-    log::debug("ID: {} - IDX: {}", ID, index);
+    //  log::debug("ID: {} - IDX: {}", ID, index);
     std::vector<std::string> messages;
 
     //  Odyssey
@@ -847,21 +916,6 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
                 "Dicen que los demonios acechan ahi,",
                 "Esperando a que llegue un retador.",
                 "Si tu fueras a desafiarlos",
-                "Preparate... para un Infierno",
-            };
-
-        if (m_spanish)
-            messages = {
-                "Asi que sabes mucho sobre llaves",
-                "Eso me recuerda...",
-                "Recuerdas aquella vez...",
-                "Que alguien libero al Demon Guardian?",
-                "Que ingenuo...",
-                "Aunque trajo consigo algo mas...",
-                "Una cueva grande y monstruosa.",
-                "Dicen que los demonios acechan ahi,",
-                "Esperando a que llegue un retador.",
-                "Si tu fueras a desafiarlos",
                 "Preparate para un Infierno",
             };
 
@@ -966,7 +1020,44 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
 
         if (index >= messages.size())
         {
-            GameManager::sharedState()->setUGV("209", true);
+            if (!GameManager::sharedState()->getUGV("209"))
+                GameManager::sharedState()->setUGV("209", true);
+            m_messageID = 0;
+            m_messageIDX = 0;
+            return "";
+        }
+
+        return messages[index];
+    }
+
+    //  Gargan
+    if (ID == 24 && GameManager::sharedState()->getUGV("232") && !AM->isAchievementEarned("geometry.ach.odyssey.secret21"))
+    {
+        messages = {
+            "I miss my brother...",
+            "He has some anger issues...",
+            "Definitely when you mention his real name",
+            "Last time it happened, the room was painted red",
+            "Maybe you don't know who I'm talking about",
+            "But he is a grumpy one",
+            "Gargan",
+            "What will become of you?"};
+
+        if (m_spanish)
+            messages = {
+                "Echo de menos a mi hermano...",
+                "Tiene algunos problemas de ira...",
+                "Sin duda cuando mencionas su nombre real",
+                "La ultima vez que paso, su cuarto se pinto de rojo",
+                "Tal vez no sabes de quien estoy hablando",
+                "Pero el es un malhumorado",
+                "Gargan",
+                "Que sera de ti?"};
+
+        if (index >= messages.size())
+        {
+            if (!GameManager::sharedState()->getUGV("233"))
+                GameManager::sharedState()->setUGV("233", true);
             m_messageID = 0;
             m_messageIDX = 0;
             return "";

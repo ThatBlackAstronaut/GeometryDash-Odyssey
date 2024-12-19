@@ -271,8 +271,8 @@ bool Odyssey::isIconCustom(int id, IconType type)
 }
 
 bool Odyssey::isIconSecret(int id, IconType type)
-{   
-   if ((id >= 511 && id <= 514) && type == IconType::Cube)
+{
+    if ((id >= 511 && id <= 514) && type == IconType::Cube)
         return true;
     if ((id >= 176) && type == IconType::Ship)
         return true;
@@ -562,7 +562,7 @@ void Odyssey::unlockObject(int iconID, int type)
     auto gm = GameManager::sharedState();
 
     auto icon = "i";
-    
+
     auto typeCast = static_cast<UnlockType>(type);
 
     switch (typeCast)
@@ -605,17 +605,63 @@ void Odyssey::unlockObject(int iconID, int type)
         break;
     }
 
-
-
-    const char* iconKey = fmt::format("{}_{}", icon, iconID).c_str();
+    const char *iconKey = fmt::format("{}_{}", icon, iconID).c_str();
 
     if (typeCast == UnlockType::Col1 || typeCast == UnlockType::Col2)
         return;
-    
 
     auto var = CCString::createWithFormat("%i", true);
 
     gm->m_valueKeeper->setObject(var, iconKey);
-
-
 }
+
+void Odyssey::hasAllVaultRewards()
+{
+    auto AM = AchievementManager::sharedState();
+    auto allHollow = true;
+    auto allOgre = true;
+
+    for (auto ii = 1; ii <= 9; ii++)
+    {
+        auto achievementName = fmt::format("geometry.ach.odyssey.secret{:02}", ii);
+
+        log::debug("Achievement: {}, Value: {}", achievementName, AM->isAchievementEarned(achievementName.c_str()));
+
+        if (!AM->isAchievementEarned(achievementName.c_str()))
+            allOgre = false;
+        //  if(AM->isAchievementEarned(fmt::format("geometry.ach.odyssey.secret{:02}")))
+    }
+
+    for (auto ii = 10; ii <= 18; ii++)
+    {
+        auto achievementName = fmt::format("geometry.ach.odyssey.secret{:02}", ii);
+
+        log::debug("Achievement: {}, Value: {}", achievementName, AM->isAchievementEarned(achievementName.c_str()));
+
+        if (!AM->isAchievementEarned(achievementName.c_str()))
+            allHollow = false;
+
+        //  if(AM->isAchievementEarned(fmt::format("geometry.ach.odyssey.secret{:02}")))
+    }
+
+    if (allOgre)
+    {
+        log::debug("Tiene todos los rewards del Ogro");
+
+        if (!GameManager::sharedState()->getUGV("231"))
+        {
+            GameManager::sharedState()->setUGV("231", true);
+        }
+    }
+
+    if (allHollow)
+    {
+        log::debug("Tiene todos los rewards del Hollow");
+
+        if (!GameManager::sharedState()->getUGV("232"))
+        {
+            GameManager::sharedState()->setUGV("232", true);
+            log::debug("Habilitado el Hint de Gargan (Ogro)");
+        }
+    }
+};

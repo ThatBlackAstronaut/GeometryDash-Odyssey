@@ -119,6 +119,8 @@ bool SecretVaultLayer::init()
     setKeyboardEnabled(true);
     setKeypadEnabled(true);
 
+    Odyssey::hasAllVaultRewards();
+
     return true;
 };
 
@@ -139,27 +141,24 @@ void SecretVaultLayer::onSubmit(CCObject *)
     m_textInput->setString("");
     m_achievementName = "";
 
-    /*
-    if (lower == "gargan")
+    log::debug("Gargan: {}", m_garganIDX);
+
+    if (lower == "gargan" && GM->getUGV("232") && GM->getUGV("233") && !AM->isAchievementEarned("geometry.ach.odyssey.secret21"))
     {
-        if (m_garganIDX > 3)
-        {
-            messages = {
-                "Stop.",
-                "Don't provoke him.",
-                "Get out while you can.",
-                "..."};
+        messages = {
+            "What do you mean?",
+            "What do you want?",
+            "I don't know what you're talking about.",
+            "I swear, I don't know what do you mean!",
+            "STOP SAYING THAT.",
+            "..."};
 
-            m_title->setString(messages[m_garganIDX % 3].c_str());
-        }
-
+        updateMessage(messages[m_garganIDX], MessageType::WrongAnswer);
         m_garganIDX++;
         return;
     }
 
-    m_title->setString("The Hollow");
     m_garganIDX = 0;
-    */
 
     //  List of codes
     if (lower == "color" && !AM->isAchievementEarned("geometry.ach.odyssey.secret10"))
@@ -425,7 +424,7 @@ std::string SecretVaultLayer::getMessage()
 
 std::string SecretVaultLayer::getThreadMessage(int ID, int index)
 {
-    log::debug("ID: {} - IDX: {}", ID, index);
+    //  log::debug("ID: {} - IDX: {}", ID, index);
     std::vector<std::string> messages;
     std::vector<gd::string> voiceFiles;
 
@@ -863,7 +862,7 @@ void SecretVaultLayer::updateMessage(std::string message, MessageType type)
     auto flag_2 = false;
     m_response->setString(message.c_str());
     m_response->limitLabelWidth(320, 0.6f, 0.6f);
-    log::debug("TYPE {}", (int)type);
+    //  log::debug("TYPE {}", (int)type);
 
     switch (type)
     {
@@ -890,7 +889,7 @@ void SecretVaultLayer::updateMessage(std::string message, MessageType type)
     }
 
     auto flag = (message == "Welcome..." || message == "Bienvenido...");
-    log::debug("Test: {}", flag);
+    //  log::debug("Test: {}", flag);
     fadeInLabel(flag, flag_2);
 };
 

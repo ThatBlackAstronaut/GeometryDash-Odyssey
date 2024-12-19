@@ -75,7 +75,8 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
             {
                 "Remember to play\nNukebound first!",
                 "Increasing the amount\nof mod incompatibilities...",
-                "Are you recording this right now?",
+                "Are you recording this\nright now?",
+                "Explorers, the failed promise...",
                 "Adding more wanted posters\non the shop",
                 "Why the vaults talk about\nthis random gal?",
                 "If something breaks,\nblame it on Chumiu",

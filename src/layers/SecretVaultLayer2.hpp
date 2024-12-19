@@ -26,6 +26,11 @@ protected:
     void onSubmit(CCObject *);
     void onBack(CCObject *);
 
+    CCNode * m_levelNode = nullptr;
+    CCMenuItemSpriteExtra * m_levelBtn = nullptr;
+    CCLabelBMFont * m_levelTitle = nullptr;
+    void addLevelAnimation();
+
 public:
     static SecretVaultLayer2 *create();
     CCScene *scene();
