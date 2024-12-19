@@ -18,7 +18,7 @@ class $modify(OdysseyGameManager, GameManager)
         if (icon == IconType::Ball)
             return 126;
         if (icon == IconType::Ufo)
-            return 153;
+            return 154;
         if (icon == IconType::Wave)
             return 100;
         if (icon == IconType::Robot)
@@ -72,8 +72,6 @@ class $modify(OdysseyGameManager, GameManager)
         std::string achievementID = fmt::format("geometry.ach.level{:02}{}", levelID - 7000, isPractice ? "a" : "b");
 
         GameManager::sharedState()->reportAchievementWithID(achievementID.c_str(), percent, false);
-
-        
     };
 
     void reportAchievementWithId(const char *ach, int perc, bool flag)

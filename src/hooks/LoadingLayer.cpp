@@ -211,7 +211,7 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         Odyssey::addCreditsToIcon(std::make_pair(119, UnlockType::Ball), (int)Artist::Danky); // Danky
         Odyssey::addCreditsToIcon(std::make_pair(120, UnlockType::Ball), (int)Artist::ML500); // ML5
         Odyssey::addCreditsToIcon(std::make_pair(121, UnlockType::Ball), (int)Artist::Danky); // Danky
-        //  Odyssey::addCreditsToIcon(std::make_pair(122, UnlockType::Ball), ACCOUNT ID DEL ARTISTA);
+        Odyssey::addCreditsToIcon(std::make_pair(122, UnlockType::Ball), (int)Artist::Minox);  // MinoX
         Odyssey::addCreditsToIcon(std::make_pair(123, UnlockType::Ball), (int)Artist::Angelo); // Angelo
         Odyssey::addCreditsToIcon(std::make_pair(124, UnlockType::Ball), (int)Artist::ML500);  // ML5
         Odyssey::addCreditsToIcon(std::make_pair(125, UnlockType::Ball), (int)Artist::ML500);  // ML5
@@ -222,6 +222,7 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         Odyssey::addCreditsToIcon(std::make_pair(151, UnlockType::Bird), (int)Artist::ML500);  // ML5
         Odyssey::addCreditsToIcon(std::make_pair(152, UnlockType::Bird), (int)Artist::ML500);  // ML5
         Odyssey::addCreditsToIcon(std::make_pair(153, UnlockType::Bird), (int)Artist::Angelo); // Angelo
+        Odyssey::addCreditsToIcon(std::make_pair(154, UnlockType::Bird), (int)Artist::Danky);  // Danky
 
         //  Waves
         Odyssey::addCreditsToIcon(std::make_pair(97, UnlockType::Dart), (int)Artist::Angelo); // Angelo

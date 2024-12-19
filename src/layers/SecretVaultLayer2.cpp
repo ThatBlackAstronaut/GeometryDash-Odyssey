@@ -188,7 +188,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
     m_textInput->setString("");
 
     //  List of codes
-    if (lower == "odyssey" && !AM->isAchievementEarned("geometry.ach.odyssey.secret01"))
+    if (std::string_view(lower) == std::string_view("odyssey")&& !AM->isAchievementEarned("geometry.ach.odyssey.secret01"))
     {
         reply = {
             "So you know how to adventure...",
@@ -200,7 +200,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "invaders" && !AM->isAchievementEarned("geometry.ach.odyssey.secret02"))
+    if (std::string_view(lower) == std::string_view("invaders")&& !AM->isAchievementEarned("geometry.ach.odyssey.secret02"))
     {
         reply = {
             "Not so unknown now...",
@@ -212,7 +212,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "astral" && !AM->isAchievementEarned("geometry.ach.odyssey.secret03"))
+    if (std::string_view(lower) == std::string_view("astral")&& !AM->isAchievementEarned("geometry.ach.odyssey.secret03"))
     {
         reply = {
             "It strikes fear into my heart...",
@@ -224,7 +224,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "dumbledalf" && !AM->isAchievementEarned("geometry.ach.odyssey.secret04"))
+    if (std::string_view(lower) == std::string_view("dumbledalf")&& !AM->isAchievementEarned("geometry.ach.odyssey.secret04"))
     {
         reply = {
             "What a humble man",
@@ -236,7 +236,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "carp" && !AM->isAchievementEarned("geometry.ach.odyssey.secret05"))
+    if (std::string_view(lower) == std::string_view("carp")&& !AM->isAchievementEarned("geometry.ach.odyssey.secret05"))
     {
         reply = {
             "Useless piece of scrap metal",
@@ -248,7 +248,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "uncertain")
+    if (std::string_view(lower) == std::string_view("uncertain")&& !GameManager::sharedState()->getUGV("235"))
     {
         reply = {
             "Good luck",
@@ -256,12 +256,13 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         };
 
         addLevelAnimation();
+        GameManager::sharedState()->setUGV("235", true);
         updateMessage(reply.at(m_spanish), MessageType::CorrectAnswer);
 
         return;
     };
 
-    if (lower == "colon" && !AM->isAchievementEarned("geometry.ach.odyssey.secret06"))
+    if (std::string_view(lower) == std::string_view("colon")&& !AM->isAchievementEarned("geometry.ach.odyssey.secret06"))
     {
         reply = {
             "Even the lord listens to his guidance...",
@@ -273,7 +274,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "rubrub" && !AM->isAchievementEarned("geometry.ach.odyssey.secret07"))
+    if (std::string_view(lower) == std::string_view("rubrub")&& !AM->isAchievementEarned("geometry.ach.odyssey.secret07"))
     {
         reply = {
             "My hatred towards him grows every day...",
@@ -285,7 +286,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "elemental" && !AM->isAchievementEarned("geometry.ach.odyssey.secret08"))
+    if (std::string_view(lower) == std::string_view("elemental")&& !AM->isAchievementEarned("geometry.ach.odyssey.secret08"))
     {
         reply = {
             "All of them together... what will happen?",
@@ -297,7 +298,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "demon gauntlet" && !AM->isAchievementEarned("geometry.ach.odyssey.secret09"))
+    if (std::string_view(lower) == std::string_view("demon gauntlet")&& !AM->isAchievementEarned("geometry.ach.odyssey.secret09"))
     {
         reply = {
             "SEE? I wasn't lying!",
@@ -310,7 +311,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
     };
 
     //  Random easter eggs
-    if (lower == "switch")
+    if (std::string_view(lower) == std::string_view("switch"))
     {
         reply = {
             "The skeleton appears",
@@ -320,7 +321,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "master")
+    if (std::string_view(lower) == std::string_view("master"))
     {
         reply = {
             "Cubical genius",
@@ -330,14 +331,14 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "mathi")
+    if (std::string_view(lower) == std::string_view("mathi"))
     {
         response = "Mathi approved";
         updateMessage(response, MessageType::WrongAnswer);
         return;
     };
 
-    if (lower == "cyanflower")
+    if (std::string_view(lower) == std::string_view("cyanflower"))
     {
         reply = {
             "What's a slimeboy?",
@@ -347,21 +348,21 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "ghostpower")
+    if (std::string_view(lower) == std::string_view("ghostpower"))
     {
         response = "XD";
         updateMessage(response, MessageType::WrongAnswer);
         return;
     };
 
-    if (lower == "nando")
+    if (std::string_view(lower) == std::string_view("nando"))
     {
         response = "Donde he oido antes ese nombre?";
         updateMessage(response, MessageType::WrongAnswer);
         return;
     };
 
-    if (lower == "monstercat")
+    if (std::string_view(lower) == std::string_view("monstercat"))
     {
         reply = {
             "One day, surely...",
@@ -371,7 +372,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "spooky")
+    if (std::string_view(lower) == std::string_view("spooky"))
     {
         reply = {
             "We don't talk about spooky",
@@ -381,7 +382,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "sparky")
+    if (std::string_view(lower) == std::string_view("sparky"))
     {
         reply = {
             "No coins here, bud",
@@ -391,7 +392,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "glubfub")
+    if (std::string_view(lower) == std::string_view("glubfub"))
     {
         reply = {
             "Never liked him",
@@ -401,7 +402,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "gatekeeper")
+    if (std::string_view(lower) == std::string_view("gatekeeper"))
     {
         reply = {
             "We used to be togeher... but then I got locked here",
@@ -411,7 +412,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "wraith")
+    if (std::string_view(lower) == std::string_view("wraith"))
     {
         reply = {
             "Always being a one-liner. Makes me mad",
@@ -421,14 +422,14 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "the hollow")
+    if (std::string_view(lower) == std::string_view("the hollow"))
     {
         response = "No...";
         updateMessage(response, MessageType::WrongAnswer);
         return;
     };
 
-    if (lower == "lunar")
+    if (std::string_view(lower) == std::string_view("lunar"))
     {
         reply = {
             "Who?",
@@ -438,7 +439,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "nukebound")
+    if (std::string_view(lower) == std::string_view("nukebound"))
     {
         reply = {
             "Nukebound to what?",
@@ -448,7 +449,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "wanderer")
+    if (std::string_view(lower) == std::string_view("wanderer"))
     {
         reply = {
             "I'm pretty sure he isn't dead",
@@ -458,7 +459,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "mono")
+    if (std::string_view(lower) == std::string_view("mono"))
     {
         reply = {
             "Maybe say her name to my brother...",
@@ -468,7 +469,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
-    if (lower == "scarlet" || lower == "melissa")
+    if (std::string_view(lower) == std::string_view("scarlet")|| std::string_view(lower) == std::string_view("melissa"))
     {
         reply = {
             "That name sounds familiar...",
@@ -745,9 +746,8 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
         return messages[index];
     }
 
-    /*
     //  Uncertain
-    if (ID == 16)
+    if (ID == 16 && !GameManager::sharedState()->getUGV("235"))
     {
         messages = {
             "Have you ever been sure of something?",
@@ -778,7 +778,6 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
 
         return messages[index];
     }
-    */
 
     //  Colon
     if (ID == 17 && !AM->isAchievementEarned("geometry.ach.odyssey.secret06"))

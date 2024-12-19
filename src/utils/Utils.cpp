@@ -644,6 +644,9 @@ void Odyssey::hasAllVaultRewards()
         //  if(AM->isAchievementEarned(fmt::format("geometry.ach.odyssey.secret{:02}")))
     }
 
+    if(!GameManager::sharedState()->getUGV("235")) allOgre = false;
+    if(!GameManager::sharedState()->getUGV("236")) allHollow = false;
+
     if (allOgre)
     {
         log::debug("Tiene todos los rewards del Ogro");
@@ -652,6 +655,8 @@ void Odyssey::hasAllVaultRewards()
         {
             GameManager::sharedState()->setUGV("231", true);
         }
+    } else {
+        GameManager::sharedState()->setUGV("231", false);
     }
 
     if (allHollow)
@@ -663,5 +668,7 @@ void Odyssey::hasAllVaultRewards()
             GameManager::sharedState()->setUGV("232", true);
             log::debug("Habilitado el Hint de Gargan (Ogro)");
         }
+    } else {
+        GameManager::sharedState()->setUGV("232", false);
     }
 };
