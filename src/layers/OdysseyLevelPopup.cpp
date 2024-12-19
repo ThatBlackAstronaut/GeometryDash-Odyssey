@@ -72,7 +72,8 @@ bool OdysseyLevelPopup::setup(std::string const &title)
         menu_selector(OdysseyLevelPopup::onSettings));
     optionsButton->setPosition({8, 8});
 
-    auto seenComic = GameManager::sharedState()->getUGV(fmt::format("2{}", m_levelID + 11).c_str());
+    //  Para indicar que el jugador revise el comic o no
+    auto seenComic = GameManager::sharedState()->getUGV(fmt::format("2{}", m_levelID + 11 - 7000).c_str());
     auto baseColor = seenComic ? CircleBaseColor::Green : CircleBaseColor::Cyan;
 
     //  Comics Button
@@ -103,10 +104,10 @@ bool OdysseyLevelPopup::setup(std::string const &title)
     buttonsMenu->addChild(loreButton);
     buttonsMenu->addChild(optionsButton);
 
-    if (m_levelID > 4)
+    if (m_levelID > 7009)
         comicButton->setVisible(false);
 
-    if (m_levelID > 500)
+    if (m_levelID > 7500)
         loreButton->setVisible(true);
 
     //  Coin Array
@@ -156,7 +157,7 @@ void OdysseyLevelPopup::onSettings(CCObject *sender)
 void OdysseyLevelPopup::onComic(CCObject *sender)
 {
     auto scene = CCScene::create();
-    scene->addChild(OdysseyComicLayer::create(m_levelID + 1 + Odyssey::islandPageForLevelID(m_levelID), false));
+    scene->addChild(OdysseyComicLayer::create(m_levelID + 1 + Odyssey::islandPageForLevelID(m_levelID) - 7000, false));
 
     auto button = static_cast<CCMenuItemSpriteExtra *>(sender);
     button->setSprite(CircleButtonSprite::createWithSpriteFrameName("GDO_ComicIcon_001.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::Small));
@@ -168,7 +169,7 @@ void OdysseyLevelPopup::onLore(CCObject *sender)
 {
     auto spanish = GameManager::sharedState()->getGameVariable("0201");
 
-    if (m_levelID == 501)
+    if (m_levelID == 7501)
     {
         auto lore = spanish ? "<cg>\"Conclusive Journey\"</c> cuenta la historia de un Antiguo Camino que conduce al desolado desierto. Antes de que ocurran los eventos de <cy>GD: Odyssey</c>, el equipo de aventureros deambula por aqui en busca de mas pistas que ayuden a comprender lo que esta ocurriendo en Geometry City." : "<cg>\"Conclusive Journey\"</c> tells the tale of an Ancient Road leading to the desolate desert. Before the events of <cy>GD: Odyssey</c>, the team of adventurers wander here in search for more clues to help understand what's happening in Geometry City.";
 
@@ -176,7 +177,7 @@ void OdysseyLevelPopup::onLore(CCObject *sender)
         credits->show();
     }
 
-    if (m_levelID == 502)
+    if (m_levelID == 7502)
     {
         auto lore = spanish ? "<cg>\"Burning Sands\"</c> cuenta la historia de Nefferkitty, un antiguo dios egipcio y protector de la Piedra de los elementos. Antes de los eventos de <cy>GD: Odyssey</c>, el equipo de aventureros visito el desierto durante la invasion del <cr>Wanderer</c>. Los acontecimientos de este juego ocurren despues de completar este nivel." : "<cg>\"Burning Sands\"</c> tells the story of Nefferkitty, an ancient Egyptian god and protector of the Stone of elements. Before the events of <cy>GD: Odyssey</c>, the team of adventurers visited the desert during the <cr>Wanderer's</c> invasion. The events of this game take place after completing this level.";
 
