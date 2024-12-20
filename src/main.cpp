@@ -47,10 +47,8 @@ class $modify(PauseLayer)
 	void onQuit(CCObject *sender)
 	{
 		PauseLayer::onQuit(sender);
-
 		int page = Odyssey::islandPageForLevelID(PlayLayer::get()->m_level->m_levelID);
-
-		GameManager::sharedState()->fadeInMusic(fmt::format("IslandLoop{:02}.mp3"_spr, page));
+		GameManager::sharedState()->fadeInMusic(fmt::format("IslandLoop{:02}.mp3"_spr, page + 1));
 	}
 };
 
@@ -66,12 +64,13 @@ class $modify(GDO_OptionsLayer, OptionsLayer)
 		}
 	}
 
-	void onAccount(CCObject * ){
+	void onAccount(CCObject *)
+	{
 		auto spanish = GameManager::sharedState()->getGameVariable("0201");
 		auto info = spanish ? "Para evitar riesgos de sobrescribir tus datos por accidente, esta <cr>funcion esta desactivada</c>. Tus datos actuales se restauraran cuando desactives el mod." : "To avoid risks of accidentally overwriting your data, this <cr>feature is disabled</c>. Your actual data will be restored when you disable the mod.";
 
 		auto alert = FLAlertLayer::create("Disabled", info, "OK");
-        alert->show();
+		alert->show();
 	}
 };
 
@@ -220,10 +219,9 @@ class $modify(SongsLayer)
 	}
 };
 
-
 class $modify(PurchaseItemPopup)
 {
-	void onPurchase(CCObject* sender)
+	void onPurchase(CCObject *sender)
 	{
 		PurchaseItemPopup::onPurchase(sender);
 		log::info("Purchased! {}", "\n");
