@@ -50,7 +50,7 @@ class $modify(PauseLayer)
 
 		int page = Odyssey::islandPageForLevelID(PlayLayer::get()->m_level->m_levelID);
 
-		GameManager::sharedState()->fadeInMusic(fmt::format("IslandLoop{:02}.mp3"_spr, page));
+		GameManager::sharedState()->fadeInMusic(fmt::format("IslandLoop{:02}.mp3"_spr, page + 1));
 	}
 };
 
@@ -219,7 +219,6 @@ class $modify(SongsLayer)
 		m_listLayer->addChild(m_listLayer->m_listView);
 	}
 };
-
 
 class $modify(PurchaseItemPopup)
 {

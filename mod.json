@@ -1,5 +1,5 @@
 {
-	"geode": "4.1.0",
+	"geode": "4.1.1",
 	"version": "v1.0.0-beta.2",
 	"gd": {
 		"win": "2.2074",
@@ -17,18 +17,15 @@
 	"early-load": true,
 	"dependencies": [
 		{
-		  "id": "geode.node-ids",
-		  "version": ">=1.18.0",
-		  "importance": "required"
+			"id": "geode.node-ids",
+			"version": ">=1.18.0",
+			"importance": "required"
 		}
 	],
-	"links": {
-		"community": "https://discord.gg/PNPrR4DEbw"
-	},
 	"incompatibilities": [
 		{
 			"id": "hiimjustin000.more_icons",
-			"importance": "breaking",
+			"importance": "conflicting",
 			"version": "*",
 			"platforms": [
 				"android"
@@ -36,17 +33,17 @@
 		},
 		{
 			"id": "capeling.geometry-dash-lunar",
-			"importance": "breaking",
+			"importance": "conflicting",
 			"version": "*"
 		},
 		{
 			"id": "dankmeme.globed2",
-			"importance": "breaking",
+			"importance": "conflicting",
 			"version": "*"
 		},
 		{
 			"id": "gdutilsdevs.gdutils",
-			"importance": "breaking",
+			"importance": "conflicting",
 			"version": "*"
 		},
 		{
@@ -55,12 +52,15 @@
 			"version": "*"
 		}
 	],
+	"links": {
+		"community": "https://discord.gg/PNPrR4DEbw"
+	},
 	"settings": {
-		"options-title":{
+		"options-title": {
 			"type": "title",
 			"name": "Main Settings"
 		},
-		"spanish-language":{
+		"spanish-language": {
 			"type": "bool",
 			"name": "Spanish",
 			"description": "<cy>ENG</c>: Translates most of the mod's dialogue in Spanish. Due to character limitations, there will be spelling errors.\n\n<cy>ESP</c>: Traduce mayor parte del dialogo del mod en Espanol. Dado a las limitaciones de caracteres en el juego, habran errores ortograficos (como la falta de acentos)",
@@ -75,7 +75,7 @@
 			"name": "Developer Mode",
 			"default": false
 		},
-		"show-more-games":{
+		"show-more-games": {
 			"type": "bool",
 			"name": "Disable fanmades",
 			"description": "Disable this if you want to have access to the Online Menu. (This will be removed on the official release)",
@@ -83,7 +83,7 @@
 			"enable-if-description": "Dev. Mode required",
 			"default": false
 		},
-		"skip-requirements":{
+		"skip-requirements": {
 			"type": "bool",
 			"name": "Skip requirements",
 			"description": "Disables the requirements to unlock stuff (Like hollow's coin quota and such",
@@ -91,7 +91,7 @@
 			"enable-if-description": "Dev. Mode required",
 			"default": false
 		},
-		"reset-variables":{
+		"reset-variables": {
 			"type": "bool",
 			"name": "Reset Mod Variables",
 			"description": "Resets all the one-time events of the mod when you enter the Menu Layer. <cr>Only enable this</c> if you want to see the Dialogs and scenes.",

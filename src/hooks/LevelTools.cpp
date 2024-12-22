@@ -27,7 +27,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 		case 106:
 			return "Boss Rush";
 		case 107:
-			return "Frostbite";
+			return "Absolute Zero";
 		case 108:
 			return "Comfort Food";
 		case 109:
@@ -62,7 +62,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 		case 106:
 			return "BossRush.mp3"_spr;
 		case 107:
-			return "Frostbite.mp3"_spr;
+			return "AbsoluteZero.mp3"_spr;
 		case 108:
 			return "ComfortFood.mp3"_spr;
 		case 109:
@@ -202,7 +202,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 			level->m_coins = 3;
 			break;
 
-		case 7007: // Frostbite
+		case 7007: // Absolute Zero
 			level->m_levelName = getAudioTitle(107);
 			level->m_audioTrack = 107;
 			level->m_stars = 10;
@@ -299,7 +299,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 		case 106:
 			return "https://youtu.be/CxPFyu5AGng?si=2ZSWgul-Du_hI47u"; // Boss Rush
 		case 107:
-			return "https://youtu.be/5jt10MW1mFU?si=IHQcPTaB9KSimznE"; // Frostbite
+			return "https://youtu.be/5jt10MW1mFU?si=IHQcPTaB9KSimznE"; // Absolute Zero
 		case 108:
 			return "https://youtu.be/qmhv7hQmID4?si=kH9YP1Yijb-u5qIK"; // Comfort Food
 		case 109:
