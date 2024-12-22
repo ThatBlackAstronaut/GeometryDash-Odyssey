@@ -104,16 +104,16 @@ class $modify(OdysseyAchievementManager, AchievementManager)
         AchievementManager::addAchievement(
             "geometry.ach.level07a",
             "I'm freezing here...",
-            "Completed \"Frostbite\" in practice mode",
-            "Complete \"Frostbite\" in practice mode",
+            "Completed \"Absolute Zero\" in practice mode",
+            "Complete \"Absolute Zero\" in practice mode",
             "icon_495",
             1);
 
         AchievementManager::addAchievement(
             "geometry.ach.level07b",
-            "Frostbite!",
-            "Completed \"Frostbite\" in normal mode",
-            "Complete \"Frostbite\" in normal mode",
+            "Absolute Zero!",
+            "Completed \"Absolute Zero\" in normal mode",
+            "Complete \"Absolute Zero\" in normal mode",
             "ball_120",
             1);
 
