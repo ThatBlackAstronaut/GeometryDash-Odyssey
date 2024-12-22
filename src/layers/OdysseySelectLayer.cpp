@@ -46,7 +46,7 @@ bool OdysseySelectLayer::init(int page)
         bgID = 32;
         bgColor = {31, 0, 63};
         islandTexture = "GDO_MainIsland_02_001.png"_spr;
-        islandColor = {5, 5, 5};
+        //islandColor = {5, 5, 5};
         islandScale = .7f;
         m_levelAmount = 5;
         gradientColorBottom = {41, 19, 21, 74};
@@ -144,7 +144,7 @@ bool OdysseySelectLayer::init(int page)
         comingSoonLabel->setScale(.7f);
         comingSoonLabel->setPosition(m_winSize / 2);
 
-        m_islandNode->addChild(comingSoonLabel, 999);
+        //m_islandNode->addChild(comingSoonLabel, 999);
     }
 
     if (page == 2)
@@ -384,6 +384,49 @@ std::vector<CCPoint> OdysseySelectLayer::getPositionForDots()
             {-30, -37},
             {-47, -38},
             {-53, -52}};
+            break;
+    case 1:
+        return {
+            {-152, 29},
+            {-135, 8},
+            {-91, -36},
+            {-78, -33},
+            {-66, -26},
+            {-71, -14},
+            {-82, -4},
+            {-92, 9},
+            {-85, 23},
+            {-71, 26},
+            //camino 2
+            {-41, 23},
+            {-26, 15},
+            {-18, 5},
+            {-7, -9},
+            {8, -25},
+            {27, -20},
+            {30, -7},
+            {25, 11},
+            {29, 25},
+            {26, 39},
+            {32, 47},
+            //camino 3
+            {39, -27},
+            {52, -42},
+            {68, -52},
+            {86, -58},
+            {98, -53},
+            {120, -35},
+            {129, -29},
+            //camino 4
+            {152, -5},
+            {147, 8},
+            {140, 18},
+            {134, 28},
+            {135, 41},
+            {145, 52},
+            {154, 61},
+            {161, 68}
+        };
     }
     return arr;
 }
@@ -530,6 +573,11 @@ void OdysseySelectLayer::animateLevelCompletation()
     auto level2 = GLM->getMainLevel(7002, false);
     auto level3 = GLM->getMainLevel(7003, false);
     auto level4 = GLM->getMainLevel(7004, false);
+    auto level5 = GLM->getMainLevel(7005, false);
+    auto level6 = GLM->getMainLevel(7006, false);
+    auto level7 = GLM->getMainLevel(7007, false);
+    auto level8 = GLM->getMainLevel(7008, false);
+    auto level9 = GLM->getMainLevel(7009, false);
 
     auto buttonSprite = CCSprite::createWithSpriteFrameName("worldLevelBtn_001.png"_spr);
     for (int i = 0; i < m_levelMenu->getChildrenCount(); i++)
@@ -576,15 +624,50 @@ void OdysseySelectLayer::animateLevelCompletation()
             lastDot = 37;
             nextLevel = 4;
         }
+    }
 
-        if (!isLevelComplete(nextLevel - 1))
+    if (level4->m_normalPercent == 100)
+        nextLevel = 5;
+
+    if (m_currentPage == 1)
+    {
+
+        if (level5->m_normalPercent == 100 && level6->m_normalPercent < 100)
         {
-            setLevelComplete(nextLevel - 1);
-            shouldAnimate = true;
+            firstDot = 0;
+            lastDot = 9;
+            nextLevel = 6;
+        }
+
+        if (level6->m_normalPercent == 100 && level7->m_normalPercent < 100)
+        {
+            firstDot = 10;
+            lastDot = 20;
+            nextLevel = 7;
+        }
+
+        
+        if (level7->m_normalPercent == 100 && level8->m_normalPercent < 100)
+        {
+            firstDot = 21;
+            lastDot = 27;
+            nextLevel = 8;
+        }
+
+        if (level8->m_normalPercent == 100)
+        {
+            firstDot = 28;
+            lastDot = 35;
+            nextLevel = 9;
         }
     }
+
+    if (!isLevelComplete(nextLevel - 1))
+    {
+        setLevelComplete(nextLevel - 1);
+        shouldAnimate = true;
+    }
     
-    log::info("Count: {}", m_dotNode->getChildrenCount());
 
     for (int ii = 0; ii < m_dotNode->getChildrenCount(); ii++)
     {
@@ -725,6 +808,7 @@ void OdysseySelectLayer::onRope(CCObject *)
 void OdysseySelectLayer::onSongs(CCObject *)
 {
     auto layer = SongsLayer::create();
+    layer->m_delegate = this;
     this->addChild(layer);
     layer->showLayer(false);
 }

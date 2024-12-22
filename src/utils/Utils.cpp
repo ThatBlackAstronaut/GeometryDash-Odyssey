@@ -378,6 +378,7 @@ void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlaye
         return;
 
     auto frameCache = CCSpriteFrameCache::get();
+    auto frameDict = frameCache->m_pSpriteFrames;
 
     auto frames = getPlayerFrames(iconID, type);
     auto frame1Texture = frames[0];
@@ -403,7 +404,7 @@ void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlaye
         glowLayer = obj->m_iconGlow;
         robotSprite = obj->m_robotSprite;
 
-        if (type == IconType::Ship || type == IconType::Jetpack)
+        if (type == IconType::Ship || type == IconType::Jetpack || type == IconType::Ufo)
         {
             firstLayer = obj->m_vehicleSprite;
             secondLayer = obj->m_vehicleSpriteSecondary;
@@ -434,38 +435,43 @@ void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlaye
         return;
     }
 
-    if (auto frame1 = frameCache->spriteFrameByName(frame1Texture.c_str()))
+    if (frameDict->objectForKey(frame1Texture))
     {
-        firstLayer->setDisplayFrame(frame1);
+        firstLayer->setDisplayFrame(frameCache->spriteFrameByName(frame1Texture.c_str()));
     }
 
-    if (auto frame2 = frameCache->spriteFrameByName(frame2Texture.c_str()))
+    if (frameDict->objectForKey(frame2Texture))
     {
-        secondLayer->setDisplayFrame(frame2);
+        secondLayer->setDisplayFrame(frameCache->spriteFrameByName(frame2Texture.c_str()));
         secondLayer->setPosition(firstLayer->getContentSize() / 2);
     }
 
-    if (auto extraFrame = frameCache->spriteFrameByName(extraTexture.c_str()))
+    if (frameDict->objectForKey(extraTexture))
     {
         extraLayer->setVisible(true);
-        extraLayer->setDisplayFrame(extraFrame);
+        extraLayer->setDisplayFrame(frameCache->spriteFrameByName(extraTexture.c_str()));
         extraLayer->setPosition(firstLayer->getContentSize() / 2);
     }
     else
         extraLayer->setVisible(false);
 
-    if (auto glowFrame = frameCache->spriteFrameByName(glowTexture.c_str()))
+    if (frameDict->objectForKey(glowTexture))
     {
-        glowLayer->setDisplayFrame(glowFrame);
+        glowLayer->setDisplayFrame(frameCache->spriteFrameByName(glowTexture.c_str()));
         if (!isPlayerObject)
             glowLayer->setPosition(firstLayer->getContentSize() / 2);
     }
 
-    if (auto domeFrame = frameCache->spriteFrameByName(domeTexture.c_str()))
+     if (type == IconType::Ufo)
     {
-        ufoDome->setDisplayFrame(domeFrame);
-        ufoDome->setPosition(firstLayer->getContentSize() / 2);
+        if (frameDict->objectForKey(domeTexture))
+        {
+            ufoDome->setDisplayFrame(frameCache->spriteFrameByName(domeTexture.c_str()));
+            ufoDome->setPosition(firstLayer->getContentSize() / 2);
+        }
     }
+
+
 }
 
 void Odyssey::updateRobotSprite(GJRobotSprite *sprite, int iconID, IconType type)

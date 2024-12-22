@@ -5,7 +5,7 @@ using namespace geode::prelude;
 
 class $modify(OdysseyLevelTools, LevelTools)
 {
-	$override static bool verifyLevelIntegrity(std::string verifyString, int levelID)
+	static bool verifyLevelIntegrity(std::string verifyString, int levelID)
 	{
 		return true;
 	}

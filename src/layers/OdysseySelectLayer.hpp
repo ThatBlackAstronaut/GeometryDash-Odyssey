@@ -1,7 +1,7 @@
 #pragma once
 using namespace geode::prelude;
 
-class OdysseySelectLayer : public CCLayer
+class OdysseySelectLayer : public CCLayer, GJDropDownLayerDelegate
 {
 public:
     BoomScrollLayer *m_scrollLayer;
