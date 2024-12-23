@@ -1,7 +1,7 @@
 #pragma once
 using namespace geode::prelude;
 
-class OdysseySelectLayer : public CCLayer
+class OdysseySelectLayer : public CCLayer, GJDropDownLayerDelegate
 {
 public:
     BoomScrollLayer *m_scrollLayer;
@@ -11,6 +11,7 @@ public:
     CCSize m_winSize;
     CCNode *m_dotNode;
     CCMenuItemSpriteExtra *m_shopButton;
+    CCSprite *m_islandTexture;
 
     int m_pageAmount = 3;
     int m_currentPage = 0;

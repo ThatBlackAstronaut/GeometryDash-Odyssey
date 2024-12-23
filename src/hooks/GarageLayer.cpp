@@ -12,8 +12,6 @@ class $modify(GDOGarageLayer, GJGarageLayer)
 
         auto gm = GameManager::get();
 
-        log::info("{}\n", m_iconID);
-
         m_playerObject->updatePlayerFrame(Odyssey::currentVehicleID(), gm->m_playerIconType);
 
         auto menu = getChildByID("shards-menu");
@@ -27,7 +25,7 @@ class $modify(GDOGarageLayer, GJGarageLayer)
         if (auto shopButton = getChildByID("top-left-menu")->getChildByID("shop-button"))
             shopButton->setVisible(false);
 
-        /*
+        
         //  Agregar los botones de gamemodes nuevos al menu de categorias
         if (auto categoryMenu = static_cast<CCMenu *>(getChildByID("category-menu")))
         {
@@ -61,7 +59,8 @@ class $modify(GDOGarageLayer, GJGarageLayer)
             categoryMenu->addChild(effectButton);
             categoryMenu->updateLayout();
         }
-        */
+    
+        
 
         return true;
     }

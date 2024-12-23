@@ -106,15 +106,15 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         if (dailyCButton)
             dailyCButton->setVisible(false);
 
-        auto dict = GameManager::sharedState()->m_valueKeeper;
+        auto dict = CCSpriteFrameCache::get()->m_pSpriteFrames;
         auto keys = dict->allKeys();
 
         for (int i = 0; i < keys->count(); ++i)
         {
-            CCString *key = (CCString *)keys->objectAtIndex(i);
-            CCString *value = (CCString *)dict->objectForKey(key->getCString());
+            //CCString *key = (CCString *)keys->objectAtIndex(i);
+           // CCString *value = (CCString *)dict->objectForKey(key->getCString());
 
-            log::info("Key: {} Value: {} \n", key->getCString(), value->getCString());
+            //log::info("Key: {}\n", key->getCString());
         };
 
         return true;
