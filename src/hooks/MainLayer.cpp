@@ -17,7 +17,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         if (!MenuLayer::init())
             return false;
 
-        if (Mod::get()->getSettingValue<bool>("reset-variables"))
+        if (Mod::get()->getSettingValue<bool>("restart-mod"))
             OdysseyMenuLayer::Restart();
 
         if (!GameManager::sharedState()->getUGV("201"))
@@ -111,10 +111,10 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
         for (int i = 0; i < keys->count(); ++i)
         {
-            //CCString *key = (CCString *)keys->objectAtIndex(i);
-           // CCString *value = (CCString *)dict->objectForKey(key->getCString());
+            // CCString *key = (CCString *)keys->objectAtIndex(i);
+            // CCString *value = (CCString *)dict->objectForKey(key->getCString());
 
-            //log::info("Key: {}\n", key->getCString());
+            // log::info("Key: {}\n", key->getCString());
         };
 
         return true;
@@ -136,18 +136,19 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
     void onCreator(CCObject *sender)
     {
-        auto showFanmades = Mod::get()->getSettingValue<bool>("show-more-games");
+        auto developerMode = Mod::get()->getSettingValue<bool>("dev-mode");
 
-        if (!showFanmades)
+        if (developerMode)
         {
-            auto *layer = FanmadeGamesLayer::create();
-            addChild(layer, 100);
-
-            layer->showLayer(false);
+            MenuLayer::onCreator(sender);
             return;
         }
 
-        MenuLayer::onCreator(sender);
+        auto *layer = FanmadeGamesLayer::create();
+        addChild(layer, 100);
+
+        layer->showLayer(false);
+        return;
     }
 
     void onMoreGames(CCObject *)
@@ -160,7 +161,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
     void Restart()
     {
-        Mod::get()->setSettingValue<bool>("reset-variables", false);
+        Mod::get()->setSettingValue<bool>("restart-mod", false);
 
         for (auto ii = 1; ii <= 60; ii++)
         {
@@ -169,7 +170,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
             log::info("Restarting UGV = {}", variable);
         };
 
-        /*  REINICIA TODO PARA EL JUGADOR, SOLAMENTE EN DEV
+        //  REINICIA TODO PARA EL JUGADOR, SOLAMENTE EN DEV
         GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7001, true));
         GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7002, true));
         GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7003, true));
@@ -181,7 +182,6 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7009, true));
         GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7501, true));
         GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7502, true));
-        */
 
         log::info("Variables succesfully restarted");
     }

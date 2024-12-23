@@ -776,7 +776,7 @@ void OdysseySelectLayer::onLevel(CCObject *sender)
 
     log::info("Tag: {}", sender->getTag());
 
-    if (sender->getTag() != 1 && !isLevelComplete(sender->getTag() - 1) && !Mod::get()->getSettingValue<bool>("skip-requirements"))
+    if (sender->getTag() != 1 && !isLevelComplete(sender->getTag() - 1) && !Mod::get()->getSettingValue<bool>("bypass-levels"))
         return;
 
     auto popup = OdysseyLevelPopup::create(sender->getTag() + 7000);
@@ -786,7 +786,7 @@ void OdysseySelectLayer::onLevel(CCObject *sender)
 //  Boton del Ogro
 void OdysseySelectLayer::onOgre(CCObject *)
 {
-    if (!AchievementManager::sharedState()->isAchievementEarned("geometry.ach.level05b") && !Mod::get()->getSettingValue<bool>("skip-requirements"))
+    if (!AchievementManager::sharedState()->isAchievementEarned("geometry.ach.level05b") && !Mod::get()->getSettingValue<bool>("bypass-vaults"))
     {
         log::info("LOCKED OGRE");
         auto dialog = Odyssey::createDialog("lockedOgre");
@@ -806,7 +806,7 @@ void OdysseySelectLayer::onExtraLevel(CCObject *sender)
     auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1);
     auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2);
 
-    if ((extra01_unlocked && sender->getTag() == 501) || (extra02_unlocked && sender->getTag() == 502) || Mod::get()->getSettingValue<bool>("skip-requirements"))
+    if ((extra01_unlocked && sender->getTag() == 501) || (extra02_unlocked && sender->getTag() == 502) || Mod::get()->getSettingValue<bool>("bypass-levels"))
     {
         auto popup = OdysseyLevelPopup::create(sender->getTag() + 7000);
         popup->show();

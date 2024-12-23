@@ -115,6 +115,7 @@ class $modify(GDO_MoreOptionsLayer, MoreOptionsLayer)
 	}
 };
 
+#ifdef DEVELOPER_MODE
 class $modify(GDO_EditorUI, EditorUI)
 {
 	void setupCreateMenu()
@@ -156,12 +157,15 @@ class $modify(GDO_EditorPauseLayer, EditorPauseLayer)
 		clipboard::write(m_editorLayer->m_level->m_levelString);
 	}
 };
+#endif
 
 class $modify(GDO_LocalLevelManager, LocalLevelManager)
 {
 	$override gd::string getMainLevelString(int id)
 	{
-		auto file = CCString::createWithFormat("level-%i.txt"_spr, id);
+		// auto file = CCString::createWithFormat("level-%i.txt"_spr, id);
+		auto file = Mod::get()->getSettingValue<bool>("empty-levels") ? CCString::createWithFormat("base.txt"_spr) : CCString::createWithFormat("level-%i.txt"_spr, id);
+
 		if (file == nullptr)
 			return "";
 

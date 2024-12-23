@@ -64,6 +64,15 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
 
         GameManager::sharedState()->setIntGameVariable("1001", 0);
 
+        //  Solo para el mod en Modo desarrollador
+        #ifndef DEVELOPER_MODE
+            Mod::get()->setSavedValue<bool>("developer-version", false);
+        #endif
+
+        #ifdef DEVELOPER_MODE
+            Mod::get()->setSavedValue<bool>("developer-version", true);
+        #endif
+
         return true;
     }
 
@@ -97,7 +106,7 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
 
         // Ghost House
         Odyssey::insertAssetsToMap(false, {539, 554, 1076, 1740, 2389, 2390, 2392, 2590, 2591, 2844, 2847, 3082, 3084, 3084, 3085, 3114, 3120, 3533, 4395, 4397, 4404, 7274, 7501, 7791, 7795, 7799, 12087, 12089, 12121, 12132, 12174, 12175, 12178, 12184, 12188, 12198, 12920, 15950, 15955, 18929});
-        //Odyssey::insertAssetsToMap(true, {676349}); - no es necesario
+        // Odyssey::insertAssetsToMap(true, {676349}); - no es necesario
 
         // Super Ultra
         Odyssey::insertAssetsToMap(false, {491, 492, 493, 562, 755, 1025, 1049, 1567, 1571, 1572, 1586, 1587, 1619, 1740, 1751, 1897, 2393, 2711, 2716, 2717, 2718, 2847, 2910, 2913, 2914, 2915, 2916, 2974, 3016, 3210, 3383, 3384, 4260, 4261, 4262, 4273, 4289, 4290, 4397, 4404, 6242, 6310, 7231, 7646, 7647, 19796});
@@ -115,13 +124,13 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         Odyssey::insertAssetsToMap(false, {998, 1014, 1024, 1950, 3083, 6808, 6833, 6838, 6840, 6863, 6870, 6897, 6900, 7667, 13057});
         Odyssey::insertAssetsToMap(true, {10007196});
 
-        //Absolute Zero
+        // Absolute Zero
         Odyssey::insertAssetsToMap(true, {10007188, 10011788});
 
-        //Comfort Food
+        // Comfort Food
         Odyssey::insertAssetsToMap(true, {10012389});
 
-        //Critical Hit
+        // Critical Hit
         Odyssey::insertAssetsToMap(false, {476, 709, 717, 2031, 2032, 2074, 2856, 3112, 3548, 4563, 4566, 4841, 4883, 5222, 6881, 6882, 6883, 7653, 7659, 7687, 13980, 22879});
         Odyssey::insertAssetsToMap(true, {10007200, 10000721});
 

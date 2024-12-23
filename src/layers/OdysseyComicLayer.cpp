@@ -168,23 +168,6 @@ void OdysseyComicLayer::createComic(CCArray *arr, int issueNumber)
     m_background->setColor(colors[issueNumber - 1]);
     m_totalPages = totalPages[issueNumber - 1];
 
-    /*
-    m_totalPages = (issueNumber == 1) ? 9 : (issueNumber == 2) ? 5
-                                        : (issueNumber == 3)   ? 4
-                                        : (issueNumber == 4)   ? 4
-                                        : (issueNumber == 5)   ? 9
-                                        : (issueNumber == 6)   ? 6
-                                                               : 1;
-
-    m_backgroundMusic = (issueNumber == 1)   ? "comic_01.mp3"_spr
-                        : (issueNumber == 2) ? "comic_02.mp3"_spr
-                        : (issueNumber == 3) ? "comic_03.mp3"_spr
-                        : (issueNumber == 4) ? "comic_04.mp3"_spr
-                        : (issueNumber == 5) ? "comic_05.mp3"_spr
-                        : (issueNumber == 6) ? "comic_06.mp3"_spr
-                                             : "shop5.mp3";
-    */
-
     for (int ii = 0; ii < m_totalPages; ii++)
     {
         //  auto pages = getPage(issueNumber, ii + 1);
@@ -203,7 +186,7 @@ void OdysseyComicLayer::onHollow(CCObject *)
     auto GM = GameManager::sharedState();
     auto GSM = GameStatsManager::sharedState();
 
-    if (!Mod::get()->getSettingValue<bool>("skip-requirements"))
+    if (!Mod::get()->getSettingValue<bool>("bypass-vaults"))
     {
         //  Conoce al Hollow por primera vez
         if (!GM->getUGV("205"))
