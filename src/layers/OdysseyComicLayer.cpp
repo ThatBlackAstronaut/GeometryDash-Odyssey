@@ -436,7 +436,7 @@ std::pair<const char *, const char *> OdysseyComicLayer::getPage(int issueNumber
 CCNode *OdysseyComicLayer::createComicPage(const char *spriteName)
 {
     auto node = CCNode::create();
-    auto comicSprite = CCSprite::create(spriteName);
+    auto comicSprite = CCSprite::createWithSpriteFrameName(spriteName);
     auto winSize = CCDirector::sharedDirector()->getWinSize();
 
     comicSprite->setPosition(winSize / 2);

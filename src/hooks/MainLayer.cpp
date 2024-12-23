@@ -89,7 +89,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         auto moreGamesButton = static_cast<CCMenuItemSpriteExtra *>(moreGamesMenu->getChildByID("more-games-button"));
         if (moreGamesButton)
         {
-            auto creditsSprite = CCSprite::createWithSpriteFrameName("GDO_CreditsBtn_001.png"_spr);
+            auto creditsSprite = CrossButtonSprite::createWithSpriteFrameName("GDO_CreditsIcon_001.png"_spr, 1.5f);
             creditsSprite->setScale(0.9f);
             moreGamesButton->setTag(1);
 

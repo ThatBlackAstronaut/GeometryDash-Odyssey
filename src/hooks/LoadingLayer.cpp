@@ -52,6 +52,7 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         OdysseyLoadingLayer::addCustomIconCredits();
         OdysseyLoadingLayer::addOdysseyAudioAssets();
         OdysseyLoadingLayer::addOdysseyComicAssets();
+        OdysseyLoadingLayer::loadStats();
 
         //  La bandera de "Aceptar los ToS" del juego
         if (!GM->getUGV("30"))
@@ -116,53 +117,13 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
 
     void addOdysseyComicAssets()
     {
-        std::string zipPath;
-        std::string unzipDir;
-
         log::debug("Loading comic assets...");
+        auto SFC = CCSpriteFrameCache::get();
+        //  auto searchPathRoot = dirs::getModRuntimeDir() / Mod::get()->getID() / "resources/ComicAssets";
 
-#ifdef GEODE_IS_WINDOWS
-        zipPath = geode::Mod::get()->getResourcesDir().string() + "\\" + "ComicAssets.zip";
-        unzipDir = geode::Mod::get()->getResourcesDir().string() + "\\" + "ComicAssets";
-#endif
-#ifdef GEODE_IS_ANDROID
-        zipPath = geode::Mod::get()->getResourcesDir().string() + "/" + "ComicAssets.zip";
-        unzipDir = geode::Mod::get()->getResourcesDir().string() + "/" + "ComicAssets";
-#endif
-
-        auto result = geode::utils::file::Unzip::intoDir(zipPath, unzipDir);
-
-        CCFileUtils::get()->addTexturePack(CCTexturePack{
-            .m_id = this->getID(),
-            .m_paths = {unzipDir}});
-
-        auto *textureCache = CCTextureCache::sharedTextureCache();
-        auto *spriteFrameCache = CCSpriteFrameCache::sharedSpriteFrameCache();
-
-        //  Proceso para meter todas las paginas
-        for (auto ii = 0; ii < 6; ii++)
-        {
-            auto max = (ii == 0)   ? 9
-                       : (ii == 1) ? 5
-                       : (ii == 2) ? 4
-                       : (ii == 3) ? 4
-                       : (ii == 4) ? 9
-                                   : 6;
-
-            //  Agrega todas las paginas del comic al cache
-            for (auto jj = 0; jj < max; jj++)
-            {
-                log::debug("    Loading Comic: {} - Page: {}", ii, jj);
-
-                auto pageENG = fmt::format("Comic_ENG_0{}_0{:02}.png"_spr, ii + 1, jj + 1);
-                auto pageSPA = fmt::format("Comic_SPA_0{}_0{:02}.png"_spr, ii + 1, jj + 1);
-
-                textureCache->addImage(pageENG.c_str(), false);
-                textureCache->addImage(pageSPA.c_str(), false);
-            }
-        }
-
-        textureCache->addImage("Comic_Error.png"_spr, false);
+        //  CCFileUtils::sharedFileUtils()->addSearchPath(searchPathRoot.string().c_str());
+        SFC->addSpriteFramesWithFile("ComicSheetSPA.plist");
+        SFC->addSpriteFramesWithFile("ComicSheetENG.plist");
         log::debug("Comic files succesfully loaded");
     }
 
@@ -208,9 +169,9 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         Odyssey::addCreditsToIcon(std::make_pair(177, UnlockType::Ship), (int)Artist::ML500);  // ML5
 
         //  Balls
-        Odyssey::addCreditsToIcon(std::make_pair(119, UnlockType::Ball), (int)Artist::Danky); // Danky
-        Odyssey::addCreditsToIcon(std::make_pair(120, UnlockType::Ball), (int)Artist::ML500); // ML5
-        Odyssey::addCreditsToIcon(std::make_pair(121, UnlockType::Ball), (int)Artist::Danky); // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(119, UnlockType::Ball), (int)Artist::Danky);  // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(120, UnlockType::Ball), (int)Artist::ML500);  // ML5
+        Odyssey::addCreditsToIcon(std::make_pair(121, UnlockType::Ball), (int)Artist::Danky);  // Danky
         Odyssey::addCreditsToIcon(std::make_pair(122, UnlockType::Ball), (int)Artist::Minox);  // MinoX
         Odyssey::addCreditsToIcon(std::make_pair(123, UnlockType::Ball), (int)Artist::Angelo); // Angelo
         Odyssey::addCreditsToIcon(std::make_pair(124, UnlockType::Ball), (int)Artist::ML500);  // ML5
@@ -238,5 +199,13 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
 
         //  Jetpack
         Odyssey::addCreditsToIcon(std::make_pair(9, UnlockType::Jetpack), (int)Artist::Minox); // MinoX
+    }
+
+    void loadStats()
+    {
+        auto GSM = GameStatsManager::sharedState();
+
+        if (auto orbs = Mod::get()->getSavedValue<int>("Orbs"))
+            GSM->setStat("14", orbs);
     }
 };
