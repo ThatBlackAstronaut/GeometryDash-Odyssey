@@ -11,6 +11,7 @@ public:
     CCSize m_winSize;
     CCNode *m_dotNode;
     CCMenuItemSpriteExtra *m_shopButton;
+    CCSprite *m_islandTexture;
 
     int m_pageAmount = 3;
     int m_currentPage = 0;

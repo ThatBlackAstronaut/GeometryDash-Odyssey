@@ -50,23 +50,23 @@ class $modify(OdysseyLevelTools, LevelTools)
 		switch (levelID)
 		{
 		case 101:
-			return "TheDangerousSeas.mp3"_spr;
+			return "10009443.ogg"_spr;
 		case 102:
 			return "GhostHouse.mp3"_spr;
 		case 103:
-			return "SuperUltra.mp3"_spr;
+			return "10007255.ogg"_spr;
 		case 104:
-			return "CryptoFunk.mp3"_spr;
+			return "10007201.ogg"_spr;
 		case 105:
-			return "Hellfire.mp3"_spr;
+			return "10007222.mp3"_spr;
 		case 106:
-			return "BossRush.mp3"_spr;
+			return "10007196.ogg"_spr;
 		case 107:
-			return "AbsoluteZero.mp3"_spr;
+			return "10007188.ogg"_spr;
 		case 108:
-			return "ComfortFood.mp3"_spr;
+			return "113372815.ogg"_spr;
 		case 109:
-			return "CriticalHit.mp3"_spr;
+			return "10007200.ogg"_spr;
 
 		case 501:
 			return "ConclusiveJourney.mp3"_spr;

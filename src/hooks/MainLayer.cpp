@@ -111,10 +111,10 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
         for (int i = 0; i < keys->count(); ++i)
         {
-            CCString *key = (CCString *)keys->objectAtIndex(i);
+            //CCString *key = (CCString *)keys->objectAtIndex(i);
            // CCString *value = (CCString *)dict->objectForKey(key->getCString());
 
-            log::info("Key: {}\n", key->getCString());
+            //log::info("Key: {}\n", key->getCString());
         };
 
         return true;

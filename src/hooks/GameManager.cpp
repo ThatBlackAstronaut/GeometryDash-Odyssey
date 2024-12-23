@@ -10,25 +10,25 @@ class $modify(OdysseyGameManager, GameManager)
     int countForType(IconType icon)
     {
         //  auto hide = GameManager::sharedState()->getGameVariable("0202");
-
-        if (icon == IconType::Cube)
+        switch (icon)
+        {
+        case IconType::Cube:
             return 514;
-        if (icon == IconType::Ship)
+        case IconType::Ship:
             return 177;
-        if (icon == IconType::Ball)
+        case IconType::Ball:
             return 126;
-        if (icon == IconType::Ufo)
+        case IconType::Ufo:
             return 154;
-        if (icon == IconType::Wave)
+        case IconType::Wave:
             return 100;
-        if (icon == IconType::Robot)
-            return 68;
-        if (icon == IconType::Spider)
-            return 69;
-        if (icon == IconType::Swing)
+        case IconType::Swing:
             return 47;
-        if (icon == IconType::Jetpack)
+        case IconType::Jetpack:
             return 9;
+        case IconType::Special:
+            return 7;
+        }
 
         return GameManager::countForType(icon);
     }
@@ -85,4 +85,6 @@ class $modify(OdysseyGameManager, GameManager)
     {
         GameManager::dataLoaded(dict);
     }
+    
 };
+
