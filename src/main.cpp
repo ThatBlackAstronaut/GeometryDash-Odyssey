@@ -48,6 +48,7 @@ class $modify(PauseLayer)
 	{
 		PauseLayer::onQuit(sender);
 		int page = Odyssey::islandPageForLevelID(PlayLayer::get()->m_level->m_levelID);
+
 		GameManager::sharedState()->fadeInMusic(fmt::format("IslandLoop{:02}.mp3"_spr, page + 1));
 	}
 };
