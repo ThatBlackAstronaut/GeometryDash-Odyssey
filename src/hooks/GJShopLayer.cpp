@@ -14,21 +14,6 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 
 		FMODAudioEngine::sharedEngine()->playMusic("Shop.mp3"_spr, true, 0.1f, 0);
 
-		/*
-		auto children = getChildren();
-
-		auto background = static_cast<CCSprite*>(children->objectAtIndex(0));
-		background->setDisplayFrame(CCSprite::createWithSpriteFrameName("shopBG_001.png"_spr)->displayFrame());
-
-		auto shopSign = static_cast<CCSprite*>(children->objectAtIndex(1));
-		shopSign->setDisplayFrame(CCSprite::createWithSpriteFrameName("shopSign_001.png"_spr)->displayFrame());
-
-		auto desk = static_cast<CCSprite*>(children->objectAtIndex(3));
-		desk->setDisplayFrame(CCSprite::createWithSpriteFrameName("storeDesk_001.png"_spr)->displayFrame());
-		desk->setPositionY(93);
-
-		auto currency = static_cast<CCSprite*>(children->objectAtIndex(6));
-		*/
 		auto extraMenu = CCMenu::create();
 		extraMenu->setPosition({0, 0});
 		
@@ -54,7 +39,7 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		particle->setEndColor({ 255, 122, 0, 0 });
 
 		auto winSize = CCDirector::sharedDirector()->getWinSize();
-		int rand = (std::rand() % 4) + 1;
+		int rand = (std::rand() % 5) + 1;
 
 		auto wantedPoster = CCSprite::createWithSpriteFrameName(fmt::format("GDO_Wanted0{}_001.png"_spr, rand).c_str());
 		wantedPoster->setPosition({(winSize.width / 4) + (std::rand() % 3 * 30), winSize.height / 2 + 70.f});

@@ -60,9 +60,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         //  Boton para acceder a los comics mas facil
         auto bottomMenu = static_cast<CCMenu *>(this->getChildByID("bottom-menu"));
 
-        /*
-        auto seenComic = GameManager::sharedState()->getUGV("222");
-        if (seenComic)
+        if (GameManager::sharedState()->getUGV("208") || GameManager::sharedState()->getUGV("222"))
         {
             auto comicButton = CCMenuItemSpriteExtra::create(
                 CircleButtonSprite::createWithSpriteFrameName("GDO_ComicIcon_001.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::MediumAlt),
@@ -71,7 +69,6 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
             bottomMenu->addChild(comicButton);
         }
-        */
 
         if (Mod::get()->getSettingValue<bool>("dev-mode"))
         {
@@ -105,17 +102,6 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         auto dailyCButton = static_cast<CCMenuItemSpriteExtra *>(rightMenu->getChildByID("daily-chest-button"));
         if (dailyCButton)
             dailyCButton->setVisible(false);
-
-        auto dict = CCSpriteFrameCache::get()->m_pSpriteFrames;
-        auto keys = dict->allKeys();
-
-        for (int i = 0; i < keys->count(); ++i)
-        {
-            // CCString *key = (CCString *)keys->objectAtIndex(i);
-            // CCString *value = (CCString *)dict->objectForKey(key->getCString());
-
-            // log::info("Key: {}\n", key->getCString());
-        };
 
         return true;
     }
@@ -163,25 +149,12 @@ class $modify(OdysseyMenuLayer, MenuLayer)
     {
         Mod::get()->setSettingValue<bool>("restart-mod", false);
 
-        for (auto ii = 1; ii <= 60; ii++)
+        for (auto ii = 1; ii <= 40; ii++)
         {
             auto variable = (ii < 10) ? fmt::format("20{}", ii) : fmt::format("2{}", ii);
             GameManager::sharedState()->setUGV(variable.c_str(), false);
             log::info("Restarting UGV = {}", variable);
         };
-
-        //  REINICIA TODO PARA EL JUGADOR, SOLAMENTE EN DEV
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7001, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7002, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7003, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7004, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7005, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7006, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7007, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7008, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7009, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7501, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7502, true));
 
         log::info("Variables succesfully restarted");
     }

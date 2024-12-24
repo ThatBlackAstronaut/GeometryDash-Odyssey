@@ -4,6 +4,7 @@
 #include "../utils/Utils.hpp"
 
 const int HOLLOW_COIN_QUOTA = 12;
+const int COMICS_AMOUNT = 12;
 
 bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
 {
@@ -57,8 +58,7 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
     if (issueNumber == 4)
     {
         auto hollowSprite = CCSprite::createWithSpriteFrameName("HollowSkull_001.png"_spr);
-        hollowSprite->setColor({50, 50, 50});
-        hollowSprite->setOpacity(50);
+        hollowSprite->setColor({90, 90, 90});
 
         auto hollowBtn = CCMenuItemSpriteExtra::create(
             hollowSprite,
@@ -67,6 +67,10 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
 
         hollowBtn->setPosition({m_winSize.width - 20, m_winSize.height - 20});
         hollowBtn->setTag(0);
+
+        auto opacity = GameManager::sharedState()->getUGV("205") ? 150 : 0;
+        hollowBtn->setID("hollow-button");
+        hollowBtn->setOpacity(opacity);
 
         auto secretMenu = CCMenu::create();
         secretMenu->addChild(hollowBtn);
@@ -191,6 +195,10 @@ void OdysseyComicLayer::onHollow(CCObject *)
         //  Conoce al Hollow por primera vez
         if (!GM->getUGV("205"))
         {
+            if(auto hollowBtn = this->getChildByIDRecursive("hollow-button")){
+                hollowBtn->runAction(CCFadeTo::create(1, 150));
+            };
+
             log::info("MEETING HOLLOW");
             auto dialog = Odyssey::createDialog("meetingHollow");
             this->addChild(dialog, 3);
@@ -238,14 +246,14 @@ CCNode *OdysseyComicLayer::createComicPage(const char *spriteName)
 void OdysseyComicLayer::verifySecretAchievement()
 {
     int comicProgress = 0;
-    for (auto ii = 1; ii <= 6; ii++)
+    for (auto ii = 1; ii <= COMICS_AMOUNT; ii++)
     {
         comicProgress += GameManager::sharedState()->getUGV(fmt::format("2{}", ii + 10).c_str());
         log::debug("Comic {}, UGV {}, Value {}", ii, fmt::format("2{}", ii + 10).c_str(), GameManager::sharedState()->getUGV(fmt::format("2{}", ii + 10).c_str()));
     };
     log::debug("Comic progress: {}", comicProgress);
 
-    auto percent = (comicProgress * 100) / 6;
+    auto percent = (comicProgress * 100) / COMICS_AMOUNT;
     log::info("Secret Comic Achievement progress: {}", percent);
     GameManager::sharedState()->reportAchievementWithID("geometry.ach.odyssey.secret19", percent, false);
 };

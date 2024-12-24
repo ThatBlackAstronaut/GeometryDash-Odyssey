@@ -1,8 +1,7 @@
 #include "OdysseyDevLayer.hpp"
 #include "OdysseyComicLayer.hpp"
-#include "OdysseyLevelPopup.hpp"
 #include "SecretVaultLayer2.hpp"
-
+#include "../nodes/OdysseyLevelPopup.hpp"
 #include "../nodes/OdysseyPopup.hpp"
 #include "../utils/Utils.hpp"
 
@@ -150,48 +149,17 @@ bool OdysseyDevLayer::init()
     comicsLabel->setScale(0.75f);
     addChild(comicsLabel);
 
-    auto comic01 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("1", 0.5f),
-        this,
-        menu_selector(OdysseyDevLayer::onComic));
-    comic01->setTag(1);
+    for (auto ii = 0; ii < 12; ii++)
+    {
+        auto comic = CCMenuItemSpriteExtra::create(
+            ButtonSprite::create(fmt::format("{}", ii + 1).c_str(), 0.5f),
+            this,
+            menu_selector(OdysseyDevLayer::onComic));
+        
+        comic->setTag(ii + 1);
+        comicsMenu->addChild(comic);
+    };
 
-    auto comic02 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("2", 0.5f),
-        this,
-        menu_selector(OdysseyDevLayer::onComic));
-    comic02->setTag(2);
-
-    auto comic03 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("3", 0.5f),
-        this,
-        menu_selector(OdysseyDevLayer::onComic));
-    comic03->setTag(3);
-
-    auto comic04 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("4", 0.5f),
-        this,
-        menu_selector(OdysseyDevLayer::onComic));
-    comic04->setTag(4);
-
-    auto comic05 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("5", 0.5f),
-        this,
-        menu_selector(OdysseyDevLayer::onComic));
-    comic05->setTag(5);
-
-    auto comic06 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("6", 0.5f),
-        this,
-        menu_selector(OdysseyDevLayer::onComic));
-    comic06->setTag(6);
-
-    comicsMenu->addChild(comic01);
-    comicsMenu->addChild(comic02);
-    comicsMenu->addChild(comic03);
-    comicsMenu->addChild(comic04);
-    comicsMenu->addChild(comic05);
-    comicsMenu->addChild(comic06);
     comicsMenu->updateLayout();
     addChild(comicsMenu);
 

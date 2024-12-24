@@ -7,6 +7,11 @@ using namespace geode::prelude;
 
 class $modify(OdysseyGameManager, GameManager)
 {
+    void firstLoad(){
+        GameManager::firstLoad();
+        Mod::get()->setSavedValue<int>("Orbs", 0);
+    };
+
     int countForType(IconType icon)
     {
         //  auto hide = GameManager::sharedState()->getGameVariable("0202");

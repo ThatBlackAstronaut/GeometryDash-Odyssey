@@ -1,17 +1,18 @@
 #include <Geode/Geode.hpp>
-#include <Geode/modify/MoreOptionsLayer.hpp>
 #include <Geode/modify/GManager.hpp>
-#include <Geode/modify/EditorUI.hpp>
-#include <Geode/modify/EditorPauseLayer.hpp>
+#include <Geode/modify/MoreOptionsLayer.hpp>
 #include <Geode/modify/LocalLevelManager.hpp>
-#include <Geode/modify/MusicDownloadManager.hpp>
 #include <Geode/modify/OptionsLayer.hpp>
 #include <Geode/modify/SongsLayer.hpp>
+#include <Geode/modify/MusicDownloadManager.hpp>
 #include <Geode/modify/PauseLayer.hpp>
-#include <Geode/modify/GJItemIcon.hpp>
-#include <Geode/modify/CurrencySprite.hpp>
 #include <Geode/modify/PurchaseItemPopup.hpp>
 #include "utils/Utils.hpp"
+
+#ifdef DEVELOPER_MODE
+	#include <Geode/modify/EditorUI.hpp>
+	#include <Geode/modify/EditorPauseLayer.hpp>
+#endif
 
 using namespace geode::prelude;
 
