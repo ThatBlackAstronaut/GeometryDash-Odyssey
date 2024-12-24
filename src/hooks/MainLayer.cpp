@@ -17,7 +17,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         if (!MenuLayer::init())
             return false;
 
-        if (Mod::get()->getSettingValue<bool>("reset-variables"))
+        if (Mod::get()->getSettingValue<bool>("restart-mod"))
             OdysseyMenuLayer::Restart();
 
         if (!GameManager::sharedState()->getUGV("201"))
@@ -60,9 +60,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         //  Boton para acceder a los comics mas facil
         auto bottomMenu = static_cast<CCMenu *>(this->getChildByID("bottom-menu"));
 
-        /*
-        auto seenComic = GameManager::sharedState()->getUGV("222");
-        if (seenComic)
+        if (GameManager::sharedState()->getUGV("208") || GameManager::sharedState()->getUGV("222"))
         {
             auto comicButton = CCMenuItemSpriteExtra::create(
                 CircleButtonSprite::createWithSpriteFrameName("GDO_ComicIcon_001.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::MediumAlt),
@@ -71,7 +69,6 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
             bottomMenu->addChild(comicButton);
         }
-        */
 
         if (Mod::get()->getSettingValue<bool>("dev-mode"))
         {
@@ -89,7 +86,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         auto moreGamesButton = static_cast<CCMenuItemSpriteExtra *>(moreGamesMenu->getChildByID("more-games-button"));
         if (moreGamesButton)
         {
-            auto creditsSprite = CCSprite::createWithSpriteFrameName("GDO_CreditsBtn_001.png"_spr);
+            auto creditsSprite = CrossButtonSprite::createWithSpriteFrameName("GDO_CreditsIcon_001.png"_spr, 1.5f);
             creditsSprite->setScale(0.9f);
             moreGamesButton->setTag(1);
 
@@ -105,17 +102,6 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         auto dailyCButton = static_cast<CCMenuItemSpriteExtra *>(rightMenu->getChildByID("daily-chest-button"));
         if (dailyCButton)
             dailyCButton->setVisible(false);
-
-        auto dict = CCSpriteFrameCache::get()->m_pSpriteFrames;
-        auto keys = dict->allKeys();
-
-        for (int i = 0; i < keys->count(); ++i)
-        {
-            //CCString *key = (CCString *)keys->objectAtIndex(i);
-           // CCString *value = (CCString *)dict->objectForKey(key->getCString());
-
-            //log::info("Key: {}\n", key->getCString());
-        };
 
         return true;
     }
@@ -136,18 +122,19 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
     void onCreator(CCObject *sender)
     {
-        auto showFanmades = Mod::get()->getSettingValue<bool>("show-more-games");
+        auto developerMode = Mod::get()->getSettingValue<bool>("dev-mode");
 
-        if (!showFanmades)
+        if (developerMode)
         {
-            auto *layer = FanmadeGamesLayer::create();
-            addChild(layer, 100);
-
-            layer->showLayer(false);
+            MenuLayer::onCreator(sender);
             return;
         }
 
-        MenuLayer::onCreator(sender);
+        auto *layer = FanmadeGamesLayer::create();
+        addChild(layer, 100);
+
+        layer->showLayer(false);
+        return;
     }
 
     void onMoreGames(CCObject *)
@@ -160,28 +147,14 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
     void Restart()
     {
-        Mod::get()->setSettingValue<bool>("reset-variables", false);
+        Mod::get()->setSettingValue<bool>("restart-mod", false);
 
-        for (auto ii = 1; ii <= 60; ii++)
+        for (auto ii = 1; ii <= 40; ii++)
         {
             auto variable = (ii < 10) ? fmt::format("20{}", ii) : fmt::format("2{}", ii);
             GameManager::sharedState()->setUGV(variable.c_str(), false);
             log::info("Restarting UGV = {}", variable);
         };
-
-        /*  REINICIA TODO PARA EL JUGADOR, SOLAMENTE EN DEV
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7001, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7002, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7003, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7004, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7005, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7006, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7007, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7008, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7009, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7501, true));
-        GameStatsManager::sharedState()->uncompleteLevel(GameLevelManager::sharedState()->getMainLevel(7502, true));
-        */
 
         log::info("Variables succesfully restarted");
     }

@@ -52,6 +52,10 @@ public:
 
     void getWizardDialog01();
     void getWizardDialog02();
+    void getWizardDialog03();
+    void getComic01();
+    void getComic06();
+    void getComic12();
 
 public:
     static OdysseySelectLayer *create(int);

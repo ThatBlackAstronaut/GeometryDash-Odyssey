@@ -1,17 +1,18 @@
 #include <Geode/Geode.hpp>
-#include <Geode/modify/MoreOptionsLayer.hpp>
 #include <Geode/modify/GManager.hpp>
-#include <Geode/modify/EditorUI.hpp>
-#include <Geode/modify/EditorPauseLayer.hpp>
+#include <Geode/modify/MoreOptionsLayer.hpp>
 #include <Geode/modify/LocalLevelManager.hpp>
-#include <Geode/modify/MusicDownloadManager.hpp>
 #include <Geode/modify/OptionsLayer.hpp>
 #include <Geode/modify/SongsLayer.hpp>
+#include <Geode/modify/MusicDownloadManager.hpp>
 #include <Geode/modify/PauseLayer.hpp>
-#include <Geode/modify/GJItemIcon.hpp>
-#include <Geode/modify/CurrencySprite.hpp>
 #include <Geode/modify/PurchaseItemPopup.hpp>
 #include "utils/Utils.hpp"
+
+#ifdef DEVELOPER_MODE
+	#include <Geode/modify/EditorUI.hpp>
+	#include <Geode/modify/EditorPauseLayer.hpp>
+#endif
 
 using namespace geode::prelude;
 
@@ -47,7 +48,6 @@ class $modify(PauseLayer)
 	void onQuit(CCObject *sender)
 	{
 		PauseLayer::onQuit(sender);
-
 		int page = Odyssey::islandPageForLevelID(PlayLayer::get()->m_level->m_levelID);
 
 		GameManager::sharedState()->fadeInMusic(fmt::format("IslandLoop{:02}.mp3"_spr, page + 1));
@@ -66,12 +66,13 @@ class $modify(GDO_OptionsLayer, OptionsLayer)
 		}
 	}
 
-	void onAccount(CCObject * ){
+	void onAccount(CCObject *)
+	{
 		auto spanish = GameManager::sharedState()->getGameVariable("0201");
 		auto info = spanish ? "Para evitar riesgos de sobrescribir tus datos por accidente, esta <cr>funcion esta desactivada</c>. Tus datos actuales se restauraran cuando desactives el mod." : "To avoid risks of accidentally overwriting your data, this <cr>feature is disabled</c>. Your actual data will be restored when you disable the mod.";
 
 		auto alert = FLAlertLayer::create("Disabled", info, "OK");
-        alert->show();
+		alert->show();
 	}
 };
 
@@ -115,6 +116,7 @@ class $modify(GDO_MoreOptionsLayer, MoreOptionsLayer)
 	}
 };
 
+#ifdef DEVELOPER_MODE
 class $modify(GDO_EditorUI, EditorUI)
 {
 	void setupCreateMenu()
@@ -156,12 +158,15 @@ class $modify(GDO_EditorPauseLayer, EditorPauseLayer)
 		clipboard::write(m_editorLayer->m_level->m_levelString);
 	}
 };
+#endif
 
 class $modify(GDO_LocalLevelManager, LocalLevelManager)
 {
 	$override gd::string getMainLevelString(int id)
 	{
-		auto file = CCString::createWithFormat("level-%i.txt"_spr, id);
+		// auto file = CCString::createWithFormat("level-%i.txt"_spr, id);
+		auto file = Mod::get()->getSettingValue<bool>("empty-levels") ? CCString::createWithFormat("base.txt"_spr) : CCString::createWithFormat("level-%i.txt"_spr, id);
+
 		if (file == nullptr)
 			return "";
 
@@ -222,7 +227,7 @@ class $modify(SongsLayer)
 
 class $modify(PurchaseItemPopup)
 {
-	void onPurchase(CCObject* sender)
+	void onPurchase(CCObject *sender)
 	{
 		PurchaseItemPopup::onPurchase(sender);
 		log::info("Purchased! {}", "\n");

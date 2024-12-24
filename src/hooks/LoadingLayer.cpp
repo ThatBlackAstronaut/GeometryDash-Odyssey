@@ -52,6 +52,7 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         OdysseyLoadingLayer::addCustomIconCredits();
         OdysseyLoadingLayer::addOdysseyAudioAssets();
         OdysseyLoadingLayer::addOdysseyComicAssets();
+        OdysseyLoadingLayer::loadStats();
 
         //  La bandera de "Aceptar los ToS" del juego
         if (!GM->getUGV("30"))
@@ -62,6 +63,15 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
             GM->setUGV("17", true);
 
         GameManager::sharedState()->setIntGameVariable("1001", 0);
+
+        //  Solo para el mod en Modo desarrollador
+        #ifndef DEVELOPER_MODE
+            Mod::get()->setSavedValue<bool>("developer-version", false);
+        #endif
+
+        #ifdef DEVELOPER_MODE
+            Mod::get()->setSavedValue<bool>("developer-version", true);
+        #endif
 
         return true;
     }
@@ -96,7 +106,7 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
 
         // Ghost House
         Odyssey::insertAssetsToMap(false, {539, 554, 1076, 1740, 2389, 2390, 2392, 2590, 2591, 2844, 2847, 3082, 3084, 3084, 3085, 3114, 3120, 3533, 4395, 4397, 4404, 7274, 7501, 7791, 7795, 7799, 12087, 12089, 12121, 12132, 12174, 12175, 12178, 12184, 12188, 12198, 12920, 15950, 15955, 18929});
-        //Odyssey::insertAssetsToMap(true, {676349}); - no es necesario
+        // Odyssey::insertAssetsToMap(true, {676349}); - no es necesario
 
         // Super Ultra
         Odyssey::insertAssetsToMap(false, {491, 492, 493, 562, 755, 1025, 1049, 1567, 1571, 1572, 1586, 1587, 1619, 1740, 1751, 1897, 2393, 2711, 2716, 2717, 2718, 2847, 2910, 2913, 2914, 2915, 2916, 2974, 3016, 3210, 3383, 3384, 4260, 4261, 4262, 4273, 4289, 4290, 4397, 4404, 6242, 6310, 7231, 7646, 7647, 19796});
@@ -114,13 +124,13 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         Odyssey::insertAssetsToMap(false, {998, 1014, 1024, 1950, 3083, 6808, 6833, 6838, 6840, 6863, 6870, 6897, 6900, 7667, 13057});
         Odyssey::insertAssetsToMap(true, {10007196});
 
-        //Absolute Zero
+        // Absolute Zero
         Odyssey::insertAssetsToMap(true, {10007188, 10011788});
 
-        //Comfort Food
+        // Comfort Food
         Odyssey::insertAssetsToMap(true, {10012389});
 
-        //Critical Hit
+        // Critical Hit
         Odyssey::insertAssetsToMap(false, {476, 709, 717, 2031, 2032, 2074, 2856, 3112, 3548, 4563, 4566, 4841, 4883, 5222, 6881, 6882, 6883, 7653, 7659, 7687, 13980, 22879});
         Odyssey::insertAssetsToMap(true, {10007200, 10000721});
 
@@ -134,53 +144,13 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
 
     void addOdysseyComicAssets()
     {
-        std::string zipPath;
-        std::string unzipDir;
-
         log::debug("Loading comic assets...");
+        auto SFC = CCSpriteFrameCache::get();
+        //  auto searchPathRoot = dirs::getModRuntimeDir() / Mod::get()->getID() / "resources/ComicAssets";
 
-#ifdef GEODE_IS_WINDOWS
-        zipPath = geode::Mod::get()->getResourcesDir().string() + "\\" + "ComicAssets.zip";
-        unzipDir = geode::Mod::get()->getResourcesDir().string() + "\\" + "ComicAssets";
-#endif
-#ifdef GEODE_IS_ANDROID
-        zipPath = geode::Mod::get()->getResourcesDir().string() + "/" + "ComicAssets.zip";
-        unzipDir = geode::Mod::get()->getResourcesDir().string() + "/" + "ComicAssets";
-#endif
-
-        auto result = geode::utils::file::Unzip::intoDir(zipPath, unzipDir);
-
-        CCFileUtils::get()->addTexturePack(CCTexturePack{
-            .m_id = this->getID(),
-            .m_paths = {unzipDir}});
-
-        auto *textureCache = CCTextureCache::sharedTextureCache();
-        auto *spriteFrameCache = CCSpriteFrameCache::sharedSpriteFrameCache();
-
-        //  Proceso para meter todas las paginas
-        for (auto ii = 0; ii < 6; ii++)
-        {
-            auto max = (ii == 0)   ? 9
-                       : (ii == 1) ? 5
-                       : (ii == 2) ? 4
-                       : (ii == 3) ? 4
-                       : (ii == 4) ? 9
-                                   : 6;
-
-            //  Agrega todas las paginas del comic al cache
-            for (auto jj = 0; jj < max; jj++)
-            {
-                log::debug("    Loading Comic: {} - Page: {}", ii, jj);
-
-                auto pageENG = fmt::format("Comic_ENG_0{}_0{:02}.png"_spr, ii + 1, jj + 1);
-                auto pageSPA = fmt::format("Comic_SPA_0{}_0{:02}.png"_spr, ii + 1, jj + 1);
-
-                textureCache->addImage(pageENG.c_str(), false);
-                textureCache->addImage(pageSPA.c_str(), false);
-            }
-        }
-
-        textureCache->addImage("Comic_Error.png"_spr, false);
+        //  CCFileUtils::sharedFileUtils()->addSearchPath(searchPathRoot.string().c_str());
+        SFC->addSpriteFramesWithFile("ComicSheetSPA.plist");
+        SFC->addSpriteFramesWithFile("ComicSheetENG.plist");
         log::debug("Comic files succesfully loaded");
     }
 
@@ -226,9 +196,9 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         Odyssey::addCreditsToIcon(std::make_pair(177, UnlockType::Ship), (int)Artist::ML500);  // ML5
 
         //  Balls
-        Odyssey::addCreditsToIcon(std::make_pair(119, UnlockType::Ball), (int)Artist::Danky); // Danky
-        Odyssey::addCreditsToIcon(std::make_pair(120, UnlockType::Ball), (int)Artist::ML500); // ML5
-        Odyssey::addCreditsToIcon(std::make_pair(121, UnlockType::Ball), (int)Artist::Danky); // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(119, UnlockType::Ball), (int)Artist::Danky);  // Danky
+        Odyssey::addCreditsToIcon(std::make_pair(120, UnlockType::Ball), (int)Artist::ML500);  // ML5
+        Odyssey::addCreditsToIcon(std::make_pair(121, UnlockType::Ball), (int)Artist::Danky);  // Danky
         Odyssey::addCreditsToIcon(std::make_pair(122, UnlockType::Ball), (int)Artist::Minox);  // MinoX
         Odyssey::addCreditsToIcon(std::make_pair(123, UnlockType::Ball), (int)Artist::Angelo); // Angelo
         Odyssey::addCreditsToIcon(std::make_pair(124, UnlockType::Ball), (int)Artist::ML500);  // ML5
@@ -257,5 +227,13 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
 
         //  Jetpack
         Odyssey::addCreditsToIcon(std::make_pair(9, UnlockType::Jetpack), (int)Artist::Minox); // MinoX
+    }
+
+    void loadStats()
+    {
+        auto GSM = GameStatsManager::sharedState();
+
+        if (auto orbs = Mod::get()->getSavedValue<int>("Orbs"))
+            GSM->setStat("14", orbs);
     }
 };

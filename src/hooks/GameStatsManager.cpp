@@ -6,6 +6,16 @@ using namespace geode::prelude;
 
 class $modify(OdysseyGameStatsManager, GameStatsManager)
 {
+    void incrementStat(char const* p0, int p1){
+        GameStatsManager::incrementStat(p0, p1);
+
+        if(std::string_view(p0) == std::string_view("14")){
+            log::debug("ORBES");
+
+            Mod::get()->setSavedValue<int>("Orbs", GameStatsManager::getStat(p0) + p1);
+        }
+    };
+
     void checkCoinAchievement(GJGameLevel *level)
     {
         auto GM = GameManager::sharedState();
@@ -18,6 +28,17 @@ class $modify(OdysseyGameStatsManager, GameStatsManager)
         {
             GM->reportAchievementWithID(achievementID.c_str(), coinPercent, false);
         }
+    }
+
+    int getBaseCurrencyForLevel(GJGameLevel *level)
+    {
+        if (level->m_levelID.value() == 7009)
+            return 400;
+
+        if (level->m_levelID.value() == 7502)
+            return 400;
+
+        return GameStatsManager::getBaseCurrencyForLevel(level);
     }
 
     bool isItemUnlocked(UnlockType type, int ID)
@@ -46,7 +67,7 @@ class $modify(OdysseyGameStatsManager, GameStatsManager)
         //  Icono de tienda
         return 5;
     }
-    
+
     void createStoreItems()
     {
         auto newShop = static_cast<ShopType>(6);
@@ -76,7 +97,7 @@ class $modify(OdysseyGameStatsManager, GameStatsManager)
             addStoreItem(5, 1, 12, 500, newShop);  // LLAVE
             addStoreItem(6, 2, 12, 500, newShop);  // LLAVE
             addStoreItem(7, 46, 13, 100, newShop); // SWING
-            addStoreItem(8, 47, 13, 100, newShop);  // SWING
+            addStoreItem(8, 47, 13, 100, newShop); // SWING
 
             addStoreItem(9, 504, 1, 100, newShop);  // CUBO
             addStoreItem(10, 505, 1, 100, newShop); // CUBO
@@ -88,9 +109,9 @@ class $modify(OdysseyGameStatsManager, GameStatsManager)
             addStoreItem(15, 174, 4, 100, newShop); // NAVE
             addStoreItem(16, 175, 4, 100, newShop); // NAVE
 
-            addStoreItem(17, 18, 12, 50, newShop);  // ANIMACION
-            addStoreItem(18, 19, 12, 50, newShop);  // ANIMACION
-            addStoreItem(19, 20, 12, 50, newShop);  // ANIMACION
+            addStoreItem(17, 18, 12, 50, newShop); // ANIMACION
+            addStoreItem(18, 19, 12, 50, newShop); // ANIMACION
+            addStoreItem(19, 20, 12, 50, newShop); // ANIMACION
         }
     }
 };
