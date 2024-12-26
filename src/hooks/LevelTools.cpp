@@ -64,7 +64,7 @@ class $modify(OdysseyLevelTools, LevelTools)
 		case 107:
 			return "10007188.ogg"_spr;
 		case 108:
-			return "113372815.ogg"_spr;
+			return "10012389.ogg"_spr;
 		case 109:
 			return "10007200.ogg"_spr;
 
