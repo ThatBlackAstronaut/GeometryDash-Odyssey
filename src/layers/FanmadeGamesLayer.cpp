@@ -69,7 +69,7 @@ FanmadeGamesLayer *FanmadeGamesLayer::create()
 {
     auto ret = new FanmadeGamesLayer();
 
-    if (ret->init("Test"))
+    if (ret->init("More Fangames"))
     {
         ret->autorelease();
         return ret;

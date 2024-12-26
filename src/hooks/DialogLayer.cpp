@@ -15,6 +15,7 @@ class $modify(OdysseyDialogLayer, DialogLayer)
             auto scene = CCScene::create();
             scene->addChild(layer);
 
+            GameManager::sharedState()->fadeInMusic("comic_01.mp3"_spr);
             CCDirector::sharedDirector()->replaceScene(cocos2d::CCTransitionFade::create(0.5, scene));
         };
 
