@@ -40,7 +40,7 @@ OdysseyPopup *OdysseyPopup::create(std::string title, std::string desc)
 {
     auto ret = new OdysseyPopup();
 
-    if (ret->initAnchored(300.f, 200.f, title, desc))
+    if (ret->initAnchored(320.f, 200.f, title, desc))
     {
         ret->autorelease();
         return ret;

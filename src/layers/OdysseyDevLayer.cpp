@@ -46,10 +46,10 @@ bool OdysseyDevLayer::init()
                               ->setGrowCrossAxis(true)
                               ->setCrossAxisOverflow(false)
                               ->setCrossAxisLineAlignment(AxisAlignment::Even));
-    dialogMenu->setPositionY(winSize.height / 2 + 50.0f);
+    dialogMenu->setPositionY(winSize.height / 2 + 30.0f);
 
     auto dialogLabel = CCLabelBMFont::create("Events", "goldFont.fnt");
-    dialogLabel->setPosition({winSize.width / 2, dialogMenu->getPositionY() + dialogMenu->getContentHeight() / 2 + 10.0f});
+    dialogLabel->setPosition({winSize.width / 2, dialogMenu->getPositionY() + dialogMenu->getContentHeight() / 2 + 15.0f});
     dialogLabel->setScale(0.75f);
     addChild(dialogLabel);
 
@@ -136,7 +136,7 @@ bool OdysseyDevLayer::init()
     //  Menu de Comics
     auto comicsMenu = CCMenu::create();
     comicsMenu->setID("comics-menu"_spr);
-    comicsMenu->setContentSize({400.0f, 90.0f});
+    comicsMenu->setContentSize({400.0f, 65.0f});
     comicsMenu->setLayout(RowLayout::create()
                               ->setGap(8.0f)
                               ->setAutoScale(false)
@@ -208,11 +208,16 @@ void OdysseyDevLayer::onLevel(CCObject *sender)
 //  En Comic
 void OdysseyDevLayer::onComic(CCObject *sender)
 {
+    auto comic = OdysseyComicLayer::create(sender->getTag(), false);
+    comic->m_fromPopup = true;
+
+    auto button = static_cast<CCMenuItemSpriteExtra *>(sender);
+    button->setSprite(ButtonSprite::create(fmt::format("#{:02}", sender->getTag()).c_str(), 40, true, "goldFont.fnt", "GJ_button_01.png", 22.5f, 0.4f));
+
     auto scene = CCScene::create();
-    auto tag = sender->getTag();
+    scene->addChild(comic);
 
-    scene->addChild(OdysseyComicLayer::create(tag, false));
-
+    GameManager::sharedState()->fadeInMusic(fmt::format("comic_{:02}.mp3"_spr, sender->getTag()).c_str());
     CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };
 

@@ -420,6 +420,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
         return;
     };
 
+    /*
     if (std::string_view(lower) == std::string_view("fracture") && !GameManager::sharedState()->getUGV("236"))
     {
         FMODAudioEngine::sharedEngine()->playEffect(fmt::format("hollow_{}_010.mp3"_spr, language));
@@ -430,6 +431,7 @@ void SecretVaultLayer::onSubmit(CCObject *)
         updateMessage(response, MessageType::CorrectAnswer);
         return;
     };
+    */
 
     if (std::string_view(lower) == std::string_view("explorers") && !AM->isAchievementEarned("geometry.ach.odyssey.secret11"))
     {
@@ -681,6 +683,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
         return messages[index];
     }
 
+    /*
     //  Fracture
     if (ID == 12 && !GameManager::sharedState()->getUGV("236"))
     {
@@ -729,6 +732,7 @@ std::string SecretVaultLayer::getThreadMessage(int ID, int index)
         FMODAudioEngine::sharedEngine()->playEffect(voiceFiles[index]);
         return messages[index];
     }
+    */
 
     //  Explorers
     if (ID == 13 && !AM->isAchievementEarned("geometry.ach.odyssey.secret11"))

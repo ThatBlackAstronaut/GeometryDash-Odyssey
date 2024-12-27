@@ -58,6 +58,9 @@ void OdysseyComicPopup::onComic(CCObject * sender){
     auto comic = OdysseyComicLayer::create(sender->getTag(), false);
     comic->m_fromPopup = true;
 
+    auto button = static_cast<CCMenuItemSpriteExtra *>(sender);
+    button->setSprite(ButtonSprite::create(fmt::format("#{:02}", sender->getTag()).c_str(), 50, true, "goldFont.fnt", "GJ_button_01.png", 25.f, 0.6f));
+
     auto scene = CCScene::create();
     scene->addChild(comic);
 

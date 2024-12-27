@@ -648,10 +648,12 @@ void Odyssey::hasAllVaultRewards()
         //  if(AM->isAchievementEarned(fmt::format("geometry.ach.odyssey.secret{:02}")))
     }
 
+    /*
     if (!GameManager::sharedState()->getUGV("235"))
         allOgre = false;
     if (!GameManager::sharedState()->getUGV("236"))
         allHollow = false;
+    */
 
     if (allOgre)
     {

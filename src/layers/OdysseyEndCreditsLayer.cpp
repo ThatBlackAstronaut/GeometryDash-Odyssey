@@ -98,6 +98,7 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     auto endCreditsMenu05 = CCMenu::create();
     auto endCreditsMenu06 = CCMenu::create();
     auto endCreditsMenu07 = CCMenu::create();
+    auto endCreditsMenu08 = CCMenu::create();
 
     row1CreditArray = CCArray::create();
     row2CreditArray = CCArray::create();
@@ -110,6 +111,8 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     row9CreditArray = CCArray::create();
     row10CreditArray = CCArray::create();
     row11CreditArray = CCArray::create();
+    row12CreditArray = CCArray::create();
+    row13CreditArray = CCArray::create();
 
     auto m_textArea = TextArea::create("A <co>TCM Team</c> Productions", "bigFont.fnt", 1.f, 1000.f, {0.5, 0.5}, 40.f, false);
     m_textArea->setScale(0.75f);
@@ -148,14 +151,28 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     row1CreditArray->addObject(MathisCreatorUser);
     row1CreditArray->addObject(SearUser);
 
+    GameToolbox::alignItemsHorisontally(row1CreditArray, 95.f, ccp(m_sprite->getPositionX(), m_sprite->getPositionY() - m_winSize.height), false);
     //endCreditsMenu->setPosition({m_winSize.width/2, m_winSize.height/2});
 
-    GameToolbox::alignItemsHorisontally(row1CreditArray, 95.f, ccp(m_sprite->getPositionX(), m_sprite->getPositionY() - m_winSize.height), false);
+    auto creditsReason07 = CCLabelBMFont::create("Mod Developers", "goldFont.fnt");
+    creditsReason07->setScale(0.8f);
+    creditsReason07->setAlignment(CCTextAlignment::kCCTextAlignmentCenter);
+    creditsReason07->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 2)) + 125));
+
+    auto ML5User = OdysseyEndCreditNode::create("ML500", 296, 22, 106, 106, true);
+    auto IzumiUser = OdysseyEndCreditNode::create("Chumiu", 457, 94, 52, 52, true);
+    auto CypherUser = OdysseyEndCreditNode::create("Cypher", 31, 9, 1, 1, true);
+
+    row12CreditArray->addObject(ML5User);
+    row12CreditArray->addObject(IzumiUser);
+    row12CreditArray->addObject(CypherUser);
+
+    GameToolbox::alignItemsHorisontally(row12CreditArray, 95.f, ccp(m_sprite->getPositionX(), m_sprite->getPositionY() - (m_winSize.height * 2)), false);
 
     auto creditsReason02 = CCLabelBMFont::create("Level Creators", "goldFont.fnt");
     creditsReason02->setScale(0.8f);
     creditsReason02->setAlignment(CCTextAlignment::kCCTextAlignmentCenter);
-    creditsReason02->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 2)) + 125));
+    creditsReason02->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 3)) + 125));
 
     auto MathisCreatorUser02 = OdysseyEndCreditNode::create("MathisCreator", 263, 8, 11, 3, true);
     MathisCreatorUser02->setScale(0.85);
@@ -220,14 +237,14 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     row4CreditArray->addObject(BreadUser);
     row4CreditArray->addObject(BenUser);
 
-    GameToolbox::alignItemsHorisontally(row2CreditArray, 95.f, ccp(m_sprite->getPositionX(), m_sprite->getPositionY() - (m_winSize.height * 2) + 40), false);
-    GameToolbox::alignItemsHorisontally(row3CreditArray, 95.f, ccp(m_sprite->getPositionX(), m_sprite->getPositionY() - (m_winSize.height * 2) - 17), false);
-    GameToolbox::alignItemsHorisontally(row4CreditArray, 95.f, ccp(m_sprite->getPositionX(), m_sprite->getPositionY() - (m_winSize.height * 2) - 75), false);
+    GameToolbox::alignItemsHorisontally(row2CreditArray, 95.f, ccp(m_sprite->getPositionX(), m_sprite->getPositionY() - (m_winSize.height * 3) + 40), false);
+    GameToolbox::alignItemsHorisontally(row3CreditArray, 95.f, ccp(m_sprite->getPositionX(), m_sprite->getPositionY() - (m_winSize.height * 3) - 17), false);
+    GameToolbox::alignItemsHorisontally(row4CreditArray, 95.f, ccp(m_sprite->getPositionX(), m_sprite->getPositionY() - (m_winSize.height * 3) - 75), false);
 
     auto creditsReason03 = CCLabelBMFont::create("Artists", "goldFont.fnt");
     creditsReason03->setScale(0.8f);
     creditsReason03->setAlignment(CCTextAlignment::kCCTextAlignmentCenter);
-    creditsReason03->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 3)) + 125));
+    creditsReason03->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 4)) + 125));
 
     auto DankyUser02 = OdysseyEndCreditNode::create("Danky99", 88, 9, 11, 3, true);
     DankyUser02->setScale(0.85);
@@ -271,13 +288,13 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     row6CreditArray->addObject(MasterTheCubeUser02);
     row6CreditArray->addObject(SweeSwagUser);
 
-    GameToolbox::alignItemsHorisontally(row5CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 3)) + 30), false);
-    GameToolbox::alignItemsHorisontally(row6CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 3)) - 55), false);
+    GameToolbox::alignItemsHorisontally(row5CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 4)) + 30), false);
+    GameToolbox::alignItemsHorisontally(row6CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 4)) - 55), false);
 
     auto creditsReason04 = CCLabelBMFont::create("Playtesters", "goldFont.fnt");
     creditsReason04->setScale(0.8f);
     creditsReason04->setAlignment(CCTextAlignment::kCCTextAlignmentCenter);
-    creditsReason04->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 4)) + 125));
+    creditsReason04->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 5)) + 125));
 
     auto DAPixelheroUser = OdysseyEndCreditNode::create("DAPixelhero", 72, 5, 9, 12, true);
     DAPixelheroUser->setScale(0.85);
@@ -309,25 +326,31 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     auto dreenUser = OdysseyEndCreditNode::create("dreen", 1, 0, 3, 3, true);
     dreenUser->setScale(0.85);
 
+    auto vexUser = OdysseyEndCreditNode::create("hsibz", 456, 93, 83, 83, true);
+    vexUser->setScale(0.85);
+
     row7CreditArray->addObject(DAPixelheroUser);
     row7CreditArray->addObject(AndrexelUser);
     row7CreditArray->addObject(cyanflowerUser02);
-    row7CreditArray->addObject(ZerkGMDUser);
-    row7CreditArray->addObject(ObsidianAJUser);
 
+    row8CreditArray->addObject(ZerkGMDUser);
+    row8CreditArray->addObject(ObsidianAJUser);
     row8CreditArray->addObject(Emmmanuel2014User);
     row8CreditArray->addObject(DolphinOFFICIALUser);
-    row8CreditArray->addObject(TochyGMDUser);
-    row8CreditArray->addObject(MichTopGDMTUser);
-    row8CreditArray->addObject(dreenUser);
 
-    GameToolbox::alignItemsHorisontally(row7CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 4)) + 30), false);
-    GameToolbox::alignItemsHorisontally(row8CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 4)) - 55), false);
+    row13CreditArray->addObject(TochyGMDUser);
+    row13CreditArray->addObject(MichTopGDMTUser);
+    row13CreditArray->addObject(dreenUser);
+    row13CreditArray->addObject(vexUser);
+
+    GameToolbox::alignItemsHorisontally(row7CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 5)) + 40), false);
+    GameToolbox::alignItemsHorisontally(row8CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 5)) - 17), false);
+    GameToolbox::alignItemsHorisontally(row13CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 5)) - 75), false);
 
     auto creditsReason05 = CCLabelBMFont::create("Special Thanks", "goldFont.fnt");
     creditsReason05->setScale(0.8f);
     creditsReason05->setAlignment(CCTextAlignment::kCCTextAlignmentCenter);
-    creditsReason05->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 5)) + 125));
+    creditsReason05->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 6)) + 125));
 
     auto RobTopUser = OdysseyEndCreditNode::create("RobTop", 275, 6, 3, 1, true);
     RobTopUser->setScale(0.85);
@@ -353,25 +376,29 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     auto BlueSpaceUser = OdysseyEndCreditNode::create("Bluespace", 37, 3, 6, 6, true);
     BlueSpaceUser->setScale(0.85);
 
+    auto DAPixelheroUser2 = OdysseyEndCreditNode::create("DAPixelhero", 72, 5, 9, 12, true);
+    DAPixelheroUser2->setScale(0.85);
+
     row9CreditArray->addObject(RobTopUser);
 
     row10CreditArray->addObject(EVWUser);
     row10CreditArray->addObject(ImFernandoUser);
     row10CreditArray->addObject(StivenelXDUser);
+    row10CreditArray->addObject(CapelingUser);
 
-    row11CreditArray->addObject(CapelingUser);
     row11CreditArray->addObject(LimeGradientUser);
     row11CreditArray->addObject(MXSTOUser);
     row11CreditArray->addObject(BlueSpaceUser);
+    row11CreditArray->addObject(DAPixelheroUser2);
 
-    GameToolbox::alignItemsHorisontally(row9CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 5)) + 40), false);
-    GameToolbox::alignItemsHorisontally(row10CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 5)) - 17), false);
-    GameToolbox::alignItemsHorisontally(row11CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 5)) - 75), false);
+    GameToolbox::alignItemsHorisontally(row9CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 6)) + 40), false);
+    GameToolbox::alignItemsHorisontally(row10CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 6)) - 17), false);
+    GameToolbox::alignItemsHorisontally(row11CreditArray, 95.f, ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 6)) - 75), false);
 
     auto creditsReason06 = CCLabelBMFont::create("Thanks for playing :D", "goldFont.fnt");
     creditsReason06->setScale(0.8f);
     creditsReason06->setAlignment(CCTextAlignment::kCCTextAlignmentCenter);
-    creditsReason06->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - m_winSize.height * 6)));
+    creditsReason06->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - m_winSize.height * 7)));
 
     endCreditsMenu01->setID("menu-title"_spr);
     endCreditsMenu02->setID("one-section"_spr);
@@ -380,6 +407,7 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     endCreditsMenu05->setID("four-section"_spr);
     endCreditsMenu06->setID("five-section"_spr);
     endCreditsMenu07->setID("six-section"_spr);
+    endCreditsMenu08->setID("seventh-section"_spr);
 
     endCreditsMenu01->addChild(m_sprite);
     endCreditsMenu01->addChild(m_textArea);
@@ -389,6 +417,11 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     endCreditsMenu02->addChild(ZapManiacUser);
     endCreditsMenu02->addChild(MathisCreatorUser);
     endCreditsMenu02->addChild(SearUser);
+
+    endCreditsMenu08->addChild(creditsReason07);
+    endCreditsMenu08->addChild(ML5User);
+    endCreditsMenu08->addChild(IzumiUser);
+    endCreditsMenu08->addChild(CypherUser);
 
     endCreditsMenu03->addChild(creditsReason02);
     endCreditsMenu03->addChild(SwitchStepUser02, 4);
@@ -435,6 +468,7 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     endCreditsMenu05->addChild(TochyGMDUser, 4);
     endCreditsMenu05->addChild(MichTopGDMTUser, 4);
     endCreditsMenu05->addChild(dreenUser, 4);
+    endCreditsMenu05->addChild(vexUser, 4);
 
     endCreditsMenu06->addChild(creditsReason05);
     endCreditsMenu06->addChild(RobTopUser, 4);
@@ -445,11 +479,13 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     endCreditsMenu06->addChild(LimeGradientUser, 4);
     endCreditsMenu06->addChild(MXSTOUser, 4);
     endCreditsMenu06->addChild(BlueSpaceUser, 4);
+    endCreditsMenu06->addChild(DAPixelheroUser2, 4);
 
     endCreditsMenu07->addChild(creditsReason06);
     
     endCreditsLayer->addChild(endCreditsMenu01);
     endCreditsLayer->addChild(endCreditsMenu02);
+    endCreditsLayer->addChild(endCreditsMenu08);
     endCreditsLayer->addChild(endCreditsMenu03);
     endCreditsLayer->addChild(endCreditsMenu04);
     endCreditsLayer->addChild(endCreditsMenu05);
@@ -458,7 +494,7 @@ void OdysseyEndCreditsLayer::createEndCredits() {
 
     this->endCreditsLayer->runAction(CCSequence::create(
         CCDelayTime::create(8.5f),
-        CCMoveBy::create(25.f, {endCreditsLayer->getPositionX(), endCreditsLayer->getPositionY() + m_winSize.height * 6}),
+        CCMoveBy::create(40.f, {endCreditsLayer->getPositionX(), endCreditsLayer->getPositionY() + m_winSize.height * 7}),
         CCDelayTime::create(1.5f),
         CCCallFunc::create(this, callfunc_selector(OdysseyEndCreditsLayer::backMenuLayer)),
         nullptr

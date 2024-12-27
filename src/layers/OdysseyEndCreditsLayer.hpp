@@ -19,6 +19,9 @@ protected:
     CCArray *row9CreditArray;
     CCArray *row10CreditArray;
     CCArray *row11CreditArray;
+    CCArray *row12CreditArray;
+    CCArray *row13CreditArray;
+
     int speed = 0;
     virtual bool init();
     virtual void keyBackClicked();

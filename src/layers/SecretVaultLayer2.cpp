@@ -248,6 +248,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
         return;
     };
 
+    /*
     if (std::string_view(lower) == std::string_view("uncertain")&& !GameManager::sharedState()->getUGV("235"))
     {
         reply = {
@@ -261,6 +262,7 @@ void SecretVaultLayer2::onSubmit(CCObject *)
 
         return;
     };
+    */
 
     if (std::string_view(lower) == std::string_view("colon")&& !AM->isAchievementEarned("geometry.ach.odyssey.secret06"))
     {
@@ -746,6 +748,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
         return messages[index];
     }
 
+    /*
     //  Uncertain
     if (ID == 16 && !GameManager::sharedState()->getUGV("235"))
     {
@@ -778,6 +781,7 @@ std::string SecretVaultLayer2::getThreadMessage(int ID, int index)
 
         return messages[index];
     }
+    */
 
     //  Colon
     if (ID == 17 && !AM->isAchievementEarned("geometry.ach.odyssey.secret06"))
