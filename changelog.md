@@ -1,23 +1,26 @@
 # Changelog
 
-### <cg>v1.0.0-Beta.4 (Latest)</c>
+### <cg>v1.0.0 (Latest)</c>
 
-* <cp>Hopefully last beta before release.</c>
-* <cg>Added</c> final credits and animation.
-* <cg>Added</c> last official levels.
-* <cg>Added</c> last remaining comics.
-* <cg>Added</c> a post-game feature.
-* <cy>Fixed</c> crash when completing first island.
-* <cy>Fixed</c> android crash.
-* Bugfixes and polishing.
-* Last minute additions.
+* <cp>First public release!</c>
+
+### <cb>v1.0.0-Beta.4</c>
+
+* <cp>Hopefully last beta before release</c>
+* <cg>Added</c> final credits and animation
+* <cg>Added</c> last official levels
+* <cg>Added</c> last remaining comics
+* <cg>Added</c> a post-game feature
+* Bugfixes and polishing
+* Last minute additions
 
 ### <cb>v1.0.0-Beta.3</c>
 
-* <cr>Geode v4.1.1 broke the Incompatibilities feature.</c>
-* <cg>Added</c> final touches to vaults and codes.
-* <cg>Added</c> final visuals to second island.
-* <cg>Added</c> official levels 8 and 9.
+* <cr>Geode v4.1.1 broke the Incompatibilities feature</c>
+* <cg>Added</c> final touches to vaults and codes
+* <cg>Added</c> final visuals to second island
+* <cg>Added</c> "Absolute Zero"
+* <cg>Added</c> "Comfort food"
 * Bugfixes and tweaks.
 
 ### <cb>v1.0.0-Beta.2</c>

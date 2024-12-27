@@ -571,6 +571,9 @@ void Odyssey::unlockObject(int iconID, int type)
 
     switch (typeCast)
     {
+    case UnlockType::Cube:
+        icon = "icon";
+        break;
     case UnlockType::Ship:
         icon = "ship";
         break;
@@ -596,7 +599,7 @@ void Odyssey::unlockObject(int iconID, int type)
         icon = "jetpack";
         break;
     case UnlockType::Death:
-        icon = "death_";
+        icon = "death";
         break;
     case UnlockType::ShipFire:
         icon = "shipstreak";
@@ -607,9 +610,15 @@ void Odyssey::unlockObject(int iconID, int type)
     case UnlockType::GJItem:
         icon = "item";
         break;
+    case UnlockType::Col1:
+        icon = "col1";
+        break;
+    case UnlockType::Col2:
+        icon = "col2";
+        break;
     }
 
-    const char *iconKey = fmt::format("{}_{}", icon, iconID).c_str();
+    auto iconKey = fmt::format("{}_{}", icon, iconID).c_str();
 
     if (typeCast == UnlockType::Col1 || typeCast == UnlockType::Col2)
         return;
