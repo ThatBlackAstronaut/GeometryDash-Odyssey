@@ -627,10 +627,11 @@ void OdysseySelectLayer::animateLevelCompletation()
 
     auto buttonSprite = CCSprite::createWithSpriteFrameName("worldLevelBtn_001.png"_spr);
     int offset = 0;
-    if (m_currentPage == 1) offset = 5;
+    if (m_currentPage == 1) offset = 4;
     for (int i = 0; i < m_levelMenu->getChildrenCount(); i++)
     {
-        auto levelButton = static_cast<CCMenuItemSpriteExtra *>(m_levelMenu->getChildByTag(i + offset));
+        log::info("{}, {}, {}", i, i + offset, i + offset - 1);
+        auto levelButton = static_cast<CCMenuItemSpriteExtra *>(m_levelMenu->getChildByTag(i + offset + 1));
 
         if (m_currentPage == 1 && i == 4)
             buttonSprite = CCSprite::createWithSpriteFrameName("worldLevelBtn_002.png"_spr);
