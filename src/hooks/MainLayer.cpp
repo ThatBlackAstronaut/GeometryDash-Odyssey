@@ -5,6 +5,7 @@
 #include "../layers/OdysseyDevLayer.hpp"
 #include "../layers/FanmadeGamesLayer.hpp"
 #include "../nodes/OdysseyCreditNode.hpp"
+#include "../nodes/OdysseyComicPopup.hpp"
 #include "../nodes/OdysseyPopup.hpp"
 #include "../utils/Utils.hpp"
 
@@ -65,9 +66,10 @@ class $modify(OdysseyMenuLayer, MenuLayer)
             auto comicButton = CCMenuItemSpriteExtra::create(
                 CircleButtonSprite::createWithSpriteFrameName("GDO_ComicIcon_001.png"_spr, 1, CircleBaseColor::Green, CircleBaseSize::MediumAlt),
                 this,
-                nullptr);
+                menu_selector(OdysseyMenuLayer::onComics));
 
             bottomMenu->addChild(comicButton);
+            bottomMenu->updateLayout();
         }
 
         if (Mod::get()->getSettingValue<bool>("dev-mode"))
@@ -139,10 +141,13 @@ class $modify(OdysseyMenuLayer, MenuLayer)
 
     void onMoreGames(CCObject *)
     {
-        GameManager::sharedState();
-
         auto credits = OdysseyCreditsLayer::create();
         credits->show();
+    }
+
+    void onComics(CCObject *){
+        auto comicPopup = OdysseyComicPopup::create();
+        comicPopup->show();
     }
 
     void Restart()
@@ -153,9 +158,9 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         {
             auto variable = (ii < 10) ? fmt::format("20{}", ii) : fmt::format("2{}", ii);
             GameManager::sharedState()->setUGV(variable.c_str(), false);
-            log::info("Restarting UGV = {}", variable);
+            log::debug("Restarting UGV = {}", variable);
         };
 
-        log::info("Variables succesfully restarted");
+        log::debug("Variables succesfully restarted");
     }
 };

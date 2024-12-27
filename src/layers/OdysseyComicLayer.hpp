@@ -17,6 +17,7 @@ public:
     int m_currentPage = 0;
     int m_totalPages = 1;
     bool m_RedirectToMap;
+    bool m_fromPopup = false;
 
     virtual bool init(int, bool);
     virtual void keyBackClicked();
@@ -29,6 +30,7 @@ public:
 
     void verifySecretAchievement();
 
+    void onCredits(CCObject *);
     void onHollow(CCObject *);
     void onPrev(CCObject *);
     void onNext(CCObject *);

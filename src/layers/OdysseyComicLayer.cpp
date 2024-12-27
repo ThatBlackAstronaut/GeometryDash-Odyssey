@@ -1,5 +1,6 @@
 #include "OdysseyComicLayer.hpp"
 #include "OdysseySelectLayer.hpp"
+#include "OdysseyEndCreditsLayer.hpp"
 #include "SecretVaultLayer.hpp"
 #include "../utils/Utils.hpp"
 
@@ -185,6 +186,33 @@ void OdysseyComicLayer::createComic(CCArray *arr, int issueNumber)
         log::debug("Page Sprite Name = {}", fmt::format("Comic_{}_{:02}_{:02}.png", language, issueNumber, ii + 1));
         arr->addObject(createComicPage(spriteName.c_str()));
     };
+
+    if (issueNumber == 12)
+    {
+        m_totalPages++;
+
+        auto node = CCNode::create();
+        auto menu = CCMenu::create();
+
+        auto sprite = CrossButtonSprite::createWithSpriteFrameName("GDO_CreditsIcon_001.png"_spr, 1.5f);
+        sprite->setScale(1.5f);
+
+        auto button = CCMenuItemSpriteExtra::create(
+            sprite,
+            this,
+            menu_selector(OdysseyComicLayer::onCredits));
+
+        menu->addChild(button);
+        node->addChild(menu);
+        arr->addObject(node);
+    }
+};
+
+void OdysseyComicLayer::onCredits(CCObject *)
+{
+    auto scene = CCScene::create();
+    scene->addChild(OdysseyEndCreditsLayer::create());
+    CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(1.f, scene));
 };
 
 void OdysseyComicLayer::onHollow(CCObject *)
@@ -288,8 +316,16 @@ void OdysseyComicLayer::keyBackClicked()
         return;
     }
 
-    auto musicLoop = m_comicNumber < 6 ? "IslandLoop01.mp3"_spr : "IslandLoop02.mp3"_spr;
-    GameManager::sharedState()->fadeInMusic(musicLoop);
+    if (!m_fromPopup)
+    {
+        auto musicLoop = m_comicNumber < 6 ? "IslandLoop01.mp3"_spr : "IslandLoop02.mp3"_spr;
+        GameManager::sharedState()->fadeInMusic(musicLoop);
+    }
+    else
+    {
+        GameManager::sharedState()->fadeInMenuMusic();
+    }
+
     CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
 };
 
