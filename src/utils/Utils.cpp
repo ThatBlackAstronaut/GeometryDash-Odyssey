@@ -112,34 +112,34 @@ DialogLayer *Odyssey::createDialog(const char *event)
     auto spanishText = GameManager::sharedState()->getGameVariable("0201");
 
     //  Puede que esto si o no sirva, pero a este punta ya vale
-    if (event == "meetingShopkeeper")
+    if (std::string_view(event) == std::string_view("meetingShopkeeper"))
         dialogList = CarpIntroduction;
 
-    if (event == "meetingWizard")
+    if (std::string_view(event) == std::string_view("meetingWizard"))
         dialogList = WizardIntroduction;
 
-    if (event == "firstIslandClear")
+    if (std::string_view(event) == std::string_view("firstIslandClear"))
         dialogList = FirstIslandClear;
 
-    if (event == "end")
+    if (std::string_view(event) == std::string_view("end"))
         dialogList = Ending;
 
-    if (event == "lockedOgre")
+    if (std::string_view(event) == std::string_view("lockedOgre"))
         dialogList = LockedOgre;
 
-    if (event == "meetingHollow")
+    if (std::string_view(event) == std::string_view("meetingHollow"))
     {
         dialogList = HollowIntroduction;
         dialogColor = 5;
     }
 
-    if (event == "belowHollowQuota")
+    if (std::string_view(event) == std::string_view("belowHollowQuota"))
     {
         dialogList = HollowNotEnough;
         dialogColor = 5;
     }
 
-    if (event == "hollowQuotaReached")
+    if (std::string_view(event) == std::string_view("hollowQuotaReached"))
     {
         dialogList = HollowEnough;
         dialogColor = 5;
@@ -171,7 +171,7 @@ DialogLayer *Odyssey::createDialogResponse(const char *event, int times)
     auto spanishText = GameManager::sharedState()->getGameVariable("0201");
     auto knowsCarp = GameManager::sharedState()->getUGV("204");
 
-    if (event == "onExtraLevel")
+    if (std::string_view(event) == std::string_view("onExtraLevel"))
     {
         dialogList = LockedExtraLevel;
 
@@ -183,7 +183,7 @@ DialogLayer *Odyssey::createDialogResponse(const char *event, int times)
         arr->addObject(dialog);
     }
 
-    if (event == "onFinalComic")
+    if (std::string_view(event) == std::string_view("onFinalComic"))
     {
         dialogList = LockedFinalComic;
 
@@ -462,7 +462,7 @@ void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlaye
             glowLayer->setPosition(firstLayer->getContentSize() / 2);
     }
 
-     if (type == IconType::Ufo)
+    if (type == IconType::Ufo)
     {
         if (frameDict->objectForKey(domeTexture))
         {
@@ -470,8 +470,6 @@ void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlaye
             ufoDome->setPosition(firstLayer->getContentSize() / 2);
         }
     }
-
-
 }
 
 void Odyssey::updateRobotSprite(GJRobotSprite *sprite, int iconID, IconType type)
@@ -650,8 +648,10 @@ void Odyssey::hasAllVaultRewards()
         //  if(AM->isAchievementEarned(fmt::format("geometry.ach.odyssey.secret{:02}")))
     }
 
-    if(!GameManager::sharedState()->getUGV("235")) allOgre = false;
-    if(!GameManager::sharedState()->getUGV("236")) allHollow = false;
+    if (!GameManager::sharedState()->getUGV("235"))
+        allOgre = false;
+    if (!GameManager::sharedState()->getUGV("236"))
+        allHollow = false;
 
     if (allOgre)
     {
@@ -661,7 +661,9 @@ void Odyssey::hasAllVaultRewards()
         {
             GameManager::sharedState()->setUGV("231", true);
         }
-    } else {
+    }
+    else
+    {
         GameManager::sharedState()->setUGV("231", false);
     }
 
@@ -674,7 +676,9 @@ void Odyssey::hasAllVaultRewards()
             GameManager::sharedState()->setUGV("232", true);
             log::debug("Habilitado el Hint de Gargan (Ogro)");
         }
-    } else {
+    }
+    else
+    {
         GameManager::sharedState()->setUGV("232", false);
     }
 };

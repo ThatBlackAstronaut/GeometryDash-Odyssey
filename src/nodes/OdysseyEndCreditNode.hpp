@@ -14,7 +14,7 @@ protected:
 
         auto GM = GameManager::get();
 
-        if (name != "RobTop")
+        if (std::string_view(name) != std::string_view("RobTop"))
         {
             m_userName = CCLabelBMFont::create(name, "bigFont.fnt");
             m_userName->setScale(0.6f);
