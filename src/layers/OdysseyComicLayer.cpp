@@ -1,5 +1,6 @@
 #include "OdysseyComicLayer.hpp"
 #include "OdysseySelectLayer.hpp"
+#include "OdysseyEndCreditsLayer.hpp"
 #include "SecretVaultLayer.hpp"
 #include "../utils/Utils.hpp"
 
@@ -15,6 +16,13 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
     m_winSize = CCDirector::sharedDirector()->getWinSize();
     m_comicNumber = issueNumber;
     m_RedirectToMap = redirectToMap;
+
+    /*
+    //  Cancion de musica para el cuarto
+    m_backgroundMusic = fmt::format("comic_{:02}.mp3"_spr, issueNumber).c_str();
+    log::debug("Comic MP3: {}", fmt::format("comic_{:02}.mp3"_spr, issueNumber).c_str());
+    GameManager::sharedState()->fadeInMusic(m_backgroundMusic);
+    */
 
     auto size = m_background->getContentSize();
 
@@ -110,11 +118,6 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
     navMenu->addChild(m_rightBtn);
     this->addChild(navMenu);
 
-    //  Cancion de musica para el cuarto
-    m_backgroundMusic = fmt::format("comic_{:02}.mp3"_spr, issueNumber).c_str();
-    log::debug("Comic MP3: {}", fmt::format("comic_{:02}.mp3"_spr, issueNumber).c_str());
-    GameManager::sharedState()->fadeInMusic(m_backgroundMusic);
-
     //  Mod::get()->setSettingValue<bool>("watched-comic-0" + std::to_string(m_comicNumber), true);
     GameManager::sharedState()->setUGV(fmt::format("2{}", m_comicNumber + 10).c_str(), true);
 
@@ -161,9 +164,9 @@ void OdysseyComicLayer::createComic(CCArray *arr, int issueNumber)
         4, // 4th
         9, // 5th
         6, // 6th
-        1, // 7th
-        1, // 8th
-        1, // 9th
+        3, // 7th
+        4, // 8th
+        3, // 9th
         5, // 10th
         7, // 11th
         6  // 12th
@@ -183,6 +186,33 @@ void OdysseyComicLayer::createComic(CCArray *arr, int issueNumber)
         log::debug("Page Sprite Name = {}", fmt::format("Comic_{}_{:02}_{:02}.png", language, issueNumber, ii + 1));
         arr->addObject(createComicPage(spriteName.c_str()));
     };
+
+    if (issueNumber == 12)
+    {
+        m_totalPages++;
+
+        auto node = CCNode::create();
+        auto menu = CCMenu::create();
+
+        auto sprite = CrossButtonSprite::createWithSpriteFrameName("GDO_CreditsIcon_001.png"_spr, 1.5f);
+        sprite->setScale(1.5f);
+
+        auto button = CCMenuItemSpriteExtra::create(
+            sprite,
+            this,
+            menu_selector(OdysseyComicLayer::onCredits));
+
+        menu->addChild(button);
+        node->addChild(menu);
+        arr->addObject(node);
+    }
+};
+
+void OdysseyComicLayer::onCredits(CCObject *)
+{
+    auto scene = CCScene::create();
+    scene->addChild(OdysseyEndCreditsLayer::create());
+    CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(1.f, scene));
 };
 
 void OdysseyComicLayer::onHollow(CCObject *)
@@ -195,7 +225,8 @@ void OdysseyComicLayer::onHollow(CCObject *)
         //  Conoce al Hollow por primera vez
         if (!GM->getUGV("205"))
         {
-            if(auto hollowBtn = this->getChildByIDRecursive("hollow-button")){
+            if (auto hollowBtn = this->getChildByIDRecursive("hollow-button"))
+            {
                 hollowBtn->runAction(CCFadeTo::create(1, 150));
             };
 
@@ -285,7 +316,16 @@ void OdysseyComicLayer::keyBackClicked()
         return;
     }
 
-    GameManager::sharedState()->fadeInMusic("IslandLoop01.mp3"_spr);
+    if (!m_fromPopup)
+    {
+        auto musicLoop = m_comicNumber < 6 ? "IslandLoop01.mp3"_spr : "IslandLoop02.mp3"_spr;
+        GameManager::sharedState()->fadeInMusic(musicLoop);
+    }
+    else
+    {
+        GameManager::sharedState()->fadeInMenuMusic();
+    }
+
     CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
 };
 
@@ -293,12 +333,24 @@ void OdysseyComicLayer::onNext(CCObject *)
 {
     m_scrollLayer->quickUpdate();
     m_scrollLayer->moveToPage(m_currentPage + 1);
+
+    if (m_rightBtn)
+        m_rightBtn->setVisible(m_currentPage + 1 < m_totalPages - 1);
+
+    if (m_leftBtn)
+        m_leftBtn->setVisible(m_currentPage > 0);
 }
 
 void OdysseyComicLayer::onPrev(CCObject *)
 {
     m_scrollLayer->quickUpdate();
     m_scrollLayer->moveToPage(m_currentPage - 1);
+
+    if (m_rightBtn)
+        m_rightBtn->setVisible(m_currentPage < m_totalPages - 1);
+
+    if (m_leftBtn)
+        m_leftBtn->setVisible(m_currentPage - 1 > 0);
 }
 
 void OdysseyComicLayer::onBack(CCObject *)

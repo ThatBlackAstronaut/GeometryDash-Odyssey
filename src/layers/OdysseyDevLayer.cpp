@@ -46,75 +46,76 @@ bool OdysseyDevLayer::init()
                               ->setGrowCrossAxis(true)
                               ->setCrossAxisOverflow(false)
                               ->setCrossAxisLineAlignment(AxisAlignment::Even));
-    dialogMenu->setPositionY(winSize.height / 2 + 40.0f);
+    dialogMenu->setPositionY(winSize.height / 2 + 30.0f);
 
-    auto dialogLabel = CCLabelBMFont::create("Eventos", "goldFont.fnt");
-    dialogLabel->setPosition({winSize.width / 2, dialogMenu->getPositionY() + dialogMenu->getContentHeight() / 2 + 10.0f});
+    auto dialogLabel = CCLabelBMFont::create("Events", "goldFont.fnt");
+    dialogLabel->setPosition({winSize.width / 2, dialogMenu->getPositionY() + dialogMenu->getContentHeight() / 2 + 15.0f});
     dialogLabel->setScale(0.75f);
     addChild(dialogLabel);
 
+
     auto carp01 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Carp (Shop)", 0.5f),
+        ButtonSprite::create("Carp (Shop)", 160, true, "goldFont.fnt", "GJ_button_01.png", 25.f, 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onStoryDialog));
     carp01->setTag(0);
 
     auto wizard01 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Dumbledalf (Introduction)", 0.5f),
+        ButtonSprite::create("Dumbledalf (Introduction)", 160, true, "goldFont.fnt", "GJ_button_01.png", 25.f, 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onStoryDialog));
     wizard01->setTag(1);
 
     auto wizard02 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Dumbledalf (Island)", 0.5f),
+        ButtonSprite::create("Dumbledalf (Island)", 160, true, "goldFont.fnt", "GJ_button_01.png", 25.f, 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onStoryDialog));
     wizard02->setTag(2);
 
     auto wizard03 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Dumbledalf (Finale)", 0.5f),
+        ButtonSprite::create("Dumbledalf (Finale)", 160, true, "goldFont.fnt", "GJ_button_01.png", 25.f, 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onStoryDialog));
     wizard03->setTag(3);
 
     auto hollow01 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Hollow (Introduction)", 0.5f),
+        ButtonSprite::create("Hollow (Introduction)", 160, true, "goldFont.fnt", "GJ_button_01.png", 25.f, 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onStoryDialog));
     hollow01->setTag(4);
 
     auto hollow02 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Hollow (Coin quota)", 0.5f),
+        ButtonSprite::create("Hollow (Coin quota)", 160, true, "goldFont.fnt", "GJ_button_01.png", 25.f, 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onStoryDialog));
     hollow02->setTag(5);
 
     auto carp02 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Carp (Extras)", 0.5f),
+        ButtonSprite::create("Carp (Extras)", 160, true, "goldFont.fnt", "GJ_button_02.png", 25.f, 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onCarp02));
     carp02->setTag(0);
 
     auto carp03 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Carp (Comic)", 0.5f),
+        ButtonSprite::create("Carp (Comic)", 160, true, "goldFont.fnt", "GJ_button_02.png", 25.f, 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onCarp03));
     carp03->setTag(0);
 
     auto carp04 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Carp (No Coins)", 0.5f),
+        ButtonSprite::create("Carp (No Coins)", 160, true, "goldFont.fnt", "GJ_button_02.png", 25.f, 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onCarp04));
     carp04->setTag(0);
 
     auto popup01 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Savefile Notice", 0.5f),
+        ButtonSprite::create("Savefile Notice", 160, true, "goldFont.fnt", "GJ_button_04.png", 25.f, 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onPopup));
     popup01->setTag(1);
 
     auto popup02 = CCMenuItemSpriteExtra::create(
-        ButtonSprite::create("Translation Notice", 0.5f),
+        ButtonSprite::create("Translation Notice", 160, true, "goldFont.fnt", "GJ_button_04.png", 25.f, 0.5f),
         this,
         menu_selector(OdysseyDevLayer::onPopup));
     popup02->setTag(2);
@@ -135,14 +136,14 @@ bool OdysseyDevLayer::init()
     //  Menu de Comics
     auto comicsMenu = CCMenu::create();
     comicsMenu->setID("comics-menu"_spr);
-    comicsMenu->setContentSize({360.0f, 40.0f});
+    comicsMenu->setContentSize({400.0f, 65.0f});
     comicsMenu->setLayout(RowLayout::create()
-                              ->setGap(14.0f)
+                              ->setGap(8.0f)
                               ->setAutoScale(false)
                               ->setGrowCrossAxis(true)
                               ->setCrossAxisOverflow(false)
                               ->setCrossAxisLineAlignment(AxisAlignment::Even));
-    comicsMenu->setPositionY(90);
+    comicsMenu->setPositionY(60);
 
     auto comicsLabel = CCLabelBMFont::create("Comics", "goldFont.fnt");
     comicsLabel->setPosition({winSize.width / 2, comicsMenu->getPositionY() + comicsMenu->getContentHeight() / 2 + 10.0f});
@@ -151,8 +152,11 @@ bool OdysseyDevLayer::init()
 
     for (auto ii = 0; ii < 12; ii++)
     {
+        auto seen = GameManager::sharedState()->getUGV(fmt::format("2{}", ii + 11).c_str());
+        auto texture = seen ? "GJ_button_01.png" : "GJ_button_04.png";
+
         auto comic = CCMenuItemSpriteExtra::create(
-            ButtonSprite::create(fmt::format("{}", ii + 1).c_str(), 0.5f),
+            ButtonSprite::create(fmt::format("#{:02}", ii + 1).c_str(), 40, true, "goldFont.fnt", texture, 22.5f, 0.4f),
             this,
             menu_selector(OdysseyDevLayer::onComic));
         
@@ -177,7 +181,7 @@ bool OdysseyDevLayer::init()
     auto levelsLabel = CCLabelBMFont::create("levels", "goldFont.fnt");
     levelsLabel->setPosition({winSize.width / 2, levelsMenu->getPositionY() + levelsMenu->getContentHeight() / 2 + 10.0f});
     levelsLabel->setScale(0.75f);
-    addChild(levelsLabel);
+    //  addChild(levelsLabel);
     //  addChild(levelsMenu);
 
     setKeypadEnabled(true);
@@ -204,11 +208,16 @@ void OdysseyDevLayer::onLevel(CCObject *sender)
 //  En Comic
 void OdysseyDevLayer::onComic(CCObject *sender)
 {
+    auto comic = OdysseyComicLayer::create(sender->getTag(), false);
+    comic->m_fromPopup = true;
+
+    auto button = static_cast<CCMenuItemSpriteExtra *>(sender);
+    button->setSprite(ButtonSprite::create(fmt::format("#{:02}", sender->getTag()).c_str(), 40, true, "goldFont.fnt", "GJ_button_01.png", 22.5f, 0.4f));
+
     auto scene = CCScene::create();
-    auto tag = sender->getTag();
+    scene->addChild(comic);
 
-    scene->addChild(OdysseyComicLayer::create(tag, false));
-
+    GameManager::sharedState()->fadeInMusic(fmt::format("comic_{:02}.mp3"_spr, sender->getTag()).c_str());
     CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 };
 
