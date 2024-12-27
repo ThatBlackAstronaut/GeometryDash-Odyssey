@@ -519,6 +519,7 @@ void OdysseySelectLayer::addLevelButtons()
 
         volcanoLight->setScale(.23f);
         volcanoLight->setPosition({m_winSize.width / 2 + 148, m_winSize.height / 2 + 94});
+        volcanoLight->setZOrder(-1);
         m_islandNode->addChild(volcanoLight);
     }
 
