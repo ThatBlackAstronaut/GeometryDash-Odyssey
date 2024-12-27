@@ -131,8 +131,8 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         Odyssey::insertAssetsToMap(true, {10012389});
 
         // Critical Hit
-        Odyssey::insertAssetsToMap(false, {476, 709, 717, 2031, 2032, 2074, 2856, 3112, 3548, 4563, 4566, 4841, 4883, 5222, 6881, 6882, 6883, 7653, 7659, 7687, 13980, 22879});
-        Odyssey::insertAssetsToMap(true, {10007200, 10000721});
+        Odyssey::insertAssetsToMap(false, {473, 476, 709, 717, 2031, 2032, 2074, 2856, 3112, 3548, 4563, 4566, 4841, 4883, 5222, 6881, 6882, 6883, 7653, 7659, 7687, 13980, 18267, 22879});
+        Odyssey::insertAssetsToMap(true, {10007200, 10000721, 10004463});
 
         // Conclusive Journey
         Odyssey::insertAssetsToMap(false, {4395, 4397, 4404, 7501, 566});

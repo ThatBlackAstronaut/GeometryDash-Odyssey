@@ -468,7 +468,8 @@ void OdysseySelectLayer::addLevelButtons()
 {
     m_levelMenu = CCMenu::create();
     m_levelMenu->setPosition(m_winSize / 2);
-    auto offSet = (m_currentPage * 4);
+    auto offSet = 0;
+    if (m_currentPage == 1) offSet = 4;
 
     //  Agrega los niveles con un ciclo
     if (m_levelAmount > 0)
@@ -625,16 +626,19 @@ void OdysseySelectLayer::animateLevelCompletation()
     auto level9 = GLM->getMainLevel(7009, false);
 
     auto buttonSprite = CCSprite::createWithSpriteFrameName("worldLevelBtn_001.png"_spr);
+    int offset = 0;
+    if (m_currentPage == 1) offset = 5;
     for (int i = 0; i < m_levelMenu->getChildrenCount(); i++)
     {
-        auto levelButton = static_cast<CCMenuItemSpriteExtra *>(m_levelMenu->getChildByTag(i + 1));
+        auto levelButton = static_cast<CCMenuItemSpriteExtra *>(m_levelMenu->getChildByTag(i + offset));
 
         if (m_currentPage == 1 && i == 4)
             buttonSprite = CCSprite::createWithSpriteFrameName("worldLevelBtn_002.png"_spr);
 
+        log::info("{}", i + offset + 240);
         if (levelButton)
         {
-            if (GameManager::sharedState()->getUGV(fmt::format("{}", i + 240).c_str()) || i == 0)
+            if (GameManager::sharedState()->getUGV(fmt::format("{}", i + offset + 240).c_str()) || (i == 0 && m_currentPage == 0))
             {
                 levelButton->setNormalImage(buttonSprite);
             }
