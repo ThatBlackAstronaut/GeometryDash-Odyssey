@@ -377,6 +377,9 @@ void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlaye
     if (!isIconCustom(iconID, type))
         return;
 
+    if (type == IconType::Robot || type == IconType::Spider)
+        return;
+
     auto frameCache = CCSpriteFrameCache::get();
     auto frameDict = frameCache->m_pSpriteFrames;
 
@@ -429,11 +432,13 @@ void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlaye
             ufoDome = obj->m_birdDome;
     }
 
+    /*
     if (type == IconType::Robot || type == IconType::Spider)
     {
         updateRobotSprite(robotSprite, iconID, type);
         return;
     }
+    */
 
     if (frameDict->objectForKey(frame1Texture))
     {
@@ -692,4 +697,31 @@ void Odyssey::hasAllVaultRewards()
     {
         GameManager::sharedState()->setUGV("232", false);
     }
+};
+
+std::vector<Mod *> Odyssey::getBreakingModsList()
+{
+    std::vector<Mod *> breakingMods;
+
+    std::vector<std::string> breakingModIDs = {
+        "capeling.geometry-dash-lunar",
+        "dankmeme.globed2",
+        "gdutilsdevs.gdutils",
+        "itzkiba.better_progression"};
+
+#ifdef GEODE_IS_ANDROID
+    breakingModIDs.push_back("hiimjustin000.more_icons");
+#endif
+
+    for (std::string id : breakingModIDs)
+    {
+        Mod *mod = Loader::get()->getLoadedMod(id);
+
+        if (mod)
+        {
+            breakingMods.push_back(mod);
+        }
+    }
+
+    return breakingMods;
 };

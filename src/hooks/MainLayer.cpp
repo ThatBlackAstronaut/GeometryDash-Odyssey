@@ -11,12 +11,38 @@
 
 using namespace geode::prelude;
 
+bool shownAlert = false;
+
 class $modify(OdysseyMenuLayer, MenuLayer)
 {
     bool init()
     {
         if (!MenuLayer::init())
             return false;
+
+        auto breakingMods = Odyssey::getBreakingModsList();
+
+        if (!breakingMods.empty() && !shownAlert)
+        {
+            std::string description = "Disable the following Mods to use <cy>Geometry Dash: Odyssey</c>:";
+
+            for (Mod *mod : breakingMods)
+            {
+                log::debug("{}", mod->getName());
+                description += "\n- <cr>" + mod->getName() + "</c>";
+            }
+
+            auto popup = FLAlertLayer::create(
+                "Incompatible Mods",
+                description,
+                "OK");
+
+            shownAlert = true;
+            popup->m_scene = this;
+            popup->show();
+
+            return true;
+        }
 
         if (Mod::get()->getSettingValue<bool>("restart-mod"))
             OdysseyMenuLayer::Restart();
@@ -145,7 +171,8 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         credits->show();
     }
 
-    void onComics(CCObject *){
+    void onComics(CCObject *)
+    {
         auto comicPopup = OdysseyComicPopup::create();
         comicPopup->show();
     }

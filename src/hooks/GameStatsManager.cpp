@@ -6,10 +6,12 @@ using namespace geode::prelude;
 
 class $modify(OdysseyGameStatsManager, GameStatsManager)
 {
-    void incrementStat(char const* p0, int p1){
+    void incrementStat(char const *p0, int p1)
+    {
         GameStatsManager::incrementStat(p0, p1);
 
-        if(std::string_view(p0) == std::string_view("14")){
+        if (std::string_view(p0) == std::string_view("14"))
+        {
             log::debug("ORBES");
 
             Mod::get()->setSavedValue<int>("Orbs", GameStatsManager::getStat(p0) + p1);

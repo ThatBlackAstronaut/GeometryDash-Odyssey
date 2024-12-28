@@ -16,6 +16,7 @@ bool OdysseySelectLayer::init(int page)
     m_winSize = CCDirector::sharedDirector()->getWinSize();
 
     //  Game Manager
+    auto GM = GameManager::sharedState();
     auto GSM = GameStatsManager::sharedState();
 
     // canción
@@ -151,8 +152,8 @@ bool OdysseySelectLayer::init(int page)
 
     if (page == 2)
     {
-        auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1);
-        auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2);
+        auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1) || GM->getUGV("237");
+        auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2) || GM->getUGV("238");
 
         auto menu = CCMenu::create();
         menu->setPosition({0, 0});
@@ -272,9 +273,6 @@ bool OdysseySelectLayer::init(int page)
     addChild(m_cornerBR, 2);
 
     //  Se reemplazara esto con el Game Manager, pero lo tengo para Desarrollo
-
-    //  Eventos especiales en el mapa
-    auto GM = GameManager::sharedState();
 
     //  Evento 1: Entrar por primera vez al Mapa
     if (!GM->getUGV("203"))
@@ -830,9 +828,10 @@ void OdysseySelectLayer::onOgre(CCObject *)
 void OdysseySelectLayer::onExtraLevel(CCObject *sender)
 {
     //  Game Manager
+    auto GM = GameManager::sharedState();
     auto GSM = GameStatsManager::sharedState();
-    auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1);
-    auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2);
+    auto extra01_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 1) || GM->getUGV("237");
+    auto extra02_unlocked = GSM->isItemUnlocked(UnlockType::GJItem, 2) || GM->getUGV("238");
 
     if ((extra01_unlocked && sender->getTag() == 501) || (extra02_unlocked && sender->getTag() == 502) || Mod::get()->getSettingValue<bool>("bypass-levels"))
     {
