@@ -377,6 +377,9 @@ void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlaye
     if (!isIconCustom(iconID, type))
         return;
 
+    if (type == IconType::Robot || type == IconType::Spider)
+        return;
+
     auto frameCache = CCSpriteFrameCache::get();
     auto frameDict = frameCache->m_pSpriteFrames;
 
@@ -429,11 +432,13 @@ void Odyssey::updateIcon(CCNode *player, int iconID, IconType type, bool isPlaye
             ufoDome = obj->m_birdDome;
     }
 
+    /*
     if (type == IconType::Robot || type == IconType::Spider)
     {
         updateRobotSprite(robotSprite, iconID, type);
         return;
     }
+    */
 
     if (frameDict->objectForKey(frame1Texture))
     {
@@ -571,6 +576,9 @@ void Odyssey::unlockObject(int iconID, int type)
 
     switch (typeCast)
     {
+    case UnlockType::Cube:
+        icon = "icon";
+        break;
     case UnlockType::Ship:
         icon = "ship";
         break;
@@ -596,7 +604,7 @@ void Odyssey::unlockObject(int iconID, int type)
         icon = "jetpack";
         break;
     case UnlockType::Death:
-        icon = "death_";
+        icon = "death";
         break;
     case UnlockType::ShipFire:
         icon = "shipstreak";
@@ -607,9 +615,15 @@ void Odyssey::unlockObject(int iconID, int type)
     case UnlockType::GJItem:
         icon = "item";
         break;
+    case UnlockType::Col1:
+        icon = "col1";
+        break;
+    case UnlockType::Col2:
+        icon = "col2";
+        break;
     }
 
-    const char *iconKey = fmt::format("{}_{}", icon, iconID).c_str();
+    auto iconKey = fmt::format("{}_{}", icon, iconID).c_str();
 
     if (typeCast == UnlockType::Col1 || typeCast == UnlockType::Col2)
         return;
@@ -683,4 +697,31 @@ void Odyssey::hasAllVaultRewards()
     {
         GameManager::sharedState()->setUGV("232", false);
     }
+};
+
+std::vector<Mod *> Odyssey::getBreakingModsList()
+{
+    std::vector<Mod *> breakingMods;
+
+    std::vector<std::string> breakingModIDs = {
+        "capeling.geometry-dash-lunar",
+        "dankmeme.globed2",
+        "gdutilsdevs.gdutils",
+        "itzkiba.better_progression"};
+
+#ifdef GEODE_IS_ANDROID
+    breakingModIDs.push_back("hiimjustin000.more_icons");
+#endif
+
+    for (std::string id : breakingModIDs)
+    {
+        Mod *mod = Loader::get()->getLoadedMod(id);
+
+        if (mod)
+        {
+            breakingMods.push_back(mod);
+        }
+    }
+
+    return breakingMods;
 };

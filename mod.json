@@ -1,6 +1,6 @@
 {
 	"geode": "4.1.1",
-	"version": "v1.0.0-beta.4",
+	"version": "v1.0.1-beta.1",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074"
@@ -23,29 +23,6 @@
 		}
 	],
 	"incompatibilities": [
-		{
-			"id": "hiimjustin000.more_icons",
-			"importance": "conflicting",
-			"version": "*",
-			"platforms": [
-				"android"
-			]
-		},
-		{
-			"id": "capeling.geometry-dash-lunar",
-			"importance": "conflicting",
-			"version": "*"
-		},
-		{
-			"id": "dankmeme.globed2",
-			"importance": "conflicting",
-			"version": "*"
-		},
-		{
-			"id": "gdutilsdevs.gdutils",
-			"importance": "conflicting",
-			"version": "*"
-		},
 		{
 			"id": "geode.custom-keybinds",
 			"importance": "conflicting",

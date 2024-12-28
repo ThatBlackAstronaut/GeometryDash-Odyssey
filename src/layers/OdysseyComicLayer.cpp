@@ -24,6 +24,7 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
     GameManager::sharedState()->fadeInMusic(m_backgroundMusic);
     */
 
+    auto spanishText = GameManager::sharedState()->getGameVariable("0201");
     auto size = m_background->getContentSize();
 
     m_background->setScaleX((m_winSize.width) / size.width);
@@ -54,13 +55,22 @@ bool OdysseyComicLayer::init(int issueNumber, bool redirectToMap)
         this,
         menu_selector(OdysseyComicLayer::onBack));
 
-    backBtn->setID("back-button"_spr);
+    backBtn->setID("back-button");
     backBtn->setSizeMult(1.2f);
+    backBtn->setPosition({24, m_winSize.height - 24});
+
+    auto infoText = spanishText ? "La calidad de los comics tuvo que ser reducida, de lo contrario el mod tendria problemas.\nSi no puedes leerlos bien, puedes verlos en el <cy>Video Showcase</c> del mod subido en el <cr>Youtube de Switchstep</c>." : "The quality of the comics had to be reduced, else the mod would have issues.\nIf you have issues on reading them, you can view them in the <cy>Showcase Video</c> uploaded on <cr>Switchstep's Youtube</c>";
+
+    auto infoBtn = InfoAlertButton::create("Quality Issues", infoText, 1);
+    infoBtn->setPosition({m_winSize.width - 24, 24});
+    infoBtn->setID("comic-info-button");
 
     auto menuBack = CCMenu::create();
+    menuBack->setPosition({0, 0});
+    menuBack->setID("back-menu");
     menuBack->addChild(backBtn);
-    menuBack->setPosition({24, m_winSize.height - 24});
-    menuBack->setID("back-menu"_spr);
+    menuBack->addChild(infoBtn);
+    menuBack->setZOrder(5);
     addChild(menuBack);
 
     if (issueNumber == 4)

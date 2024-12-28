@@ -204,6 +204,16 @@ bool SecretVaultLayer::init()
     setKeyboardEnabled(true);
     setKeypadEnabled(true);
 
+    if(GameManager::sharedState()->getUGV("232") && !GameManager::sharedState()->getUGV("233")){
+        auto message = m_spanish ? "Nada que hacer aqui... A menos que... Visites a su hermano..." : "Nothing to do here... Unless... You visit his brother...";
+        auto text = CCLabelBMFont::create(message, "gjFont41.fnt");
+        text->setPosition({winSize.width / 2, 20});
+        text->setColor({150, 0, 0});
+        text->setOpacity(150);
+        text->setScale(0.5f);
+        addChild(text);
+    }
+
     Odyssey::hasAllVaultRewards();
 
     return true;

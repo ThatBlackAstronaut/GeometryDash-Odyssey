@@ -10,14 +10,28 @@
 #include "utils/Utils.hpp"
 
 #ifdef DEVELOPER_MODE
-	#include <Geode/modify/EditorUI.hpp>
-	#include <Geode/modify/EditorPauseLayer.hpp>
+#include <Geode/modify/EditorUI.hpp>
+#include <Geode/modify/EditorPauseLayer.hpp>
 #endif
 
 using namespace geode::prelude;
 
 $on_mod(Loaded)
 {
+	if (!Odyssey::getBreakingModsList().empty())
+	{
+		auto mod = Loader::get()->getLoadedMod("teamtcm.geometry-dash-odyssey");
+
+		for (Hook *hook : mod->getHooks())
+		{	
+			if (hook->getDisplayName() == "MenuLayer::init") continue;
+
+			hook->disable();
+		}
+
+		return;
+	}
+
 #ifdef GEODE_IS_WINDOWS
 	auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "\\" + "Assets.zip";
 #endif
@@ -231,6 +245,15 @@ class $modify(PurchaseItemPopup)
 	{
 		PurchaseItemPopup::onPurchase(sender);
 		log::info("Purchased! {}", "\n");
+		log::info("Type: {} ID: {}", m_storeItem->m_typeID.value(), m_storeItem->m_unlockType.value());
+
+		if (m_storeItem->m_unlockType.value() == 12)
+		{
+			if (m_storeItem->m_typeID.value() == 1)
+				GameManager::sharedState()->setUGV("237", true);
+			if (m_storeItem->m_typeID.value() == 2)
+				GameManager::sharedState()->setUGV("238", true);
+		}
 
 		Odyssey::unlockObject(m_storeItem->m_typeID.value(), m_storeItem->m_unlockType.value());
 	}

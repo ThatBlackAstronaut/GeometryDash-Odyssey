@@ -7,7 +7,8 @@ using namespace geode::prelude;
 
 class $modify(OdysseyGameManager, GameManager)
 {
-    void firstLoad(){
+    void firstLoad()
+    {
         GameManager::firstLoad();
         Mod::get()->setSavedValue<int>("Orbs", 0);
     };
@@ -33,9 +34,9 @@ class $modify(OdysseyGameManager, GameManager)
             return 9;
         case IconType::Special:
             return 7;
+        default:
+            return GameManager::countForType(icon);
         }
-
-        return GameManager::countForType(icon);
     }
 
     bool isIconUnlocked(int id, IconType type)
@@ -62,7 +63,7 @@ class $modify(OdysseyGameManager, GameManager)
 
             CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, OdysseySelectLayer::scene(page)));
             GameManager::sharedState()->fadeInMusic(fmt::format("IslandLoop{:02}.mp3"_spr, page + 1));
-            //CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
+            // CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
             return;
         }
 
@@ -90,6 +91,4 @@ class $modify(OdysseyGameManager, GameManager)
     {
         GameManager::dataLoaded(dict);
     }
-    
 };
-

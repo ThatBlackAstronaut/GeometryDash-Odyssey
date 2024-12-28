@@ -3,6 +3,8 @@ using namespace geode::prelude;
 
 namespace Odyssey
 {
+    inline static std::vector<Mod *> breakingModsList;
+
     //  Dialogos
     DialogLayer *createDialog(const char *event);
     DialogLayer *createDialogResponse(const char *event, int times);
@@ -24,6 +26,8 @@ namespace Odyssey
     bool isIconSecret(int, IconType);
     bool isIconShop(int, IconType);
     bool isIconUpcoming(int, IconType);
+
+    std::vector<Mod *> getBreakingModsList();
 
     //  Enteros
     int currentVehicleID();

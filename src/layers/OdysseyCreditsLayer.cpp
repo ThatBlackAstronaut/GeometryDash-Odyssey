@@ -105,7 +105,7 @@ void OdysseyCreditsLayer::setupCreditsOrgTab()
     auto SwitchStepUser = OdysseyCreditNode::create("SwitchStepGDYT", 106, 18, 12, 9, true, 10158911);
     auto ZapManiacUser = OdysseyCreditNode::create("ZapManiac", 80, 6, 0, 8, true, 1605650);
     auto MathisCreatorUser = OdysseyCreditNode::create("MathisCreator", 263, 8, 11, 3, true, 9250716);
-    auto SearUser = OdysseyCreditNode::create("Sear15", 51, 7, 12, 3, true, 28639090);
+    auto SearUser = OdysseyCreditNode::create("Sear15", 371, 8, 12, 12, true, 28639090);
 
     CCArray *row1CreditArray = CCArray::create();
 
@@ -151,7 +151,7 @@ void OdysseyCreditsLayer::setupCreditsCreatorsTab()
     auto KoromiGDUser = OdysseyCreditNode::create("KoromiGD", 98, 17, 2, 44, true, 1683840);
     KoromiGDUser->setScale(0.85);
 
-    auto DankyUser = OdysseyCreditNode::create("Danky99", 88, 9, 11, 3, true, 14178231);
+    auto DankyUser = OdysseyCreditNode::create("Danky99", 11, 9, 11, 3, true, 14178231);
     DankyUser->setScale(0.85);
 
     auto MasterTheCubeUser = OdysseyCreditNode::create("MasterTheCube5", 107, 6, 10, 11, true, 13319860);
@@ -172,7 +172,7 @@ void OdysseyCreditsLayer::setupCreditsCreatorsTab()
     auto BonntuUser = OdysseyCreditNode::create("Bonntu", 35, 12, 17, 70, true, 23438222);
     BonntuUser->setScale(0.85);
 
-    auto SearUser = OdysseyCreditNode::create("Sear15", 51, 7, 12, 3, true, 28639090);
+    auto SearUser = OdysseyCreditNode::create("Sear15", 371, 8, 12, 12, true, 28639090);
     SearUser->setScale(0.85);
 
     auto BreadUser = OdysseyCreditNode::create("TheBreadCat24", 371, 12, 3, 3, true, 14604196);
@@ -242,7 +242,7 @@ void OdysseyCreditsLayer::setupCreditsArtistsTab()
     auto director = CCDirector::sharedDirector();
     auto winSize = director->getWinSize();
 
-    auto DankyUser = OdysseyCreditNode::create("Danky99", 88, 9, 11, 3, true, 14178231);
+    auto DankyUser = OdysseyCreditNode::create("Danky99", 11, 9, 11, 3, true, 14178231);
     DankyUser->setScale(0.85);
 
     auto BenUser = OdysseyCreditNode::create("ReyBenGDYT", 1, 86, 0, 0, true, 13492478);
@@ -403,7 +403,7 @@ void OdysseyCreditsLayer::setupCreditsModDeveloperTab()
     auto winSize = director->getWinSize();
 
     auto ML5User = OdysseyCreditNode::create("ML500", 296, 22, 106, 106, true, 2102);
-    auto SumiUser = OdysseyCreditNode::create("Chumiu", 457, 94, 52, 52, true, 25521533);
+    auto SumiUser = OdysseyCreditNode::create("Chumiu", 457, 94, 52, 12, true, 25521533);
     auto CypherUser = OdysseyCreditNode::create("Cypher", 31, 9, 1, 1, true, 6332919);
 
     CCArray *row1CreditArray = CCArray::create();

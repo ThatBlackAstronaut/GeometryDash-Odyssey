@@ -144,7 +144,7 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     auto SwitchStepUser = OdysseyEndCreditNode::create("SwitchStepGDYT", 106, 18, 12, 9, true);
     auto ZapManiacUser = OdysseyEndCreditNode::create("ZapManiac", 80, 6, 0, 8, true);
     auto MathisCreatorUser = OdysseyEndCreditNode::create("MathisCreator", 263, 8, 11, 3, true);
-    auto SearUser = OdysseyEndCreditNode::create("Sear15", 51, 7, 12, 3, true);
+    auto SearUser = OdysseyEndCreditNode::create("Sear15", 371, 8, 12, 12, true);
 
     row1CreditArray->addObject(SwitchStepUser);
     row1CreditArray->addObject(ZapManiacUser);
@@ -160,7 +160,7 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     creditsReason07->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 2)) + 125));
 
     auto ML5User = OdysseyEndCreditNode::create("ML500", 296, 22, 106, 106, true);
-    auto IzumiUser = OdysseyEndCreditNode::create("Chumiu", 457, 94, 52, 52, true);
+    auto IzumiUser = OdysseyEndCreditNode::create("Chumiu", 457, 94, 52, 12, true);
     auto CypherUser = OdysseyEndCreditNode::create("Cypher", 31, 9, 1, 1, true);
 
     row12CreditArray->addObject(ML5User);
@@ -189,7 +189,7 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     auto KoromiGDUser = OdysseyEndCreditNode::create("KoromiGD", 98, 17, 2, 44, true);
     KoromiGDUser->setScale(0.85);
 
-    auto DankyUser = OdysseyEndCreditNode::create("Danky99", 88, 9, 11, 3, true);
+    auto DankyUser = OdysseyEndCreditNode::create("Danky99", 11, 9, 11, 3, true);
     DankyUser->setScale(0.85);
 
     auto MasterTheCubeUser = OdysseyEndCreditNode::create("MasterTheCube5", 107, 6, 10, 11, true);
@@ -210,7 +210,7 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     auto BonntuUser = OdysseyEndCreditNode::create("Bonntu", 35, 12, 17, 70, true);
     BonntuUser->setScale(0.85);
 
-    auto SearUser02 = OdysseyEndCreditNode::create("Sear15", 51, 7, 12, 3, true);
+    auto SearUser02 = OdysseyEndCreditNode::create("Sear15", 371, 8, 12, 12, true);
     SearUser02->setScale(0.85);
 
     auto BreadUser = OdysseyEndCreditNode::create("TheBreadCat24", 371, 12, 3, 3, true);
@@ -246,7 +246,7 @@ void OdysseyEndCreditsLayer::createEndCredits() {
     creditsReason03->setAlignment(CCTextAlignment::kCCTextAlignmentCenter);
     creditsReason03->setPosition(ccp(m_sprite->getPositionX(), (m_sprite->getPositionY() - (m_winSize.height * 4)) + 125));
 
-    auto DankyUser02 = OdysseyEndCreditNode::create("Danky99", 88, 9, 11, 3, true);
+    auto DankyUser02 = OdysseyEndCreditNode::create("Danky99", 11, 9, 11, 3, true);
     DankyUser02->setScale(0.85);
 
     auto BenUser02 = OdysseyEndCreditNode::create("ReyBenGDYT", 1, 86, 0, 0, true);
