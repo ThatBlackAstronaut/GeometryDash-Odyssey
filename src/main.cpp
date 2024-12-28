@@ -23,10 +23,11 @@ $on_mod(Loaded)
 		auto mod = Loader::get()->getLoadedMod("teamtcm.geometry-dash-odyssey");
 
 		for (Hook *hook : mod->getHooks())
-		{	
-			if (hook->getDisplayName() == "MenuLayer::init") continue;
+		{
+			if (hook->getDisplayName() == "MenuLayer::init")
+				continue;
 
-			hook->disable();
+			static_cast<void>(hook->disable());
 		}
 
 		return;
