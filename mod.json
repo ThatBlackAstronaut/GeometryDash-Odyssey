@@ -22,6 +22,33 @@
 			"importance": "required"
 		}
 	],
+	"incompatibilities": [
+		{
+			"id": "capeling.geometry-dash-lunar",
+			"version": "*",
+			"importance": "conflicting"
+		},
+		{
+			"id": "dankmeme.globed2",
+			"version": "*",
+			"importance": "conflicting"
+		},
+		{
+			"id": "gdutilsdevs.gdutils",
+			"version": "*",
+			"importance": "conflicting"
+		},
+		{
+			"id": "itzkiba.better_progression",
+			"version": "*",
+			"importance": "conflicting"
+		},
+		{
+			"id": "ninxout.redash",
+			"version": "*",
+			"importance": "conflicting"
+		}
+	],
 	"links": {
 		"community": "https://discord.gg/PNPrR4DEbw"
 	},

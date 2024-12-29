@@ -33,6 +33,7 @@ namespace Odyssey
 
     //  Vectores
     std::vector<std::string> getPlayerFrames(int, IconType);
+    std::vector<Mod *> getEarlyLoadBreakingMods();
     std::vector<Mod *> getBreakingMods();
 
     void unlockObject(int, int);

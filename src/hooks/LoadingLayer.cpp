@@ -22,14 +22,20 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         if (!LoadingLayer::init(reload))
             return false;
 
-        //  Solo para el mod en Modo desarrollador
-        #ifndef DEVELOPER_MODE
-                Mod::get()->setSavedValue<bool>("developer-version", false);
-        #endif
+        if (!Odyssey::getEarlyLoadBreakingMods().empty())
+            return true;
 
-        #ifdef DEVELOPER_MODE
-                Mod::get()->setSavedValue<bool>("developer-version", true);
-        #endif
+        if (!Odyssey::getBreakingMods().empty())
+            return true;
+
+//  Solo para el mod en Modo desarrollador
+#ifndef DEVELOPER_MODE
+        Mod::get()->setSavedValue<bool>("developer-version", false);
+#endif
+
+#ifdef DEVELOPER_MODE
+        Mod::get()->setSavedValue<bool>("developer-version", true);
+#endif
 
         auto GM = GameManager::sharedState();
         auto SFC = CCSpriteFrameCache::get();
@@ -58,9 +64,6 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
             robtopLogo->setDisplayFrame(teamLogo->displayFrame());
         };
 
-        if (!Odyssey::getBreakingMods().empty())
-            return true;
-
         //  Loads the assets first
         OdysseyLoadingLayer::addCustomIconCredits();
         OdysseyLoadingLayer::addOdysseyAudioAssets();
@@ -76,6 +79,16 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
             GM->setUGV("17", true);
 
         GameManager::sharedState()->setIntGameVariable("1001", 0);
+
+        //  Para verificar si los niveles extra tienen progreso
+        auto extraLevel1 = GameLevelManager::sharedState()->getMainLevel(7501, false);
+        auto extraLevel2 = GameLevelManager::sharedState()->getMainLevel(7502, false);
+
+        if ((extraLevel1->m_normalPercent > 0 || extraLevel1->m_practicePercent > 0) && !GameManager::sharedState()->getUGV("237"))
+            GameManager::sharedState()->setUGV("237", true);
+
+        if ((extraLevel2->m_normalPercent > 0 || extraLevel2->m_practicePercent > 0) && !GameManager::sharedState()->getUGV("238"))
+            GameManager::sharedState()->setUGV("238", true);
 
         return true;
     }
@@ -94,11 +107,11 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
                 "Explorers, the failed promise...",
                 "Adding more wanted posters\non the shop",
                 "Why the vaults talk about\nthis random gal?",
-                "Please support the programmers,\nthey're trying...",
+                "Pray for the programmers...",
                 "If something breaks,\nblame it on Chumiu",
                 "Mathi Approved"};
 
-        return messages.at(rand() % messages.size()).c_str();
+        return messages.at(rand() % (messages.size() - 1)).c_str();
     };
 
     void addOdysseyAudioAssets()

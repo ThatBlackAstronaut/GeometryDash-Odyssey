@@ -23,6 +23,33 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         if (Mod::get()->getSettingValue<bool>("restart-mod"))
             OdysseyMenuLayer::Restart();
 
+        auto breakingMods = Odyssey::getBreakingMods();
+        if (!breakingMods.empty())
+        {
+            if (!shownAlert)
+            {
+                std::string description = "Disable the following Mods to use <cy>Geometry Dash: Odyssey</c>:";
+
+                for (Mod *mod : breakingMods)
+                {
+                    log::debug("{}", mod->getName());
+                    description += "\n- <cr>" + mod->getName() + "</c>";
+                }
+
+                auto popup = FLAlertLayer::create(
+                    "Incompatible Mods",
+                    description,
+                    "OK");
+
+                shownAlert = true;
+                popup->m_scene = this;
+                popup->show();
+            }
+
+            if (!Odyssey::getEarlyLoadBreakingMods().empty() || Loader::get()->isModLoaded("ninxout.redash"))
+                return true;
+        }
+
         if (!GameManager::sharedState()->getUGV("201"))
         {
             auto popup = OdysseyPopup::create("Savefile Notice", "<cr>Odyssey</c> stores the data in\na separate <cy>savefile</c>. Your data\nwill be <cg>restored</c> when you\n<cb>turn off</c> the Mod.");
@@ -107,7 +134,6 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         if (dailyCButton)
             dailyCButton->setVisible(false);
 
-        auto breakingMods = Odyssey::getBreakingMods();
         if (!breakingMods.empty())
         {
             if (!shownAlert)

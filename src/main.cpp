@@ -15,7 +15,7 @@ using namespace geode::prelude;
 
 $on_mod(Loaded)
 {
-	if (!Odyssey::getBreakingMods().empty())
+	if (!Odyssey::getEarlyLoadBreakingMods().empty())
 	{
 		auto mod = Loader::get()->getLoadedMod("teamtcm.geometry-dash-odyssey");
 
