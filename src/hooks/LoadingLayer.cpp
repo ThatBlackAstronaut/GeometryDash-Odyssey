@@ -261,7 +261,7 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
             //pendiente
             
             //Cubos
-            //Odyssey::patch(0x17EC03, {0xB8, 0x02, 0x02});
+            Odyssey::patch(0x5E0F1C, {0x40, 0x40});
             //Naves
             //Odyssey::patch(0x17EC09, {0xB8, 0xB1});
             //Balls
