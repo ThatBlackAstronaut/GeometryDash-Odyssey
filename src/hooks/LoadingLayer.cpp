@@ -92,13 +92,17 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
                 "If something breaks,\nblame it on Chumiu",
                 "Mathi Approved"};
 
+
+            std::string test = "Hola " + 1 + " XD";
+
         return messages.at(rand() % messages.size()).c_str();
     };
 
     void addOdysseyAudioAssets()
     {
-        //  MusicDownloadManager::sharedState()->m_resourceSfxUnorderedSet;
-        //  MusicDownloadManager::sharedState()->m_resourceSongUnorderedSet;
+        // Deberia estar arreglado ahora
+        // MusicDownloadManager::sharedState()->m_resourceSfxUnorderedSet.clear();
+        // MusicDownloadManager::sharedState()->m_resourceSongUnorderedSet.clear();
 
         // The Dangerous Seas
         Odyssey::insertAssetsToMap(false, {288, 537, 757, 758, 759, 1005, 1373, 1374, 1375, 1376, 1548, 1992, 1993, 1994, 1995, 2037, 2038, 2039, 2040, 2779, 3081, 3383, 3384, 3556, 4273, 4274, 4293, 4294, 4395, 4397, 4404, 7501, 7874, 8180, 13536, 14554, 14563, 14575, 22875});
