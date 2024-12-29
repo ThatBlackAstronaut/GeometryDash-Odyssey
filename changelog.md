@@ -1,6 +1,20 @@
 # Changelog
 
-### <cg>v1.0.0 (Latest)</c>
+### <cg>v1.0.1 (Latest)</c>
+
+* <cc>Critical Hit</c>: LDM/ULDM improved and the last segment nerfed.
+* <cc>Super Ultra</c>: Fixed third secret coin.
+* <cc>Comfort Food</c>: Patched secret ways.
+* <cc>Hellfire</c>: Patched secret ways.
+* <cg>Added</c> message if an Incompatible mod is found (Thanks to Alphalaneous).
+* <cg>Added</c> popup to fangames, instead of direct link to their socials.
+* <cg>Added</c> message when collecting all rewards of a vault.
+* <cy>Fixed</c> extra islands getting locked again upon game reload.
+* <cy>"Fixed"</c> shop icons from resetting upon game reload.
+* <cr>More mods added into the incompatibility list.</c>
+* <cy>Some extra more bugfixes</c>
+
+### <cb>v1.0.0</c>
 
 * <cp>First public release!</c>
 

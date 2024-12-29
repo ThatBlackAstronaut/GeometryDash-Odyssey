@@ -12,8 +12,8 @@ class $modify(OdysseyGameManager, GameManager)
         GameManager::firstLoad();
         Mod::get()->setSavedValue<int>("Orbs", 0);
     };
-    
-    int countForType(IconType icon) 
+
+    int countForType(IconType icon)
     {
         //  auto hide = GameManager::sharedState()->getGameVariable("0202");
         switch (icon)
@@ -28,13 +28,24 @@ class $modify(OdysseyGameManager, GameManager)
             return 154;
         case IconType::Wave:
             return 100;
+        case IconType::Robot:
+            return 68;
+        case IconType::Spider:
+            return 69;
         case IconType::Swing:
             return 47;
         case IconType::Jetpack:
             return 9;
         case IconType::Special:
             return 7;
+        case IconType::DeathEffect:
+            return 20;
+        case IconType::ShipFire:
+            return 6;
+        case IconType::Item:
+            return 21;
         default:
+            //  Yes, this solution is terrible, but I don't know how to patch bytes.
             return GameManager::countForType(icon);
         }
     }

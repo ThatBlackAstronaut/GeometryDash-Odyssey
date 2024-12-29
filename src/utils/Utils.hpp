@@ -27,14 +27,13 @@ namespace Odyssey
     bool isIconShop(int, IconType);
     bool isIconUpcoming(int, IconType);
 
-    std::vector<Mod *> getBreakingModsList();
-
     //  Enteros
     int currentVehicleID();
     int islandPageForLevelID(int);
 
     //  Vectores
     std::vector<std::string> getPlayerFrames(int, IconType);
+    std::vector<Mod *> getBreakingMods();
 
     void unlockObject(int, int);
 };

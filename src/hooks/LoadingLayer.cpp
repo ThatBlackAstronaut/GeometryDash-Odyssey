@@ -22,6 +22,15 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         if (!LoadingLayer::init(reload))
             return false;
 
+        //  Solo para el mod en Modo desarrollador
+        #ifndef DEVELOPER_MODE
+                Mod::get()->setSavedValue<bool>("developer-version", false);
+        #endif
+
+        #ifdef DEVELOPER_MODE
+                Mod::get()->setSavedValue<bool>("developer-version", true);
+        #endif
+
         auto GM = GameManager::sharedState();
         auto SFC = CCSpriteFrameCache::get();
         auto searchPathRoot = dirs::getModRuntimeDir() / Mod::get()->getID() / "resources";
@@ -49,9 +58,13 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
             robtopLogo->setDisplayFrame(teamLogo->displayFrame());
         };
 
+        if (!Odyssey::getBreakingMods().empty())
+            return true;
+
+        //  Loads the assets first
         OdysseyLoadingLayer::addCustomIconCredits();
         OdysseyLoadingLayer::addOdysseyAudioAssets();
-        OdysseyLoadingLayer::addOdysseyComicAssets();
+        OdysseyLoadingLayer::addOdysseyAssets();
         OdysseyLoadingLayer::loadStats();
 
         //  La bandera de "Aceptar los ToS" del juego
@@ -64,19 +77,11 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
 
         GameManager::sharedState()->setIntGameVariable("1001", 0);
 
-        //  Solo para el mod en Modo desarrollador
-        #ifndef DEVELOPER_MODE
-            Mod::get()->setSavedValue<bool>("developer-version", false);
-        #endif
-
-        #ifdef DEVELOPER_MODE
-            Mod::get()->setSavedValue<bool>("developer-version", true);
-        #endif
-
         return true;
     }
 
-    const char *getLoadingString()
+    const char *
+    getLoadingString()
     {
         if (m_fromRefresh)
             return LoadingLayer::getLoadingString();
@@ -89,6 +94,7 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
                 "Explorers, the failed promise...",
                 "Adding more wanted posters\non the shop",
                 "Why the vaults talk about\nthis random gal?",
+                "Please support the programmers,\nthey're trying...",
                 "If something breaks,\nblame it on Chumiu",
                 "Mathi Approved"};
 
@@ -143,8 +149,23 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         Odyssey::insertAssetsToMap(true, {10006666});
     }
 
-    void addOdysseyComicAssets()
+    void addOdysseyAssets()
     {
+//  Primero las texturas del Mod
+#ifdef GEODE_IS_WINDOWS
+        auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "\\" + "Assets.zip";
+#endif
+#ifdef GEODE_IS_ANDROID
+        auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "/" + "Assets.zip";
+#endif
+        auto unzipDir = geode::Mod::get()->getResourcesDir().string();
+        auto result = geode::utils::file::Unzip::intoDir(zipFilePath, unzipDir);
+
+        CCFileUtils::get()->addTexturePack(CCTexturePack{
+            .m_id = Mod::get()->getID(),
+            .m_paths = {geode::Mod::get()->getResourcesDir().string()}});
+
+        //  Ahora los comics
         log::debug("Loading comic assets...");
         auto SFC = CCSpriteFrameCache::get();
         //  auto searchPathRoot = dirs::getModRuntimeDir() / Mod::get()->getID() / "resources/ComicAssets";
@@ -155,8 +176,7 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         log::debug("Comic files succesfully loaded");
     }
 
-    void
-    addCustomIconCredits()
+    void addCustomIconCredits()
     {
         auto gs = GameStatsManager::sharedState();
         gs->m_usernameForAccountID.insert(std::make_pair(14178231, "Danky99"));

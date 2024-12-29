@@ -4,15 +4,16 @@ Geometry Dash: Odyssey is a fanmade spin-off made by Team TCM that includes it's
 
 This mod uses it's own save file, your save data will not be modified. You will go back to your actual save data when the mod is turned off. Regardless, be aware to save your data beforehand.
 
-## <cr>WARNING:</c>
+## **<cr>WARNING:</c>**
 The mod will <cr>HEAVILY BREAK</c> with the following mods:
 
-- More Icons (Android)
-- Geometry Dash: Lunar
-- GDUtils
-- Globed
+- **More Icons (Android Only)**
+- **Comments on Pause Menu**
+- **Geometry Dash Lunar**
+- **GDUtils**
+- **Globed**
 
-Prior to <cy>Geode v4.1.1</c> you get a message if a mod has a "breaking" incompatibility to another, but it's no longer the case. Please disable them before playing, apologies for any inconveniences.
+Just in case, any mod that modifies the Menu or modifies/is related to the official levels could be unstable with Odyssey. Prior to <cy>Geode v4.1.1</c> you get a message if a mod has a "breaking" incompatibility to another, but it's no longer the case. Please disable them before playing, apologies for any inconveniences.
 
 ## **Features**:
 
