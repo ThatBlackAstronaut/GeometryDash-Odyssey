@@ -130,6 +130,7 @@ class $modify(OdysseyMenuLayer, MenuLayer)
         auto dailyCButton = static_cast<CCMenuItemSpriteExtra *>(rightMenu->getChildByID("daily-chest-button"));
         if (dailyCButton)
             dailyCButton->setVisible(false);
+
         return true;
     }
 

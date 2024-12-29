@@ -37,4 +37,8 @@ namespace Odyssey
     std::vector<std::string> getPlayerFrames(int, IconType);
 
     void unlockObject(int, int);
+
+    void patch(int, geode::ByteVector const&);
+
+    std::vector<unsigned char> intToBytes(int);
 };

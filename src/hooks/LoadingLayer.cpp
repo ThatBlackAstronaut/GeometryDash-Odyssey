@@ -53,6 +53,7 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         OdysseyLoadingLayer::addOdysseyAudioAssets();
         OdysseyLoadingLayer::addOdysseyComicAssets();
         OdysseyLoadingLayer::loadStats();
+        OdysseyLoadingLayer::applyPatches();
 
         //  La bandera de "Aceptar los ToS" del juego
         if (!GM->getUGV("30"))
@@ -236,5 +237,41 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
 
         if (auto orbs = Mod::get()->getSavedValue<int>("Orbs"))
             GSM->setStat("14", orbs);
+    }
+
+    void applyPatches()
+    {
+        #ifdef GEODE_IS_WINDOWS
+            //Cubos
+            Odyssey::patch(0x17EC03, {0xB8, 0x02, 0x02});
+            //Naves
+            Odyssey::patch(0x17EC09, {0xB8, 0xB1});
+            //Balls
+            Odyssey::patch(0x17EC0F, {0xB8, 0x7E});
+            //Ufos
+            Odyssey::patch(0x17EC15, {0xB8, 0x9A});
+            //Wave
+            Odyssey::patch(0x17EC1B, {0xB8, 0x64});
+            //Swings
+            Odyssey::patch(0x17EC2D, {0xB8, 0x2F});
+        #endif
+
+
+        #ifdef GEODE_IS_ANDROID
+            //pendiente
+            
+            //Cubos
+            //Odyssey::patch(0x17EC03, {0xB8, 0x02, 0x02});
+            //Naves
+            //Odyssey::patch(0x17EC09, {0xB8, 0xB1});
+            //Balls
+            //Odyssey::patch(0x17EC0F, {0xB8, 0x7E});
+            //Ufos
+            //Odyssey::patch(0x17EC15, {0xB8, 0x9A});
+            //Wave
+            //Odyssey::patch(0x17EC1B, {0xB8, 0x64});
+            //Swings
+            //Odyssey::patch(0x17EC2D, {0xB8, 0x2F});
+        #endif
     }
 };

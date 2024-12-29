@@ -12,7 +12,7 @@ class $modify(OdysseyGameManager, GameManager)
         GameManager::firstLoad();
         Mod::get()->setSavedValue<int>("Orbs", 0);
     };
-    
+    /*
     int countForType(IconType icon) 
     {
         //  auto hide = GameManager::sharedState()->getGameVariable("0202");
@@ -38,6 +38,7 @@ class $modify(OdysseyGameManager, GameManager)
             return GameManager::countForType(icon);
         }
     }
+    */
 
     bool isIconUnlocked(int id, IconType type)
     {
