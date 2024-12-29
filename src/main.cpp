@@ -244,8 +244,8 @@ class $modify(PurchaseItemPopup)
 	void onPurchase(CCObject *sender)
 	{
 		PurchaseItemPopup::onPurchase(sender);
-		log::info("Purchased! {}", "\n");
-		log::info("Type: {} ID: {}", m_storeItem->m_typeID.value(), m_storeItem->m_unlockType.value());
+		// log::info("Purchased! {}", "\n");
+		// log::info("Type: {} ID: {}", m_storeItem->m_typeID.value(), m_storeItem->m_unlockType.value());
 
 		if (m_storeItem->m_unlockType.value() == 12)
 		{

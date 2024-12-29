@@ -92,6 +92,9 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
                 "If something breaks,\nblame it on Chumiu",
                 "Mathi Approved"};
 
+
+            std::string test = "Hola " + 1 + " XD";
+
         return messages.at(rand() % messages.size()).c_str();
     };
 

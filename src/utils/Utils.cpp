@@ -570,7 +570,7 @@ void Odyssey::unlockObject(int iconID, int type)
 {
     auto gm = GameManager::sharedState();
 
-    auto icon = "i";
+    std::string icon = "i";
 
     auto typeCast = static_cast<UnlockType>(type);
 
@@ -623,14 +623,14 @@ void Odyssey::unlockObject(int iconID, int type)
         break;
     }
 
-    auto iconKey = fmt::format("{}_{}", icon, iconID).c_str();
+    std::string iconKey = fmt::format("{}_{}", icon, iconID);
 
     if (typeCast == UnlockType::Col1 || typeCast == UnlockType::Col2)
         return;
 
     auto var = CCString::createWithFormat("%i", true);
 
-    gm->m_valueKeeper->setObject(var, iconKey);
+    gm->m_valueKeeper->setObject(var, iconKey.c_str());
 }
 
 void Odyssey::hasAllVaultRewards()
