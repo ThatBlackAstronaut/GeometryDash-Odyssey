@@ -105,18 +105,6 @@ bool SecretVaultLayer2::init()
     keeperSprite->setAnchorPoint({0.5, 1});
     keeperSprite->setPositionY(72.f);
     keeperMenu->addChild(keeperButton);
-    
-    //  Message if all the rewards were collected
-    if (GameManager::sharedState()->getUGV("231"))
-    {
-        auto message = m_spanish ? "No hay nada mas que obtener de aqui..." : "Nothing more to get from here...";
-        auto text = CCLabelBMFont::create(message, "gjFont41.fnt");
-        text->setPosition({winSize.width / 2, 20});
-        text->setColor({0, 150, 0});
-        text->setOpacity(150);
-        text->setScale(0.5f);
-        addChild(text);
-    }
 
     //  Boton para el nivel secreto "Uncertain"
     m_levelNode = CCNode::create();
@@ -148,6 +136,18 @@ bool SecretVaultLayer2::init()
     addChild(m_levelNode);
 
     Odyssey::hasAllVaultRewards();
+
+    //  Message if all the rewards were collected
+    if (GameManager::sharedState()->getUGV("231"))
+    {
+        auto message = m_spanish ? "No hay nada mas que obtener de aqui..." : "Nothing more to get from here...";
+        auto text = CCLabelBMFont::create(message, "gjFont41.fnt");
+        text->setPosition({winSize.width / 2, 20});
+        text->setColor({0, 150, 0});
+        text->setOpacity(150);
+        text->setScale(0.5f);
+        addChild(text);
+    }
 
     GameManager::sharedState()->fadeInMusic("SecretLoop02.mp3"_spr);
     setKeyboardEnabled(true);

@@ -2,24 +2,24 @@
 
 ### <cg>v1.0.1 (Latest)</c>
 
-<cr>*We are aware of a game crashing bug inside the Icon Kit for Android, still working on a fix*</c>
+<cr>*We are aware of a game crashing bug inside the Icon Kit for Android, still working on a fix...*</c>
 
 #### **Levels**
 
-* <co>Critical Hit</c>: LDM / ULDM improved and some segments were nerfed.
-* <co>Super Ultra</c>: Fixed third secret coin.
-* Patched bugs / secret ways in some other levels.
+* <co>Critical Hit</c>: LDM / ULDM improved, gameplay nerfed
+* <co>Super Ultra</c>: Fixed third secret coin
+* Patched bugs / secret ways in some other levels
 
 #### **Mod**
 
-* <cg>Added</c> message if an Incompatible mod is found.
-* <cg>Added</c> popup to the fangames, instead of a direct link.
-* <cg>Added</c> message if you collected all rewards of a vault.
-* <cy>Fixed</c> incompatibility with Custom keybinds.
-* <cy>Fixed</c> incompatibility with Comments on pause menu.
-* <cy>Fixed</c> bug of extra islands get locked upon game reload.
-* <cy>Fixed</c> bug of shop icons getting locked upon game reload.
-* Some more bugfixes and additions.
+* <cg>Added</c> message if an Incompatible mod is found
+* <cg>Added</c> popup to the fangames, instead of a direct link
+* <cg>Added</c> message if you collected all rewards of a vault
+* <cy>Fixed</c> incompatibility with Custom keybinds
+* <cy>Fixed</c> incompatibility with Comments on pause menu
+* <cy>Fixed</c> bug of extra islands get locked upon game reload
+* <cy>Fixed</c> bug of shop icons getting locked upon game reload
+* Some more bugfixes and additions
 
 ### <cb>v1.0.0</c>
 
