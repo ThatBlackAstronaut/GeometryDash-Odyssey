@@ -17,15 +17,19 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		auto extraMenu = CCMenu::create();
 		extraMenu->setID("shop-tv-menu"_spr);
 		extraMenu->setPosition({0, 0});
-		
+
 		auto spriteTV = CCSprite::createWithSpriteFrameName("gj_videoRewardBtn_001.png");
 		spriteTV->setScale(0.9f);
 
 		auto buttonTV = CCMenuItemSpriteExtra::create(
 			spriteTV,
 			this,
-			menu_selector(OdysseyShopLayer::onPlayVideo)
-		);
+			menu_selector(OdysseyShopLayer::onPlayVideo));
+
+		std::string info = GameManager::sharedState()->getGameVariable("0201") ? "Revisa tus <cy>Iconos</c>. A veces los iconos que ya has desbloqueado apareceran aqui como no comprados" : "Be aware to check your <cy>Icon kit</c>, icons you already unlocked might show here as not bought.";
+		auto infoButton = InfoAlertButton::create("Warning", info, 1);
+		infoButton->setPosition({30, 30});
+		extraMenu->addChild(infoButton);
 
 		buttonTV->setID("shop-tv-button"_spr);
 		buttonTV->setPosition({280, 222});
@@ -35,10 +39,10 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 
 		extraMenu->addChild(buttonTV);
 		this->addChild(extraMenu);
-	
-		auto particle = static_cast<CCParticleSystemQuad*>(getChildren()->objectAtIndex(7));
-		particle->setStartColor({ 193, 122, 5, 255 });
-		particle->setEndColor({ 255, 122, 0, 0 });
+
+		auto particle = static_cast<CCParticleSystemQuad *>(getChildren()->objectAtIndex(7));
+		particle->setStartColor({193, 122, 5, 255});
+		particle->setEndColor({255, 122, 0, 0});
 
 		auto winSize = CCDirector::sharedDirector()->getWinSize();
 		int rand = (std::rand() % 6) + 1;
@@ -48,7 +52,6 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		wantedPoster->setID("wanted-poster"_spr);
 		wantedPoster->setScale(0.8f);
 		wantedPoster->setZOrder(-1);
-
 		this->addChild(wantedPoster);
 
 		auto GSM = GameStatsManager::sharedState();
@@ -64,13 +67,13 @@ class $modify(OdysseyShopLayer, GJShopLayer)
 		return true;
 	}
 
-	void onPlayVideo(CCObject *){
-		std::vector<gd::string>  videoLinks = {
+	void onPlayVideo(CCObject *)
+	{
+		std::vector<gd::string> videoLinks = {
 			"https://youtu.be/34ajXNmtI4U?si=cLptfnth-uhYDq9E",
 			"https://youtu.be/aRdpABVEKho?si=2huyHafEWQFz1R58",
 			"https://youtu.be/uvN5OGo_fcY?si=piU_ncFAZvQJCUUD",
-			"https://youtu.be/abB1-zyyHSI?si=1XBhha5sC1ho9MqU"
-		};
+			"https://youtu.be/abB1-zyyHSI?si=1XBhha5sC1ho9MqU"};
 
 		CCApplication::sharedApplication()->openURL(videoLinks.at(rand() % videoLinks.size()).c_str());
 	}

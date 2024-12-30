@@ -2,7 +2,7 @@
 
 ### <cg>v1.0.1 (Latest)</c>
 
-<cr>*We are aware of a game crashing bug inside the Icon Kit for Android, still working on a fix...*</c>
+<cr>*We aware on game crashing bugs on android and shop items still showing as not bought, developing a fix as we speak*</c>
 
 #### **Levels**
 
@@ -19,6 +19,7 @@
 * <cy>Fixed</c> incompatibility with Comments on pause menu
 * <cy>Fixed</c> bug of extra islands get locked upon game reload
 * <cy>Fixed</c> bug of shop icons getting locked upon game reload
+* <cy>Fixed</c> some credited members with wrong cubes
 * Some more bugfixes and additions
 
 ### <cb>v1.0.0</c>
