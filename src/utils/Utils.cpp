@@ -750,3 +750,18 @@ std::vector<Mod *> Odyssey::getBreakingMods()
 
     return breakingMods;
 };
+
+void Odyssey::patch(int address, geode::ByteVector const &data)
+{
+    geode::Mod::get()->patch(reinterpret_cast<void *>(geode::base::get() + address), data).unwrap();
+}
+
+std::vector<unsigned char> Odyssey::intToBytes(int value)
+{
+    std::vector<unsigned char> result;
+    result.push_back(value & 0x000000ff);
+    result.push_back((value & 0x0000ff00) >> 8);
+    result.push_back((value & 0x00ff0000) >> 16);
+    result.push_back((value & 0xff000000) >> 24);
+    return result;
+}

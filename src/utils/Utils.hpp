@@ -37,4 +37,8 @@ namespace Odyssey
     std::vector<Mod *> getBreakingMods();
 
     void unlockObject(int, int);
+
+    void patch(int, geode::ByteVector const&);
+
+    std::vector<unsigned char> intToBytes(int);
 };
