@@ -22,6 +22,21 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         if (!LoadingLayer::init(reload))
             return false;
 
+        if (!Odyssey::getEarlyLoadBreakingMods().empty())
+            return true;
+
+        if (!Odyssey::getBreakingMods().empty())
+            return true;
+
+//  Solo para el mod en Modo desarrollador
+#ifndef DEVELOPER_MODE
+        Mod::get()->setSavedValue<bool>("developer-version", false);
+#endif
+
+#ifdef DEVELOPER_MODE
+        Mod::get()->setSavedValue<bool>("developer-version", true);
+#endif
+
         auto GM = GameManager::sharedState();
         auto SFC = CCSpriteFrameCache::get();
         auto searchPathRoot = dirs::getModRuntimeDir() / Mod::get()->getID() / "resources";
@@ -49,11 +64,12 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
             robtopLogo->setDisplayFrame(teamLogo->displayFrame());
         };
 
+        //  Loads the assets first
         OdysseyLoadingLayer::addCustomIconCredits();
         OdysseyLoadingLayer::addOdysseyAudioAssets();
-        OdysseyLoadingLayer::addOdysseyComicAssets();
+        OdysseyLoadingLayer::addOdysseyAssets();
         OdysseyLoadingLayer::loadStats();
-        OdysseyLoadingLayer::applyPatches();
+        //  OdysseyLoadingLayer::applyPatches();
 
         //  La bandera de "Aceptar los ToS" del juego
         if (!GM->getUGV("30"))
@@ -65,19 +81,21 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
 
         GameManager::sharedState()->setIntGameVariable("1001", 0);
 
-        //  Solo para el mod en Modo desarrollador
-        #ifndef DEVELOPER_MODE
-            Mod::get()->setSavedValue<bool>("developer-version", false);
-        #endif
+        //  Para verificar si los niveles extra tienen progreso
+        auto extraLevel1 = GameLevelManager::sharedState()->getMainLevel(7501, false);
+        auto extraLevel2 = GameLevelManager::sharedState()->getMainLevel(7502, false);
 
-        #ifdef DEVELOPER_MODE
-            Mod::get()->setSavedValue<bool>("developer-version", true);
-        #endif
+        if ((extraLevel1->m_normalPercent > 0 || extraLevel1->m_practicePercent > 0) && !GameManager::sharedState()->getUGV("237"))
+            GameManager::sharedState()->setUGV("237", true);
+
+        if ((extraLevel2->m_normalPercent > 0 || extraLevel2->m_practicePercent > 0) && !GameManager::sharedState()->getUGV("238"))
+            GameManager::sharedState()->setUGV("238", true);
 
         return true;
     }
 
-    const char *getLoadingString()
+    const char *
+    getLoadingString()
     {
         if (m_fromRefresh)
             return LoadingLayer::getLoadingString();
@@ -90,10 +108,13 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
                 "Explorers, the failed promise...",
                 "Adding more wanted posters\non the shop",
                 "Why the vaults talk about\nthis random gal?",
+                "Pray for the programmers...",
                 "If something breaks,\nblame it on Chumiu",
+                "This mod is dedicated to MDK :)",
+                "Some vault codes are based on\nMDK's lore in his website",
                 "Mathi Approved"};
 
-        return messages.at(rand() % messages.size()).c_str();
+        return messages.at(rand() % (messages.size() - 1)).c_str();
     };
 
     void addOdysseyAudioAssets()
@@ -144,8 +165,23 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         Odyssey::insertAssetsToMap(true, {10006666});
     }
 
-    void addOdysseyComicAssets()
+    void addOdysseyAssets()
     {
+//  Primero las texturas del Mod
+#ifdef GEODE_IS_WINDOWS
+        auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "\\" + "Assets.zip";
+#endif
+#ifdef GEODE_IS_ANDROID
+        auto zipFilePath = geode::Mod::get()->getResourcesDir().string() + "/" + "Assets.zip";
+#endif
+        auto unzipDir = geode::Mod::get()->getResourcesDir().string();
+        auto result = geode::utils::file::Unzip::intoDir(zipFilePath, unzipDir);
+
+        CCFileUtils::get()->addTexturePack(CCTexturePack{
+            .m_id = Mod::get()->getID(),
+            .m_paths = {geode::Mod::get()->getResourcesDir().string()}});
+
+        //  Ahora los comics
         log::debug("Loading comic assets...");
         auto SFC = CCSpriteFrameCache::get();
         //  auto searchPathRoot = dirs::getModRuntimeDir() / Mod::get()->getID() / "resources/ComicAssets";
@@ -156,8 +192,7 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
         log::debug("Comic files succesfully loaded");
     }
 
-    void
-    addCustomIconCredits()
+    void addCustomIconCredits()
     {
         auto gs = GameStatsManager::sharedState();
         gs->m_usernameForAccountID.insert(std::make_pair(14178231, "Danky99"));
@@ -239,39 +274,40 @@ class $modify(OdysseyLoadingLayer, LoadingLayer)
             GSM->setStat("14", orbs);
     }
 
+    /*
     void applyPatches()
     {
-        #ifdef GEODE_IS_WINDOWS
-            //Cubos
-            Odyssey::patch(0x17EC03, {0xB8, 0x02, 0x02});
-            //Naves
-            Odyssey::patch(0x17EC09, {0xB8, 0xB1});
-            //Balls
-            Odyssey::patch(0x17EC0F, {0xB8, 0x7E});
-            //Ufos
-            Odyssey::patch(0x17EC15, {0xB8, 0x9A});
-            //Wave
-            Odyssey::patch(0x17EC1B, {0xB8, 0x64});
-            //Swings
-            Odyssey::patch(0x17EC2D, {0xB8, 0x2F});
-        #endif
+#ifdef GEODE_IS_WINDOWS
+        // Cubos
+        Odyssey::patch(0x17EC03, {0xB8, 0x02, 0x02});
+        // Naves
+        Odyssey::patch(0x17EC09, {0xB8, 0xB1});
+        // Balls
+        Odyssey::patch(0x17EC0F, {0xB8, 0x7E});
+        // Ufos
+        Odyssey::patch(0x17EC15, {0xB8, 0x9A});
+        // Wave
+        Odyssey::patch(0x17EC1B, {0xB8, 0x64});
+        // Swings
+        Odyssey::patch(0x17EC2D, {0xB8, 0x2F});
+#endif
 
+#ifdef GEODE_IS_ANDROID
+        // pendiente
 
-        #ifdef GEODE_IS_ANDROID
-            //pendiente
-            
-            //Cubos
-            Odyssey::patch(0x5E0F1C, {0x40, 0x40});
-            //Naves
-            //Odyssey::patch(0x17EC09, {0xB8, 0xB1});
-            //Balls
-            //Odyssey::patch(0x17EC0F, {0xB8, 0x7E});
-            //Ufos
-            //Odyssey::patch(0x17EC15, {0xB8, 0x9A});
-            //Wave
-            //Odyssey::patch(0x17EC1B, {0xB8, 0x64});
-            //Swings
-            //Odyssey::patch(0x17EC2D, {0xB8, 0x2F});
-        #endif
+        // Cubos
+        // Odyssey::patch(0x5E0F1C, {0x40, 0x40});
+        // Naves
+        // Odyssey::patch(0x17EC09, {0xB8, 0xB1});
+        // Balls
+        // Odyssey::patch(0x17EC0F, {0xB8, 0x7E});
+        // Ufos
+        // Odyssey::patch(0x17EC15, {0xB8, 0x9A});
+        // Wave
+        // Odyssey::patch(0x17EC1B, {0xB8, 0x64});
+        // Swings
+        // Odyssey::patch(0x17EC2D, {0xB8, 0x2F});
+#endif
     }
+    */
 };

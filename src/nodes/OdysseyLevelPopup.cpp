@@ -6,7 +6,6 @@ bool OdysseyLevelPopup::setup(std::string const &title)
 {
     //  El Nivel
     m_level = GameLevelManager::get()->getMainLevel(m_levelID, true);
-    m_level->m_levelString = LocalLevelManager::get()->getMainLevelString(m_levelID);
     auto contentSize = m_mainLayer->getContentSize();
 
     //  Titulo
@@ -134,6 +133,7 @@ bool OdysseyLevelPopup::setup(std::string const &title)
 
 void OdysseyLevelPopup::onPlay(CCObject *sender)
 {
+    /*
     auto button = static_cast<CCMenuItemSpriteExtra *>(sender);
     FMODAudioEngine::sharedEngine()->playEffect("playSound_01.ogg");
     button->setEnabled(false);
@@ -146,6 +146,17 @@ void OdysseyLevelPopup::onPlay(CCObject *sender)
 
     CCTransitionFade *fade = CCTransitionFade::create(0.5f, scene);
     CCDirector::sharedDirector()->pushScene(fade);
+    */
+
+    auto button = static_cast<CCMenuItemSpriteExtra *>(sender);
+    FMODAudioEngine::sharedEngine()->playEffect("playSound_01.ogg");
+    button->setEnabled(false);
+
+    auto level = GameLevelManager::get()->getMainLevel(m_levelID, true);
+    level->m_levelString = LocalLevelManager::get()->getMainLevelString(m_levelID);
+    log::info("ID: {}", level->m_songID);
+
+    CCDirector::get()->replaceScene(CCTransitionFade::create(0.5f, PlayLayer::scene(level, false, false)));
 };
 
 void OdysseyLevelPopup::onSettings(CCObject *sender)

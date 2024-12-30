@@ -662,6 +662,15 @@ void Odyssey::hasAllVaultRewards()
         //  if(AM->isAchievementEarned(fmt::format("geometry.ach.odyssey.secret{:02}")))
     }
 
+    if (!AM->isAchievementEarned("geometry.ach.odyssey.secret19"))
+        allOgre = false;
+
+    if (!AM->isAchievementEarned("geometry.ach.odyssey.secret20"))
+        allOgre = false;
+
+    if (!GameManager::sharedState()->getUGV("234"))
+        allOgre = false;
+
     /*
     if (!GameManager::sharedState()->getUGV("235"))
         allOgre = false;
@@ -674,9 +683,7 @@ void Odyssey::hasAllVaultRewards()
         log::debug("Tiene todos los rewards del Ogro");
 
         if (!GameManager::sharedState()->getUGV("231"))
-        {
             GameManager::sharedState()->setUGV("231", true);
-        }
     }
     else
     {
@@ -699,25 +706,43 @@ void Odyssey::hasAllVaultRewards()
     }
 };
 
-std::vector<Mod *> Odyssey::getBreakingModsList()
+std::vector<Mod *> Odyssey::getEarlyLoadBreakingMods()
 {
     std::vector<Mod *> breakingMods;
+    std::vector<std::string> breakingModIDs = {
+        "capeling.geometry-dash-lunar"};
 
+    for (std::string id : breakingModIDs)
+    {
+        Mod *mod = Loader::get()->getInstalledMod(id);
+
+        if (mod && Loader::get()->isModLoaded(id))
+        {
+            breakingMods.push_back(mod);
+        }
+    }
+
+    return breakingMods;
+};
+
+std::vector<Mod *> Odyssey::getBreakingMods()
+{
+    std::vector<Mod *> breakingMods;
     std::vector<std::string> breakingModIDs = {
         "capeling.geometry-dash-lunar",
         "dankmeme.globed2",
         "gdutilsdevs.gdutils",
-        "itzkiba.better_progression"};
+        "itzkiba.better_progression",
+        "ninxout.redash"};
 
 #ifdef GEODE_IS_ANDROID
     breakingModIDs.push_back("hiimjustin000.more_icons");
 #endif
-
     for (std::string id : breakingModIDs)
     {
-        Mod *mod = Loader::get()->getLoadedMod(id);
+        Mod *mod = Loader::get()->getInstalledMod(id);
 
-        if (mod)
+        if (mod && Loader::get()->isModLoaded(id))
         {
             breakingMods.push_back(mod);
         }
